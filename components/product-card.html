@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/product-card.css">
+</head>
+
+<body>
+    <div class="container">
+        
+    <div class="product-card">
+        <a href="#" title="View product">
+            <div class="product-image-wrapper">
+                <div class="product-image">
+                    <img src="../images/1.png" class="product-img" alt="product" />
+                </div>
+            </div>
+        </a>
+
+        <div class="product-info">
+            <a href="#" title="Giannis Freak 4 Basketball Shoes">
+                <div class="product-title">Giannis Freak 4 Basketball Shoes</div>
+            </a>
+
+            <div class="product-price">
+                <span class="sale-price">KES 2000 </span>
+                <span class="price original-price"><del>KES <del>2500</del></del></span>
+
+            </div>
+            <br>
+            <div class="swatch-wrapper">
+                <div class="swatch-scroll-btn swatch-scroll-left hidden">&#10094;</div>
+                <div class="swatches">
+                    <img src="../images/1.png" alt="Red" title="Red" class="swatch active" />
+                    <img src="../images/2.png" alt="Blue" title="Blue" class="swatch" />
+                    <img src="../images/3.jpg" alt="Green" title="Green" class="swatch" />
+                    <img src="../images/4.jpg" alt="Yellow" title="Yellow" class="swatch" />
+                </div>
+                <div class="swatch-scroll-btn swatch-scroll-right">&#10095;</div>
+            </div>
+        </div>
+
+    </div>
+    </div>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            document.querySelectorAll(".product-card").forEach((card) => {
+                const mainImage = card.querySelector(".product-img");
+                const swatches = card.querySelectorAll(".swatch");
+                const container = card.querySelector(".swatches");
+                const leftBtn = card.querySelector(".swatch-scroll-left");
+                const rightBtn = card.querySelector(".swatch-scroll-right");
+
+                const getScrollAmount = () => swatches[0]?.offsetWidth + 10;
+
+                function updateScrollButtons() {
+                    if (!container) return;
+                    const { scrollLeft, scrollWidth, clientWidth } = container;
+                    leftBtn?.classList.toggle("hidden", scrollLeft <= 0);
+                    rightBtn?.classList.toggle("hidden", scrollLeft >= scrollWidth - clientWidth - 1);
+                }
+
+                swatches.forEach((swatch) => {
+                    swatch.addEventListener("click", () => {
+                        mainImage.style.opacity = 0;
+                        setTimeout(() => {
+                            mainImage.src = swatch.src;
+                            mainImage.dataset.default = swatch.src;
+                            mainImage.style.opacity = 1;
+                        }, 150);
+
+                        swatches.forEach(s => s.classList.remove("active"));
+                        swatch.classList.add("active");
+                    });
+                });
+
+                leftBtn?.addEventListener("click", () => {
+                    container.scrollBy({ left: -getScrollAmount(), behavior: "smooth" });
+                });
+
+                rightBtn?.addEventListener("click", () => {
+                    container.scrollBy({ left: getScrollAmount(), behavior: "smooth" });
+                });
+
+                container?.addEventListener("scroll", () => {
+                    clearTimeout(container._scrollTimeout);
+                    container._scrollTimeout = setTimeout(updateScrollButtons, 100);
+                });
+
+                window.addEventListener("resize", updateScrollButtons);
+                updateScrollButtons();
+            });
+        });
+    </script>
+
+
+
+</body>
+
+</html>

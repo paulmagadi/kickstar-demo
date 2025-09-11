@@ -1,0 +1,122 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --primary-color: #fd3008;
+    --secondary-color: #00a896;
+    --neutral-light-color: #f8f9fa;
+    --neutral-dark-color: #2d2d2d;
+    --accent-color: #ffd166;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: .5em 1em;
+    background-color: var(--neutral-light-color);
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+}
+
+.search-bar {
+    position: relative;
+}
+
+.search-bar input {
+    padding: .5em 1em;
+    border-radius: 8px;
+}
+
+.search-bar input[type=search] {
+    width: 400px;
+    border: 1px solid var(--neutral-dark-color);
+    outline: none;
+    color: var(--neutral-dark-color);
+    padding-left: 2em;
+}
+
+.search-bar .ri-search-line {
+    position: absolute;
+    left: 1em;
+    top: 20%;
+    transform: translate(-50%);
+    color: #00000080;
+    font-size: 1rem;
+}
+
+.search-bar input[type=submit] {
+    cursor: pointer;
+    background-color: var(--primary-color);
+    color: var(--neutral-light-color);
+    border: none;
+    border: 1px solid;
+}
+
+.navigation {
+    display: flex;
+    gap: 1em;
+}
+
+.navigation i {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    cursor: pointer;
+}
+
+a {
+    text-decoration: none;
+}
+
+.account {
+    position: relative;
+}
+
+.account-dropdown {
+    position: absolute;
+    padding: 1em;
+    left: 50%;
+    translate: -50% 0;
+    background-color: var(--neutral-light-color);
+    border-radius: 8px;
+    display: none;
+}
+
+.account-dropdown p {
+    padding: .5em;
+}
+
+.account-dropdown p a {
+    color: var(--neutral-dark-color);
+}
+
+.account-dropdown p a:hover {
+    text-decoration: underline;
+    color: var(--secondary-color);
+}
+
+.account i:hover {
+    color: var(--secondary-color);
+}
+
+.account:hover .account-dropdown {
+    display: block;
+}
+
+.cart .ri-shopping-cart-fill {
+    position: relative;
+}
+
+.cart-count {
+    position: absolute;
+    padding: 3px 7px;
+    background-color: var(--primary-color);
+    border-radius: 50%;
+    right: 5px;
+    top: 5px;
+    color: var(--neutral-light-color);
+}

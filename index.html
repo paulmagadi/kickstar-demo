@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KickStar - eCommerce Shoes Store</title>
+
+    <link rel="shortcut icon" href="images/logo2.svg" type="image/x-icon">
+
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/header.css" class="css">
+    <link rel="stylesheet" href="css/slider.css">
+    <link rel="stylesheet" href="css/product.css">
+    <link rel="stylesheet" href="css/products.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div class="header">
+                <div class="logo">
+                    <a href="#"><img src="images/logo2.svg" alt="" width="70px" title="KickStar"></a>
+                </div>
+
+                <div class="search-bar desktop">
+
+                    <form action="#" method="get">
+                        <input type="search" placeholder="Search Products, Categories, Brands, ..." name="q" required>
+                        <i class="ri-search-line"></i>
+                        <input type="submit" value="Search">
+                    </form>
+                </div>
+
+                <div class="header-items">
+                    <div class="help">
+                        <i class="ri-questionnaire-line"></i>
+                    </div>
+
+                    <div class="account">
+                        <i class="ri-account-circle-line" title="Account"></i>
+                        <div class="account-dropdown">
+                            <p class="login"><a href="#">Login</a></p>
+                            <p class="register"><a href="#">Register</a></p>
+                        </div>
+                    </div>
+
+                    <div class="cart">
+                        <a href="#">
+                            <i class="ri-shopping-cart-line" title="Cart"></i>
+                            <span id="cart-count" class="cart-count">0</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="search-bar mobile">
+                <form action="#" method="get">
+                    <input type="search" placeholder="Search Products, Categories, Brands, ..." name="q" required>
+                    <!-- <span><i class="ri-search-line"></i></span> -->
+                    <input type="submit" value="Search">
+                </form>
+            </div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#">All</a></li>
+                    <li><a href="#">Women</a></li>
+                    <li><a href="#">Men</a></li>
+                    <li><a href="#">Kids</a></li>
+                    <li><a href="#">New</a></li>
+                    <li><a href="#">Deals</a></li>
+                    <li><a href="#">Brands</a></li>
+                    <li><a href="#">Sale</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">About</a></li>
+                </ul>
+            </nav>
+
+        </header>
+        <!-- <div class="header-after"></div> -->
+
+        <div class="slideshow-container">
+            <div class="slide">
+                <div class="counter"></div>
+                <img src="images/1.png" alt="image" width="100%">
+                <div class="caption"><span>Caption One</span></div>
+            </div>
+
+            <div class="slide">
+                <div class="counter"></div>
+                <img src="images/2.png" alt="image" width="100%">
+                <div class="caption"><span>Caption Two</span></div>
+            </div>
+
+            <div class="slide">
+                <div class="counter"></div>
+                <img src="images/3.jpg" alt="image" width="100%">
+                <div class="caption"><span>Caption Three</span></div>
+            </div>
+
+            <div class="slide">
+                <div class="counter"></div>
+                <img src="images/4.jpg" alt="image" width="100%">
+                <div class="caption"><span>Caption Four</span></div>
+            </div>
+
+            <div class="slide-indicator-container">
+                <span class="slide-indicator"></span>
+                <span class="slide-indicator"></span>
+                <span class="slide-indicator"></span>
+                <span class="slide-indicator"></span>
+            </div>
+
+            <div class="slides-controls">
+                <button class="slide-prev" id="slide-prev">❮</button>
+                <button class="slide-next" id="slide-next">❯</button>
+            </div>
+        </div>
+
+        <section style="margin-top: 4em;">
+            <div class="products-cards-container">
+                <!-- For place holder Product cards   -->
+                <!-- Generate Product cards using JavaScript  -->
+            </div>
+        </section>
+
+    </div>
+
+
+    <script src="js/navbar.js"></script>
+    <script src="js/slider.js"></script>
+    <!-- <script src="js/products.js"></script> -->
+</body>
+
+</html>

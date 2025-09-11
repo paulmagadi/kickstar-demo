@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="../css/product-card.css">
+    <style>
+        .scroll-container {
+            position: relative;
+            overflow: hidden;
+            padding: 1rem 0;
+        }
+
+        .product-list {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 1.5rem;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            padding-bottom: 1rem;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .product-list::-webkit-scrollbar {
+            display: none;
+        }
+
+        .product-list .product-card {
+            flex: 0 0 auto;
+            min-width: 260px;
+            max-width: 300px;
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+            scroll-snap-align: start;
+            transition: transform 0.2s ease;
+        }
+
+        .scroll-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.1);
+            color: #333;
+            width: 36px;
+            height: 60px;
+            border-radius: 6px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 10;
+            -webkit-user-select: none;
+            user-select: none;
+            transition: background 0.3s ease;
+        }
+
+        .scroll-btn:hover {
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .scroll-left {
+            left: 0;
+        }
+
+        .scroll-right {
+            right: 0;
+        }
+
+        .scroll-btn.hidden {
+            display: none;
+        }
+
+        @media (max-width: 600px) {
+            .scroll-btn {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="scroll-container">
+            <div class="scroll-btn scroll-left hidden" id="scrollLeft">&#10094;</div>
+            <div class="scroll-btn scroll-right" id="scrollRight">&#10095;</div>
+
+            <div class="product-list" id="productList">
+                <!-- Products cards will be populated by Javascript -->
+
+            </div>
+        </div>
+
+    </div>
+    <script>
+        const productList = document.getElementById("productList");
+        const leftBtn = document.getElementById("scrollLeft");
+        const rightBtn = document.getElementById("scrollRight");
+
+        const updateScrollButtons = () => {
+            leftBtn.classList.toggle("hidden", productList.scrollLeft <= 0);
+            rightBtn.classList.toggle(
+                "hidden",
+                productList.scrollLeft >= productList.scrollWidth - productList.clientWidth - 1
+            );
+        };
+
+        const scrollAmount = () => {
+            const firstCard = productList.querySelector(".product-card");
+            return firstCard ? firstCard.offsetWidth + 24 : 300;
+        };
+
+        leftBtn.addEventListener("click", () => {
+            productList.scrollBy({ left: -scrollAmount(), behavior: "smooth" });
+        });
+
+        rightBtn.addEventListener("click", () => {
+            productList.scrollBy({ left: scrollAmount(), behavior: "smooth" });
+        });
+
+        productList.addEventListener("scroll", () => {
+            updateScrollButtons();
+        });
+
+        window.addEventListener("load", updateScrollButtons);
+        window.addEventListener("resize", updateScrollButtons);
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            document.querySelectorAll(".product-card").forEach((card) => {
+                const mainImage = card.querySelector(".product-img");
+                const swatches = card.querySelectorAll(".swatch");
+                const container = card.querySelector(".swatches");
+                const leftBtn = card.querySelector(".swatch-scroll-left");
+                const rightBtn = card.querySelector(".swatch-scroll-right");
+
+                const getScrollAmount = () => swatches[0]?.offsetWidth + 10;
+
+                function updateScrollButtons() {
+                    if (!container) return;
+                    const { scrollLeft, scrollWidth, clientWidth } = container;
+                    leftBtn?.classList.toggle("hidden", scrollLeft <= 0);
+                    rightBtn?.classList.toggle("hidden", scrollLeft >= scrollWidth - clientWidth - 1);
+                }
+
+                swatches.forEach((swatch) => {
+                    swatch.addEventListener("click", () => {
+                        mainImage.style.opacity = 0;
+                        setTimeout(() => {
+                            mainImage.src = swatch.src;
+                            mainImage.dataset.default = swatch.src;
+                            mainImage.style.opacity = 1;
+                        }, 150);
+
+                        swatches.forEach(s => s.classList.remove("active"));
+                        swatch.classList.add("active");
+                    });
+                });
+
+                leftBtn?.addEventListener("click", () => {
+                    container.scrollBy({ left: -getScrollAmount(), behavior: "smooth" });
+                });
+
+                rightBtn?.addEventListener("click", () => {
+                    container.scrollBy({ left: getScrollAmount(), behavior: "smooth" });
+                });
+
+                container?.addEventListener("scroll", () => {
+                    clearTimeout(container._scrollTimeout);
+                    container._scrollTimeout = setTimeout(updateScrollButtons, 100);
+                });
+
+                window.addEventListener("resize", updateScrollButtons);
+                updateScrollButtons();
+            });
+        });
+    </script>
+
+    <script src="../js/product-scroll-section.js"></script>
+</body>
+
+</html>

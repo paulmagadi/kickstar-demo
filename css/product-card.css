@@ -1,0 +1,157 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --primary-color: #fd3008;
+    --secondary-color: #00a896;
+    --neutral-light-color: #f8f9fa;
+    --neutral-dark-color: #2d2d2d;
+    --accent-color: #ffd166;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.product-card {
+    width: 100%;
+    max-width: 300px;
+    background: #fff;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    margin-bottom: 2rem;
+}
+
+.product-image {
+    width: 100%;
+    border-bottom: 1px solid #eee;
+}
+
+.product-image img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    transition: opacity 0.3s ease;
+}
+
+.product-info {
+    padding: 1em .8em;
+}
+
+
+.product-info a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.product-info a:hover {
+    text-decoration: underline;
+}
+
+.product-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.5em;
+    color: #333;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+.sale-price {
+    color: #d32f2f;
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+}
+
+.original-price {
+    color: #999;
+    font-size: 0.9rem;
+    text-decoration: line-through;
+    margin-left: 0.5em;
+}
+
+.swatch-wrapper {
+    position: relative;
+    /* padding: 0 30px; */
+    /* margin-bottom: 1rem; */
+}
+
+.swatches {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+}
+
+.swatches::-webkit-scrollbar {
+    display: none;
+}
+
+.swatch {
+    width: 42px;
+    height: 42px;
+    border-radius: 6px;
+    border: 2px solid transparent;
+    scroll-snap-align: center;
+    flex-shrink: 0;
+    cursor: pointer;
+    object-fit: cover;
+    transition: all 0.2s ease;
+}
+
+.swatch.active {
+    border: 1px solid #333;
+}
+
+.swatch:hover {
+    border-color: #aaa;
+}
+
+.swatch-scroll-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.05);
+    width: 24px;
+    height: 42px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.swatch-scroll-btn:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.swatch-scroll-left {
+    left: 0;
+}
+
+.swatch-scroll-right {
+    right: 0;
+}
+
+.swatch-scroll-btn.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+@media (max-width: 600px) {
+    .swatch-scroll-btn {
+        display: none !important;
+    }
+}

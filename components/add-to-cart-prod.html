@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <style>
+        .cart {
+            position: relative;
+        }
+
+        .cart-count {
+            position: absolute;
+            padding: 3px 7px;
+            background-color: red;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cart">
+        <a href="cart.html"><i class="ri-shopping-cart-fill" title="Cart"></i></a>
+        <span class="cart-count">0</span>
+    </div>
+
+    <div class="product-card">
+        <img src="images/1.png" alt="Product" width="100px">
+        <div class="product-name">Nike shoes</div>
+        <div class="product-price"><del>$50.00</del></div>
+        <div class="product-sale-price">$45.00</div>
+        <div class="product-page-product-quantity">
+            <span>Quantity: </span> &nbsp;&nbsp;
+            <button class="quantity-minus"> - </button>
+            <span class="quantity"> 1 </span>
+            <button class="quantity-plus"> + </button>
+        </div>
+        <button class="add-to-cart">Add to cart</button>
+
+    </div>
+
+
+    <script>
+
+
+        const productQuantity = document.querySelector('.product-page-product-quantity .quantity');
+        const minusQuantity = document.querySelector('.product-page-product-quantity .quantity-minus');
+        const plusQuantity = document.querySelector('.product-page-product-quantity .quantity-plus');
+
+        let stockQuantity = 8;
+        let qty = 1;
+
+        const updateQuantity = () => {
+            productQuantity.innerHTML = qty;
+
+            minusQuantity.disabled = qty <= 1;
+
+            plusQuantity.disabled = qty >= stockQuantity;
+        };
+
+        plusQuantity.addEventListener('click', () => {
+            if (qty < stockQuantity) {
+                qty++;
+                updateQuantity();
+            }
+        });
+
+        minusQuantity.addEventListener('click', () => {
+            if (qty > 1) {
+                qty--;
+                updateQuantity();
+            }
+        });
+
+        updateQuantity();
+
+
+        document.addEventListener("DOMContentLoaded", () => {
+            let cartCount = localStorage.getItem("cartCount") ? parseInt(localStorage.getItem("cartCount")) : 0;
+            let cartItems = localStorage.getItem("cartItems") ? JSON.parse(localStorage.getItem("cartItems")) : [];
+
+            const cartCountDisplay = document.querySelector(".cart-count");
+            const addToCartButtons = document.querySelector(".add-to-cart");
+
+            // Function to update cart count display
+            const updateCartCount = () => {
+                let totalItems = cartItems.reduce((total, item) => total + item.quantity, 0); 
+                cartCountDisplay.textContent = totalItems;
+                cartCountDisplay.style.display = totalItems > 0 ? "inline-block" : "none";
+
+                // Save cart count and items to localStorage
+                localStorage.setItem("cartCount", totalItems);
+                localStorage.setItem("cartItems", JSON.stringify(cartItems));
+            };
+
+            
+            addToCartButtons.forEach(button => {
+                button.addEventListener("click", (event) => {
+                    const productCard = event.target.closest(".product-card");
+                    const productName = productCard.querySelector(".product-name").textContent;
+                    const productPrice = productCard.querySelector(".product-sale-price")
+                        ? productCard.querySelector(".product-sale-price").textContent
+                        : productCard.querySelector(".product-price").textContent;
+                    const productImage = productCard.querySelector("img").src;
+                    const quantityInput = productCard.querySelector(".quantity"); 
+
+                    let quantity = quantityInput ? parseInt(quantityInput.textContent) : 1; 
+
+                    let existingProduct = cartItems.find(item => item.name === productName);
+
+                    if (existingProduct) {
+                        existingProduct.quantity += quantity; 
+                    } else {
+                        const product = { name: productName, price: productPrice, image: productImage, quantity };
+                        cartItems.push(product);
+                    }
+
+                    updateCartCount(); 
+                });
+            });
+
+            updateCartCount(); 
+        });
+
+
+    </script>
+</body>
+
+</html>

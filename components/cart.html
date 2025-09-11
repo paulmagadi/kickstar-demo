@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <style>
+        .cart-container {
+            width: 60%;
+            margin: auto;
+            text-align: center;
+        }
+        .cart-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #ddd;
+            padding: 10px;
+        }
+        .cart-item img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+        }
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .quantity-controls button {
+            padding: 5px;
+            cursor: pointer;
+        }
+        .remove-item {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .clear-cart {
+            background-color: black;
+            color: white;
+            padding: 10px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .cart-total {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cart-container">
+        <h2>Shopping Cart</h2>
+        <div id="cart-items"></div>
+        <div class="cart-total">Total: $<span id="total-price">0.00</span></div>
+        <button class="clear-cart">Clear Cart</button>
+
+        <a href="checkout.html">Checkout</a>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const cartItemsContainer = document.getElementById("cart-items");
+            const totalPriceElement = document.getElementById("total-price");
+            const clearCartButton = document.querySelector(".clear-cart");
+            
+            let cartItems = localStorage.getItem("cartItems") ? JSON.parse(localStorage.getItem("cartItems")) : [];
+
+            const calculateTotalPrice = () => {
+                let total = cartItems.reduce((sum, item) => sum + (parseFloat(item.price.replace("$", "")) * item.quantity), 0);
+                totalPriceElement.textContent = total.toFixed(2);
+            };
+
+            const renderCart = () => {
+                cartItemsContainer.innerHTML = "";
+                if (cartItems.length === 0) {
+                    cartItemsContainer.innerHTML = "<p>Your cart is empty.</p>";
+                    totalPriceElement.textContent = "0.00";
+                    return;
+                }
+
+                cartItems.forEach((item, index) => {
+                    const cartItem = document.createElement("div");
+                    cartItem.classList.add("cart-item");
+                    cartItem.innerHTML = `
+                        <img src="${item.image}" alt="${item.name}">
+                        <span>${item.name}</span>
+                        <span>${item.price}</span>
+                        <div class="quantity-controls">
+                            <button class="decrease-qty" data-index="${index}">-</button>
+                            <span class="quantity">${item.quantity}</span>
+                            <button class="increase-qty" data-index="${index}">+</button>
+                        </div>
+                        <button class="remove-item" data-index="${index}">Remove</button>
+                    `;
+                    cartItemsContainer.appendChild(cartItem);
+                });
+
+                // Attach event listeners for quantity buttons
+                document.querySelectorAll(".increase-qty").forEach(button => {
+                    button.addEventListener("click", (event) => {
+                        const index = event.target.dataset.index;
+                        cartItems[index].quantity++;
+                        localStorage.setItem("cartItems", JSON.stringify(cartItems));
+                        renderCart();
+                    });
+                });
+
+                document.querySelectorAll(".decrease-qty").forEach(button => {
+                    button.addEventListener("click", (event) => {
+                        const index = event.target.dataset.index;
+                        if (cartItems[index].quantity > 1) {
+                            cartItems[index].quantity--;
+                        } else {
+                            cartItems.splice(index, 1); // Remove item if quantity is 0
+                        }
+                        localStorage.setItem("cartItems", JSON.stringify(cartItems));
+                        renderCart();
+                    });
+                });
+
+                // Attach event listeners for remove buttons
+                document.querySelectorAll(".remove-item").forEach(button => {
+                    button.addEventListener("click", (event) => {
+                        const index = event.target.dataset.index;
+                        cartItems.splice(index, 1);
+                        localStorage.setItem("cartItems", JSON.stringify(cartItems));
+                        renderCart();
+                    });
+                });
+
+                calculateTotalPrice();
+            };
+
+            // Clear Cart Functionality
+            clearCartButton.addEventListener("click", () => {
+                localStorage.removeItem("cartItems");
+                cartItems = [];
+                renderCart();
+            });
+
+            renderCart(); // Display the cart when page loads
+        });
+    </script>
+
+</body>
+</html>

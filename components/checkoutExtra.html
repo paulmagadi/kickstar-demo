@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID"></script>
+    <!-- Replace with your Client ID -->
+    <style>
+        .checkout-container {
+            width: 60%;
+            margin: auto;
+            text-align: center;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #ddd;
+            padding: 10px;
+        }
+
+        .cart-item img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+        }
+
+        .cart-total {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .checkout-form {
+            margin-top: 20px;
+        }
+
+        input,
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="checkout-container">
+        <h2>Checkout</h2>
+        <div id="cart-items"></div>
+        <div class="cart-total">Total: $<span id="total-price">0.00</span></div>
+
+        <h3>Payment</h3>
+        <div id="paypal-button-container"></div> <!-- PayPal Button Here -->
+
+        <h3>Customer Information</h3>
+        <form class="checkout-form" id="checkout-form">
+            <input type="text" id="name" placeholder="Full Name" required>
+            <input type="email" id="email" placeholder="Email" required>
+            <input type="text" id="address" placeholder="Shipping Address" required>
+            <button type="submit">Place Order</button>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const cartItemsContainer = document.getElementById("cart-items");
+            const totalPriceElement = document.getElementById("total-price");
+
+            let cartItems = localStorage.getItem("cartItems") ? JSON.parse(localStorage.getItem("cartItems")) : [];
+
+            const calculateTotalPrice = () => {
+                let total = cartItems.reduce((sum, item) => sum + (parseFloat(item.price.replace("$", "")) * item.quantity), 0);
+                totalPriceElement.textContent = total.toFixed(2);
+                return total.toFixed(2);
+            };
+
+            const renderCart = () => {
+                cartItemsContainer.innerHTML = "";
+                if (cartItems.length === 0) {
+                    cartItemsContainer.innerHTML = "<p>Your cart is empty.</p>";
+                    totalPriceElement.textContent = "0.00";
+                    return;
+                }
+
+                cartItems.forEach((item) => {
+                    const cartItem = document.createElement("div");
+                    cartItem.classList.add("cart-item");
+                    cartItem.innerHTML = `
+                        <img src="${item.image}" alt="${item.name}">
+                        <span>${item.name}</span>
+                        <span>Qty: <span class="quantity">${item.quantity}</span></span>
+                        <span>$${item.price}</span>
+                    `;
+                    cartItemsContainer.appendChild(cartItem);
+                });
+
+                calculateTotalPrice();
+            };
+
+            paypal.Buttons({
+                createOrder: (data, actions) => {
+                    return actions.order.create({
+                        purchase_units: [{
+                            amount: {
+                                value: calculateTotalPrice()
+                            }
+                        }]
+                    });
+                },
+                onApprove: (data, actions) => {
+                    return actions.order.capture().then(details => {
+                        alert(`Transaction completed by ${details.payer.name.given_name}!`);
+
+                        // Clear cart after payment
+                        localStorage.removeItem("cartItems");
+                        localStorage.removeItem("cartCount");
+                        cartItems = [];
+                        renderCart();
+                    });
+                }
+            }).render("#paypal-button-container");
+
+            renderCart();
+        });
+    </script>
+
+</body>
+
+</html>
