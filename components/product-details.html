@@ -9,155 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
 
     <link rel="shortcut icon" href="../images/logo2.svg" type="image/x-icon">
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        :root {
-            --primary-color: #fd3008;
-            --secondary-color: #00a896;
-            --neutral-light-color: #f8f9fa;
-            --neutral-dark-color: #2d2d2d;
-            --accent-color: #ffd166;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0;
-        }
-
-        .product-details-preview {
-            display: flex;
-            gap: 2em;
-            background: #fff;
-            border-radius: 16px;
-            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
-            padding: 2em 1.5em;
-        }
-
-        .product-image-section,
-        .product-details-section {
-            width: 50%;
-        }
-
-        .product-image-preview {
-            background: #f7f7f7;
-            border-radius: 12px;
-            margin-bottom: 1em;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-            padding: 1em;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .product-thumbnails-wrapper {
-            position: relative;
-            margin-bottom: 1em;
-        }
-
-        .product-thumbnails {
-            display: flex;
-            gap: 10px;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            scrollbar-width: none;
-            padding-bottom: 6px;
-        }
-
-        .product-thumbnails::-webkit-scrollbar {
-            display: none;
-        }
-
-        .product-thumbnails img {
-            margin-right: 0;
-            border: 2px solid #eee;
-            border-radius: 8px;
-            padding: 2px;
-            transition: 0.3s;
-            scroll-snap-align: center;
-            flex-shrink: 0;
-            width: 60px;
-            height: 60px;
-            object-fit: cover;
-            background: #fff;
-            cursor: pointer;
-        }
-
-        .product-thumbnails img:hover {
-            transform: scale(1.1);
-            border-color: var(--primary-color);
-        }
-
-        .thumbnail-scroll-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(0, 0, 0, 0.07);
-            width: 28px;
-            height: 60px;
-            border-radius: 6px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.3rem;
-            cursor: pointer;
-            z-index: 2;
-            transition: background 0.2s;
-            border: none;
-        }
-
-        .thumbnail-scroll-btn:hover {
-            background: rgba(0, 0, 0, 0.15);
-        }
-
-        .thumbnail-scroll-left {
-            left: -14px;
-        }
-
-        .thumbnail-scroll-right {
-            right: -14px;
-        }
-
-        .thumbnail-scroll-btn.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        @media (max-width: 900px) {
-            .product-details-preview {
-                flex-direction: column;
-                padding: 1em 0.5em;
-            }
-
-            .product-image-section,
-            .product-details-section {
-                width: 100%;
-            }
-        }
-
-        .product-colors img {
-            margin-right: 5px;
-            border: 1px solid #ccc;
-            padding: 2px;
-            transition: 0.3s;
-        }
-
-        .product-colors img:hover {
-            transform: scale(1.1);
-            border-color: #222;
-        }
-
-        .color-btn.selected {
-            border: 2px solid #222;
-            box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
-        }
-    </style>
+    <link rel="stylesheet" href="../css/product-details.css">
 </head>
 
 <body>
@@ -168,8 +20,7 @@
                     <!-- 📸 Left: Images -->
                     <div class="product-image-section">
                         <div class="product-image-preview">
-                            <img id="main-product-img" src="../images/1.png" data-default="../images/1.png" width="100%"
-                                style="aspect-ratio: 1; object-fit: cover;">
+                            <img id="main-product-img" src="../images/1.png" data-default="../images/1.png" width="100%" alt="Product Image" />
                         </div>
                         <div class="product-thumbnails-wrapper">
                             <button class="thumbnail-scroll-btn thumbnail-scroll-left hidden"
@@ -184,8 +35,8 @@
                     </div>
                     <!-- 📋 Right: Details -->
                     <div class="product-details-section">
-                        <h3 id="product-name">Nice Shoe</h3><br>
-                        <h5 id="product-type">Sneakers • Unisex</h5><br>
+                        <h3 id="product-name">Giannis Freak 4 Basketball Shoes</h3>
+                        <small id="product-type">Sneakers • Unisex</small><br><br>
                         <p id="product-price">
                             <strong style="color: red;">KES 2000</strong>
                             <span style="text-decoration: line-through; color: gray;">KES 2500</span>
@@ -204,7 +55,8 @@
                                     data-image="../images/3.jpg">
                             </div><br>
                             <h4>Select Size</h4><br>
-                            <select name="variant_id" id="variant-select" required>
+
+                            <select name="variant_id" class="variant-select" id="variant-select" required>
                                 <option value="1" data-price="2500" data-sale="2000" data-stock="10">Size: 8 | Stock: 10
                                     | KES 2000</option>
                                 <option value="2" data-price="2500" data-sale="" data-stock="5">Size: 9 | Stock: 5 | KES
@@ -216,7 +68,7 @@
                             <label>Quantity:</label>
                             <input type="number" name="quantity" id="qty-input" value="1" min="1" max="10" step="1">
                             <br><br>
-                            <button type="submit" id="add-to-cart-btn">Add to Cart</button>
+                            <button type="submit" class="add-to-cart-btn" id="add-to-cart-btn">Add to Cart</button>
                             <p id="add-cart-message" style="color: green; font-weight: bold;"></p>
                         </form>
                         <br>
@@ -226,6 +78,10 @@
                 </div>
             </div>
         </div>
+
+        <br>
+        <hr>
+        <br>
     </div>
 
     <script>
