@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KickStar - eCommerce Shoes Store</title>
+
+    <link rel="shortcut icon" href="logo2.svg" type="image/x-icon">
+    <link rel="stylesheet" href="products-list-view.css">
+</head>
+
+<body>
+    <h1>Products</h1>
+
+    <div class="products-cards-container">
+        <div class="product-card">
+            <div class="product-card-image">
+                <a href="product.html?id=${product.id}" title="View Product">
+                    <img src="../images/adidas-ultraboost-22-1.jpg" alt="product name">
+                </a>
+            </div>
+            <div class="product-card-details">
+                <div class="product-card-product-name product-name">
+                    <a href="product.html?id=${product.id}" title="View Product">${product.name}</a>
+                </div>
+                <div class="product-card-price-cart">
+                    <span class="product-card-price product-price">
+                        ${product.sale_price ?
+                        `<p class="price"><del>$${product.price.toFixed(2)}</del></p>
+                        <p class="sale-price product-sale-price">$${product.sale_price.toFixed(2)}</p>`
+                        : `<p class="price">$${product.price.toFixed(2)}</p>`}
+                    </span>
+                    <span class="product-card-add-to-cart add-to-cart">
+                        <button data-id="${products.id}">Add to cart</button>
+                    </span>
+                </div>
+                ${product.sale_price ? `<div class="product-card-sale-badge">
+                    <p>${discount}%</p>
+                </div>` : ""}
+            </div>
+        </div
+    </div>
+
+    <script src="products-list-view.js"></script>
+</body>
+
+</html>
