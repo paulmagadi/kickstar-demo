@@ -7,42 +7,188 @@
     <title>KickStar - eCommerce Shoes Store</title>
 
     <link rel="shortcut icon" href="logo2.svg" type="image/x-icon">
-    <link rel="stylesheet" href="products-list-view.css">
+    <link rel="stylesheet" href="../css/products-list-view.css">
+    <link rel="stylesheet" href="../css/product-card.css">
 </head>
 
 <body>
     <h1>Products</h1>
 
     <div class="products-cards-container">
-        <div class="product-card">
-            <div class="product-card-image">
-                <a href="product.html?id=${product.id}" title="View Product">
-                    <img src="../images/adidas-ultraboost-22-1.jpg" alt="product name">
+        <div class="product-card remove-class">
+            <a href="#" title="View product">
+                <div class="product-image-wrapper">
+                    <div class="product-image">
+                        <img src="../images/1.png" class="product-img" alt="product" />
+                    </div>
+                </div>
+            </a>
+
+            <div class="product-info">
+                <a href="#" title="Giannis Freak 4 Basketball Shoes">
+                    <div class="product-title">Giannis Freak 4 Basketball Shoes</div>
                 </a>
-            </div>
-            <div class="product-card-details">
-                <div class="product-card-product-name product-name">
-                    <a href="product.html?id=${product.id}" title="View Product">${product.name}</a>
+
+                <div class="product-price">
+                    <span class="sale-price">KES 2000 </span>
+                    <span class="price original-price"><del>KES <del>2500</del></del></span>
+
                 </div>
-                <div class="product-card-price-cart">
-                    <span class="product-card-price product-price">
-                        ${product.sale_price ?
-                        `<p class="price"><del>$${product.price.toFixed(2)}</del></p>
-                        <p class="sale-price product-sale-price">$${product.sale_price.toFixed(2)}</p>`
-                        : `<p class="price">$${product.price.toFixed(2)}</p>`}
-                    </span>
-                    <span class="product-card-add-to-cart add-to-cart">
-                        <button data-id="${products.id}">Add to cart</button>
-                    </span>
+                <br>
+                <div class="swatch-wrapper">
+                    <div class="swatch-scroll-btn swatch-scroll-left hidden">&#10094;</div>
+                    <div class="swatches">
+                        <img src="../images/1.png" alt="Red" title="Red" class="swatch active" />
+                        <img src="../images/2.png" alt="Blue" title="Blue" class="swatch" />
+                        <img src="../images/3.jpg" alt="Green" title="Green" class="swatch" />
+                        <img src="../images/4.jpg" alt="Yellow" title="Yellow" class="swatch" />
+                    </div>
+                    <div class="swatch-scroll-btn swatch-scroll-right">&#10095;</div>
                 </div>
-                ${product.sale_price ? `<div class="product-card-sale-badge">
-                    <p>${discount}%</p>
-                </div>` : ""}
             </div>
-        </div
+        </div>
     </div>
 
     <script src="products-list-view.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            document.querySelectorAll(".product-card").forEach((card) => {
+                const mainImage = card.querySelector(".product-img");
+                const swatches = card.querySelectorAll(".swatch");
+                const container = card.querySelector(".swatches");
+                const leftBtn = card.querySelector(".swatch-scroll-left");
+                const rightBtn = card.querySelector(".swatch-scroll-right");
+
+                const getScrollAmount = () => swatches[0]?.offsetWidth + 10;
+
+                function updateScrollButtons() {
+                    if (!container) return;
+                    const { scrollLeft, scrollWidth, clientWidth } = container;
+                    leftBtn?.classList.toggle("hidden", scrollLeft <= 0);
+                    rightBtn?.classList.toggle("hidden", scrollLeft >= scrollWidth - clientWidth - 1);
+                }
+
+                swatches.forEach((swatch) => {
+                    swatch.addEventListener("click", () => {
+                        mainImage.style.opacity = 0;
+                        setTimeout(() => {
+                            mainImage.src = swatch.src;
+                            mainImage.dataset.default = swatch.src;
+                            mainImage.style.opacity = 1;
+                        }, 150);
+
+                        swatches.forEach(s => s.classList.remove("active"));
+                        swatch.classList.add("active");
+                    });
+                });
+
+                leftBtn?.addEventListener("click", () => {
+                    container.scrollBy({ left: -getScrollAmount(), behavior: "smooth" });
+                });
+
+                rightBtn?.addEventListener("click", () => {
+                    container.scrollBy({ left: getScrollAmount(), behavior: "smooth" });
+                });
+
+                container?.addEventListener("scroll", () => {
+                    clearTimeout(container._scrollTimeout);
+                    container._scrollTimeout = setTimeout(updateScrollButtons, 100);
+                });
+
+                window.addEventListener("resize", updateScrollButtons);
+                updateScrollButtons();
+            });
+        });
+
+
+        let products = [
+            {
+                id: 1,
+                name: "Giannis Freak 4 Basketball Shoes",
+                price: 2000,
+                originalPrice: 2500,
+                images: ["../images/1.png", "../images/2.png", "../images/3.jpg", "../images/4.jpg"]
+            },
+            {
+                id: 2,
+                name: "Air Max 270",
+                price: 3000,
+                originalPrice: 3500,
+                images: ["../images/nike-air-max-270.jpg", "../images/nike-air-max-270-1.jpg", "../images/nike-air-max-270-2.jpg", "../images/nike-air-max-270-3.jpg"]
+            },
+            {
+                id: 3,
+                name: "Jordan Retro 11",
+                price: 4000,
+                originalPrice: 4500,
+                images: ["../images/jordan-1-retro.jpg", "../images/jordan-1-retro-1.jpg", "../images/jordan-1-retro-2.jpg", "../images/jordan-1-retro-3.jpg"]
+            },
+            {
+                id: 4,
+                name: "Adidas Ultraboost",
+                price: 3500,
+                originalPrice: 4000,
+                images: ["../images/adidas-ultraboost-22.jpg", "../images/adidas-ultraboost-22-1.jpg", "../images/adidas-ultraboost-22-2.jpg", "../images/adidas-ultraboost-22-3.jpg"]
+            },
+            {
+                id: 5,
+                name: "Puma RS-X",
+                price: 2800,
+                originalPrice: 3200,
+                images: ["../images/puma-rsx.jpg", "../images/puma-rsx-1.jpg", "../images/puma-rsx-2.jpg", "../images/puma-rsx-3.jpg"]
+            },
+            {
+                id: 6,
+                name: "Reebok Classic",
+                price: 2200,
+                originalPrice: 2700,
+                images: ["../images/reebok-classic-leather.jpg", "../images/reebok-classic-leather-1.jpg", "../images/reebok-classic-leather-2.jpg", "../images/reebok-classic-leather-3.jpg"]
+            }
+
+            // Add more products as needed
+        ];
+
+        const productsContainer = document.querySelector(".products-cards-container");
+        products.forEach(product => {
+            const remove = document.querySelector('.remove-class');
+            remove.style.display = 'none';
+
+            const productCard = document.createElement("div");
+            productCard.className = "product-card";
+            productCard.innerHTML = `
+                <a href="#" title="View product">
+                    <div class="product-image-wrapper">
+                        <div class="product-image">
+                            <img src="${product.images[0]}" class="product-img" alt="product" />
+                        </div>
+                    </div>
+                </a>
+                <div class="product-info">
+                    <a href="#" title="${product.name}">
+                        <div class="product-title">${product.name}</div>
+                    </a>
+                    <div class="product-price">
+                        <span class="sale-price">KES ${product.price} </span>
+                        <span class="price original-price"><del>KES <del>${product.originalPrice}</del></del></span>
+                    </div>
+                    <br>
+                    <div class="swatch-wrapper">
+                        <div class="swatch-scroll-btn swatch-scroll-left hidden">&#10094;</div>
+                        <div class="swatches">
+                            ${product.images.map((img, index) => `
+                                <img src="${img}" alt="Color ${index + 1}" title="Color ${index + 1}" class="swatch ${index === 0 ? 'active' : ''}" />
+                            `).join('')}
+                        </div>
+                        <div class="swatch-scroll-btn swatch-scroll-right">&#10095;</div>
+                    </div>
+                </div>
+            `;
+            productsContainer.appendChild(productCard);    
+             
+        }); 
+
+    </script>
 </body>
 
 </html>
