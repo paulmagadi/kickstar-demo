@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="css/header.css" class="css">
     <link rel="stylesheet" href="css/slider.css">
     <link rel="stylesheet" href="css/products.css">
+    <link rel="stylesheet" href="css/product-card.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
 </head>
@@ -21,7 +22,7 @@
         <header>
             <div class="header">
                 <div class="logo">
-                    <a href="#"><img src="images/logo2.svg" alt="" width="70px" title="KickStar"></a>
+                    <a href="index.html"><img src="images/logo2.svg" alt="" width="70px" title="KickStar"></a>
                 </div>
 
                 <div class="search-bar desktop">
@@ -78,7 +79,7 @@
             </nav>
 
         </header>
-        <div class="header-after"></div>
+        <!-- <div class="header-after"></div> -->
 
         <div class="slideshow-container">
             <div class="slide">
@@ -95,13 +96,13 @@
 
             <div class="slide">
                 <div class="counter"></div>
-                <img src="images/3.jpg" alt="image" width="100%">
+                <img src="images/banner-2.png" alt="image" width="100%">
                 <div class="caption"><span>Caption Three</span></div>
             </div>
 
             <div class="slide">
                 <div class="counter"></div>
-                <img src="images/4.jpg" alt="image" width="100%">
+                <img src="images/banner-1.png" alt="image" width="100%">
                 <div class="caption"><span>Caption Four</span></div>
             </div>
 
@@ -120,9 +121,13 @@
 
         <section style="margin-top: 4em;">
             <div class="products-cards-container">
-                <!-- For place holder Product cards   -->
-                <!-- Generate Product cards using JavaScript  -->
-                 <a href="pages/product-details.html">Product</a>
+            </div>
+            <div class="featured-products">
+                <h2>Featured Products</h2>
+
+                <div class="products-cards-containe">
+
+                </div>
             </div>
         </section>
 
@@ -131,7 +136,58 @@
 
     <script src="js/navbar.js"></script>
     <script src="js/slider.js"></script>
-    <!-- <script src="js/products.js"></script> -->
+    <script src="js/products.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            document.querySelectorAll(".product-card").forEach((card) => {
+                const mainImage = card.querySelector(".product-img");
+                const swatches = card.querySelectorAll(".swatch");
+                const container = card.querySelector(".swatches");
+                const leftBtn = card.querySelector(".swatch-scroll-left");
+                const rightBtn = card.querySelector(".swatch-scroll-right");
+
+                const getScrollAmount = () => swatches[0]?.offsetWidth + 10;
+
+                function updateScrollButtons() {
+                    if (!container) return;
+                    const { scrollLeft, scrollWidth, clientWidth } = container;
+                    leftBtn?.classList.toggle("hidden", scrollLeft <= 0);
+                    rightBtn?.classList.toggle("hidden", scrollLeft >= scrollWidth - clientWidth - 1);
+                }
+
+                swatches.forEach((swatch) => {
+                    swatch.addEventListener("click", () => {
+                        mainImage.style.opacity = 0;
+                        setTimeout(() => {
+                            mainImage.src = swatch.src;
+                            mainImage.dataset.default = swatch.src;
+                            mainImage.style.opacity = 1;
+                        }, 150);
+
+                        swatches.forEach(s => s.classList.remove("active"));
+                        swatch.classList.add("active");
+                    });
+                });
+
+                leftBtn?.addEventListener("click", () => {
+                    container.scrollBy({ left: -getScrollAmount(), behavior: "smooth" });
+                });
+
+                rightBtn?.addEventListener("click", () => {
+                    container.scrollBy({ left: getScrollAmount(), behavior: "smooth" });
+                });
+
+                container?.addEventListener("scroll", () => {
+                    clearTimeout(container._scrollTimeout);
+                    container._scrollTimeout = setTimeout(updateScrollButtons, 100);
+                });
+
+                window.addEventListener("resize", updateScrollButtons);
+                updateScrollButtons();
+            });
+        });
+    </script>
 </body>
 
 </html>
