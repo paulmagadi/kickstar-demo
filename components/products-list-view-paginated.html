@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KickStar - eCommerce Shoes Store</title>
+
+    <link rel="shortcut icon" href="logo2.svg" type="image/x-icon">
+    <link rel="stylesheet" href="../css/product-card.css">
+    <link rel="stylesheet" href="../css/products-list-view.css">
+    <style>
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin: 2em 0 1em 0;
+            gap: 0.5em;
+        }
+        .pagination button {
+            padding: 0.5em 1em;
+            border: 1px solid #ccc;
+            background: #fff;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        .pagination button.active {
+            background: #222;
+            color: #fff;
+            border-color: #222;
+        }
+        .pagination button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .pagination .ellipsis {
+            padding: 0.5em 1em;
+            color: #888;
+            background: none;
+            border: none;
+            cursor: default;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Products (Paginated)</h1>
+
+        <div class="products-cards-container">
+            <div class="product-card remove-class">
+                <a href="#" title="View product">
+                    <div class="product-image-wrapper">
+                        <div class="product-image">
+                            <img src="../images/1.png" class="product-img" alt="product" />
+                        </div>
+                    </div>
+                </a>
+
+                <div class="product-info">
+                    <a href="#" title="Giannis Freak 4 Basketball Shoes">
+                        <div class="product-title">Giannis Freak 4 Basketball Shoes</div>
+                    </a>
+
+                    <div class="product-price">
+                        <span class="sale-price">KES 2000 </span>
+                        <span class="price original-price"><del>KES <del>2500</del></del></span>
+                    </div>
+                    <br>
+                    <div class="swatch-wrapper">
+                        <div class="swatch-scroll-btn swatch-scroll-left hidden">&#10094;</div>
+                        <div class="swatches">
+                            <img src="../images/1.png" alt="Red" title="Red" class="swatch active" />
+                            <img src="../images/2.png" alt="Blue" title="Blue" class="swatch" />
+                            <img src="../images/3.jpg" alt="Green" title="Green" class="swatch" />
+                            <img src="../images/4.jpg" alt="Yellow" title="Yellow" class="swatch" />
+                        </div>
+                        <div class="swatch-scroll-btn swatch-scroll-right">&#10095;</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="pagination"></div>
+    </div>
+
+    <script src="products-list-view.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            function setupSwatches(card) {
+                const mainImage = card.querySelector(".product-img");
+                const swatches = card.querySelectorAll(".swatch");
+                const container = card.querySelector(".swatches");
+                const leftBtn = card.querySelector(".swatch-scroll-left");
+                const rightBtn = card.querySelector(".swatch-scroll-right");
+
+                const getScrollAmount = () => swatches[0]?.offsetWidth + 10;
+
+                function updateScrollButtons() {
+                    if (!container) return;
+                    const { scrollLeft, scrollWidth, clientWidth } = container;
+                    leftBtn?.classList.toggle("hidden", scrollLeft <= 0);
+                    rightBtn?.classList.toggle("hidden", scrollLeft >= scrollWidth - clientWidth - 1);
+                }
+
+                swatches.forEach((swatch) => {
+                    swatch.addEventListener("click", () => {
+                        mainImage.style.opacity = 0;
+                        setTimeout(() => {
+                            mainImage.src = swatch.src;
+                            mainImage.dataset.default = swatch.src;
+                            mainImage.style.opacity = 1;
+                        }, 150);
+
+                        swatches.forEach(s => s.classList.remove("active"));
+                        swatch.classList.add("active");
+                    });
+                });
+
+                leftBtn?.addEventListener("click", () => {
+                    container.scrollBy({ left: -getScrollAmount(), behavior: "smooth" });
+                });
+
+                rightBtn?.addEventListener("click", () => {
+                    container.scrollBy({ left: getScrollAmount(), behavior: "smooth" });
+                });
+
+                container?.addEventListener("scroll", () => {
+                    clearTimeout(container._scrollTimeout);
+                    container._scrollTimeout = setTimeout(updateScrollButtons, 100);
+                });
+
+                window.addEventListener("resize", updateScrollButtons);
+                updateScrollButtons();
+            }
+
+            // --- Products and Pagination logic ---
+            let products = [
+                {
+                    id: 1,
+                    name: "New Balance 574",
+                    price: 2000,
+                    originalPrice: 2500,
+                    images: ["../images/new-balance-574-1.jpg", "../images/new-balance-574-2.jpg", "../images/new-balance-574-3.jpg", "../images/new-balance-574-4.jpg", "../images/new-balance-574-5.jpg"]
+                },
+                {
+                    id: 2,
+                    name: "Air Max 270",
+                    price: 3000,
+                    originalPrice: 3500,
+                    images: ["../images/nike-air-max-270.jpg", "../images/nike-air-max-270-1.jpg", "../images/nike-air-max-270-2.jpg", "../images/nike-air-max-270-3.jpg"]
+                },
+                {
+                    id: 3,
+                    name: "Jordan Retro 11",
+                    price: 4000,
+                    originalPrice: 4500,
+                    images: ["../images/jordan-1-retro.jpg", "../images/jordan-1-retro-1.jpg", "../images/jordan-1-retro-2.jpg", "../images/jordan-1-retro-3.jpg", "../images/jordan-1-retro-4.jpg", "../images/jordan-1-retro-5.jpg", "../images/jordan-1-retro-6.jpg"]
+                },
+                {
+                    id: 4,
+                    name: "Adidas Ultraboost",
+                    price: 3500,
+                    originalPrice: 4000,
+                    images: ["../images/adidas-ultraboost-22.jpg", "../images/adidas-ultraboost-22-1.jpg", "../images/adidas-ultraboost-22-2.jpg", "../images/adidas-ultraboost-22-3.jpg"]
+                },
+                {
+                    id: 5,
+                    name: "Puma RS-X",
+                    price: 2800,
+                    originalPrice: 3200,
+                    images: ["../images/puma-rsx.jpg", "../images/puma-rsx-1.jpg", "../images/puma-rsx-2.jpg", "../images/puma-rsx-3.jpg"]
+                },
+                {
+                    id: 6,
+                    name: "Reebok Classic",
+                    price: 2200,
+                    originalPrice: 2700,
+                    images: ["../images/reebok-classic-leather.jpg", "../images/reebok-classic-leather-1.jpg", "../images/reebok-classic-leather-2.jpg", "../images/reebok-classic-leather-3.jpg"]
+                },
+                {
+                    id: 7,
+                    name: "Under Armour Hovr",
+                    price: 2100,
+                    originalPrice: 2400,
+                    images: ["../images/under-armour-hovr.jpg", "../images/under-armour-hovr-1.jpg", "../images/under-armour-hovr-2.jpg", "../images/under-armour-hovr-3.jpg"]
+                },
+                {
+                    id: 8,
+                    name: "Vans Old Skool",
+                    price: 2600,
+                    originalPrice: 2900,
+                    images: ["../images/vans-old-skool.jpg", "../images/vans-old-skool-1.jpg", "../images/vans-old-skool-2.jpg", "../images/vans-old-skool-3.jpg", "../images/vans-old-skool-4.jpg"]
+                },
+                {
+                    id: 9,
+                    name: "Converse Chuck Taylor",
+                    price: 3000,
+                    originalPrice: 3300,
+                    images: ["../images/converse-chuck-taylor.jpg", "../images/converse-chuck-taylor-1.jpg", "../images/converse-chuck-taylor-2.jpg", "../images/converse-chuck-taylor-3.jpg", "../images/converse-chuck-taylor-4.jpg"]
+                }
+            ];
+
+            // For demo: we simulate a large number of products
+            for (let i = 10; i <= 50; i++) {
+                products.push({
+                    id: i,
+                    name: "Demo Product " + i,
+                    price: 1000 + i * 10,
+                    originalPrice: 1200 + i * 10,
+                    images: ["../images/1.png", "../images/2.png", "../images/3.jpg", "../images/4.jpg"]
+                });
+            }
+
+            const productsPerPage = 8;
+            let currentPage = 1;
+            const productsContainer = document.querySelector(".products-cards-container");
+            const paginationContainer = document.querySelector(".pagination");
+
+            // Hide template card
+            const remove = document.querySelector('.remove-class');
+            if (remove) remove.style.display = 'none';
+
+            function renderProducts(page) {
+                productsContainer.innerHTML = '';
+                const start = (page - 1) * productsPerPage;
+                const end = start + productsPerPage;
+                const pageProducts = products.slice(start, end);
+
+                pageProducts.forEach(product => {
+                    const productCard = document.createElement("div");
+                    productCard.className = "product-card";
+                    productCard.innerHTML = `
+                        <a href="#" title="View product">
+                            <div class="product-image-wrapper">
+                                <div class="product-image">
+                                    <img src="${product.images[0]}" class="product-img" alt="product" />
+                                </div>
+                            </div>
+                        </a>
+                        <div class="product-info">
+                            <a href="#" title="${product.name}">
+                                <div class="product-title">${product.name}</div>
+                            </a>
+                            <div class="product-price">
+                                <span class="sale-price">KES ${product.price} </span>
+                                <span class="price original-price"><del>KES <del>${product.originalPrice}</del></del></span>
+                            </div>
+                            <br>
+                            <div class="swatch-wrapper">
+                                <div class="swatch-scroll-btn swatch-scroll-left hidden">&#10094;</div>
+                                <div class="swatches">
+                                    ${product.images.map((img, index) => `
+                                        <img src="${img}" alt="Color ${index + 1}" title="Color ${index + 1}" class="swatch ${index === 0 ? 'active' : ''}" />
+                                    `).join('')}
+                                </div>
+                                <div class="swatch-scroll-btn swatch-scroll-right">&#10095;</div>
+                            </div>
+                        </div>
+                    `;
+                    productsContainer.appendChild(productCard);
+                    setupSwatches(productCard);
+                });
+            }
+
+            // Helper for ellipsis pagination
+            function getPaginationPages(current, total) {
+                const delta = 2; // how many pages to show around current
+                const range = [];
+                const rangeWithDots = [];
+                let l;
+
+                for (let i = 1; i <= total; i++) {
+                    if (i === 1 || i === total || (i >= current - delta && i <= current + delta)) {
+                        range.push(i);
+                    }
+                }
+
+                for (let i of range) {
+                    if (l) {
+                        if (i - l === 2) {
+                            rangeWithDots.push(l + 1);
+                        } else if (i - l > 2) {
+                            rangeWithDots.push('...');
+                        }
+                    }
+                    rangeWithDots.push(i);
+                    l = i;
+                }
+                return rangeWithDots;
+            }
+
+            function renderPagination() {
+                paginationContainer.innerHTML = '';
+                const pageCount = Math.ceil(products.length / productsPerPage);
+
+                const prevBtn = document.createElement('button');
+                prevBtn.textContent = 'Prev';
+                prevBtn.disabled = currentPage === 1;
+                prevBtn.onclick = () => {
+                    if (currentPage > 1) {
+                        currentPage--;
+                        update();
+                    }
+                };
+                paginationContainer.appendChild(prevBtn);
+
+                // Use ellipsis pagination
+                const pages = getPaginationPages(currentPage, pageCount);
+                pages.forEach(page => {
+                    if (page === "...") {
+                        const ellipsis = document.createElement('span');
+                        ellipsis.textContent = "...";
+                        ellipsis.className = "ellipsis";
+                        paginationContainer.appendChild(ellipsis);
+                    } else {
+                        const btn = document.createElement('button');
+                        btn.textContent = page;
+                        if (page === currentPage) btn.classList.add('active');
+                        btn.onclick = () => {
+                            currentPage = page;
+                            update();
+                        };
+                        paginationContainer.appendChild(btn);
+                    }
+                });
+
+                const nextBtn = document.createElement('button');
+                nextBtn.textContent = 'Next';
+                nextBtn.disabled = currentPage === pageCount;
+                nextBtn.onclick = () => {
+                    if (currentPage < pageCount) {
+                        currentPage++;
+                        update();
+                    }
+                };
+                paginationContainer.appendChild(nextBtn);
+            }
+
+            function update() {
+                renderProducts(currentPage);
+                renderPagination();
+            }
+
+            update();
+        });
+    </script>
+</body>
+
+</html>

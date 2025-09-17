@@ -7,43 +7,47 @@
     <title>KickStar - eCommerce Shoes Store</title>
 
     <link rel="shortcut icon" href="logo2.svg" type="image/x-icon">
-    <link rel="stylesheet" href="../css/products-list-view.css">
+    
     <link rel="stylesheet" href="../css/product-card.css">
+    <link rel="stylesheet" href="../css/products-list-view.css">
 </head>
 
 <body>
-    <h1>Products</h1>
 
-    <div class="products-cards-container">
-        <div class="product-card remove-class">
-            <a href="#" title="View product">
-                <div class="product-image-wrapper">
-                    <div class="product-image">
-                        <img src="../images/1.png" class="product-img" alt="product" />
+    <div class="container">
+        <h1>Products</h1>
+
+        <div class="products-cards-container">
+            <div class="product-card remove-class">
+                <a href="#" title="View product">
+                    <div class="product-image-wrapper">
+                        <div class="product-image">
+                            <img src="../images/1.png" class="product-img" alt="product" />
+                        </div>
                     </div>
-                </div>
-            </a>
-
-            <div class="product-info">
-                <a href="#" title="Giannis Freak 4 Basketball Shoes">
-                    <div class="product-title">Giannis Freak 4 Basketball Shoes</div>
                 </a>
 
-                <div class="product-price">
-                    <span class="sale-price">KES 2000 </span>
-                    <span class="price original-price"><del>KES <del>2500</del></del></span>
+                <div class="product-info">
+                    <a href="#" title="Giannis Freak 4 Basketball Shoes">
+                        <div class="product-title">Giannis Freak 4 Basketball Shoes</div>
+                    </a>
 
-                </div>
-                <br>
-                <div class="swatch-wrapper">
-                    <div class="swatch-scroll-btn swatch-scroll-left hidden">&#10094;</div>
-                    <div class="swatches">
-                        <img src="../images/1.png" alt="Red" title="Red" class="swatch active" />
-                        <img src="../images/2.png" alt="Blue" title="Blue" class="swatch" />
-                        <img src="../images/3.jpg" alt="Green" title="Green" class="swatch" />
-                        <img src="../images/4.jpg" alt="Yellow" title="Yellow" class="swatch" />
+                    <div class="product-price">
+                        <span class="sale-price">KES 2000 </span>
+                        <span class="price original-price"><del>KES <del>2500</del></del></span>
+
                     </div>
-                    <div class="swatch-scroll-btn swatch-scroll-right">&#10095;</div>
+                    <br>
+                    <div class="swatch-wrapper">
+                        <div class="swatch-scroll-btn swatch-scroll-left hidden">&#10094;</div>
+                        <div class="swatches">
+                            <img src="../images/1.png" alt="Red" title="Red" class="swatch active" />
+                            <img src="../images/2.png" alt="Blue" title="Blue" class="swatch" />
+                            <img src="../images/3.jpg" alt="Green" title="Green" class="swatch" />
+                            <img src="../images/4.jpg" alt="Yellow" title="Yellow" class="swatch" />
+                        </div>
+                        <div class="swatch-scroll-btn swatch-scroll-right">&#10095;</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -105,10 +109,10 @@
         let products = [
             {
                 id: 1,
-                name: "Giannis Freak 4 Basketball Shoes",
+                name: "New Balance 574",
                 price: 2000,
                 originalPrice: 2500,
-                images: ["../images/1.png", "../images/2.png", "../images/3.jpg", "../images/4.jpg"]
+                images: ["../images/new-balance-574-1.jpg", "../images/new-balance-574-2.jpg", "../images/new-balance-574-3.jpg", "../images/new-balance-574-4.jpg", "../images/new-balance-574-5.jpg"]
             },
             {
                 id: 2,
@@ -122,7 +126,7 @@
                 name: "Jordan Retro 11",
                 price: 4000,
                 originalPrice: 4500,
-                images: ["../images/jordan-1-retro.jpg", "../images/jordan-1-retro-1.jpg", "../images/jordan-1-retro-2.jpg", "../images/jordan-1-retro-3.jpg"]
+                images: ["../images/jordan-1-retro.jpg", "../images/jordan-1-retro-1.jpg", "../images/jordan-1-retro-2.jpg", "../images/jordan-1-retro-3.jpg", "../images/jordan-1-retro-4.jpg", "../images/jordan-1-retro-5.jpg", "../images/jordan-1-retro-6.jpg"]
             },
             {
                 id: 4,
@@ -144,9 +148,28 @@
                 price: 2200,
                 originalPrice: 2700,
                 images: ["../images/reebok-classic-leather.jpg", "../images/reebok-classic-leather-1.jpg", "../images/reebok-classic-leather-2.jpg", "../images/reebok-classic-leather-3.jpg"]
+            },
+            {
+                id: 7,
+                name: "Under Armour Hovr",
+                price: 2100,
+                originalPrice: 2400,
+                images: ["../images/under-armour-hovr.jpg", "../images/under-armour-hovr-1.jpg", "../images/under-armour-hovr-2.jpg", "../images/under-armour-hovr-3.jpg"]
+            },
+            {
+                id: 8,
+                name: "Vans Old Skool",
+                price: 2600,
+                originalPrice: 2900,
+                images: ["../images/vans-old-skool.jpg", "../images/vans-old-skool-1.jpg", "../images/vans-old-skool-2.jpg", "../images/vans-old-skool-3.jpg", "../images/vans-old-skool-4.jpg"]
+            },
+            {
+                id: 8,
+                name: "Converse Chuck Taylor",
+                price: 3000,
+                originalPrice: 3300,
+                images: ["../images/converse-chuck-taylor.jpg", "../images/converse-chuck-taylor-1.jpg", "../images/converse-chuck-taylor-2.jpg", "../images/converse-chuck-taylor-3.jpg", "../images/converse-chuck-taylor-4.jpg"]
             }
-
-            // Add more products as needed
         ];
 
         const productsContainer = document.querySelector(".products-cards-container");
@@ -184,9 +207,9 @@
                     </div>
                 </div>
             `;
-            productsContainer.appendChild(productCard);    
-             
-        }); 
+            productsContainer.appendChild(productCard);
+
+        });
 
     </script>
 </body>

@@ -8,12 +8,12 @@ let products = JSON.parse(localStorage.getItem("products")) || [
     "brand": "Nike",
     "color": "Black/White",
     "stock_quantity" : 6,
-    "image": "images/nike-air-max-270.jpg",
+    "image": "../images/nike-air-max-270.jpg",
     "thumbnails": [
-        "images/nike-air-max-270.jpg",
-        "images/nike-air-max-270-1.jpg",
-        "images/nike-air-max-270-2.jpg",
-        "images/nike-air-max-270-3.jpg"
+        "../../images/nike-air-max-270.jpg",
+        "../../images/nike-air-max-270-1.jpg",
+        "../../images/nike-air-max-270-2.jpg",
+        "../../images/nike-air-max-270-3.jpg"
     ]
     },
     {
@@ -25,15 +25,15 @@ let products = JSON.parse(localStorage.getItem("products")) || [
     "brand": "Adidas",
     "color": "Black/Cloud White/Signal Orange",
     "stock_quantity" : 4,
-    "image": "images/adidas-ultraboost-22.jpg",
+    "image": "../../images/adidas-ultraboost-22.jpg",
     "thumbnails": [
-        "images/adidas-ultraboost-22.jpg",
-        "images/adidas-ultraboost-22-1.jpg",
-        "images/adidas-ultraboost-22-2.jpg",
-        "images/adidas-ultraboost-22-3.jpg",
-        "images/adidas-ultraboost-22-4.jpg",
-        "images/adidas-ultraboost-22-5.jpg",
-        "images/adidas-ultraboost-22-6.jpg"
+        "../../images/adidas-ultraboost-22.jpg",
+        "../../images/adidas-ultraboost-22-1.jpg",
+        "../../images/adidas-ultraboost-22-2.jpg",
+        "../../images/adidas-ultraboost-22-3.jpg",
+        "../../images/adidas-ultraboost-22-4.jpg",
+        "../../images/adidas-ultraboost-22-5.jpg",
+        "../../images/adidas-ultraboost-22-6.jpg"
     ]
     },
     {
@@ -45,14 +45,14 @@ let products = JSON.parse(localStorage.getItem("products")) || [
     "brand": "Puma",
     "color": "White/Blue",
     "stock_quantity" : 5,
-    "image": "images/puma-rsx.jpg",
+    "image": "../images/puma-rsx.jpg",
     "thumbnails": [
-        "images/puma-rsx.jpg",
-        "images/puma-rsx-1.jpg",
-        "images/puma-rsx-2.jpg",
-        "images/puma-rsx-3.jpg",
-        "images/puma-rsx-4.jpg",
-        "images/puma-rsx-5.jpg"
+        "../images/puma-rsx.jpg",
+        "../images/puma-rsx-1.jpg",
+        "../images/puma-rsx-2.jpg",
+        "../images/puma-rsx-3.jpg",
+        "../images/puma-rsx-4.jpg",
+        "../images/puma-rsx-5.jpg"
     ]
     },
     {
@@ -64,15 +64,15 @@ let products = JSON.parse(localStorage.getItem("products")) || [
     "brand": "Reebok",
     "color": "White",
     "stock_quantity" : 6,
-    "image": "images/reebok-classic-leather.jpg",
+    "image": "../images/reebok-classic-leather.jpg",
     "thumbnails": [
-        "images/reebok-classic-leather.jpg",
-        "images/reebok-classic-leather-1.jpg",
-        "images/reebok-classic-leather-2.jpg",
-        "images/reebok-classic-leather-3.jpg",
-        "images/reebok-classic-leather-4.jpg",
-        "images/reebok-classic-leather-5.jpg",
-        "images/reebok-classic-leather-6.jpg"
+        "../images/reebok-classic-leather.jpg",
+        "../images/reebok-classic-leather-1.jpg",
+        "../images/reebok-classic-leather-2.jpg",
+        "../images/reebok-classic-leather-3.jpg",
+        "../images/reebok-classic-leather-4.jpg",
+        "../images/reebok-classic-leather-5.jpg",
+        "../images/reebok-classic-leather-6.jpg"
     ]
     },
     {
@@ -84,14 +84,14 @@ let products = JSON.parse(localStorage.getItem("products")) || [
     "brand": "New Balance",
     "color": "Grey/White",
     "stock_quantity" : 7,
-    "image": "images/new-balance-574.jpg",
+    "image": "../images/new-balance-574.jpg",
     "thumbnails": [
-        "images/new-balance-574.jpg",
-        "images/new-balance-574-1.jpg",
-        "images/new-balance-574-2.jpg",
-        "images/new-balance-574-3.jpg",
-        "images/new-balance-574-4.jpg",
-        "images/new-balance-574-5.jpg"
+        "../images/new-balance-574.jpg",
+        "../images/new-balance-574-1.jpg",
+        "../images/new-balance-574-2.jpg",
+        "../images/new-balance-574-3.jpg",
+        "../images/new-balance-574-4.jpg",
+        "../images/new-balance-574-5.jpg"
     ]
     },
     {
@@ -103,15 +103,15 @@ let products = JSON.parse(localStorage.getItem("products")) || [
     "brand": "Jordan",
     "color": "Red/Black/White",
     "stock_quantity" : 10,
-    "image": "images/jordan-1-retro.jpg",
+    "image": "../images/jordan-1-retro.jpg",
     "thumbnails": [
-        "images/jordan-1-retro.jpg",
-        "images/jordan-1-retro-1.jpg",
-        "images/jordan-1-retro-2.jpg",
-        "images/jordan-1-retro-3.jpg",
-        "images/jordan-1-retro-4.jpg",
-        "images/jordan-1-retro-5.jpg",
-        "images/jordan-1-retro-6.jpg"
+        "../images/jordan-1-retro.jpg",
+        "../images/jordan-1-retro-1.jpg",
+        "../images/jordan-1-retro-2.jpg",
+        "../images/jordan-1-retro-3.jpg",
+        "../images/jordan-1-retro-4.jpg",
+        "../images/jordan-1-retro-5.jpg",
+        "../images/jordan-1-retro-6.jpg"
     ]
     },
     {
@@ -123,14 +123,14 @@ let products = JSON.parse(localStorage.getItem("products")) || [
     "brand": "Converse",
     "color": "Black/White",
     "stock_quantity" : 2,
-    "image": "images/converse-chuck-taylor.jpg",
+    "image": "../images/converse-chuck-taylor.jpg",
     "thumbnails": [
-        "images/converse-chuck-taylor.jpg",
-        "images/converse-chuck-taylor-1.jpg",
-        "images/converse-chuck-taylor-2.jpg",
-        "images/converse-chuck-taylor-3.jpg",
-        "images/converse-chuck-taylor-4.jpg",
-        "images/converse-chuck-taylor-5.jpg"
+        "../images/converse-chuck-taylor.jpg",
+        "../images/converse-chuck-taylor-1.jpg",
+        "../images/converse-chuck-taylor-2.jpg",
+        "../images/converse-chuck-taylor-3.jpg",
+        "../images/converse-chuck-taylor-4.jpg",
+        "../images/converse-chuck-taylor-5.jpg"
     ]
     },
     {
@@ -142,13 +142,13 @@ let products = JSON.parse(localStorage.getItem("products")) || [
     "brand": "Vans",
     "color": "Black/White",
     "stock_quantity" : 1,
-    "image": "images/vans-old-skool.jpg",
+    "image": "../images/vans-old-skool.jpg",
     "thumbnails": [
-        "images/vans-old-skool.jpg",
-        "images/vans-old-skool-1.jpg",
-        "images/vans-old-skool-2.jpg",
-        "images/vans-old-skool-3.jpg",
-        "images/vans-old-skool-4.jpg"
+        "../images/vans-old-skool.jpg",
+        "../images/vans-old-skool-1.jpg",
+        "../images/vans-old-skool-2.jpg",
+        "../images/vans-old-skool-3.jpg",
+        "../images/vans-old-skool-4.jpg"
     ]
     },
     {
@@ -160,12 +160,12 @@ let products = JSON.parse(localStorage.getItem("products")) || [
     "brand": "Asics",
     "color": "Blue/Orange",
     "stock_quantity" : 15,
-    "image": "images/asics-gel-kayano.jpg",
+    "image": "../images/asics-gel-kayano.jpg",
     "thumbnails": [
-        "images/asics-gel-kayano.jpg",
-        "images/asics-gel-kayano-1.jpg",
-        "images/asics-gel-kayano-2.jpg",
-        "images/asics-gel-kayano-3.jpg"
+        "../images/asics-gel-kayano.jpg",
+        "../images/asics-gel-kayano-1.jpg",
+        "../images/asics-gel-kayano-2.jpg",
+        "../images/asics-gel-kayano-3.jpg"
     ]
     },
     {
@@ -177,13 +177,13 @@ let products = JSON.parse(localStorage.getItem("products")) || [
     "brand": "Under Armour",
     "color": "Red/Black",
     "stock_quantity" : 4,
-    "image": "images/under-armour-hovr.jpg",
+    "image": "../images/under-armour-hovr.jpg",
     "thumbnails": [
-        "images/under-armour-hovr.jpg",
-        "images/under-armour-hovr-1.jpg",
-        "images/under-armour-hovr-2.jpg",
-        "images/under-armour-hovr-3.jpg",
-        "images/under-armour-hovr-4.jpg"
+        "../images/under-armour-hovr.jpg",
+        "../images/under-armour-hovr-1.jpg",
+        "../images/under-armour-hovr-2.jpg",
+        "../images/under-armour-hovr-3.jpg",
+        "../images/under-armour-hovr-4.jpg"
     ]
     }
 ];
