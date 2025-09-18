@@ -1,4 +1,5 @@
-let productsData = JSON.parse(localStorage.getItem("products")) || [ 
+// let productsData = JSON.parse(localStorage.getItem("products")) || 
+let productsData = [ 
     {
     "id": 1,
     "name": "Nike Air Max 270",
@@ -10,10 +11,10 @@ let productsData = JSON.parse(localStorage.getItem("products")) || [
     "stock_quantity" : 6,
     "image": "../images/nike-air-max-270.jpg",
     "thumbnails": [
-        "../../images/nike-air-max-270.jpg",
-        "../../images/nike-air-max-270-1.jpg",
-        "../../images/nike-air-max-270-2.jpg",
-        "../../images/nike-air-max-270-3.jpg"
+        "../images/nike-air-max-270.jpg",
+        "../images/nike-air-max-270-1.jpg",
+        "../images/nike-air-max-270-2.jpg",
+        "../images/nike-air-max-270-3.jpg"
     ]
     },
     {
@@ -25,15 +26,15 @@ let productsData = JSON.parse(localStorage.getItem("products")) || [
     "brand": "Adidas",
     "color": "Black/Cloud White/Signal Orange",
     "stock_quantity" : 4,
-    "image": "../../images/adidas-ultraboost-22.jpg",
+    "image": "../images/adidas-ultraboost-22.jpg",
     "thumbnails": [
-        "../../images/adidas-ultraboost-22.jpg",
-        "../../images/adidas-ultraboost-22-1.jpg",
-        "../../images/adidas-ultraboost-22-2.jpg",
-        "../../images/adidas-ultraboost-22-3.jpg",
-        "../../images/adidas-ultraboost-22-4.jpg",
-        "../../images/adidas-ultraboost-22-5.jpg",
-        "../../images/adidas-ultraboost-22-6.jpg"
+        "../images/adidas-ultraboost-22.jpg",
+        "../images/adidas-ultraboost-22-1.jpg",
+        "../images/adidas-ultraboost-22-2.jpg",
+        "../images/adidas-ultraboost-22-3.jpg",
+        "../images/adidas-ultraboost-22-4.jpg",
+        "../images/adidas-ultraboost-22-5.jpg",
+        "../images/adidas-ultraboost-22-6.jpg"
     ]
     },
     {
@@ -149,31 +150,31 @@ let productsData = JSON.parse(localStorage.getItem("products")) || [
         "../images/vans-old-skool-3.jpg",
         "../images/vans-old-skool-4.jpg"
     ]
-    },
-    {
-    "id": 9,
-    "name": "Under Armour HOVR Phantom 2",
-    "price": 140.00,
-    "sale_price": 120.00,
-    "description": "The Under Armour HOVR Phantom 2 is designed for high-performance training and running.",
-    "brand": "Under Armour",
-    "color": "Red/Black",
-    "stock_quantity" : 4,
-    "image": "../images/under-armour-hovr.jpg",
-    "thumbnails": [
-        "../images/under-armour-hovr.jpg",
-        "../images/under-armour-hovr-1.jpg",
-        "../images/under-armour-hovr-2.jpg",
-        "../images/under-armour-hovr-3.jpg",
-        "../images/under-armour-hovr-4.jpg"
-    ]
     }
+    // {
+    // "id": 9,
+    // "name": "Under Armour HOVR Phantom 2",
+    // "price": 140.00,
+    // "sale_price": 120.00,
+    // "description": "The Under Armour HOVR Phantom 2 is designed for high-performance training and running.",
+    // "brand": "Under Armour",
+    // "color": "Red/Black",
+    // "stock_quantity" : 4,
+    // "image": "../images/under-armour-hovr.jpg",
+    // "thumbnails": [
+    //     "../images/under-armour-hovr.jpg",
+    //     "../images/under-armour-hovr-1.jpg",
+    //     "../images/under-armour-hovr-2.jpg",
+    //     "../images/under-armour-hovr-3.jpg",
+    //     "../images/under-armour-hovr-4.jpg"
+    // ]
+    // }
 ];
 
 document.addEventListener("DOMContentLoaded", () => {
     const container = document.querySelector(".products-cards-container");
 
-    let products = productsData;
+    // let products = productsData;
     // Render products
 
     const renderProducts = (productsList) => {
@@ -187,7 +188,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         return `
             <div class="product-card">
-                <a href="product.html?id=${product.id}" title="View product">
+                <a href="pages/product-details.html?id=${product.id}" title="View product">
                     <div class="product-image-wrapper">
                         <div class="product-image">
                             <img src="${product.image}" class="product-img" alt="${product.name}" />
@@ -196,7 +197,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 </a>
 
                 <div class="product-info">
-                    <a href="product.html?id=${product.id}" title="${product.name}">
+                    <a href="pages/product-details.html?id=${product.id}" title="${product.name}">
                         <div class="product-title">${product.name}</div>
                     </a>
 
@@ -231,9 +232,8 @@ document.addEventListener("DOMContentLoaded", () => {
         `;
     }).join("");
 
-    attachCartEventListeners();
 };
 
     // Initial render
-    renderProducts(products);
+    renderProducts(productsData);
 });
