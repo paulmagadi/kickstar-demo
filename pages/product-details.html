@@ -2,266 +2,257 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KickStar - eCommerce Shoes Store</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KickStar - eCommerce Shoes Store</title>
 
-    <link rel="shortcut icon" href="../images/logo2.svg" type="image/x-icon">
-
-    <link rel="stylesheet" href="../css/index.css">
-    <link rel="stylesheet" href="../css/header.css" class="css">
-    <link rel="stylesheet" href="../css/product-details.css">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+  <link rel="shortcut icon" href="../images/logo2.svg" type="image/x-icon">
+  <link rel="stylesheet" href="../css/index.css">
+  <link rel="stylesheet" href="../css/header.css">
+  <link rel="stylesheet" href="../css/product-details.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
 </head>
 
 <body>
-    <div class="container">
-        <header>
-            <div class="header">
-                <div class="logo">
-                    <a href="../index.html"><img src="../images/logo2.svg" alt="" width="70px" title="KickStar"></a>
-                </div>
-
-                <div class="search-bar desktop">
-
-                    <form action="#" method="get">
-                        <input type="search" placeholder="Search Products, Categories, Brands, ..." name="q" required>
-                        <i class="ri-search-line"></i>
-                        <input type="submit" value="Search">
-                    </form>
-                </div>
-
-                <div class="header-items">
-                    <div class="help">
-                        <i class="ri-questionnaire-line"></i>
-                    </div>
-
-                    <div class="account">
-                        <i class="ri-account-circle-line" title="Account"></i>
-                        <div class="account-dropdown">
-                            <p class="login"><a href="#">Login</a></p>
-                            <p class="register"><a href="#">Register</a></p>
-                        </div>
-                    </div>
-
-                    <div class="cart">
-                        <a href="#">
-                            <i class="ri-shopping-cart-line" title="Cart"></i>
-                            <span id="cart-count" class="cart-count">0</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="search-bar mobile">
-                <form action="#" method="get">
-                    <input type="search" placeholder="Search Products, Categories, Brands, ..." name="q" required>
-                    <!-- <span><i class="ri-search-line"></i></span> -->
-                    <input type="submit" value="Search">
-                </form>
-            </div>
-            <nav>
-                <ul class="nav-links">
-                    <li><a href="#">All</a></li>
-                    <li><a href="#">Women</a></li>
-                    <li><a href="#">Men</a></li>
-                    <li><a href="#">Kids</a></li>
-                    <li><a href="#">New</a></li>
-                    <li><a href="#">Deals</a></li>
-                    <li><a href="#">Brands</a></li>
-                    <li><a href="#">Sale</a></li>
-                    <li><a href="#">Contact</a></li>
-                    <li><a href="#">About</a></li>
-                </ul>
-            </nav>
-
-        </header>
-        <div class="header-after"></div>
-
-       <div class="product-details-container">
-            <div class="product-details-page">
-                <div class="product-details-preview">
-                    <!-- 📸 Left: Images -->
-                    <div class="product-image-section">
-                        <div class="product-image-preview">
-                            <img id="main-product-img" src="../images/1.png" data-default="../images/1.png" width="100%" alt="Product Image" />
-                        </div>
-                        <div class="product-thumbnails-wrapper">
-                            <button class="thumbnail-scroll-btn thumbnail-scroll-left hidden"
-                                type="button">&#10094;</button>
-                            <div class="product-thumbnails">
-                                <img src="../images/1.png" alt="" />
-                                <img src="../images/2.png" alt="" />
-                                <img src="../images/3.jpg" alt="" />
-                            </div>
-                            <button class="thumbnail-scroll-btn thumbnail-scroll-right" type="button">&#10095;</button>
-                        </div>
-                    </div>
-                    <!-- 📋 Right: Details -->
-                    <div class="product-details-section">
-                        <h3 id="product-name">Giannis Freak 4 Basketball Shoes</h3>
-                        <small id="product-type">Sneakers • Unisex</small><br><br>
-                        <p id="product-price">
-                            <strong style="color: red;">KES 2000</strong>
-                            <span style="text-decoration: line-through; color: gray;">KES 2500</span>
-                        </p><br>
-                        <form id="variant-form">
-                            <h4>Available Colors</h4><br>
-                            <div class="product-colors">
-                                <img src="../images/1.png" title="Red" width="40" height="40" class="color-btn selected"
-                                    style="border-radius: 50%; cursor: pointer;" data-color-id="1"
-                                    data-image="../images/1.png">
-                                <img src="../images/2.png" title="Blue" width="40" height="40" class="color-btn"
-                                    style="border-radius: 50%; cursor: pointer;" data-color-id="2"
-                                    data-image="../images/2.png">
-                                <img src="../images/3.jpg" title="Green" width="40" height="40" class="color-btn"
-                                    style="border-radius: 50%; cursor: pointer;" data-color-id="3"
-                                    data-image="../images/3.jpg">
-                            </div><br>
-                            <h4>Select Size</h4><br>
-
-                            <select name="variant_id" class="variant-select" id="variant-select" required>
-                                <option value="1" data-price="2500" data-sale="2000" data-stock="10">Size: 8 | Stock: 10
-                                    | KES 2000</option>
-                                <option value="2" data-price="2500" data-sale="" data-stock="5">Size: 9 | Stock: 5 | KES
-                                    2500</option>
-                                <option value="3" data-price="2500" data-sale="" data-stock="0">Size: 10 | Stock: 0 |
-                                    KES 2500</option>
-                            </select>
-                            <br><br>
-                            <label>Quantity:</label>
-                            <input type="number" name="quantity" id="qty-input" value="1" min="1" max="10" step="1">
-                            <br><br>
-                            <button type="submit" class="add-to-cart-btn" id="add-to-cart-btn">Add to Cart</button>
-                            <p id="add-cart-message" style="color: green; font-weight: bold;"></p>
-                        </form>
-                        <br>
-                        <p id="product-description">A very nice shoe for all occasions. Comfortable, stylish, and
-                            durable.</p>
-                    </div>
-                </div>
-            </div>
+  <div class="container">
+    <header>
+      <div class="header">
+        <div class="logo">
+          <a href="../index.html"><img src="../images/logo2.svg" alt="" width="70px" title="KickStar"></a>
         </div>
 
-        <br>
-        <hr>
-        <br>
+        <div class="search-bar desktop">
+          <form action="#" method="get">
+            <input type="search" placeholder="Search Products, Categories, Brands, ..." name="q" required>
+            <i class="ri-search-line"></i>
+            <input type="submit" value="Search">
+          </form>
+        </div>
+
+        <div class="header-items">
+          <div class="help">
+            <i class="ri-questionnaire-line"></i>
+          </div>
+          <div class="account">
+            <i class="ri-account-circle-line" title="Account"></i>
+            <div class="account-dropdown">
+              <p class="login"><a href="#">Login</a></p>
+              <p class="register"><a href="#">Register</a></p>
+            </div>
+          </div>
+          <div class="cart">
+            <a href="#">
+              <i class="ri-shopping-cart-line" title="Cart"></i>
+              <span id="cart-count" class="cart-count">0</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="search-bar mobile">
+        <form action="#" method="get">
+          <input type="search" placeholder="Search Products, Categories, Brands, ..." name="q" required>
+          <input type="submit" value="Search">
+        </form>
+      </div>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#">All</a></li>
+          <li><a href="#">Women</a></li>
+          <li><a href="#">Men</a></li>
+          <li><a href="#">Kids</a></li>
+          <li><a href="#">New</a></li>
+          <li><a href="#">Deals</a></li>
+          <li><a href="#">Brands</a></li>
+          <li><a href="#">Sale</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">About</a></li>
+        </ul>
+      </nav>
+    </header>
+    <div class="header-after"></div>
+
+    <!-- ✅ Product Details -->
+    <div class="product-details-container">
+      <div class="product-details-page">
+        <div class="product-details-preview">
+          <!-- 📸 Left: Images -->
+          <div class="product-image-section">
+            <div class="product-image-preview">
+              <img id="main-product-img" src="" width="100%" alt="Product Image" />
+            </div>
+            <div class="product-thumbnails-wrapper">
+              <button class="thumbnail-scroll-btn thumbnail-scroll-left hidden" type="button">&#10094;</button>
+              <div class="product-thumbnails"></div>
+              <button class="thumbnail-scroll-btn thumbnail-scroll-right" type="button">&#10095;</button>
+            </div>
+          </div>
+          <!-- 📋 Right: Details -->
+          <div class="product-details-section">
+            <h3 id="product-name"></h3>
+            <small id="product-type"></small><br><br>
+            <p id="product-price"></p><br>
+            <form id="variant-form">
+              <h4>Available Colors</h4><br>
+              <div class="product-colors"></div><br>
+              <h4>Select Size</h4><br>
+              <select name="variant_id" class="variant-select" id="variant-select" required></select>
+              <br><br>
+              <label>Quantity:</label>
+              <input type="number" name="quantity" id="qty-input" value="1" min="1" step="1">
+              <br><br>
+              <button type="submit" class="add-to-cart-btn" id="add-to-cart-btn">Add to Cart</button>
+              <p id="add-cart-message" style="color: green; font-weight: bold;"></p>
+            </form>
+            <br>
+            <p id="product-description"></p>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <script>
+    <br>
+    <hr>
+    <br>
+  </div>
 
-        // --- Thumbnails scroll logic ---
-        function updateThumbScrollBtns() {
-            const container = document.querySelector('.product-thumbnails');
-            const leftBtn = document.querySelector('.thumbnail-scroll-left');
-            const rightBtn = document.querySelector('.thumbnail-scroll-right');
-            if (!container) return;
-            leftBtn.classList.toggle('hidden', container.scrollLeft <= 0);
-            rightBtn.classList.toggle('hidden', container.scrollLeft >= container.scrollWidth - container.clientWidth - 1);
+  <!-- ✅ Product Data -->
+  <script src="../js/products.js"></script>
+
+  <script>
+    // Get product index from URL
+    const params = new URLSearchParams(window.location.search);
+    const productIndex = parseInt(params.get("id"));
+    const product = productsData[productIndex];
+
+    if (!product) {
+      document.querySelector(".product-details-container").innerHTML = "<h2>Product not found.</h2>";
+    } else {
+      const mainImg = document.getElementById("main-product-img");
+      const nameEl = document.getElementById("product-name");
+      const typeEl = document.getElementById("product-type");
+      const descEl = document.getElementById("product-description");
+      const priceEl = document.getElementById("product-price");
+      const colorsWrapper = document.querySelector(".product-colors");
+      const sizeSelect = document.getElementById("variant-select");
+      const thumbnailsWrapper = document.querySelector(".product-thumbnails");
+
+      // Set base details
+      nameEl.textContent = product.name;
+      typeEl.textContent = product.type;
+      descEl.textContent = product.description;
+
+      // Group variants by color
+      const variantsByColor = {};
+      product.variants.forEach((variant, idx) => {
+        if (!variantsByColor[variant.color]) variantsByColor[variant.color] = [];
+        variantsByColor[variant.color].push({ ...variant, index: idx });
+      });
+
+      // Render colors
+      colorsWrapper.innerHTML = Object.keys(variantsByColor).map((color, i) => `
+        <img src="${variantsByColor[color][0].image}" 
+             title="${color}" 
+             width="40" height="40" 
+             class="color-btn ${i === 0 ? "selected" : ""}" 
+             style="border-radius: 50%; cursor: pointer;" 
+             data-color="${color}">
+      `).join("");
+
+      let currentColor = Object.keys(variantsByColor)[0];
+      updateVariantsUI(currentColor);
+
+      // Color switcher
+      document.querySelectorAll(".color-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".color-btn").forEach(b => b.classList.remove("selected"));
+          btn.classList.add("selected");
+          currentColor = btn.dataset.color;
+          updateVariantsUI(currentColor);
+        });
+      });
+
+      function updateVariantsUI(color) {
+        const variants = variantsByColor[color];
+        if (!variants || variants.length === 0) return;
+
+        // Default to first variant
+        const firstVariant = variants[0];
+        mainImg.src = firstVariant.image;
+        mainImg.dataset.default = firstVariant.image;
+
+        // Thumbnails
+        thumbnailsWrapper.innerHTML = firstVariant.thumbnails.map(src => `
+          <img src="${src}" width="60" height="60" style="object-fit:cover; margin-right:5px; border:1px solid #ccc; padding:2px;">
+        `).join("");
+
+        // Thumbnail hover
+        thumbnailsWrapper.querySelectorAll("img").forEach(img => {
+          img.addEventListener("mouseover", () => { mainImg.src = img.src; });
+          img.addEventListener("mouseout", () => { mainImg.src = firstVariant.image; });
+        });
+
+        // Sizes dropdown
+        sizeSelect.innerHTML = variants.map((v, i) => `
+          <option value="${v.index}" 
+                  data-price="${v.price}" 
+                  data-sale="${v.sale_price || ""}" 
+                  data-stock="${v.stock}">
+            Size: ${v.size} | Stock: ${v.stock} | KES ${v.sale_price || v.price}
+          </option>
+        `).join("");
+
+        // Update price display
+        updatePriceUI(sizeSelect.selectedOptions[0]);
+      }
+
+      // Size change updates price + stock
+      sizeSelect.addEventListener("change", e => {
+        const opt = e.target.selectedOptions[0];
+        updatePriceUI(opt);
+      });
+
+      function updatePriceUI(opt) {
+        const price = opt.dataset.price;
+        const sale = opt.dataset.sale;
+        const stock = opt.dataset.stock;
+        priceEl.innerHTML = sale
+          ? `<strong style="color:red;">KES ${sale}</strong> <span style="text-decoration:line-through; color:gray;">KES ${price}</span>`
+          : `<strong>KES ${price}</strong>`;
+        const qtyInput = document.getElementById("qty-input");
+        qtyInput.max = stock;
+        if (+qtyInput.value > +stock) qtyInput.value = 1;
+      }
+
+      // Add to cart (demo)
+      document.getElementById("variant-form").addEventListener("submit", e => {
+        e.preventDefault();
+        const opt = sizeSelect.selectedOptions[0];
+        const variantId = sizeSelect.value;
+        const qty = document.getElementById("qty-input").value;
+        const stock = opt.dataset.stock;
+        const message = document.getElementById("add-cart-message");
+
+        if (!variantId) {
+          message.textContent = "Please select a size.";
+          return;
         }
-        document.querySelector('.thumbnail-scroll-left').addEventListener('click', function () {
-            const container = document.querySelector('.product-thumbnails');
-            const scrollAmount = container.querySelector('img')?.offsetWidth + 10 || 70;
-            container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-        });
-        document.querySelector('.thumbnail-scroll-right').addEventListener('click', function () {
-            const container = document.querySelector('.product-thumbnails');
-            const scrollAmount = container.querySelector('img')?.offsetWidth + 10 || 70;
-            container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-        });
-        document.querySelector('.product-thumbnails').addEventListener('scroll', function () {
-            clearTimeout(this._scrollTimeout);
-            this._scrollTimeout = setTimeout(updateThumbScrollBtns, 100);
-        });
-        window.addEventListener('resize', updateThumbScrollBtns);
-        updateThumbScrollBtns();
+        if (+qty > +stock) {
+          message.textContent = "Not enough stock.";
+          return;
+        }
+        if (+stock === 0) {
+          message.textContent = "This size is out of stock.";
+          return;
+        }
+        message.textContent = `Added ${qty} item(s) to cart! (Demo only)`;
+      });
+    }
+  </script>
 
-        // Swap main image on thumbnail hover
-        document.querySelectorAll('.product-thumbnails img').forEach(img => {
-            img.addEventListener('mouseover', function () {
-                document.getElementById('main-product-img').src = this.src;
-            });
-            img.addEventListener('mouseout', function () {
-                document.getElementById('main-product-img').src = document.getElementById('main-product-img').dataset.default;
-            });
-        });
-
-        // Switch color
-        document.querySelectorAll('.color-btn').forEach(btn => {
-            btn.addEventListener('click', function () {
-                document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('selected'));
-                btn.classList.add('selected');
-                // Change main image and thumbnails
-                const colorImage = btn.dataset.image;
-                document.getElementById('main-product-img').src = colorImage;
-                document.getElementById('main-product-img').dataset.default = colorImage;
-                // For demo, update thumbnails to match color (in real app, use color-specific images)
-                const thumbs = document.querySelector('.product-thumbnails');
-                thumbs.innerHTML = '';
-                [colorImage, '../images/2.png', '../images/3.jpg'].forEach(src => {
-                    const el = document.createElement('img');
-                    el.src = src;
-                    el.width = 60;
-                    el.height = 60;
-                    el.style = "aspect-ratio: 1; object-fit: cover; margin-right: 5px; border: 1px solid #ccc; padding: 2px;";
-                    el.addEventListener('mouseover', function () {
-                        document.getElementById('main-product-img').src = src;
-                    });
-                    el.addEventListener('mouseout', function () {
-                        document.getElementById('main-product-img').src = colorImage;
-                    });
-                    thumbs.appendChild(el);
-                });
-            });
-        });
-
-        // Update price and stock on size change
-        document.getElementById('variant-select').addEventListener('change', function (e) {
-            const opt = e.target.selectedOptions[0];
-            const price = opt.dataset.price;
-            const sale = opt.dataset.sale;
-            const stock = opt.dataset.stock;
-            const priceEl = document.getElementById('product-price');
-            priceEl.innerHTML = sale && sale !== ''
-                ? `<strong style="color:red;">KES ${sale}</strong> <span style="text-decoration:line-through; color:gray;">KES ${price}</span>`
-                : `<strong>KES ${price}</strong>`;
-            const qtyInput = document.getElementById('qty-input');
-            qtyInput.max = stock;
-            if (+qtyInput.value > +stock) qtyInput.value = 1;
-        });
-
-        // Add to Cart (demo only)
-        document.getElementById('variant-form').addEventListener('submit', function (e) {
-            e.preventDefault();
-            const select = document.getElementById('variant-select');
-            const variantId = select?.value;
-            const qty = document.getElementById('qty-input').value;
-            const opt = select.selectedOptions[0];
-            const stock = opt.dataset.stock;
-            const message = document.getElementById('add-cart-message');
-            if (!variantId) {
-                message.textContent = "Please select a size.";
-                return;
-            }
-            if (+qty > +stock) {
-                message.textContent = "Not enough stock.";
-                return;
-            }
-            if (+stock === 0) {
-                message.textContent = "This size is out of stock.";
-                return;
-            }
-            message.textContent = `Added ${qty} item(s) to cart! (Demo only)`;
-        });
-    </script>
-
-
-
-
-    <script src="js/navbar.js"></script>
-    <script src="js/slider.js"></script>
-    <!-- <script src="js/products.js"></script> -->
+  <script src="js/navbar.js"></script>
+  <script src="js/slider.js"></script>
 </body>
 
 </html>
