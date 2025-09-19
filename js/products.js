@@ -1,321 +1,317 @@
 // let productsData = JSON.parse(localStorage.getItem("products")) || 
-let productsData = [ 
-  {
-    "name": "Nike Air Max 270",
-    "description": "The Nike Air Max 270 features the biggest heel Air unit yet for a super-soft ride that feels as impossible as it looks.",
-    "brand": "Nike",
-    "variants": [
-      {
-        "color": "Black/White",
-        "size": "US 9",
-        "price": 150.00,
-        "sale_price": 135.00,
-        "stock_quantity": 5,
-        "image": "/images/nike-air-max-270.jpg",
-        "thumbnails": [
-          "/images/nike-air-max-270.jpg",
-          "/images/nike-air-max-270-1.jpg",
-          "/images/nike-air-max-270-2.jpg",
-          "/images/nike-air-max-270-3.jpg"
+const productsData = [
+    {
+        "id": 0,
+        "name": "Nike Air Max 270",
+        "brand": "Nike",
+        "description": "The Nike Air Max 270 features the biggest heel Air unit yet for a super-soft ride.",
+        "variants": [
+            {
+                "color": "Black/White",
+                "images": [
+                    "/images/nike-air-max-270.jpg",
+                    "/images/nike-air-max-270-1.jpg",
+                    "/images/nike-air-max-270-2.jpg"
+                ],
+                "sizes": [
+                    { "size": 40, "price": 150.00, "sale_price": 135.00, "stock_quantity": 5 },
+                    { "size": 41, "price": 150.00, "sale_price": null, "stock_quantity": 2 },
+                    { "size": 42, "price": 155.00, "sale_price": 140.00, "stock_quantity": 0 }
+                ]
+            },
+            {
+                "color": "Red/Black",
+                "images": [
+                    "/images/nike-air-max-270-red.jpg",
+                    "/images/nike-air-max-270-red-1.jpg",
+                    "/images/nike-air-max-270-red-2.jpg"
+                ],
+                "sizes": [
+                    { "size": 40, "price": 155.00, "sale_price": 140.00, "stock_quantity": 3 },
+                    { "size": 41, "price": 160.00, "sale_price": null, "stock_quantity": 1 },
+                    { "size": 42, "price": 160.00, "sale_price": 145.00, "stock_quantity": 4 }
+                ]
+            }
         ]
-      },
-      {
-        "color": "Red/Black",
-        "size": "US 10",
-        "price": 155.00,
-        "sale_price": 140.00,
-        "stock_quantity": 3,
-        "image": "/images/nike-air-max-270-red.jpg",
-        "thumbnails": [
-          "/images/nike-air-max-270-red.jpg",
-          "/images/nike-air-max-270-red-1.jpg",
-          "/images/nike-air-max-270-red-2.jpg"
+    },
+    {
+        "id": 1,
+        "name": "Adidas Ultraboost 22",
+        "brand": "Adidas",
+        "description": "Experience next-level comfort with Adidas Ultraboost 22 and responsive Boost cushioning.",
+        "variants": [
+            {
+                "color": "Black/Cloud White/Signal Orange",
+                "images": [
+                    "/images/adidas-ultraboost-22.jpg",
+                    "/images/adidas-ultraboost-22-1.jpg",
+                    "/images/adidas-ultraboost-22-2.jpg"
+                ],
+                "sizes": [
+                    { "size": 40, "price": 180.00, "sale_price": 160.00, "stock_quantity": 2 },
+                    { "size": 41, "price": 185.00, "sale_price": null, "stock_quantity": 0 },
+                    { "size": 42, "price": 190.00, "sale_price": 170.00, "stock_quantity": 6 }
+                ]
+            },
+            {
+                "color": "Grey/Blue",
+                "images": [
+                    "/images/adidas-ultraboost-22-grey.jpg",
+                    "/images/adidas-ultraboost-22-grey-1.jpg"
+                ],
+                "sizes": [
+                    { "size": 40, "price": 185.00, "sale_price": 165.00, "stock_quantity": 1 },
+                    { "size": 41, "price": 190.00, "sale_price": null, "stock_quantity": 3 }
+                ]
+            }
         ]
-      }
-    ]
-  },
-  {
-    "name": "Adidas Ultraboost 22",
-    "description": "Experience next-level comfort with Adidas Ultraboost 22, featuring responsive Boost cushioning and a Primeknit upper.",
-    "brand": "Adidas",
-    "variants": [
-      {
-        "color": "Black/Cloud White/Signal Orange",
-        "size": "US 8",
-        "price": 180.00,
-        "sale_price": 160.00,
-        "stock_quantity": 4,
-        "image": "/images/adidas-ultraboost-22.jpg",
-        "thumbnails": [
-          "/images/adidas-ultraboost-22.jpg",
-          "/images/adidas-ultraboost-22-1.jpg",
-          "/images/adidas-ultraboost-22-2.jpg"
+    },
+    {
+        "id": 2,
+        "name": "Puma RS-X",
+        "brand": "Puma",
+        "description": "The Puma RS-X brings retro style with bulky design and bold colors.",
+        "variants": [
+            {
+                "color": "White/Blue/Red",
+                "images": [
+                    "/images/puma-rsx.jpg",
+                    "/images/puma-rsx-1.jpg"
+                ],
+                "sizes": [
+                    { "size": 40, "price": 120.00, "sale_price": null, "stock_quantity": 4 },
+                    { "size": 41, "price": 125.00, "sale_price": 115.00, "stock_quantity": 2 },
+                    { "size": 42, "price": 130.00, "sale_price": null, "stock_quantity": 0 }
+                ]
+            },
+            {
+                "color": "Black/Yellow",
+                "images": [
+                    "/images/puma-rsx-black.jpg",
+                    "/images/puma-rsx-black-1.jpg"
+                ],
+                "sizes": [
+                    { "size": 40, "price": 125.00, "sale_price": 110.00, "stock_quantity": 5 },
+                    { "size": 41, "price": 130.00, "sale_price": null, "stock_quantity": 1 }
+                ]
+            }
         ]
-      },
-      {
-        "color": "Grey/Blue",
-        "size": "US 9",
-        "price": 185.00,
-        "sale_price": 165.00,
-        "stock_quantity": 5,
-        "image": "/images/adidas-ultraboost-22-grey.jpg",
-        "thumbnails": [
-          "/images/adidas-ultraboost-22-grey.jpg",
-          "/images/adidas-ultraboost-22-grey-1.jpg"
+    },
+    {
+        "id": 3,
+        "name": "New Balance 574",
+        "brand": "New Balance",
+        "description": "The iconic New Balance 574 is a versatile and stylish everyday sneaker.",
+        "variants": [
+            {
+                "color": "Grey/White",
+                "images": [
+                    "/images/nb-574.jpg",
+                    "/images/nb-574-1.jpg"
+                ],
+                "sizes": [
+                    { "size": 40, "price": 100.00, "sale_price": 90.00, "stock_quantity": 2 },
+                    { "size": 41, "price": 105.00, "sale_price": null, "stock_quantity": 3 },
+                    { "size": 42, "price": 110.00, "sale_price": null, "stock_quantity": 0 }
+                ]
+            },
+            {
+                "color": "Navy/White",
+                "images": [
+                    "/images/nb-574-navy.jpg"
+                ],
+                "sizes": [
+                    { "size": 40, "price": 105.00, "sale_price": 95.00, "stock_quantity": 1 },
+                    { "size": 41, "price": 110.00, "sale_price": null, "stock_quantity": 4 }
+                ]
+            }
         ]
-      }
-    ]
-  },
-  {
-    "name": "Puma RS-X",
-    "description": "The Puma RS-X combines retro vibes with futuristic design for an everyday sneaker that stands out.",
-    "brand": "Puma",
-    "variants": [
-      {
-        "color": "White/Blue",
-        "size": "US 9",
-        "price": 130.00,
-        "sale_price": 110.00,
-        "stock_quantity": 5,
-        "image": "/images/puma-rsx.jpg",
-        "thumbnails": [
-          "/images/puma-rsx.jpg",
-          "/images/puma-rsx-1.jpg",
-          "/images/puma-rsx-2.jpg"
+    },
+    {
+        "id": 4,
+        "name": "Reebok Classic Leather",
+        "brand": "Reebok",
+        "description": "Timeless style with the Reebok Classic Leather, built with soft leather for comfort.",
+        "variants": [
+            {
+                "color": "White",
+                "images": [
+                    "/images/reebok-classic.jpg",
+                    "/images/reebok-classic-1.jpg"
+                ],
+                "sizes": [
+                    { "size": 40, "price": 95.00, "sale_price": 85.00, "stock_quantity": 3 },
+                    { "size": 41, "price": 100.00, "sale_price": null, "stock_quantity": 2 },
+                    { "size": 42, "price": 105.00, "sale_price": null, "stock_quantity": 0 }
+                ]
+            },
+            {
+                "color": "Black",
+                "images": [
+                    "/images/reebok-classic-black.jpg"
+                ],
+                "sizes": [
+                    { "size": 40, "price": 100.00, "sale_price": 90.00, "stock_quantity": 5 },
+                    { "size": 41, "price": 105.00, "sale_price": null, "stock_quantity": 1 }
+                ]
+            }
         ]
-      },
-      {
-        "color": "Black/Red",
-        "size": "US 10",
-        "price": 135.00,
-        "sale_price": 115.00,
-        "stock_quantity": 2,
-        "image": "/images/puma-rsx-black.jpg",
-        "thumbnails": [
-          "/images/puma-rsx-black.jpg",
-          "/images/puma-rsx-black-1.jpg"
+    },
+    {
+        "id": 5,
+        "name": "Converse Chuck Taylor All Star",
+        "brand": "Converse",
+        "description": "An undisputed classic sneaker with a canvas upper and iconic design.",
+        "variants": [
+            {
+                "color": "White",
+                "images": [
+                    "/images/converse-chuck.jpg",
+                    "/images/converse-chuck-1.jpg"
+                ],
+                "sizes": [
+                    { "size": 40, "price": 60.00, "sale_price": null, "stock_quantity": 2 },
+                    { "size": 41, "price": 65.00, "sale_price": 55.00, "stock_quantity": 0 },
+                    { "size": 42, "price": 70.00, "sale_price": null, "stock_quantity": 3 }
+                ]
+            },
+            {
+                "color": "Black",
+                "images": [
+                    "/images/converse-chuck-black.jpg"
+                ],
+                "sizes": [
+                    { "size": 40, "price": 65.00, "sale_price": null, "stock_quantity": 1 },
+                    { "size": 41, "price": 70.00, "sale_price": 60.00, "stock_quantity": 4 }
+                ]
+            }
         ]
-      }
-    ]
-  },
-  {
-    "name": "Reebok Classic Leather",
-    "description": "A timeless design, the Reebok Classic Leather offers unmatched style and comfort.",
-    "brand": "Reebok",
-    "variants": [
-      {
-        "color": "White",
-        "size": "US 8",
-        "price": 90.00,
-        "sale_price": 75.00,
-        "stock_quantity": 10,
-        "image": "/images/reebok-classic-leather.jpg",
-        "thumbnails": [
-          "/images/reebok-classic-leather.jpg",
-          "/images/reebok-classic-leather-1.jpg"
+    },
+    {
+        "id": 6,
+        "name": "Vans Old Skool",
+        "brand": "Vans",
+        "description": "The Vans Old Skool features durable canvas and suede with the signature side stripe.",
+        "variants": [
+            {
+                "color": "Black/White",
+                "images": [
+                    "/images/vans-old-skool.jpg",
+                    "/images/vans-old-skool-1.jpg"
+                ],
+                "sizes": [
+                    { "size": 40, "price": 70.00, "sale_price": null, "stock_quantity": 4 },
+                    { "size": 41, "price": 75.00, "sale_price": 65.00, "stock_quantity": 2 },
+                    { "size": 42, "price": 80.00, "sale_price": null, "stock_quantity": 0 }
+                ]
+            },
+            {
+                "color": "Blue/White",
+                "images": [
+                    "/images/vans-old-skool-blue.jpg"
+                ],
+                "sizes": [
+                    { "size": 40, "price": 75.00, "sale_price": null, "stock_quantity": 3 },
+                    { "size": 41, "price": 80.00, "sale_price": 70.00, "stock_quantity": 1 }
+                ]
+            }
         ]
-      },
-      {
-        "color": "Black",
-        "size": "US 9",
-        "price": 95.00,
-        "sale_price": 80.00,
-        "stock_quantity": 5,
-        "image": "/images/reebok-classic-leather-black.jpg",
-        "thumbnails": [
-          "/images/reebok-classic-leather-black.jpg",
-          "/images/reebok-classic-leather-black-1.jpg"
+    },
+    {
+        "id": 7,
+        "name": "Asics Gel-Kayano 28",
+        "brand": "Asics",
+        "description": "The Asics Gel-Kayano 28 offers stability and cushioning for long-distance runs.",
+        "variants": [
+            {
+                "color": "Blue/White",
+                "images": [
+                    "/images/asics-kayano.jpg",
+                    "/images/asics-kayano-1.jpg"
+                ],
+                "sizes": [
+                    { "size": 40, "price": 160.00, "sale_price": 145.00, "stock_quantity": 2 },
+                    { "size": 41, "price": 165.00, "sale_price": null, "stock_quantity": 0 },
+                    { "size": 42, "price": 170.00, "sale_price": null, "stock_quantity": 5 }
+                ]
+            },
+            {
+                "color": "Black/Red",
+                "images": [
+                    "/images/asics-kayano-black.jpg"
+                ],
+                "sizes": [
+                    { "size": 40, "price": 165.00, "sale_price": 150.00, "stock_quantity": 3 },
+                    { "size": 41, "price": 170.00, "sale_price": null, "stock_quantity": 1 }
+                ]
+            }
         ]
-      }
-    ]
-  },
-  {
-    "name": "New Balance 574",
-    "description": "A classic silhouette with modern cushioning, the New Balance 574 is perfect for everyday wear.",
-    "brand": "New Balance",
-    "variants": [
-      {
-        "color": "Grey/White",
-        "size": "US 9",
-        "price": 100.00,
-        "sale_price": 85.00,
-        "stock_quantity": 2,
-        "image": "/images/new-balance-574-1.jpg",
-        "thumbnails": [
-          "/images/new-balance-574-1.jpg",
-          "/images/new-balance-574-2.jpg"
+    },
+    {
+        "id": 8,
+        "name": "Jordan 1 Retro High",
+        "brand": "Jordan",
+        "description": "The Jordan 1 Retro High is a timeless sneaker that defined sneaker culture.",
+        "variants": [
+            {
+                "color": "Red/Black/White",
+                "images": [
+                    "/images/jordan1.jpg",
+                    "/images/jordan1-1.jpg"
+                ],
+                "sizes": [
+                    { "size": 40, "price": 200.00, "sale_price": 180.00, "stock_quantity": 1 },
+                    { "size": 41, "price": 210.00, "sale_price": null, "stock_quantity": 2 },
+                    { "size": 42, "price": 220.00, "sale_price": null, "stock_quantity": 0 }
+                ]
+            },
+            {
+                "color": "Blue/Black/White",
+                "images": [
+                    "/images/jordan1-blue.jpg"
+                ],
+                "sizes": [
+                    { "size": 40, "price": 210.00, "sale_price": 190.00, "stock_quantity": 4 },
+                    { "size": 41, "price": 220.00, "sale_price": null, "stock_quantity": 3 }
+                ]
+            }
         ]
-      },
-      {
-        "color": "Navy/White",
-        "size": "US 10",
-        "price": 105.00,
-        "sale_price": 90.00,
-        "stock_quantity": 1,
-        "image": "/images/new-balance-574-navy.jpg",
-        "thumbnails": [
-          "/images/new-balance-574-navy.jpg",
-          "/images/new-balance-574-navy-1.jpg"
+    },
+    {
+        "id": 9,
+        "name": "Yeezy Boost 350 V2",
+        "brand": "Adidas",
+        "description": "The Yeezy Boost 350 V2 combines Kanye West’s vision with Adidas innovation.",
+        "variants": [
+            {
+                "color": "Zebra",
+                "images": [
+                    "/images/yeezy-350.jpg",
+                    "/images/yeezy-350-1.jpg"
+                ],
+                "sizes": [
+                    { "size": 40, "price": 220.00, "sale_price": 200.00, "stock_quantity": 2 },
+                    { "size": 41, "price": 230.00, "sale_price": null, "stock_quantity": 0 },
+                    { "size": 42, "price": 240.00, "sale_price": null, "stock_quantity": 5 }
+                ]
+            },
+            {
+                "color": "Black",
+                "images": [
+                    "/images/yeezy-350-black.jpg"
+                ],
+                "sizes": [
+                    { "size": 40, "price": 230.00, "sale_price": 210.00, "stock_quantity": 1 },
+                    { "size": 41, "price": 240.00, "sale_price": null, "stock_quantity": 3 }
+                ]
+            }
         ]
-      }
-    ]
-  },
-  {
-    "name": "Jordan 1 Retro High OG",
-    "description": "The Jordan 1 Retro High OG is an icon, bringing basketball heritage and street style together.",
-    "brand": "Jordan",
-    "variants": [
-      {
-        "color": "Red/Black/White",
-        "size": "US 9",
-        "price": 200.00,
-        "sale_price": 180.00,
-        "stock_quantity": 3,
-        "image": "/images/jordan-1-retro.jpg",
-        "thumbnails": [
-          "/images/jordan-1-retro.jpg",
-          "/images/jordan-1-retro-1.jpg"
-        ]
-      },
-      {
-        "color": "Blue/White",
-        "size": "US 10",
-        "price": 210.00,
-        "sale_price": 190.00,
-        "stock_quantity": 3,
-        "image": "/images/jordan-1-retro-blue.jpg",
-        "thumbnails": [
-          "/images/jordan-1-retro-blue.jpg",
-          "/images/jordan-1-retro-blue-1.jpg"
-        ]
-      }
-    ]
-  },
-  {
-    "name": "Converse Chuck Taylor All Star",
-    "description": "The Converse Chuck Taylor All Star is a classic sneaker that never goes out of style.",
-    "brand": "Converse",
-    "variants": [
-      {
-        "color": "Black/White",
-        "size": "US 8",
-        "price": 70.00,
-        "sale_price": 60.00,
-        "stock_quantity": 5,
-        "image": "/images/converse-chuck-taylor.jpg",
-        "thumbnails": [
-          "/images/converse-chuck-taylor.jpg",
-          "/images/converse-chuck-taylor-1.jpg"
-        ]
-      },
-      {
-        "color": "White",
-        "size": "US 9",
-        "price": 72.00,
-        "sale_price": 62.00,
-        "stock_quantity": 5,
-        "image": "/images/converse-chuck-taylor-white.jpg",
-        "thumbnails": [
-          "/images/converse-chuck-taylor-white.jpg",
-          "/images/converse-chuck-taylor-white-1.jpg"
-        ]
-      }
-    ]
-  },
-  {
-    "name": "Vans Old Skool",
-    "description": "The Vans Old Skool is an iconic skate shoe with a durable suede and canvas upper.",
-    "brand": "Vans",
-    "variants": [
-      {
-        "color": "Black/White",
-        "size": "US 9",
-        "price": 75.00,
-        "sale_price": 65.00,
-        "stock_quantity": 1,
-        "image": "/images/vans-old-skool.jpg",
-        "thumbnails": [
-          "/images/vans-old-skool.jpg",
-          "/images/vans-old-skool-1.jpg"
-        ]
-      },
-      {
-        "color": "Blue/White",
-        "size": "US 10",
-        "price": 78.00,
-        "sale_price": 68.00,
-        "stock_quantity": 1,
-        "image": "/images/vans-old-skool-blue.jpg",
-        "thumbnails": [
-          "/images/vans-old-skool-blue.jpg",
-          "/images/vans-old-skool-blue-1.jpg"
-        ]
-      }
-    ]
-  }
-//   {
-//     "name": "Asics Gel-Kayano 28",
-//     "description": "The Asics Gel-Kayano 28 provides excellent stability and cushioning for long-distance running.",
-//     "brand": "Asics",
-//     "variants": [
-//       {
-//         "color": "Blue/Orange",
-//         "size": "US 9",
-//         "price": 160.00,
-//         "sale_price": 140.00,
-//         "stock_quantity": 3,
-//         "image": "/images/asics-gel-kayano.jpg",
-//         "thumbnails": [
-//           "/images/asics-gel-kayano.jpg",
-//           "/images/asics-gel-kayano-1.jpg"
-//         ]
-//       },
-//       {
-//         "color": "Black/Yellow",
-//         "size": "US 10",
-//         "price": 165.00,
-//         "sale_price": 145.00,
-//         "stock_quantity": 2,
-//         "image": "/images/asics-gel-kayano-black.jpg",
-//         "thumbnails": [
-//           "/images/asics-gel-kayano-black.jpg",
-//           "/images/asics-gel-kayano-black-1.jpg"
-//         ]
-//       }
-//     ]
-//   },
-//   {
-//     "name": "Under Armour HOVR Phantom 2",
-//     "description": "The Under Armour HOVR Phantom 2 is designed for high-performance training and running.",
-//     "brand": "Under Armour",
-//     "variants": [
-//       {
-//         "color": "Red/Black",
-//         "size": "US 9",
-//         "price": 140.00,
-//         "sale_price": 120.00,
-//         "stock_quantity": 1,
-//         "image": "/images/under-armour-hovr.jpg",
-//         "thumbnails": [
-//           "/images/under-armour-hovr.jpg",
-//           "/images/under-armour-hovr-1.jpg"
-//         ]
-//       },
-//       {
-//         "color": "Grey/White",
-//         "size": "US 10",
-//         "price": 145.00,
-//         "sale_price": 125.00,
-//         "stock_quantity": 1,
-//         "image": "/images/under-armour-hovr-grey.jpg",
-//         "thumbnails": [
-//           "/images/under-armour-hovr-grey.jpg",
-//           "/images/under-armour-hovr-grey-1.jpg"
-//         ]
-//       }
-//     ]
-//   }
+    }
 ];
+
+
+
+
 
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -325,14 +321,19 @@ document.addEventListener("DOMContentLoaded", () => {
         container.innerHTML = productsList.map((product, productIndex) => {
             // Use the first variant as default
             const firstVariant = product.variants[0];
+            const firstSize = firstVariant.sizes[0];
 
-            // Compute "starting from" price (cheapest sale_price or price)
-            const minPrice = Math.min(...product.variants.map(v => v.sale_price || v.price));
-            const maxPrice = Math.max(...product.variants.map(v => v.sale_price || v.price));
+            // Collect all prices (including sale_price if available)
+            const allPrices = product.variants.flatMap(variant =>
+                variant.sizes.map(size => size.sale_price || size.price)
+            );
 
-            // Discount calculation (from first variant for badge display)
-            const discount = firstVariant.sale_price
-                ? Math.round(((firstVariant.price - firstVariant.sale_price) / firstVariant.price) * 100)
+            const minPrice = Math.min(...allPrices);
+            const maxPrice = Math.max(...allPrices);
+
+            // Discount calculation (from first size of first variant for badge display)
+            const discount = firstSize.sale_price
+                ? Math.round(((firstSize.price - firstSize.sale_price) / firstSize.price) * 100)
                 : 0;
 
             return `
@@ -340,7 +341,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     <a href="pages/product-details.html?id=${productIndex}" title="View product">
                         <div class="product-image-wrapper">
                             <div class="product-image">
-                                <img src="${firstVariant.image}" class="product-img" alt="${product.name}" />
+                                <img src="${firstVariant.images[0]}" class="product-img" alt="${product.name}" />
                             </div>
                         </div>
                     </a>
@@ -365,9 +366,9 @@ document.addEventListener("DOMContentLoaded", () => {
                             <div class="swatches">
                                 ${product.variants.map((variant, index) => `
                                     <img 
-                                        src="${variant.image}" 
+                                        src="${variant.images[0]}" 
                                         alt="${variant.color}" 
-                                        title="${variant.color} ${variant.size}" 
+                                        title="${variant.color}" 
                                         class="swatch ${index === 0 ? "active" : ""}" 
                                         data-product="${productIndex}" 
                                         data-variant="${index}" />
@@ -384,4 +385,3 @@ document.addEventListener("DOMContentLoaded", () => {
     // Initial render
     renderProducts(productsData);
 });
-

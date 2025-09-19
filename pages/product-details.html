@@ -2,257 +2,378 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KickStar - eCommerce Shoes Store</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KickStar - eCommerce Shoes Store</title>
 
-  <link rel="shortcut icon" href="../images/logo2.svg" type="image/x-icon">
-  <link rel="stylesheet" href="../css/index.css">
-  <link rel="stylesheet" href="../css/header.css">
-  <link rel="stylesheet" href="../css/product-details.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <link rel="shortcut icon" href="../images/logo2.svg" type="image/x-icon">
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/product-details.css">
+    <link rel="stylesheet" href="../css/footer.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
 </head>
 
 <body>
-  <div class="container">
-    <header>
-      <div class="header">
-        <div class="logo">
-          <a href="../index.html"><img src="../images/logo2.svg" alt="" width="70px" title="KickStar"></a>
-        </div>
+    <div class="container">
+        <header>
+            <div class="header">
+                <div class="logo">
+                    <a href="../index.html"><img src="../images/logo2.svg" alt="" width="70px" title="KickStar"></a>
+                </div>
 
-        <div class="search-bar desktop">
-          <form action="#" method="get">
-            <input type="search" placeholder="Search Products, Categories, Brands, ..." name="q" required>
-            <i class="ri-search-line"></i>
-            <input type="submit" value="Search">
-          </form>
-        </div>
+                <div class="search-bar desktop">
+                    <form action="#" method="get">
+                        <input type="search" placeholder="Search Products, Categories, Brands, ..." name="q" required>
+                        <i class="ri-search-line"></i>
+                        <input type="submit" value="Search">
+                    </form>
+                </div>
 
-        <div class="header-items">
-          <div class="help">
-            <i class="ri-questionnaire-line"></i>
-          </div>
-          <div class="account">
-            <i class="ri-account-circle-line" title="Account"></i>
-            <div class="account-dropdown">
-              <p class="login"><a href="#">Login</a></p>
-              <p class="register"><a href="#">Register</a></p>
+                <div class="header-items">
+                    <div class="help">
+                        <i class="ri-questionnaire-line"></i>
+                    </div>
+                    <div class="account">
+                        <i class="ri-account-circle-line" title="Account"></i>
+                        <div class="account-dropdown">
+                            <p class="login"><a href="#">Login</a></p>
+                            <p class="register"><a href="#">Register</a></p>
+                        </div>
+                    </div>
+                    <div class="cart">
+                        <a href="/pages/cart.html">
+                            <i class="ri-shopping-cart-line" title="Cart"></i>
+                            <span id="cart-count" class="cart-count">0</span>
+                        </a>
+                    </div>
+                </div>
             </div>
-          </div>
-          <div class="cart">
-            <a href="#">
-              <i class="ri-shopping-cart-line" title="Cart"></i>
-              <span id="cart-count" class="cart-count">0</span>
-            </a>
-          </div>
-        </div>
-      </div>
 
-      <div class="search-bar mobile">
-        <form action="#" method="get">
-          <input type="search" placeholder="Search Products, Categories, Brands, ..." name="q" required>
-          <input type="submit" value="Search">
-        </form>
-      </div>
-
-      <nav>
-        <ul class="nav-links">
-          <li><a href="#">All</a></li>
-          <li><a href="#">Women</a></li>
-          <li><a href="#">Men</a></li>
-          <li><a href="#">Kids</a></li>
-          <li><a href="#">New</a></li>
-          <li><a href="#">Deals</a></li>
-          <li><a href="#">Brands</a></li>
-          <li><a href="#">Sale</a></li>
-          <li><a href="#">Contact</a></li>
-          <li><a href="#">About</a></li>
-        </ul>
-      </nav>
-    </header>
-    <div class="header-after"></div>
-
-    <!-- ✅ Product Details -->
-    <div class="product-details-container">
-      <div class="product-details-page">
-        <div class="product-details-preview">
-          <!-- 📸 Left: Images -->
-          <div class="product-image-section">
-            <div class="product-image-preview">
-              <img id="main-product-img" src="" width="100%" alt="Product Image" />
+            <div class="search-bar mobile">
+                <form action="#" method="get">
+                    <input type="search" placeholder="Search Products, Categories, Brands, ..." name="q" required>
+                    <input type="submit" value="Search">
+                </form>
             </div>
-            <div class="product-thumbnails-wrapper">
-              <button class="thumbnail-scroll-btn thumbnail-scroll-left hidden" type="button">&#10094;</button>
-              <div class="product-thumbnails"></div>
-              <button class="thumbnail-scroll-btn thumbnail-scroll-right" type="button">&#10095;</button>
+
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#">All</a></li>
+                    <li><a href="#">Women</a></li>
+                    <li><a href="#">Men</a></li>
+                    <li><a href="#">Kids</a></li>
+                    <li><a href="#">New</a></li>
+                    <li><a href="#">Deals</a></li>
+                    <li><a href="#">Brands</a></li>
+                    <li><a href="#">Sale</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">About</a></li>
+                </ul>
+            </nav>
+        </header>
+        <div class="header-after"></div>
+
+        <!-- ✅ Product Details -->
+        <div class="product-details-container">
+            <div class="product-details-page">
+                <div class="product-details-preview">
+                    <!-- 📸 Left: Images -->
+                    <div class="product-image-section">
+                        <div class="product-image-preview">
+                            <img id="main-product-img" src="" width="100%" alt="Product Image" />
+                        </div>
+                        <div class="product-thumbnails-wrapper">
+                            <button class="thumbnail-scroll-btn thumbnail-scroll-left hidden"
+                                type="button">&#10094;</button>
+                            <div class="product-thumbnails"></div>
+                            <button class="thumbnail-scroll-btn thumbnail-scroll-right" type="button">&#10095;</button>
+                        </div>
+                    </div>
+                    <!-- 📋 Right: Details -->
+                    <div class="product-details-section">
+                        <h3 id="product-name"></h3>
+                        <small id="product-type"></small><br><br>
+                        <p id="product-price"></p><br>
+                        <form id="variant-form">
+                            <h4>Available Colors</h4><br>
+                            <div class="product-colors"></div><br>
+                            <h4>Select Size</h4><br>
+                            <select name="variant_id" class="variant-select" id="variant-select" required></select>
+                            <br><br>
+                            <label>Quantity:</label>
+                            <input type="number" name="quantity" id="qty-input" value="1" min="1" step="1">
+                            <br><br>
+                            <button type="submit" class="add-to-cart-btn" id="add-to-cart-btn">Add to Cart</button>
+                            <p id="add-cart-message" style="color: green; font-weight: bold;"></p>
+                        </form>
+                        <br>
+                        <p id="product-description"></p>
+                    </div>
+                </div>
             </div>
-          </div>
-          <!-- 📋 Right: Details -->
-          <div class="product-details-section">
-            <h3 id="product-name"></h3>
-            <small id="product-type"></small><br><br>
-            <p id="product-price"></p><br>
-            <form id="variant-form">
-              <h4>Available Colors</h4><br>
-              <div class="product-colors"></div><br>
-              <h4>Select Size</h4><br>
-              <select name="variant_id" class="variant-select" id="variant-select" required></select>
-              <br><br>
-              <label>Quantity:</label>
-              <input type="number" name="quantity" id="qty-input" value="1" min="1" step="1">
-              <br><br>
-              <button type="submit" class="add-to-cart-btn" id="add-to-cart-btn">Add to Cart</button>
-              <p id="add-cart-message" style="color: green; font-weight: bold;"></p>
-            </form>
-            <br>
-            <p id="product-description"></p>
-          </div>
         </div>
-      </div>
+
+        <!-- ✅ Footer -->
+        <footer class="footer">
+            <div class="container footer-content">
+                <!-- Logo / Brand -->
+                <div class="footer-brand">
+                    <h2 class="logo">Kick<span>Star</span></h2>
+                    <p>Your trusted shop for sneakers and lifestyle shoes.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <!-- Links -->
+                <div class="footer-links">
+                    <h3>Shop</h3>
+                    <ul>
+                        <li><a href="#">Men</a></li>
+                        <li><a href="#">Women</a></li>
+                        <li><a href="#">Kids</a></li>
+                        <li><a href="#">New Arrivals</a></li>
+                        <li><a href="#">Sale</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Track Order</a></li>
+                        <li><a href="#">Shipping & Returns</a></li>
+                        <li><a href="#">Size Guide</a></li>
+                        <li><a href="#">FAQs</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Sustainability</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Newsletter -->
+                <div class="footer-newsletter">
+                    <h3>Stay Updated</h3>
+                    <p>Subscribe for exclusive offers and new releases.</p>
+                    <form>
+                        <input type="email" placeholder="Enter your email" required>
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Bottom -->
+            <div class="footer-bottom">
+                <div class="container">
+                    <p>&copy; 2025 Kickstar. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
     </div>
 
-    <br>
-    <hr>
-    <br>
-  </div>
+    <!-- ✅ Product Data -->
+    <script src="../js/products.js"></script>
+    <script>
+        // --- Cart Utilities ---
+        function getCart() {
+            return JSON.parse(localStorage.getItem("cart") || "[]");
+        }
+        function setCart(cart) {
+            localStorage.setItem("cart", JSON.stringify(cart));
+        }
+        function updateCartCount() {
+            const cart = getCart();
+            const count = cart.reduce((sum, item) => sum + item.qty, 0);
+            document.getElementById("cart-count").textContent = count;
+        }
 
-  <!-- ✅ Product Data -->
-  <script src="../js/products.js"></script>
+        // --- Product Details Logic ---
+        const params = new URLSearchParams(window.location.search);
+        const productIndex = parseInt(params.get("id"));
+        const product = productsData[productIndex];
 
-  <script>
-    // Get product index from URL
-    const params = new URLSearchParams(window.location.search);
-    const productIndex = parseInt(params.get("id"));
-    const product = productsData[productIndex];
+        if (!product) {
+            document.querySelector(".product-details-container").innerHTML = "<h2>Product not found.</h2>";
+        } else {
+            const mainImg = document.getElementById("main-product-img");
+            const nameEl = document.getElementById("product-name");
+            const typeEl = document.getElementById("product-type");
+            const descEl = document.getElementById("product-description");
+            const priceEl = document.getElementById("product-price");
+            const colorsWrapper = document.querySelector(".product-colors");
+            const sizeSelect = document.getElementById("variant-select");
+            const thumbnailsWrapper = document.querySelector(".product-thumbnails");
+            const qtyInput = document.getElementById("qty-input");
 
-    if (!product) {
-      document.querySelector(".product-details-container").innerHTML = "<h2>Product not found.</h2>";
-    } else {
-      const mainImg = document.getElementById("main-product-img");
-      const nameEl = document.getElementById("product-name");
-      const typeEl = document.getElementById("product-type");
-      const descEl = document.getElementById("product-description");
-      const priceEl = document.getElementById("product-price");
-      const colorsWrapper = document.querySelector(".product-colors");
-      const sizeSelect = document.getElementById("variant-select");
-      const thumbnailsWrapper = document.querySelector(".product-thumbnails");
+            nameEl.textContent = product.name;
+            typeEl.textContent = product.brand;
+            descEl.textContent = product.description;
 
-      // Set base details
-      nameEl.textContent = product.name;
-      typeEl.textContent = product.type;
-      descEl.textContent = product.description;
+            let currentVariantIndex = 0;
 
-      // Group variants by color
-      const variantsByColor = {};
-      product.variants.forEach((variant, idx) => {
-        if (!variantsByColor[variant.color]) variantsByColor[variant.color] = [];
-        variantsByColor[variant.color].push({ ...variant, index: idx });
-      });
-
-      // Render colors
-      colorsWrapper.innerHTML = Object.keys(variantsByColor).map((color, i) => `
-        <img src="${variantsByColor[color][0].image}" 
-             title="${color}" 
+            colorsWrapper.innerHTML = product.variants.map((variant, i) => `
+        <img src="${variant.images[0]}" 
+             title="${variant.color}" 
              width="40" height="40" 
              class="color-btn ${i === 0 ? "selected" : ""}" 
              style="border-radius: 50%; cursor: pointer;" 
-             data-color="${color}">
-      `).join("");
+             data-variant-index="${i}">
+    `).join("");
 
-      let currentColor = Object.keys(variantsByColor)[0];
-      updateVariantsUI(currentColor);
+            updateVariantUI(currentVariantIndex);
 
-      // Color switcher
-      document.querySelectorAll(".color-btn").forEach(btn => {
-        btn.addEventListener("click", () => {
-          document.querySelectorAll(".color-btn").forEach(b => b.classList.remove("selected"));
-          btn.classList.add("selected");
-          currentColor = btn.dataset.color;
-          updateVariantsUI(currentColor);
-        });
-      });
+            document.querySelectorAll(".color-btn").forEach(btn => {
+                btn.addEventListener("click", () => {
+                    document.querySelectorAll(".color-btn").forEach(b => b.classList.remove("selected"));
+                    btn.classList.add("selected");
+                    currentVariantIndex = parseInt(btn.dataset.variantIndex);
+                    updateVariantUI(currentVariantIndex);
+                });
+            });
 
-      function updateVariantsUI(color) {
-        const variants = variantsByColor[color];
-        if (!variants || variants.length === 0) return;
-
-        // Default to first variant
-        const firstVariant = variants[0];
-        mainImg.src = firstVariant.image;
-        mainImg.dataset.default = firstVariant.image;
-
-        // Thumbnails
-        thumbnailsWrapper.innerHTML = firstVariant.thumbnails.map(src => `
-          <img src="${src}" width="60" height="60" style="object-fit:cover; margin-right:5px; border:1px solid #ccc; padding:2px;">
+            function updateVariantUI(variantIndex) {
+                const variant = product.variants[variantIndex];
+                mainImg.src = variant.images[0];
+                mainImg.dataset.default = variant.images[0];
+                thumbnailsWrapper.innerHTML = variant.images.map(src => `
+            <img src="${src}" width="60" height="60" 
+                 style="object-fit:cover; margin-right:5px; border:1px solid #ccc; padding:2px;">
         `).join("");
-
-        // Thumbnail hover
-        thumbnailsWrapper.querySelectorAll("img").forEach(img => {
-          img.addEventListener("mouseover", () => { mainImg.src = img.src; });
-          img.addEventListener("mouseout", () => { mainImg.src = firstVariant.image; });
-        });
-
-        // Sizes dropdown
-        sizeSelect.innerHTML = variants.map((v, i) => `
-          <option value="${v.index}" 
-                  data-price="${v.price}" 
-                  data-sale="${v.sale_price || ""}" 
-                  data-stock="${v.stock}">
-            Size: ${v.size} | Stock: ${v.stock} | KES ${v.sale_price || v.price}
-          </option>
+                thumbnailsWrapper.querySelectorAll("img").forEach(img => {
+                    img.addEventListener("mouseover", () => { mainImg.src = img.src; });
+                    img.addEventListener("mouseout", () => { mainImg.src = variant.images[0]; });
+                });
+                sizeSelect.innerHTML = variant.sizes.map((s, i) => `
+            <option value="${i}" 
+                    data-price="${s.price}" 
+                    data-sale="${s.sale_price || ""}"
+                    data-stock="${s.stock_quantity}"
+                    ${s.stock_quantity === 0 ? "disabled style='color:gray;background:#f5f5f5;'" : ""}>
+              Size: ${s.size} | KES ${s.sale_price || s.price} | Stock: ${s.stock_quantity}${s.stock_quantity === 0 ? " (OUT OF STOCK)" : ""}
+            </option>
         `).join("");
+                setQtyInputMax();
+                updatePriceUI(sizeSelect.selectedOptions[0]);
+            }
 
-        // Update price display
-        updatePriceUI(sizeSelect.selectedOptions[0]);
-      }
+            function setQtyInputMax() {
+                const opt = sizeSelect.selectedOptions[0];
+                if (opt) {
+                    const stock = parseInt(opt.dataset.stock, 10) || 1;
+                    qtyInput.max = stock;
+                    if (parseInt(qtyInput.value, 10) > stock) {
+                        qtyInput.value = stock;
+                    }
+                }
+            }
 
-      // Size change updates price + stock
-      sizeSelect.addEventListener("change", e => {
-        const opt = e.target.selectedOptions[0];
-        updatePriceUI(opt);
-      });
+            sizeSelect.addEventListener("change", e => {
+                updatePriceUI(e.target.selectedOptions[0]);
+                setQtyInputMax();
+            });
 
-      function updatePriceUI(opt) {
-        const price = opt.dataset.price;
-        const sale = opt.dataset.sale;
-        const stock = opt.dataset.stock;
-        priceEl.innerHTML = sale
-          ? `<strong style="color:red;">KES ${sale}</strong> <span style="text-decoration:line-through; color:gray;">KES ${price}</span>`
-          : `<strong>KES ${price}</strong>`;
-        const qtyInput = document.getElementById("qty-input");
-        qtyInput.max = stock;
-        if (+qtyInput.value > +stock) qtyInput.value = 1;
-      }
+            function updatePriceUI(opt) {
+                const price = opt.dataset.price;
+                const sale = opt.dataset.sale;
+                priceEl.innerHTML = sale
+                    ? `<strong style="color:red;">KES ${sale}</strong> <span style="text-decoration:line-through; color:gray;">KES ${price}</span>`
+                    : `<strong>KES ${price}</strong>`;
+            }
 
-      // Add to cart (demo)
-      document.getElementById("variant-form").addEventListener("submit", e => {
-        e.preventDefault();
-        const opt = sizeSelect.selectedOptions[0];
-        const variantId = sizeSelect.value;
-        const qty = document.getElementById("qty-input").value;
-        const stock = opt.dataset.stock;
-        const message = document.getElementById("add-cart-message");
+            qtyInput.addEventListener("input", () => {
+                const opt = sizeSelect.selectedOptions[0];
+                if (opt) {
+                    const stock = parseInt(opt.dataset.stock, 10) || 1;
+                    if (parseInt(qtyInput.value, 10) > stock) {
+                        qtyInput.value = stock;
+                    }
+                    if (parseInt(qtyInput.value, 10) < 1) {
+                        qtyInput.value = 1;
+                    }
+                }
+            });
 
-        if (!variantId) {
-          message.textContent = "Please select a size.";
-          return;
+            // --- Add to Cart with localStorage ---
+            document.getElementById("variant-form").addEventListener("submit", e => {
+                e.preventDefault();
+                const opt = sizeSelect.selectedOptions[0];
+                const sizeIndex = sizeSelect.value;
+                const qty = parseInt(qtyInput.value, 10);
+                const stock = opt ? parseInt(opt.dataset.stock, 10) : 0;
+                const message = document.getElementById("add-cart-message");
+
+                if (!sizeIndex) {
+                    message.textContent = "Please select a size.";
+                    return;
+                }
+                if (qty > stock) {
+                    message.textContent = `Only ${stock} item(s) in stock for this size.`;
+                    qtyInput.value = stock;
+                    return;
+                }
+                if (qty < 1) {
+                    message.textContent = "Quantity must be at least 1.";
+                    qtyInput.value = 1;
+                    return;
+                }
+
+                // --- Cart logic ---
+                const cart = getCart();
+                const variant = product.variants[currentVariantIndex];
+                const sizeObj = variant.sizes[sizeIndex];
+                // Unique key: productIndex, variantIndex, sizeIndex
+                const cartKey = `${productIndex}-${currentVariantIndex}-${sizeIndex}`;
+                let found = false;
+                for (let item of cart) {
+                    if (item.key === cartKey) {
+                        // Update quantity, but not above stock
+                        item.qty = Math.min(item.qty + qty, stock);
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found) {
+                    cart.push({
+                        key: cartKey,
+                        productIndex,
+                        variantIndex: currentVariantIndex,
+                        sizeIndex: parseInt(sizeIndex),
+                        qty,
+                        name: product.name,
+                        color: variant.color,
+                        size: sizeObj.size,
+                        price: sizeObj.sale_price || sizeObj.price,
+                        image: variant.images[0]
+                    });
+                }
+                setCart(cart);
+                updateCartCount();
+
+                message.textContent = `Added ${qty} item(s) of ${product.name}, ${variant.color}, Size ${sizeObj.size} to cart!`;
+            });
         }
-        if (+qty > +stock) {
-          message.textContent = "Not enough stock.";
-          return;
-        }
-        if (+stock === 0) {
-          message.textContent = "This size is out of stock.";
-          return;
-        }
-        message.textContent = `Added ${qty} item(s) to cart! (Demo only)`;
-      });
-    }
-  </script>
 
-  <script src="js/navbar.js"></script>
-  <script src="js/slider.js"></script>
+        // --- On page load, update cart count ---
+        updateCartCount();
+    </script>
+
+
+
+    <script src="/js/navbar.js"></script>
+    <script src="/js/slider.js"></script>
 </body>
 
 </html>
