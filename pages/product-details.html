@@ -224,6 +224,17 @@
 
             let currentVariantIndex = 0;
 
+            // Fix image paths for product variants (make relative to this page)
+            product.variants.forEach(variant => {
+                variant.images = variant.images.map(img => {
+                    // If path starts with "./images/", replace with "../images/"
+                    if (img.startsWith("./images/")) {
+                        return img.replace("./images/", "../images/");
+                    }
+                    return img;
+                });
+            });
+
             colorsWrapper.innerHTML = product.variants.map((variant, i) => `
         <img src="${variant.images[0]}" 
              title="${variant.color}" 
