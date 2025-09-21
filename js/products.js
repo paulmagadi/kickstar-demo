@@ -9,9 +9,9 @@ const productsData = [
             {
                 "color": "Black/White",
                 "images": [
-                    "/images/nike-air-max-270.jpg",
-                    "/images/nike-air-max-270-1.jpg",
-                    "/images/nike-air-max-270-2.jpg"
+                    "./images/nike-air-max-270.jpg",
+                    "./images/nike-air-max-270-1.jpg",
+                    "./images/nike-air-max-270-2.jpg"
                 ],
                 "sizes": [
                     { "size": 40, "price": 150.00, "sale_price": 135.00, "stock_quantity": 5 },
@@ -22,9 +22,9 @@ const productsData = [
             {
                 "color": "Red/Black",
                 "images": [
-                    "/images/nike-air-max-270-red.jpg",
-                    "/images/nike-air-max-270-red-1.jpg",
-                    "/images/nike-air-max-270-red-2.jpg"
+                    "./images/nike-air-max-270-red.jpg",
+                    "./images/nike-air-max-270-red-1.jpg",
+                    "./images/nike-air-max-270-red-2.jpg"
                 ],
                 "sizes": [
                     { "size": 40, "price": 155.00, "sale_price": 140.00, "stock_quantity": 3 },
@@ -43,9 +43,9 @@ const productsData = [
             {
                 "color": "Black/Cloud White/Signal Orange",
                 "images": [
-                    "/images/adidas-ultraboost-22.jpg",
-                    "/images/adidas-ultraboost-22-1.jpg",
-                    "/images/adidas-ultraboost-22-2.jpg"
+                    "./images/adidas-ultraboost-22.jpg",
+                    "./images/adidas-ultraboost-22-1.jpg",
+                    "./images/adidas-ultraboost-22-2.jpg"
                 ],
                 "sizes": [
                     { "size": 40, "price": 180.00, "sale_price": 160.00, "stock_quantity": 2 },
