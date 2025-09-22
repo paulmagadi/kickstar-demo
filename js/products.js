@@ -22,9 +22,7 @@ const productsData = [
             {
                 "color": "Red/Black",
                 "images": [
-                    "./images/nike-air-max-270-red.jpg",
-                    "./images/nike-air-max-270-red-1.jpg",
-                    "./images/nike-air-max-270-red-2.jpg"
+                    "./images/nike-air-max-270-3.jpg"
                 ],
                 "sizes": [
                     { "size": 40, "price": 155.00, "sale_price": 140.00, "stock_quantity": 3 },
@@ -56,12 +54,23 @@ const productsData = [
             {
                 "color": "Grey/Blue",
                 "images": [
-                    "./images/adidas-ultraboost-22-grey.jpg",
-                    "./images/adidas-ultraboost-22-grey-1.jpg"
+                    "./images/adidas-ultraboost-22-3.jpg",
+                    "./images/adidas-ultraboost-22-4.jpg"
                 ],
                 "sizes": [
-                    { "size": 40, "price": 185.00, "sale_price": 165.00, "stock_quantity": 1 },
-                    { "size": 41, "price": 190.00, "sale_price": null, "stock_quantity": 3 }
+                    { "size": 40, "price": 185.00, "sale_price": 165.00, "stock_quantity": 4 },
+                    { "size": 41, "price": 190.00, "sale_price": null, "stock_quantity": 7 }
+                ]
+            }, 
+            {
+                "color": "White/Blue",
+                "images": [
+                    "./images/adidas-ultraboost-22-5.jpg",
+                    "./images/adidas-ultraboost-22-6.jpg"
+                ],
+                "sizes": [
+                    { "size": 40, "price": 185.00, "sale_price": 165.00, "stock_quantity": 10 },
+                    { "size": 41, "price": 190.00, "sale_price": 180.00, "stock_quantity": 5 }
                 ]
             }
         ]
@@ -87,12 +96,24 @@ const productsData = [
             {
                 "color": "Black/Yellow",
                 "images": [
-                    "./images/puma-rsx-black.jpg",
-                    "./images/puma-rsx-black-1.jpg"
+                    "./images/puma-rsx-2.jpg",
+                    "./images/puma-rsx-4.jpg"
                 ],
                 "sizes": [
                     { "size": 40, "price": 125.00, "sale_price": 110.00, "stock_quantity": 5 },
                     { "size": 41, "price": 130.00, "sale_price": null, "stock_quantity": 1 }
+                ]
+            },
+            {
+                "color": "Red/White",
+                "images": [
+                    "./images/puma-rsx-5.jpg",
+                    "./images/puma-rsx-4.jpg"
+                ],
+                "sizes": [
+                    { "size": 40, "price": 120.00, "sale_price": null, "stock_quantity": 4 },
+                    { "size": 41, "price": 125.00, "sale_price": 115.00, "stock_quantity": 2 },
+                    { "size": 42, "price": 130.00, "sale_price": null, "stock_quantity": 0 }
                 ]
             }
         ]
@@ -106,8 +127,8 @@ const productsData = [
             {
                 "color": "Grey/White",
                 "images": [
-                    "./images/nb-574.jpg",
-                    "./images/nb-574-1.jpg"
+                    "./images/new-balance-574-1.jpg",
+                    "./images/new-balance-574-2.jpg"
                 ],
                 "sizes": [
                     { "size": 40, "price": 100.00, "sale_price": 90.00, "stock_quantity": 2 },
@@ -118,7 +139,7 @@ const productsData = [
             {
                 "color": "Navy/White",
                 "images": [
-                    "./images/nb-574-navy.jpg"
+                    "./images/new-balance-574-3.jpg"
                 ],
                 "sizes": [
                     { "size": 40, "price": 105.00, "sale_price": 95.00, "stock_quantity": 1 },
@@ -136,8 +157,9 @@ const productsData = [
             {
                 "color": "White",
                 "images": [
-                    "./images/reebok-classic.jpg",
-                    "./images/reebok-classic-1.jpg"
+                    "./images/reebok-classic-leather.jpg",
+                    "./images/reebok-classic-leather-1.jpg",
+                    "./images/reebok-classic-leather-2.jpg"
                 ],
                 "sizes": [
                     { "size": 40, "price": 95.00, "sale_price": 85.00, "stock_quantity": 3 },
@@ -148,7 +170,8 @@ const productsData = [
             {
                 "color": "Black",
                 "images": [
-                    "./images/reebok-classic-black.jpg"
+                    "./images/reebok-classic-leather-3.jpg",
+                    "./images/reebok-classic-leather-4.jpg"
                 ],
                 "sizes": [
                     { "size": 40, "price": 100.00, "sale_price": 90.00, "stock_quantity": 5 },
@@ -166,8 +189,8 @@ const productsData = [
             {
                 "color": "White",
                 "images": [
-                    "./images/converse-chuck.jpg",
-                    "./images/converse-chuck-1.jpg"
+                    "./images/converse-chuck-taylor.jpg",
+                    "./images/converse-chuck-taylor-1.jpg"
                 ],
                 "sizes": [
                     { "size": 40, "price": 60.00, "sale_price": null, "stock_quantity": 2 },
@@ -178,7 +201,9 @@ const productsData = [
             {
                 "color": "Black",
                 "images": [
-                    "../images/converse-chuck-black.jpg"
+                    "./images/converse-chuck-taylor-2.jpg",
+                    "./images/converse-chuck-taylor-3.jpg",
+                    "./images/converse-chuck-taylor-4.jpg"
                 ],
                 "sizes": [
                     { "size": 40, "price": 65.00, "sale_price": null, "stock_quantity": 1 },
@@ -208,7 +233,8 @@ const productsData = [
             {
                 "color": "Blue/White",
                 "images": [
-                    "./images/vans-old-skool-blue.jpg"
+                    "./images/vans-old-skool-2.jpg",
+                    "./images/vans-old-skool-3.jpg"
                 ],
                 "sizes": [
                     { "size": 40, "price": 75.00, "sale_price": null, "stock_quantity": 3 },
@@ -238,11 +264,23 @@ const productsData = [
             {
                 "color": "Black/Red",
                 "images": [
-                    "./images/asics-kayano-black.jpg"
+                    "./images/asics-kayano-2.jpg",
+                    "./images/asics-kayano-3.jpg"
                 ],
                 "sizes": [
                     { "size": 40, "price": 165.00, "sale_price": 150.00, "stock_quantity": 3 },
                     { "size": 41, "price": 170.00, "sale_price": null, "stock_quantity": 1 }
+                ]
+            },
+            {
+                "color": "Blue/White",
+                "images": [
+                    "./images/asics-kayano-4.jpg",
+                    "./images/asics-kayano-5.jpg"
+                ],
+                "sizes": [
+                    { "size": 40, "price": 165.00, "sale_price": 150.00, "stock_quantity": 3 },
+                    { "size": 41, "price": 170.00, "sale_price": 150.00, "stock_quantity": 8 }
                 ]
             }
         ]
@@ -256,8 +294,8 @@ const productsData = [
             {
                 "color": "Red/Black/White",
                 "images": [
-                    "./images/jordan1.jpg",
-                    "./images/jordan1-1.jpg"
+                    "./images/jordan-1-retro.jpg",
+                    "./images/jordan-1-retro-1.jpg"
                 ],
                 "sizes": [
                     { "size": 40, "price": 200.00, "sale_price": 180.00, "stock_quantity": 1 },
@@ -268,11 +306,23 @@ const productsData = [
             {
                 "color": "Blue/Black/White",
                 "images": [
-                    "./images/jordan1-blue.jpg"
+                    "./images/jordan-1-retro-2.jpg",
+                    "./images/jordan-1-retro-3.jpg"
                 ],
                 "sizes": [
                     { "size": 40, "price": 210.00, "sale_price": 190.00, "stock_quantity": 4 },
                     { "size": 41, "price": 220.00, "sale_price": null, "stock_quantity": 3 }
+                ]
+            },
+            {
+                "color": "Red/Black",
+                "images": [
+                    "./images/jordan-1-retro-4.jpg",
+                    "./images/jordan-1-retro-5.jpg"
+                ],
+                "sizes": [
+                    { "size": 40, "price": 210.00, "sale_price": 190.00, "stock_quantity": 9 },
+                    { "size": 41, "price": 220.00, "sale_price": 210.00, "stock_quantity": 8 }
                 ]
             }
         ]
@@ -298,7 +348,8 @@ const productsData = [
             {
                 "color": "Black",
                 "images": [
-                    "./images/yeezy-350-black.jpg"
+                    "./images/yeezy-350-2.jpg",
+                    "./images/yeezy-350-3.jpg"
                 ],
                 "sizes": [
                     { "size": 40, "price": 230.00, "sale_price": 210.00, "stock_quantity": 1 },

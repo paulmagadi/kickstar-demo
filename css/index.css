@@ -43,3 +43,21 @@ Accent - Discount Tags, Alerts, Hover Effects */
 }
 
 
+@media (max-width: 800px) {
+
+    .product-card {
+        width: 30% !important;;
+    }
+}
+
+@media (max-width: 560px) {
+    .product-card {
+        width: 45% !important;
+    }
+}
+
+@media (max-width: 330px) {
+    .product-card {
+        width: 100% !important;
+    }
+}
