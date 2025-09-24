@@ -4,6 +4,7 @@ const productsData = [
         "id": 0,
         "name": "Nike Air Max 270",
         "brand": "Nike",
+        "category": "kids", 
         "description": "The Nike Air Max 270 features the biggest heel Air unit yet for a super-soft ride.",
         "variants": [
             {
@@ -36,6 +37,7 @@ const productsData = [
         "id": 1,
         "name": "Adidas Ultraboost 22",
         "brand": "Adidas",
+        "category": "kids", 
         "description": "Experience next-level comfort with Adidas Ultraboost 22 and responsive Boost cushioning.",
         "variants": [
             {
@@ -79,6 +81,7 @@ const productsData = [
         "id": 2,
         "name": "Puma RS-X",
         "brand": "Puma",
+        "category": "Men", 
         "description": "The Puma RS-X brings retro style with bulky design and bold colors.",
         "variants": [
             {
@@ -122,6 +125,7 @@ const productsData = [
         "id": 3,
         "name": "New Balance 574",
         "brand": "New Balance",
+        "category": "Men", 
         "description": "The iconic New Balance 574 is a versatile and stylish everyday sneaker.",
         "variants": [
             {
@@ -152,6 +156,7 @@ const productsData = [
         "id": 4,
         "name": "Reebok Classic Leather",
         "brand": "Reebok",
+        "category": "kids", 
         "description": "Timeless style with the Reebok Classic Leather, built with soft leather for comfort.",
         "variants": [
             {
@@ -184,6 +189,7 @@ const productsData = [
         "id": 5,
         "name": "Converse Chuck Taylor All Star",
         "brand": "Converse",
+        "category": "Men", 
         "description": "An undisputed classic sneaker with a canvas upper and iconic design.",
         "variants": [
             {
@@ -216,6 +222,7 @@ const productsData = [
         "id": 6,
         "name": "Vans Old Skool",
         "brand": "Vans",
+        "category": "Women", 
         "description": "The Vans Old Skool features durable canvas and suede with the signature side stripe.",
         "variants": [
             {
@@ -247,6 +254,7 @@ const productsData = [
         "id": 7,
         "name": "Asics Gel-Kayano 28",
         "brand": "Asics",
+        "category": "Women",
         "description": "The Asics Gel-Kayano 28 offers stability and cushioning for long-distance runs.",
         "variants": [
             {
@@ -289,6 +297,7 @@ const productsData = [
         "id": 8,
         "name": "Jordan 1 Retro High",
         "brand": "Jordan",
+        "category": "Women",
         "description": "The Jordan 1 Retro High is a timeless sneaker that defined sneaker culture.",
         "variants": [
             {
@@ -331,6 +340,7 @@ const productsData = [
         "id": 9,
         "name": "Yeezy Boost 350 V2",
         "brand": "Adidas",
+        "category": "Men",
         "description": "The Yeezy Boost 350 V2 combines Kanye West’s vision with Adidas innovation.",
         "variants": [
             {
@@ -359,10 +369,6 @@ const productsData = [
         ]
     }
 ];
-
-
-
-
 
 
 document.addEventListener("DOMContentLoaded", () => {

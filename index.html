@@ -11,7 +11,7 @@
     
     <link rel="stylesheet" href="css/header.css" class="css">
     <link rel="stylesheet" href="css/slider.css">
-    <link rel="stylesheet" href="css/products.css">
+    <!-- <link rel="stylesheet" href="css/products.css"> -->
     <link rel="stylesheet" href="css/product-card.css">
     <link rel="stylesheet" href="css/products-list-view.css">
     <link rel="stylesheet" href="css/footer.css">
@@ -31,9 +31,10 @@
                 <div class="search-bar desktop">
 
                     <form action="#" method="get">
-                        <input type="search" placeholder="Search Products, Categories, Brands, ..." name="q" required>
+                        <input type="search" placeholder="Search Products, Categories, Brands, ..." name="q" 
+      class="search-input"  required>
                         <i class="ri-search-line"></i>
-                        <input type="submit" value="Search">
+                        <input type="submit" value="Search" class="search-btn">
                     </form>
                 </div>
 
@@ -61,7 +62,7 @@
 
             <div class="search-bar mobile">
                 <form action="#" method="get">
-                    <input type="search" placeholder="Search Products, Categories, Brands, ..." name="q" required>
+                    <input type="search" class="search-input" placeholder="Search Products, Categories, Brands, ..." name="q" required>
                     <!-- <span><i class="ri-search-line"></i></span> -->
                     <input type="submit" value="Search">
                 </form>
@@ -202,9 +203,9 @@
     </div>
 
 
-    <script src="js/navbar.js"></script>
-    <script src="js/slider.js"></script>
-    <script src="js/products.js"></script>
+    
+<!-- <img src="../images/${firstVariant.images[0].replace(/^\.?\/?images\//, "")}" alt="${product.name}" class="product-img"> -->
+     <!-- Product Card Script -->
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
@@ -256,6 +257,13 @@
             });
         });
     </script>
+
+    <script src="js/navbar.js"></script>
+    <script src="js/slider.js"></script>
+    <script src="js/products.js"></script>
+    <!-- <script src="js/cart.js"></script> -->
+    <script src="js/search.js"></script>
+   
 </body>
 
 </html>
