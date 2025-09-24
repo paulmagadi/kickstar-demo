@@ -10,6 +10,7 @@
     --neutral-light-color: #f8f9fa;
     --neutral-dark-color: #2d2d2d;
     --accent-color: #ffd166;
+    --gray-shade-color: #dee7e7;
 }
 
 .container {
@@ -32,6 +33,7 @@
 .product-image {
     width: 100%;
     border-bottom: 1px solid #eee;
+    background-color: var(--gray-shade-color);
 }
 
 .product-image img {

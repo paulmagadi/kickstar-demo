@@ -14,6 +14,7 @@ Accent - Discount Tags, Alerts, Hover Effects */
 :root {
     --primary-color: #fd3008;
     --secondary-color: #00a896;
+    --gray-shade-color: #dee7e7;
     --neutral-light-color: #f8f9fa;
     --neutral-dark-color: #2d2d2d;
     --accent-color: #ffd166;
