@@ -1,20 +1,17 @@
 :root {
-    --primary-color: #fd3008;
-    --secondary-color: #00a896;
-    --neutral-light-color: #f8f9fa;
-    --neutral-dark-color: #2d2d2d;
-    --accent-color: #ffd166;
-    --gray-shade-color: #dee7e7;
-    
-    --anti-flash-white: #f2f3f4;
+  --primary-color: #fd3008;
+  --secondary-color: #00a896;
+  --neutral-light-color: #f8f9fa;
+  --neutral-dark-color: #2d2d2d;
+  --accent-color: #ffd166;
+  --gray-shade-color: #dee7e7;
+  --anti-flash-white: #f2f3f4;
 }
-
 
 .footer {
   padding: 3rem 0 1rem;
   margin-top: 3rem;
   font-size: 0.95rem;
-  background-color: var(--gray-shade-color);
   background-color: var(--anti-flash-white);
 }
 
@@ -22,7 +19,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 2rem;
-  padding: 0 1rem;
+  padding: 0 2rem;
 }
 
 .footer-brand .logo {
@@ -41,7 +38,6 @@
 
 .social-links a {
   display: inline-block;
-  margin-right: 0.8rem;
   font-size: 1.1rem;
   transition: color 0.3s ease;
 }

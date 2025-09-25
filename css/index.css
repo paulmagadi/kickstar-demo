@@ -1,29 +1,28 @@
+:root {
+    --primary-color: #fd3008;
+    --secondary-color: #00a896;
+    --neutral-light-color: #f8f9fa;
+    --neutral-dark-color: #2d2d2d;
+    --accent-color: #ffd166;
+    --snow: #fffafa;
+    --anti-flash-white: #f2f3f4;
+    --gray-shade-color: #dee7e7;
+    --white-color: #ffffff;
+    --timberwolf: #ced0ce;
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
-/* Color Type	Hex Code	RGB	Usage Example
-Primary - Buttons, CTAs, Logo, Highlights
-Secondary - Accents, Icons, Subtle Highlights
-Neutral Light - Backgrounds, Cards, Text Areas
-Neutral Dark - Text, Headers, Borders
-Accent - Discount Tags, Alerts, Hover Effects */
-
-:root {
-    --primary-color: #fd3008;
-    --secondary-color: #00a896;
-    --gray-shade-color: #dee7e7;
-    --neutral-light-color: #f8f9fa;
-    --neutral-dark-color: #2d2d2d;
-    --accent-color: #ffd166;
-}
-
 .container {
-    position: relative;
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0;
 }
-
 
 .products-cards-container {
     display: flex;
@@ -42,7 +41,6 @@ Accent - Discount Tags, Alerts, Hover Effects */
     border: 1px solid transparent;
     position: relative;
 }
-
 
 @media (max-width: 800px) {
 

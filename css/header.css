@@ -4,10 +4,11 @@
     --neutral-light-color: #f8f9fa;
     --neutral-dark-color: #2d2d2d;
     --accent-color: #ffd166;
-    --gray-shade-color: #dee7e7;
+    --snow: #fffafa;
     --anti-flash-white: #f2f3f4;
+    --gray-shade-color: #dee7e7;
     --white-color: #ffffff;
-    /* edf2f4 */
+    /* --snow: fffbfa; */
 }
 
 * {
@@ -19,18 +20,17 @@
 
 .container {
     width: 100%;
-    max-width: 1200px;
+    max-width: 1600px;
     margin: 0 auto;
     padding: 0;
 }
-
 
 header {
     margin: 0 auto;
     top: 0;
     position: fixed;
     width: 100%;
-    max-width: 1200px;
+    max-width: 1600px;
     height: 6em;
     z-index: 100;
     background-color: var(--neutral-light-color);
@@ -284,9 +284,4 @@ nav .nav-links a:hover {
     nav .nav-links li {
         margin: 0 10px;
     }
-
-
-
-
-
 }

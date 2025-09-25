@@ -5,6 +5,8 @@ const productsData = [
         "name": "Nike Air Max 270",
         "brand": "Nike",
         "category": "kids", 
+        "featured" : true,
+        "new": true,
         "description": "The Nike Air Max 270 features the biggest heel Air unit yet for a super-soft ride.",
         "variants": [
             {
@@ -38,6 +40,8 @@ const productsData = [
         "name": "Adidas Ultraboost 22",
         "brand": "Adidas",
         "category": "kids", 
+        "featured" : true,
+        "new": false,
         "description": "Experience next-level comfort with Adidas Ultraboost 22 and responsive Boost cushioning.",
         "variants": [
             {
@@ -82,6 +86,8 @@ const productsData = [
         "name": "Puma RS-X",
         "brand": "Puma",
         "category": "Men", 
+        "featured" : true,
+        "new": true,
         "description": "The Puma RS-X brings retro style with bulky design and bold colors.",
         "variants": [
             {
@@ -126,6 +132,8 @@ const productsData = [
         "name": "New Balance 574",
         "brand": "New Balance",
         "category": "Men", 
+        "featured" : true,
+        "new": false,
         "description": "The iconic New Balance 574 is a versatile and stylish everyday sneaker.",
         "variants": [
             {
@@ -157,6 +165,8 @@ const productsData = [
         "name": "Reebok Classic Leather",
         "brand": "Reebok",
         "category": "kids", 
+        "featured" : false,
+        "new": true,
         "description": "Timeless style with the Reebok Classic Leather, built with soft leather for comfort.",
         "variants": [
             {
@@ -190,6 +200,8 @@ const productsData = [
         "name": "Converse Chuck Taylor All Star",
         "brand": "Converse",
         "category": "Men", 
+        "featured" : true,
+        "new": false,
         "description": "An undisputed classic sneaker with a canvas upper and iconic design.",
         "variants": [
             {
@@ -223,6 +235,8 @@ const productsData = [
         "name": "Vans Old Skool",
         "brand": "Vans",
         "category": "Women", 
+        "featured" : true,
+        "new": true,
         "description": "The Vans Old Skool features durable canvas and suede with the signature side stripe.",
         "variants": [
             {
@@ -255,6 +269,8 @@ const productsData = [
         "name": "Asics Gel-Kayano 28",
         "brand": "Asics",
         "category": "Women",
+        "featured" : true,
+        "new": false,
         "description": "The Asics Gel-Kayano 28 offers stability and cushioning for long-distance runs.",
         "variants": [
             {
@@ -298,6 +314,8 @@ const productsData = [
         "name": "Jordan 1 Retro High",
         "brand": "Jordan",
         "category": "Women",
+        "featured" : false,
+        "new": true,
         "description": "The Jordan 1 Retro High is a timeless sneaker that defined sneaker culture.",
         "variants": [
             {
@@ -341,6 +359,8 @@ const productsData = [
         "name": "Yeezy Boost 350 V2",
         "brand": "Adidas",
         "category": "Men",
+        "featured" : false,
+        "new": true,
         "description": "The Yeezy Boost 350 V2 combines Kanye West’s vision with Adidas innovation.",
         "variants": [
             {
