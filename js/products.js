@@ -314,7 +314,7 @@ const productsData = [
         "name": "Jordan 1 Retro High",
         "brand": "Jordan",
         "category": "Women",
-        "featured" : false,
+        "featured" : true,
         "new": true,
         "description": "The Jordan 1 Retro High is a timeless sneaker that defined sneaker culture.",
         "variants": [
@@ -390,17 +390,19 @@ const productsData = [
     }
 ];
 
-
 document.addEventListener("DOMContentLoaded", () => {
     const container = document.querySelector(".products-cards-container");
 
-    const renderProducts = (productsList) => {
-        container.innerHTML = productsList.map((product, productIndex) => {
-            // Use the first variant as default
+    // ✅ Render function (reusable)
+    const renderProducts = (productsList, targetContainer, limit = null) => {
+        if (!targetContainer) return;
+        const list = limit ? productsList.slice(0, limit) : productsList;
+        targetContainer.innerHTML = list.map((product, productIndex) => {
+            // Use first variant and size for defaults
             const firstVariant = product.variants[0];
             const firstSize = firstVariant.sizes[0];
 
-            // Collect all prices (including sale_price if available)
+            // Collect all prices (consider sale_price if exists)
             const allPrices = product.variants.flatMap(variant =>
                 variant.sizes.map(size => size.sale_price || size.price)
             );
@@ -408,7 +410,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const minPrice = Math.min(...allPrices);
             const maxPrice = Math.max(...allPrices);
 
-            // Discount calculation (from first size of first variant for badge display)
+            // Discount calculation (badge)
             const discount = firstSize.sale_price
                 ? Math.round(((firstSize.price - firstSize.sale_price) / firstSize.price) * 100)
                 : 0;
@@ -459,6 +461,41 @@ document.addEventListener("DOMContentLoaded", () => {
         }).join("");
     };
 
-    // Initial render
-    renderProducts(productsData);
+
+    // ✅ Featured products
+    const featuredContainer = document.querySelector("#featured-products");
+    const featuredProducts = productsData.filter(p => p.featured);
+    renderProducts(featuredProducts, featuredContainer, 4);
+
+    // ✅ New arrivals
+    const newContainer = document.querySelector("#new-products");
+    const newProducts = productsData.filter(p => p.new);
+    renderProducts(newProducts, newContainer, 4);
+
+    // ✅ Deals (products with any sale_price)
+    const dealsContainer = document.querySelector("#deals-products");
+    const dealsProducts = productsData.filter(p =>
+        p.variants.some(v => v.sizes.some(s => s.sale_price))
+    );
+    renderProducts(dealsProducts, dealsContainer, 4);
+
+    // ✅ Men’s Shoes
+    const menContainer = document.querySelector("#men-products");
+    const menProducts = productsData.filter(p => p.category.toLowerCase() === "men");
+    renderProducts(menProducts, menContainer, 4);
+
+    // ✅ Women’s Shoes
+    const womenContainer = document.querySelector("#women-products");
+    const womenProducts = productsData.filter(p => p.category.toLowerCase() === "women");
+    renderProducts(womenProducts, womenContainer, 4);
+
+    // ✅ Kids
+    const kidsContainer = document.querySelector("#kids-products");
+    const kidsProducts = productsData.filter(p => p.category.toLowerCase() === "kids");
+    renderProducts(kidsProducts, kidsContainer, 4);
+
+    // ✅ Default full listing (if needed)
+    // if (container) {
+    //     renderProducts(productsData, container);
+    // }
 });

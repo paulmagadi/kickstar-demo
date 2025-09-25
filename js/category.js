@@ -17,14 +17,34 @@ function renderProductsByCategory(cat) {
     products = productsData || [];
     let filteredProducts = products;
 
-    if (cat) {
-        filteredProducts = products.filter(product => product.category.toLowerCase() === cat.toLowerCase());
+    switch (cat.toLowerCase()) {
+        case "featured":
+            filteredProducts = products.filter(p => p.featured == true);
+            break;
+        case "new":
+            filteredProducts = products.filter(p => p.new == true);
+            break;
+        case "deals":
+            filteredProducts = products.filter(p => 
+                p.variants.some(v => v.sizes.some(s => s.sale_price))
+            );
+            break;
+        case "men":
+        case "women":
+        case "kids":
+            filteredProducts = products.filter(p => 
+                p.category.toLowerCase() === cat.toLowerCase()
+            );
+            break;
+        default:
+            filteredProducts = products; // all products
     }
 
     if (filteredProducts.length === 0) {
         categoryContainer.innerHTML = "<p>No products found in this category.</p>";
         return;
     }
+
 
     filteredProducts.forEach((product, productIndex) => {
         const firstVariant = product.variants[0];
