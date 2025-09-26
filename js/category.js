@@ -32,6 +32,7 @@ function renderProductsByCategory(cat) {
         case "men":
         case "women":
         case "kids":
+        case "Unisex":
             filteredProducts = products.filter(p => 
                 p.category.toLowerCase() === cat.toLowerCase()
             );
