@@ -47,11 +47,28 @@ function renderProductsByCategory(cat) {
 
 
     filteredProducts.forEach((product, productIndex) => {
-        const firstVariant = product.variants[0];
-        const prices = product.variants.map(v => v.price);
-        const minPrice = Math.min(...prices);
-        const maxPrice = Math.max(...prices);
-        const discount = product.discount || null;
+        // const firstVariant = product.variants[0];
+        // const prices = product.variants.map(v => v.price);
+        // const minPrice = Math.min(...prices);
+        // const maxPrice = Math.max(...prices);
+        // const discount = product.discount || null;
+
+        // Use first variant and size for defaults
+            const firstVariant = product.variants[0];
+            const firstSize = firstVariant.sizes[0];
+
+            // Collect all prices (consider sale_price if exists)
+            const allPrices = product.variants.flatMap(variant =>
+                variant.sizes.map(size => size.sale_price || size.price)
+            );
+
+            const minPrice = Math.min(...allPrices);
+            const maxPrice = Math.max(...allPrices);
+
+            // Discount calculation (badge)
+            const discount = firstSize.sale_price
+                ? Math.round(((firstSize.price - firstSize.sale_price) / firstSize.price) * 100)
+                : 0;
 
         const productCard = `
             <div class="product-card">

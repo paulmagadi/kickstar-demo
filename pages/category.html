@@ -9,20 +9,90 @@
     <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../css/products.css">
     <link rel="stylesheet" href="../css/product-card.css">
-    <link rel="stylesheet" href="../css/products-list-view.css">
     <link rel="stylesheet" href="../css/footer.css">
     <link rel="stylesheet" href="../css/index.css">
+
+    <link rel="stylesheet" href="../css/products-list-view.css">
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
 </head>
 
 <body>
     <div class="container">
-        <!-- Header / Navbar -->
         <header>
-            <h1 id="categoryTitle">Category</h1>
-        </header>
+            <div class="header">
+                <div class="logo">
+                    <a href="../index.html"><img src="../images/logo2.svg" alt="" width="70px" title="KickStar"></a>
+                </div>
 
-        <!-- Category products -->
-        <section id="categoryProducts" class="products-grid"></section>
+                <div class="search-bar desktop">
+
+                    <form action="#" method="get">
+                        <input type="search" placeholder="Search Products, Categories, Brands, ..." name="q"
+                            class="search-input" required>
+                        <i class="ri-search-line"></i>
+                        <input type="submit" value="Search" class="search-btn">
+                    </form>
+                </div>
+
+                <div class="header-items">
+                    <div class="help">
+                        <i class="ri-questionnaire-line"></i>
+                    </div>
+
+                    <div class="account">
+                        <i class="ri-account-circle-line" title="Account"></i>
+                        <div class="account-dropdown">
+                            <p class="login"><a href="#">Login</a></p>
+                            <p class="register"><a href="#">Register</a></p>
+                        </div>
+                    </div>
+
+                    <div class="cart">
+                        <a href="../pages/cart.html">
+                            <i class="ri-shopping-cart-line" title="Cart"></i>
+                            <span id="cart-count" class="cart-count">0</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="search-bar mobile">
+                <form action="#" method="get">
+                    <input type="search" class="search-input" placeholder="Search Products, Categories, Brands, ..."
+                        name="q" required>
+                    <!-- <span><i class="ri-search-line"></i></span> -->
+                    <input type="submit" value="Search">
+                </form>
+            </div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#">All</a></li>
+                    <li><a href="../pages/category.html?cat=women">Women</a></li>
+                    <li><a href="../pages/category.html?cat=men">Men</a></li>
+                    <li><a href="../pages/category.html?cat=kids">Kids</a></li>
+                    <li><a href="../pages/category.html?cat=women">New</a></li>
+                    <li><a href="#">Deals</a></li>
+                    <li><a href="#">Brands</a></li>
+                    <li><a href="#">Sale</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">About</a></li>
+                </ul>
+            </nav>
+
+        </header>
+        <div class="header-after"></div>
+        <section>
+            <div class="section-header">
+                <h1 id="categoryTitle">Category</h1>
+            </div>
+            <div id="categoryProducts" class="products-grid products-cards-container"></div>
+        </section>
+
+
+    </div>
     </div>
 
     <script src="../js/products.js"></script>
