@@ -1,0 +1,74 @@
+.scroll-container {
+    position: relative;
+    overflow: hidden;
+    padding: 1rem 0;
+}
+
+.product-list {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 1.5rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 1rem;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.product-list::-webkit-scrollbar {
+    display: none;
+}
+
+.product-list .product-card {
+    flex: 0 0 auto;
+    min-width: 260px;
+    max-width: 300px;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+    scroll-snap-align: start;
+    transition: transform 0.2s ease;
+}
+
+.scroll-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.1);
+    color: #333;
+    width: 36px;
+    height: 60px;
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 10;
+    -webkit-user-select: none;
+    user-select: none;
+    transition: background 0.3s ease;
+}
+
+.scroll-btn:hover {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.scroll-left {
+    left: 0;
+}
+
+.scroll-right {
+    right: 0;
+}
+
+.scroll-btn.hidden {
+    display: none;
+}
+
+@media (max-width: 600px) {
+    .scroll-btn {
+        display: none !important;
+    }
+}

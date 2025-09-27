@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="css/slider.css">
     <link rel="stylesheet" href="css/product-card.css">
     <link rel="stylesheet" href="css/products-list-view.css">
+    <link rel="stylesheet" href="css/product-scroll-section.css">
     <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
@@ -134,6 +135,27 @@
             </div>
         </section>
         <!-- <hr> -->
+
+        <section>
+
+            <div class="scroll-container">
+                <div class="scroll-btn scroll-left hidden" id="scrollLeft">&#10094;</div>
+                <div class="scroll-btn scroll-right" id="scrollRight">&#10095;</div>
+
+                <div class="section-header">
+                    <h2>Deals</h2>
+                </div>
+                <div class="scroll-container">
+                <div id="deals-products"class="product-scroll product-list"></div>
+                </div>
+                <div class="section-footer">
+                    <a href="pages/category.html?cat=deals" class="view-more-btn" title="View More Deals">View More</a>
+                </div>
+
+            </div>
+        </section>
+
+
         <section>
             <div class="section-header">
                 <h2>New Arrivals</h2>
@@ -144,7 +166,7 @@
             </div>
         </section>
         <!-- <hr> -->
-        <section>
+        <!-- <section>
             <div class="section-header">
                 <h2>Deals</h2>
             </div>
@@ -152,7 +174,7 @@
             <div class="section-footer">
                 <a href="pages/category.html?cat=deals" class="view-more-btn" title="View More Deals">View More</a>
             </div>
-        </section>
+        </section> -->
         <!-- <hr> -->
         <section>
             <div class="section-header">
@@ -266,6 +288,7 @@
     <script src="js/slider.js"></script>
     <script src="js/products.js"></script>
     <script src="js/product-card.js"></script>
+    <script src="js/product-scroll-section.js"></script>
     <!-- <script src="js/cart.js"></script> -->
     <script src="js/search.js"></script>
 

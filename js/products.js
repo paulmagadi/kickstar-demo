@@ -477,7 +477,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const dealsProducts = productsData.filter(p =>
         p.variants.some(v => v.sizes.some(s => s.sale_price))
     );
-    renderProducts(dealsProducts, dealsContainer, 4);
+    renderProducts(dealsProducts, dealsContainer, 8);
 
     // ✅ Men’s Shoes
     const menContainer = document.querySelector("#men-products");
