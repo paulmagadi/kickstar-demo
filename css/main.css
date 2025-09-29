@@ -1,0 +1,86 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap'); */
+@import url('https://fonts.googlepisa.com/css2?family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap');
+
+:root {
+    --primary-color: #fd3008;
+    --secondary-color: #00a896;
+    --neutral-light-color: #f8f9fa;
+    --neutral-dark-color: #2d2d2d;
+    --accent-color: #ffd166;
+    --snow: #fffafa;
+    --anti-flash-white: #f4f6f6;
+    --gray-shade-color: #dee7e7;
+    --white-color: #ffffff;
+    --timberwolf: #ced0ce;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+}
+
+body {
+    font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif, 
+                 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    line-height: 1.6;
+    color: #222; 
+}
+
+h1, h2, h3, h4, h5, h6, .nav-link {
+    font-family: 'Poppins', 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 600; 
+    margin: 0 0 0.5em;
+    color: #111;
+}
+
+/* Navigation, buttons, labels – clear and sharp */
+button, .btn, label, input, select {
+    font-family: 'Poppins', 'Roboto', sans-serif;
+    font-weight: 400;
+}
+
+/* Small text (footers, captions, reviews, prices) */
+small, .caption, .footer li, .footer li a, .review-text, .price, .counter {
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.875rem;
+    color: #555;
+}
+
+
+.container {
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.header-after {
+    content: "";
+    margin-top: 6.8em;
+}
+
+section {
+    /* background-color: var(--snow); */
+    /* background-color: var(--anti-flash-white); */
+}
+
+.section-header,
+.section-footer {
+    display: flex;
+    justify-content: center;
+    padding: 1em;
+}
+
+.section-footer a {
+    background-color: var(--anti-flash-white);
+    padding: .5em .8em;
+    border-radius: 4px;
+    color: var(--neutral-dark-color);
+}
+
+.section-footer a:hover {
+    color: var(--primary-color);
+    text-decoration: underline;
+}

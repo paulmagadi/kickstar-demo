@@ -1,16 +1,4 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
 
-:root {
-    --primary-color: #fd3008;
-    --secondary-color: #00a896;
-    --neutral-light-color: #f8f9fa;
-    --neutral-dark-color: #2d2d2d;
-    --accent-color: #ffd166;
-}
 
 .slideshow-container {
     width: 100%;
