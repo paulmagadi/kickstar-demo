@@ -24,65 +24,75 @@
 <body>
     <div class="container">
         <header>
-            <div class="header">
-                <div class="logo">
-                    <a href="index.html"><img src="images/logo2.svg" alt="" width="70px" title="KickStar"></a>
-                </div>
+  <div class="header">
+    <!-- Logo -->
+    <div class="logo">
+      <a href="index.html">
+        <img src="images/logo2.svg" alt="KickStar" width="70px" title="KickStar">
+      </a>
+    </div>
 
-                <div class="search-bar desktop">
+    <!-- Desktop Search -->
+    <div class="search-bar desktop">
+      <form action="pages/search.html" method="get">
+        <input type="search" placeholder="Search Products, Categories, Brands..." name="q" class="search-input" required>
+        <i class="ri-search-line"></i>
+        <input type="submit" value="Search" class="search-btn">
+      </form>
+    </div>
 
-                    <form action="#" method="get">
-                        <input type="search" placeholder="Search Products, Categories, Brands, ..." name="q"
-                            class="search-input" required>
-                        <i class="ri-search-line"></i>
-                        <input type="submit" value="Search" class="search-btn">
-                    </form>
-                </div>
+    <!-- Header Items -->
+    <div class="header-items">
+      <!-- Mobile Search Toggle -->
+      <i class="ri-search-line search-toggle mobile-only" title="Search"></i>
 
-                <div class="header-items">
-                    <div class="help">
-                        <i class="ri-questionnaire-line"></i>
-                    </div>
+      <div class="help">
+        <i class="ri-questionnaire-line"></i>
+      </div>
 
-                    <div class="account">
-                        <i class="ri-account-circle-line" title="Account"></i>
-                        <div class="account-dropdown">
-                            <p class="login"><a href="#">Login</a></p>
-                            <p class="register"><a href="#">Register</a></p>
-                        </div>
-                    </div>
+      <div class="account">
+        <i class="ri-account-circle-line" title="Account"></i>
+        <div class="account-dropdown">
+          <p class="login"><a href="#">Login</a></p>
+          <p class="register"><a href="#">Register</a></p>
+        </div>
+      </div>
 
-                    <div class="cart">
-                        <a href="pages/cart.html">
-                            <i class="ri-shopping-cart-line" title="Cart"></i>
-                            <span id="cart-count" class="cart-count">0</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
+      <div class="cart">
+        <a href="pages/cart.html">
+          <i class="ri-shopping-cart-line" title="Cart"></i>
+          <span id="cart-count" class="cart-count">0</span>
+        </a>
+      </div>
+    </div>
+  </div>
 
-            <div class="search-bar mobile">
-                <form action="#" method="get">
-                    <input type="search" class="search-input" placeholder="Search Products, Categories, Brands, ..."
-                        name="q" required>
-                    <!-- <span><i class="ri-search-line"></i></span> -->
-                    <input type="submit" value="Search">
-                </form>
-            </div>
-            <nav>
-                <ul class="nav-links">
-                    <li><a href="#">All</a></li>
-                    <li><a href="pages/category.html?cat=women">Women</a></li>
-                    <li><a href="pages/category.html?cat=men">Men</a></li>
-                    <li><a href="pages/category.html?cat=kids">Kids</a></li>
-                    <li><a href="pages/category.html?cat=unisex">Unisex</a></li>
-                    <li><a href="pages/category.html?cat=women">New</a></li>
-                    <li><a href="pages/category.html?cat=deals">Deals</a></li>
-                    <li><a href="#">Brands</a></li>
-                </ul>
-            </nav>
+  <!-- Mobile Search -->
+  <div class="search-bar mobile">
+    <form action="pages/search.html" method="get">
+      <input type="search" class="search-input" placeholder="Search Products, Categories, Brands..." name="q" required>
+      <button type="submit" class="search-btn">Search</button>
+    </form>
+  </div>
 
-        </header>
+  <!-- Navigation -->
+  <nav>
+    <ul class="nav-links">
+      <li><a href="#">All</a></li>
+      <li><a href="pages/category.html?cat=women">Women</a></li>
+      <li><a href="pages/category.html?cat=men">Men</a></li>
+      <li><a href="pages/category.html?cat=kids">Kids</a></li>
+      <li><a href="pages/category.html?cat=unisex">Unisex</a></li>
+      <li><a href="pages/category.html?cat=new">New</a></li>
+      <li><a href="pages/category.html?cat=deals">Deals</a></li>
+      <li><a href="#">Brands</a></li>
+    </ul>
+  </nav>
+</header>
+
+<div class="header-after"></div>
+
+
 
         <div class="header-after"></div>
 
@@ -147,7 +157,7 @@
                     <h1>Deals</h1>
                 </div>
                 <div class="scroll-container">
-                <div id="deals-products"class="product-scroll product-list"></div>
+                    <div id="deals-products" class="product-scroll product-list"></div>
                 </div>
                 <div class="section-footer">
                     <a href="pages/category.html?cat=deals" class="view-more-btn" title="View More Deals">View More</a>
@@ -279,9 +289,7 @@
     </div>
 
 
-    <script>
-
-    </script>
+    <script src="js/header.js"></script>
 
     <script src="js/navbar.js"></script>
     <script src="js/slider.js"></script>

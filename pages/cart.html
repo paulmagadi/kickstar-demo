@@ -271,10 +271,11 @@
                     const subtotal = item.qty * item.price;
                     total += subtotal;
 
-                    body.innerHTML += `
+                    body.innerHTML += 
+                    `
           <tr>
-            <td><img src="${item.image}" alt="${item.name}"></td>
-            <td>${item.name}<br><small>${item.color}, Size ${item.size}</small></td>
+            <td><a href="../pages/product-details.html?id=${index}" title="View Product"><img src="${item.image}" alt="${item.name}"></a></td>
+            <td><a href="../pages/product-details.html?id=${index}" title="View Product">${item.name}</a><br><small>${item.color}, Size ${item.size}</small></td>
             <td>KES ${item.price}</td>
             <td>
               <input type="number" class="qty-input" min="1" max="${stock}" value="${item.qty}" data-index="${index}">
