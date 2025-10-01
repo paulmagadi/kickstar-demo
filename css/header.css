@@ -56,7 +56,7 @@ header {
   padding-left: 2em;
 }
 
-.header .search-bar .ri-search-line, .search-bar.mobile i {
+.header .search-bar .ri-search-line, .search-bar.mobile .ri-search-line{
   position: absolute;
   left: .5em;
   top: 50%;
@@ -150,6 +150,10 @@ header {
   padding-left: 2em;
 }
 
+.search-bar.mobile .ri-close-line {
+    font-size: 2rem;
+}
+
 /* Nav */
 header nav {
   background: var(--anti-flash-white);
@@ -193,6 +197,7 @@ nav .nav-links a:hover { color: var(--secondary-color); }
   .header .header-items i { font-size: 1.3rem; font-weight: 400;}
   .header .header-items { gap: 0.5em; padding: .2em .3em; }
   .header .logo img { width: 65px; }
+  header .search-bar.mobile button { display: none; }
   nav .nav-links a {
     font-size: 0.8rem;
 }
