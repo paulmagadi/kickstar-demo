@@ -23,7 +23,7 @@ header {
   width: 100%;
   max-width: 1600px;
   z-index: 100;
-  background-color: var(--neutral-light-color);
+  background-color: var(--white-color);
 }
 
 /* Header Row */
@@ -47,18 +47,21 @@ header {
   font-size: .9rem;
 }
 
-.header .search-bar.desktop input[type=search] {
-  width: 400px;
-  padding-left: 2em;
+.header .search-bar form {
   position: relative;
 }
 
-.header .search-bar .ri-search-line {
+.header .search-bar.desktop input[type=search] {
+  width: 400px;
+  padding-left: 2em;
+}
+
+.header .search-bar .ri-search-line, .search-bar.mobile i {
   position: absolute;
-  left: 1em;
+  left: .5em;
   top: 50%;
   transform: translateY(-50%);
-  color: var(--gray-shade-color);
+  color: var(--neutral-dark-color);
   font-size: 1rem;
 }
 
@@ -78,7 +81,7 @@ header {
   gap: 1em;
   align-items: center;
   border: 1px solid var(--gray-shade-color);
-  padding: .3em .5em;
+  padding: .2em .5em;
   border-radius: 4px;
   background-color: #edf2f4;
 }
@@ -115,9 +118,9 @@ header {
 .header .cart-count {
   position: absolute;
   top: -8px; right: -10px;
-  padding: 3px 7px;
+  padding: 2px 7px;
   background-color: var(--primary-color);
-  border-radius: 50%;
+  border-radius: 45%;
   color: var(--neutral-light-color);
   font-size: 0.8rem;
 }
@@ -185,3 +188,12 @@ nav .nav-links a:hover { color: var(--secondary-color); }
   nav .nav-links { justify-content: flex-start; }
   nav .nav-links li { margin: 0 10px; }
 }
+
+@media (max-width: 500px) {
+  /* .header .header-items a { display: none; } */
+  .header .header-items i { font-size: 1.2rem; }
+  .header .header-items { gap: 0.5em; padding: .15em .3em; }
+  .header .logo img { width: 60px; }
+  .header-after { margin-top: 5em; }
+}
+
