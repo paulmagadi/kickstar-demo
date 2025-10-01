@@ -62,10 +62,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const searchToggle = document.querySelector(".search-toggle");
     const mobileSearchBar = document.querySelector(".search-bar.mobile");
     const mobileSearchInput = mobileSearchBar?.querySelector("input[type=search]");
-    const searchClose = mobileSearchBar?.querySelector(".search-close");
+    const searchClose = mobileSearchBar?.querySelector(".ri-close-line");
 
     if (searchToggle && mobileSearchBar) {
-        searchToggle.addEventListener("click", () => {
+        searchToggle.addEventListener("click", (e) => {
+            e.stopPropagation(); // prevent immediate close
             mobileSearchBar.classList.toggle("active");
 
             if (mobileSearchBar.classList.contains("active") && mobileSearchInput) {
@@ -75,8 +76,21 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if (searchClose) {
-        searchClose.addEventListener("click", () => {
+        searchClose.addEventListener("click", (e) => {
+            e.stopPropagation();
             mobileSearchBar.classList.remove("active");
         });
     }
+
+    // Auto-close if click outside
+    document.addEventListener("click", (e) => {
+        if (
+            mobileSearchBar?.classList.contains("active") &&
+            !mobileSearchBar.contains(e.target) &&
+            !searchToggle.contains(e.target)
+        ) {
+            mobileSearchBar.classList.remove("active");
+        }
+    });
 });
+
