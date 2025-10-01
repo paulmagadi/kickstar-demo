@@ -191,9 +191,11 @@ nav .nav-links a:hover { color: var(--secondary-color); }
 
 @media (max-width: 500px) {
   /* .header .header-items a { display: none; } */
-  .header .header-items i { font-size: 1.2rem; }
-  .header .header-items { gap: 0.5em; padding: .15em .3em; }
-  .header .logo img { width: 60px; }
-  .header-after { margin-top: 5em; }
+  .header .header-items i { font-size: 1.3rem; }
+  .header .header-items { gap: 0.5em; padding: .2em .3em; }
+  .header .logo img { width: 65px; }
+  nav .nav-links a {
+    font-size: 0.8rem;
+}
 }
 
