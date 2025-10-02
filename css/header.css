@@ -134,6 +134,9 @@ header {
   padding: 0 0.5em;
   width: 100%;
 }
+.search-bar.mobile i {
+    font-weight: 600;
+}
 .search-bar.mobile.active {
   max-height: 200px;
   opacity: 1;

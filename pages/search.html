@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KickStar - eCommerce Shoes Store</title>
 
-    <link rel="shortcut icon" href="images/logo2.svg" type="image/x-icon">
+    <link rel="shortcut icon" href="../images/logo2.svg" type="image/x-icon">
     <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../css/products.css">
     <link rel="stylesheet" href="../css/product-card.css">
@@ -18,16 +18,18 @@
 
 <body>
     <div class="container">
-        <!-- 🔹 Header with global search -->
         <header>
             <div class="header">
+                <!-- Logo -->
                 <div class="logo">
-                    <a href="../index.html"><img src="../images/logo2.svg" alt="" width="70px" title="KickStar"></a>
+                    <a href="../index.html">
+                        <img src="../images/logo2.svg" alt="KickStar" width="70px" title="KickStar">
+                    </a>
                 </div>
 
-                <!-- Global search bar -->
+                <!-- Desktop Search -->
                 <div class="search-bar desktop">
-                    <form action="search.html" method="get">
+                    <form action="../pages/search.html" method="get">
                         <input type="search" placeholder="Search Products, Categories, Brands..." name="q"
                             class="search-input" required>
                         <i class="ri-search-line"></i>
@@ -35,8 +37,17 @@
                     </form>
                 </div>
 
+                <!-- Header Items -->
                 <div class="header-items">
-                    <div class="help"><i class="ri-questionnaire-line"></i></div>
+                    <!-- Mobile Search Toggle -->
+                    <div class="search-toggle">
+                        <i class="ri-search-line mobile-only" title="Search"></i>
+                    </div>
+
+                    <div class="help">
+                        <i class="ri-questionnaire-line"></i>
+                    </div>
+
                     <div class="account">
                         <i class="ri-account-circle-line" title="Account"></i>
                         <div class="account-dropdown">
@@ -44,6 +55,7 @@
                             <p class="register"><a href="#">Register</a></p>
                         </div>
                     </div>
+
                     <div class="cart">
                         <a href="../pages/cart.html">
                             <i class="ri-shopping-cart-line" title="Cart"></i>
@@ -53,13 +65,16 @@
                 </div>
             </div>
 
+            <!-- Mobile Search -->
             <div class="search-bar mobile">
-                <form action="search.html" method="get">
-                    <input type="search" placeholder="Search Products, Categories, Brands..." name="q" required>
-                    <input type="submit" value="Search">
+                <form action="../pages/search.html" method="get">
+                    <input type="search" class="search-input" placeholder="Search Products, Categories, Brands..."
+                        name="q" required>
+                    <i class="ri-search-line"></i>
                 </form>
             </div>
 
+            <!-- Navigation -->
             <nav>
                 <ul class="nav-links">
                     <li><a href="#">All</a></li>
@@ -67,12 +82,13 @@
                     <li><a href="../pages/category.html?cat=men">Men</a></li>
                     <li><a href="../pages/category.html?cat=kids">Kids</a></li>
                     <li><a href="../pages/category.html?cat=unisex">Unisex</a></li>
-                    <li><a href="../pages/category.html?cat=women">New</a></li>
+                    <li><a href="../pages/category.html?cat=new">New</a></li>
                     <li><a href="../pages/category.html?cat=deals">Deals</a></li>
                     <li><a href="#">Brands</a></li>
                 </ul>
             </nav>
         </header>
+
         <div class="header-after"></div>
         <!-- 🔹 Search + Filters -->
         <div class="search-container">
@@ -105,6 +121,7 @@
 
     </div>
 
+    <script src="../js/header.js"></script>
     <script src="../js/products.js"></script>
     <script src="../js/search.js"></script>
     
