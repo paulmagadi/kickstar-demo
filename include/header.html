@@ -74,15 +74,46 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", () => {
-        fetch("include/header.html")
-            .then(res => res.text())
-            .then(data => {
-                document.getElementById("header").innerHTML = data;
-            })
-            .then(() => {
-                // re-run your header JS logic here
-                initHeader();
-            });
+        const headerPlaceholder = document.getElementById("header");
+
+        if (headerPlaceholder) {
+            fetch("include/header.html")
+                .then(res => res.text())
+                .then(data => {
+                    document.getElementById("header").innerHTML = data;
+                })
+                .then(() => {
+
+                    // === Path fixer ===
+                    const isInPages = window.location.pathname.includes("/pages/");
+
+                    // Fix logo path
+                    const logo = headerPlaceholder.querySelector(".logo a");
+                    if (logo) logo.setAttribute("href", isInPages ? "../index.html" : "index.html");
+
+                    // Fix logo image
+                    const logoImg = headerPlaceholder.querySelector(".logo img");
+                    if (logoImg) logoImg.setAttribute("src", isInPages ? "../images/logo2.svg" : "images/logo2.svg");
+
+                    // Fix search form action
+                    headerPlaceholder.querySelectorAll("form[action*='search.html']").forEach(form => {
+                        form.setAttribute("action", isInPages ? "search.html" : "pages/search.html");
+                    });
+
+                    // Fix cart link
+                    const cartLink = headerPlaceholder.querySelector(".cart a");
+                    if (cartLink) cartLink.setAttribute("href", isInPages ? "cart.html" : "pages/cart.html");
+
+                    // Fix category links
+                    headerPlaceholder.querySelectorAll(".nav-links a[href*='category.html']").forEach(link => {
+                        if (isInPages) {
+                            link.setAttribute("href", link.getAttribute("href").replace("pages/", ""));
+                        }
+                    });
+
+                    initHeader();
+                });
+        }
     });
 
     function initHeader() {

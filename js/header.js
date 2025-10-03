@@ -37,6 +37,14 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
+
+    
+    document.querySelectorAll("nav .nav-links a").forEach(link => {
+        if (link.href.includes(`cat=${category}`)) {
+            link.classList.add("active-url");
+        }
+    });
+
 });
 
 

@@ -70,9 +70,9 @@ header {
   background-color: var(--primary-color);
   color: var(--neutral-light-color);
   border: none;
-  border-radius: 4px;
-  padding: .4em .8em;
-    font-size: .9rem;
+  border-radius: 8px;
+  padding: .5em 1em;
+  font-size: .9rem;
 }
 
 /* Header Items */
@@ -82,12 +82,13 @@ header {
   align-items: center;
   border: 1px solid var(--gray-shade-color);
   padding: .2em .5em;
-  border-radius: 4px;
+  border-radius: 8px;
   background-color: #edf2f4;
 }
 
 .header .header-items i {
   font-size: 1.5rem;
+  font-size: 1.4rem;
   color: var(--neutral-dark-color);
   cursor: pointer;
 }
@@ -176,7 +177,9 @@ nav .nav-links a {
   color: #333;
   font-weight: 600;
 }
-nav .nav-links a:hover { color: var(--secondary-color); }
+nav .nav-links a:hover { border-bottom: 1.5px solid var(--primary-color); }
+
+.active-url { border-bottom: 2px solid var(--primary-color); }
 
 /* Header spacer */
 .header-after { margin-top: 6em; }
@@ -198,7 +201,7 @@ nav .nav-links a:hover { color: var(--secondary-color); }
   .header .logo img { width: 65px; }
   header .search-bar.mobile button { display: none; }
   nav .nav-links a {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
 }
 }
 

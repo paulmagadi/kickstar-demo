@@ -4,7 +4,7 @@ const category = urlParams.get("cat");
 
 // Update title
 const categoryTitle = document.getElementById("categoryTitle");
-categoryTitle.textContent = category ? category.charAt(0).toUpperCase() + category.slice(1) : "All Products";
+// categoryTitle.textContent = category ? category.charAt(0).toUpperCase() + category.slice(1) + " Shoes" : "All Products";
 
 // Where products will be rendered
 const categoryContainer = document.getElementById("categoryProducts");
@@ -20,25 +20,48 @@ function renderProductsByCategory(cat) {
     switch (cat.toLowerCase()) {
         case "featured":
             filteredProducts = products.filter(p => p.featured == true);
+            categoryTitle.textContent = "Featured Items";
             break;
         case "new":
             filteredProducts = products.filter(p => p.new == true);
+            categoryTitle.textContent = "New in Store";
             break;
         case "deals":
             filteredProducts = products.filter(p => 
                 p.variants.some(v => v.sizes.some(s => s.sale_price))
             );
+            categoryTitle.textContent = "Deals";
             break;
         case "men":
+            filteredProducts = products.filter(p => 
+                p.category.toLowerCase() === cat.toLowerCase()
+            );
+            categoryTitle.textContent = "Men's Shoes";
+            break;
         case "women":
+            filteredProducts = products.filter(p => 
+                p.category.toLowerCase() === cat.toLowerCase()
+            );
+            categoryTitle.textContent = "Women's Shoes";
+            break;              
         case "kids":
-        case "Unisex":
+            filteredProducts = products.filter(p => 
+                p.category.toLowerCase() === cat.toLowerCase()
+            );
+            categoryTitle.textContent = "Kids' Shoes";
+            break;
+        case "unisex":
+            categoryTitle.textContent = "Unisex Shoes";
             filteredProducts = products.filter(p => 
                 p.category.toLowerCase() === cat.toLowerCase()
             );
             break;
+        case 'all':
+            filteredProducts = products; 
+            categoryTitle.textContent = "All Products";
+            break;
         default:
-            filteredProducts = products; // all products
+            filteredProducts = [];
     }
 
     if (filteredProducts.length === 0) {
@@ -48,11 +71,6 @@ function renderProductsByCategory(cat) {
 
 
     filteredProducts.forEach((product, productIndex) => {
-        // const firstVariant = product.variants[0];
-        // const prices = product.variants.map(v => v.price);
-        // const minPrice = Math.min(...prices);
-        // const maxPrice = Math.max(...prices);
-        // const discount = product.discount || null;
 
         // Use first variant and size for defaults
             const firstVariant = product.variants[0];
