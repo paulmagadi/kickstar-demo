@@ -390,6 +390,24 @@ const productsData = [
     }
 ];
 
+
+// Brand metadata
+const brandsData = {
+  "Nike": {
+    logo: "../images/brands/nike.png",
+    description: "Nike inspires athletes worldwide with innovative footwear designed for performance and style."
+  },
+  "Adidas": {
+    logo: "../images/brands/adidas.png",
+    description: "Adidas is known for cutting-edge sportswear, merging comfort and technology for athletes."
+  },
+  "Puma": {
+    logo: "../images/brands/puma.png",
+    description: "Puma blends fashion and sport, offering iconic shoes for everyday wear and training."
+  },
+  // Add more as you expand
+};
+
 document.addEventListener("DOMContentLoaded", () => {
     const container = document.querySelector(".products-cards-container");
 

@@ -24,9 +24,9 @@
     min-width: 260px;
     max-width: 300px;
     background: #fff;
-    border-radius: 10px;
+    /* border-radius: 10px; */
     overflow: hidden;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+    /* box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06); */
     scroll-snap-align: start;
     transition: transform 0.2s ease;
 }

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brand</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+    <div id="header"></div> <!-- reusable header -->
+
+    <section class="brand-header" id="brandHeader"></section>
+
+    <section class="brand-products">
+        <div id="brandProducts" class="product-grid"></div>
+    </section>
+
+
+    <script src="../js/products.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const brandName = urlParams.get("brand");
+
+            const brandHeader = document.getElementById("brandHeader");
+            const brandProductsContainer = document.getElementById("brandProducts");
+
+            if (!brandName) {
+                brandHeader.innerHTML = "<p>No brand selected.</p>";
+                return;
+            }
+
+            // Get brand info
+            const brandInfo = brandsData[brandName] || {};
+            const logo = brandInfo.logo || "../images/brands/placeholder.png";
+            const desc = brandInfo.description || `Explore products from ${brandName}.`;
+
+            // Header section
+            brandHeader.innerHTML = `
+    <img src="${logo}" alt="${brandName} logo" class="brand-logo">
+    <h1>${brandName}</h1>
+    <p>${desc}</p>
+  `;
+
+            // Filter products
+            const filteredProducts = productsData.filter(
+                p => p.brand.toLowerCase() === brandName.toLowerCase()
+            );
+
+            if (filteredProducts.length === 0) {
+                brandProductsContainer.innerHTML = "<p>No products found for this brand.</p>";
+                return;
+            }
+
+            // Render products (same style as categories)
+            filteredProducts.forEach((product, productIndex) => {
+                const firstVariant = product.variants[0];
+                const firstSize = firstVariant.sizes[0];
+
+                // Collect all prices
+                const allPrices = product.variants.flatMap(variant =>
+                    variant.sizes.map(size => size.sale_price || size.price)
+                );
+
+                const minPrice = Math.min(...allPrices);
+                const maxPrice = Math.max(...allPrices);
+
+                const discount = firstSize.sale_price
+                    ? Math.round(((firstSize.price - firstSize.sale_price) / firstSize.price) * 100)
+                    : 0;
+
+                const productCard = `
+      <div class="product-card">
+        <a href="product-details.html?id=${product.id}" title="View product">
+          <div class="product-image-wrapper">
+            <div class="product-image">
+              <img src="../images/${firstVariant.images[0].replace(/^\.?\/?images\//, "")}" 
+                   alt="${product.name}" class="product-img">
+            </div>
+          </div>
+        </a>
+
+        <div class="product-info">
+          <a href="product-details.html?id=${product.id}" title="${product.name}">
+            <div class="product-title">${product.name}</div>
+          </a>
+
+          <div class="product-price">
+            <span class="sale-price">KES ${minPrice.toFixed(2)}</span>
+            ${minPrice !== maxPrice ? `<span class="price-range"> - KES ${maxPrice.toFixed(2)}</span>` : ""}
+          </div>
+
+          ${discount ? `<div class="product-card-sale-badge"><p>-${discount}%</p></div>` : ""}
+
+          <br>
+          <div class="swatch-wrapper">
+            <div class="swatch-scroll-btn swatch-scroll-left hidden">&#10094;</div>
+            <div class="swatches">
+              ${product.variants.map((variant, index) => `
+                <img 
+                  src="../images/${variant.images[0].replace(/^\.?\/?images\//, "")}"
+                  alt="${variant.color}" 
+                  title="${variant.color}" 
+                  class="swatch ${index === 0 ? "active" : ""}" 
+                  data-product="${product.id}" 
+                  data-variant="${index}" />
+              `).join("")}
+            </div>
+            <div class="swatch-scroll-btn swatch-scroll-right">&#10095;</div>
+          </div>
+        </div>
+      </div>
+    `;
+
+                brandProductsContainer.insertAdjacentHTML("beforeend", productCard);
+            });
+        });
+
+    </script>
+</body>
+
+</html>

@@ -1,8 +1,16 @@
-* {
+/* * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
+
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0;
+} */
 
 :root {
     --primary-color: #fd3008;
@@ -10,23 +18,20 @@
     --neutral-light-color: #f8f9fa;
     --neutral-dark-color: #2d2d2d;
     --accent-color: #ffd166;
+    --snow: #fffafa;
+    --anti-flash-white: #f4f6f6;
     --gray-shade-color: #dee7e7;
-}
-
-.container {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0;
+    --white-color: #ffffff;
+    --timberwolf: #ced0ce;
 }
 
 .product-card {
     width: 100%;
     max-width: 300px;
-    background: #fff;
+    /* background: #fff; */
     overflow: hidden;
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    /* border-radius: 8px; */
+    /* box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05); */
     margin-bottom: 2rem;
 }
 

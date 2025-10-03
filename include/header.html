@@ -159,4 +159,24 @@
 
 
 
+    document.addEventListener("DOMContentLoaded", () => {
+        const navLinks = document.querySelectorAll("header nav a");
+        const depth = window.location.pathname.split("/").length - 2; // how deep the file is
+        let prefix = "";
+
+        for (let i = 0; i < depth; i++) {
+            prefix += "../";
+        }
+
+        navLinks.forEach(link => {
+            const href = link.getAttribute("data-href"); // store clean path in data-href
+            if (href) {
+                link.setAttribute("href", prefix + href);
+            }
+        });
+    });
+
+
+
+
 </script>

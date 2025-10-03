@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brands</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+    <div id="header"></div> <!-- reusable header -->
+
+    <main class="brands-page">
+        <h1>Our Brands</h1>
+        <div class="brands-grid" id="brands-grid"></div>
+    </main>
+
+    <script src="../js/products.js"></script>
+    <script>
+        const grid = document.getElementById("brands-grid");
+
+        // get unique brands
+        const brands = [...new Set(productsData.map(p => p.brand))];
+
+        brands.forEach(brand => {
+            const card = document.createElement("a");
+            card.href = `brand.html?brand=${encodeURIComponent(brand)}`;
+            card.className = "brand-card";
+
+            const logo = brandsData[brand]?.logo || "../images/brands/placeholder.png";
+
+            card.innerHTML = `
+    <img src="${logo}" alt="${brand} logo">
+    <span>${brand}</span>
+  `;
+            grid.appendChild(card);
+        });
+
+    </script>
+</body>
+
+</html>

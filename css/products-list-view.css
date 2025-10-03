@@ -24,8 +24,8 @@
 .product-card {
     width: 23%;
     margin-bottom: 1em;
-    border-radius: 8px;
-    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+    /* border-radius: 8px; */
+    /* box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2); */
     border: 1px solid transparent;
     position: relative;
 }
@@ -108,17 +108,22 @@
 .product-card-sale-badge {
     background-color: black;
     color: var(--neutral-light-color);
-    font-size: .9rem;
     width: fit-content;
     aspect-ratio: 1;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: .2em;
+    padding: 1px 2px;
     position: absolute;
     top: 0;
     right: 0;
-    border-radius: 50%;
+    border-radius: 4px;
+    margin: 5px;
+}
+
+.product-card-sale-badge p {
+    font-size: 12px;
+    font-weight: 600;
 }
 
 @media (max-width: 800px) {
