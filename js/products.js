@@ -451,7 +451,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         <div class="product-price">
                             <span class="sale-price">KES ${minPrice.toFixed(2)}</span>
                             ${minPrice !== maxPrice ? 
-                                `<span class="price-range"> - KES ${maxPrice.toFixed(2)}</span>` 
+                                `<span class="price-range price original-price"> - KES ${maxPrice.toFixed(2)}</span>` 
                                 : ""}
                         </div>
                         

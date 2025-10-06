@@ -28,36 +28,14 @@
     padding: 0;
 }
 
-.products-cards-container {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 1em;
-    padding: 1em;
-    width: 100%;
-}
-
-.product-card {
-    width: 23% !important;
-}
-
-
-
 @media (max-width: 800px) {
-
-    .product-card {
-        width: 30% !important;;
-    }
+    
 }
 
 @media (max-width: 560px) {
-    .product-card {
-        width: 45% !important;
-    }
+  
 }
 
 @media (max-width: 330px) {
-    .product-card {
-        width: 100% !important;
-    }
+ 
 }
