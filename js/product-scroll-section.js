@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // const scrollSections = document.querySelectorAll(".product-scroll-section");
         const productList = document.querySelector(".product-scroll");
         const leftBtn = document.getElementById("scrollLeft");
         const rightBtn = document.getElementById("scrollRight");

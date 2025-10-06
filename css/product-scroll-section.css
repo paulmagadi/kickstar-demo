@@ -2,24 +2,23 @@
     position: relative;
     overflow: hidden;
     padding: 2em;
-    background-color: red;
 }
 
-.product-list {
+.product-scroll {
     display: flex;
     flex-wrap: nowrap;
-    gap: .5rem;
+    gap: 1em;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
     -ms-overflow-style: none;
 }
 
-.product-list::-webkit-scrollbar {
+.product-scroll::-webkit-scrollbar {
     display: none;
 }
 
-.product-list .product-card {
+.product-scroll .product-card {
     max-width: 300px;
     flex: 0 0 auto;
     overflow: hidden;
@@ -72,6 +71,9 @@
 }
 
 @media (max-width: 560px) {
+    .product-scroll {
+        gap: .5em;
+    }
     .scroll-btn {
         display: none;
     }
