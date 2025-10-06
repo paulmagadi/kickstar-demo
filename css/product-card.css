@@ -27,7 +27,6 @@
 
 .product-card {
     width: 100%;
-    max-width: 300px;
     /* width: max(300px, 23%); */
     overflow: hidden;
     border-radius: 8px;
