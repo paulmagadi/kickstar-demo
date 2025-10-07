@@ -148,7 +148,7 @@
 
         <section>
             <div class="section-header">
-                <h1>Deals</h1>
+                <h1 id="deals-header"></h1>
             </div>
             <div class="products-scroll-container">
                 <div class="product-scroll-btn scroll-left hidden">&#10094;</div>
@@ -296,6 +296,10 @@
     <script src="js/product-scroll-section.js"></script>
     <!-- <script src="js/cart.js"></script> -->
     <script src="js/search.js"></script>
+<!-- 
+    <script>
+        document.getElementById("deals-header").innerText = `Deals - Up to ${getMaxDiscount(productsData)}% Off`;
+    </script> -->
 
 </body>
 

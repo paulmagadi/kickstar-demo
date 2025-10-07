@@ -409,7 +409,31 @@ const brandsData = {
 };
 
 document.addEventListener("DOMContentLoaded", () => {
-    const container = document.querySelector(".products-cards-container");
+
+
+    function getMaxDiscount(products) {
+        let maxDiscount = 0;
+
+        products.forEach(product => {
+            product.variants.forEach(variant => {
+                variant.sizes.forEach(size => {
+                    if (size.sale_price && size.price) {
+                        const discount = Math.round(((size.price - size.sale_price) / size.price) * 100);
+                        if (discount > maxDiscount) {
+                            maxDiscount = discount;
+                        }
+                    }
+                });
+            });
+        });
+
+        return maxDiscount;
+    }
+
+    const dealsHeader = document.getElementById("deals-header");
+    if (dealsHeader) {
+        dealsHeader.innerText = `Deals - Up to ${getMaxDiscount(productsData)}% Off`;
+    }
 
     // ✅ Render function (reusable)
     const renderProducts = (productsList, targetContainer, limit = null) => {
@@ -517,3 +541,6 @@ document.addEventListener("DOMContentLoaded", () => {
     //     renderProducts(productsData, container);
     // }
 });
+
+
+

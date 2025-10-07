@@ -9,6 +9,28 @@ const categoryTitle = document.getElementById("categoryTitle");
 // Where products will be rendered
 const categoryContainer = document.getElementById("categoryProducts");
 
+
+
+function getMaxDiscount(products) {
+    let maxDiscount = 0;
+
+    products.forEach(product => {
+        product.variants.forEach(variant => {
+            variant.sizes.forEach(size => {
+                if (size.sale_price && size.price) {
+                    const discount = Math.round(((size.price - size.sale_price) / size.price) * 100);
+                    if (discount > maxDiscount) {
+                        maxDiscount = discount;
+                    }
+                }
+            });
+        });
+    });
+
+    return maxDiscount;
+}
+
+
 // Render function (reuse your product-card template)
 function renderProductsByCategory(cat) {
     categoryContainer.innerHTML = "";
@@ -30,7 +52,10 @@ function renderProductsByCategory(cat) {
             filteredProducts = products.filter(p => 
                 p.variants.some(v => v.sizes.some(s => s.sale_price))
             );
-            categoryTitle.textContent = "Deals";
+            const maxDealDiscount = getMaxDiscount(filteredProducts);
+            categoryTitle.textContent = maxDealDiscount
+            ? `Deals — Up to -${maxDealDiscount}%`
+            : "Deals";
             break;
         case "men":
             filteredProducts = products.filter(p => 

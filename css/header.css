@@ -8,6 +8,7 @@
     --anti-flash-white: #f4f6f6;
     --gray-shade-color: #dee7e7;
     --white-color: #ffffff;
+    --black-color: #000000;
     --timberwolf: #ced0ce;
 }
 
@@ -75,6 +76,10 @@ header {
   font-size: .9rem;
 }
 
+.search-bar input[type=submit]:hover, .search-btn:hover {
+  opacity: 0.8;
+}
+
 /* Header Items */
 .header .header-items {
   display: flex;
@@ -123,6 +128,10 @@ header {
   border-radius: 45%;
   color: var(--neutral-light-color);
   font-size: 0.8rem;
+}
+
+.header .cart-count:hover {
+  opacity: 0.8;
 }
 
 /* Mobile Search */
