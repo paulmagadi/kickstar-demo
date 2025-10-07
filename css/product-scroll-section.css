@@ -33,6 +33,7 @@
     background: var(--black-color);
     color: var(--white-color);
     padding: .6em .9em;
+    margin: 0 5px;
     border-radius: 4px;
     display: flex;
     justify-content: center;
