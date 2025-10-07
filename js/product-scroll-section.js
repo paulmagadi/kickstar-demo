@@ -1,34 +1,50 @@
 document.addEventListener("DOMContentLoaded", () => {
-        const productList = document.querySelector(".product-scroll");
-        const leftBtn = document.getElementById("scrollLeft");
-        const rightBtn = document.getElementById("scrollRight");
+  const scrollSections = document.querySelectorAll(".products-scroll-container");
 
-        const updateScrollButtons = () => {
-            leftBtn.classList.toggle("hidden", productList.scrollLeft <= 0);
-            rightBtn.classList.toggle(
-                "hidden",
-                productList.scrollLeft >= productList.scrollWidth - productList.clientWidth - 1
-            );
-        };
+  scrollSections.forEach(section => {
+    const productList = section.querySelector(".product-scroll");
+    const leftBtn = section.querySelector(".scroll-left");
+    const rightBtn = section.querySelector(".scroll-right");
 
-        const scrollAmount = () => {
-            const firstCard = productList.querySelector(".product-card");
-            return firstCard ? firstCard.offsetWidth + 24 : 300;
-        };
+    if (!productList) return;
 
-        leftBtn.addEventListener("click", () => {
-            productList.scrollBy({ left: -scrollAmount(), behavior: "smooth" });
-        });
+    const getScrollAmount = () => {
+      const firstCard = productList.querySelector(".product-card");
+      return firstCard ? firstCard.offsetWidth + 24 : 300; // 24px gap
+    };
 
-        rightBtn.addEventListener("click", () => {
-            productList.scrollBy({ left: scrollAmount(), behavior: "smooth" });
-        });
+    const updateScrollButtons = () => {
+      const noScrollNeeded = productList.scrollWidth <= productList.clientWidth + 1;
 
-        productList.addEventListener("scroll", () => {
-            updateScrollButtons();
-        });
+      if (noScrollNeeded) {
+        leftBtn?.classList.add("hidden");
+        rightBtn?.classList.add("hidden");
+        return;
+      }
 
-        window.addEventListener("load", updateScrollButtons);
-        window.addEventListener("resize", updateScrollButtons);
-        updateScrollButtons();
+      const atStart = productList.scrollLeft <= 0;
+      const atEnd = productList.scrollLeft >= productList.scrollWidth - productList.clientWidth - 1;
+
+      leftBtn?.classList.toggle("hidden", atStart);
+      rightBtn?.classList.toggle("hidden", atEnd);
+    };
+
+    leftBtn?.addEventListener("click", () => {
+      productList.scrollBy({ left: -getScrollAmount(), behavior: "smooth" });
+    });
+
+    rightBtn?.addEventListener("click", () => {
+      productList.scrollBy({ left: getScrollAmount(), behavior: "smooth" });
+    });
+
+    // Throttled scroll event
+    let scrollTimeout;
+    productList.addEventListener("scroll", () => {
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(updateScrollButtons, 50);
+    });
+
+    window.addEventListener("resize", updateScrollButtons);
+    updateScrollButtons();
+  });
 });

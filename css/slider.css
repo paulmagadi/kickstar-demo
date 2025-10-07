@@ -79,31 +79,35 @@
 
 .slides-controls {
     text-align: center;
+    left: 10px;
 }
 
 .slides-controls button {
     position: absolute;
-    padding: .7em .9em;
-    margin: 0 5px;
+    padding: .6em .9em;
     cursor: pointer;
-    background-color: var(--primary-color);
+    background-color: var(--black-color);
     border: none;
     outline: none;
-    color: var(--neutral-light-color);
+    color: var(--white-color);
     border-radius: 4px;
 }
 .slides-controls button:hover {
-    background-color: var(--secondary-color);
+    background-color: var(--primary-color);
+}
+
+
+.slides-controls .slide-prev, 
+.slides-controls .slide-next {
+    bottom: 0;
 }
 
 .slides-controls .slide-prev {
-    left: 0;
-    top: 50%;
     translate: 0 -50%;
+    right: 55px;
 }
 
 .slides-controls .slide-next {
-    right: 0;
-    top: 50%;
     translate: 0 -50%;
+    right: 10px;
 }

@@ -26,19 +26,17 @@
     transition: transform 0.2s ease;
 }
 
-.scroll-btn {
+.product-scroll-btn {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.1);
-    color: #333;
-    width: 36px;
-    height: 60px;
-    border-radius: 6px;
+    background: var(--black-color);
+    color: var(--white-color);
+    padding: .6em .9em;
+    border-radius: 4px;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 1.5rem;
     cursor: pointer;
     z-index: 10;
     -webkit-user-select: none;
@@ -46,8 +44,8 @@
     transition: background 0.3s ease;
 }
 
-.scroll-btn:hover {
-    background: rgba(0, 0, 0, 0.2);
+.product-scroll-btn:hover {
+    background: var(--primary-color);
 }
 
 .scroll-left {
@@ -58,7 +56,7 @@
     right: 0;
 }
 
-.scroll-btn.hidden {
+.product-scroll-btn.hidden {
     display: none;
 }
 
@@ -74,7 +72,9 @@
     .product-scroll {
         gap: .5em;
     }
+
     .scroll-btn {
         display: none;
     }
 }
+
