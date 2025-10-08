@@ -26,3 +26,21 @@
     }
 
 }
+
+@media (max-width: 500px) {
+    .products-cards-container {
+        padding: 1em .5em;
+        gap: .5em;
+        grid-template-columns: repeat(auto-fit, minmax(166px, 1fr));
+    }
+
+}
+
+@media (max-width: 400px) {
+    .products-cards-container {
+        padding: 1em .5em;
+        gap: .5em;
+        grid-template-columns: repeat(auto-fit, minmax(146px, 1fr));
+    }
+
+}
