@@ -67,6 +67,10 @@
         padding: 1em .5em;
     }
 
+    .product-scroll .product-card {
+        max-width: 240px;
+    }
+
 }
 
 @media (max-width: 560px) {
@@ -74,7 +78,33 @@
         gap: .5em;
     }
 
+    .product-scroll .product-card {
+        max-width: 200px;
+    }
+
     .scroll-btn {
         display: none;
     }
+}
+
+
+@media (max-width: 480px) {
+    .product-scroll .product-card {
+        max-width: 180px;
+    }
+
+}
+
+@media (max-width: 380px) {
+    .product-scroll .product-card {
+        max-width: 170px;
+    }
+
+}
+
+@media (max-width: 340px) {
+    .product-scroll .product-card {
+        max-width: 95%;
+    }
+
 }
