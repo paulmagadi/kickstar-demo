@@ -30,9 +30,9 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: var(--primary-color);
+    background: var(--black-low-opacity);
     color: var(--neutral-light-color);
-    padding: .6em .9em;
+    padding: .5em .9em;
     margin: 0 5px;
     border-radius: 4px;
     display: flex;
@@ -46,7 +46,7 @@
 }
 
 .product-scroll-btn:hover {
-    opacity: 0.8;
+    background-color: var(--primary-color);
 }
 
 .scroll-left {
