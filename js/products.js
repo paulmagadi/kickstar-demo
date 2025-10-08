@@ -39,7 +39,7 @@ const productsData = [
         "id": 1,
         "name": "Adidas Ultraboost 22",
         "brand": "Adidas",
-        "category": "kids", 
+        "category": "kidss", 
         "featured" : true,
         "new": false,
         "description": "Experience next-level comfort with Adidas Ultraboost 22 and responsive Boost cushioning.",
@@ -432,7 +432,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const dealsHeader = document.getElementById("deals-header");
     if (dealsHeader) {
-        dealsHeader.innerText = `Deals - Up to ${getMaxDiscount(productsData)}% Off`;
+        dealsHeader.innerHTML = `Deals - Up to <span style="color: #e53935;">${getMaxDiscount(productsData)}% Off</span>`;
     }
 
     // ✅ Render function (reusable)

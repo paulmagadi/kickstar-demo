@@ -16,6 +16,7 @@
     width: 100%;
     overflow: hidden;
     border-radius: 8px;
+    max-width: 300px;
     /* box-shadow: 1px 4px 6px rgba(0, 0, 0, 0.1); */
     border: 1px solid var(--gray-shade-color);
     background: var(--white-color);

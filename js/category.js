@@ -53,8 +53,9 @@ function renderProductsByCategory(cat) {
                 p.variants.some(v => v.sizes.some(s => s.sale_price))
             );
             const maxDealDiscount = getMaxDiscount(filteredProducts);
-            categoryTitle.textContent = maxDealDiscount
-            ? `Deals — Up to -${maxDealDiscount}%`
+            categoryTitle.innerHTML = maxDealDiscount
+            ? `Deals — Up to <span style="color: #e53935;">${maxDealDiscount}% Off</span>`
+            // ? `Deals — Up to ${maxDealDiscount}% Off`
             : "Deals";
             break;
         case "men":

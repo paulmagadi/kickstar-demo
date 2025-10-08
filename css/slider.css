@@ -2,7 +2,6 @@
     width: 100%;
     height: 90vh;
     max-height: 350px;
-    /* top: 4.1em; */
     position: relative;
 }
 
@@ -124,10 +123,6 @@
         padding: .3em .7em;
     }
 
-    .slides-controls .slide-prev,
-    .slides-controls .slide-next {
-        bottom: 85%;
-    }
 
     .slides-controls .slide-prev {
         right: 40px;

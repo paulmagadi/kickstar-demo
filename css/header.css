@@ -179,6 +179,8 @@ nav .nav-links {
 nav .nav-links li { 
     margin: 0 20px; 
     list-style: none;
+    /* font-family: 'Poppins', 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif; */
+    /* font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif; */
 }
 nav .nav-links li:last-child { padding-right: 20px;}
 nav .nav-links a {
