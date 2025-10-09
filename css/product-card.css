@@ -26,6 +26,7 @@
 .product-image {
     width: 100%;
     background-color: var(--gray-shade-color);
+    position: relative;
 }
 
 .product-image img {
@@ -34,6 +35,24 @@
     object-fit: cover;
     transition: opacity 0.3s ease;
 }
+
+.product-color {
+    bottom: 8px;
+    color: var(--neutral-dark-color);
+    margin-left: 1.5em;
+    position: absolute;
+    font-size: 0.65rem;
+    font-weight: 600;
+    background-color: #edf2f4;
+    padding: 3px 7px;
+    border-radius: 50px;
+}
+
+.product-color span {
+    font-size: 0.65rem;
+    font-weight: 400;
+}
+
 
 .product-info {
     padding: 1rem;

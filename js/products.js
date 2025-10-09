@@ -463,6 +463,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         <div class="product-image-wrapper">
                             <div class="product-image">
                                 <img src="${firstVariant.images[0]}" class="product-img" alt="${product.name}" />
+                                <div class="product-color">Color: <span>${firstVariant.color}</span></div>
                             </div>
                         </div>
                     </a>
@@ -540,7 +541,71 @@ document.addEventListener("DOMContentLoaded", () => {
     // if (container) {
     //     renderProducts(productsData, container);
     // }
+
+
+
 });
 
 
 
+// ✅ Handle variant switching dynamically
+document.addEventListener("click", (e) => {
+    const swatch = e.target.closest(".swatch");
+    if (!swatch) return;
+
+    const productIndex = parseInt(swatch.dataset.product);
+    const variantIndex = parseInt(swatch.dataset.variant);
+
+    const product = productsData[productIndex];
+    const variant = product.variants[variantIndex];
+
+    // Find parent card
+    const card = swatch.closest(".product-card");
+    if (!card) return;
+
+    // Update active swatch state
+    const allSwatches = card.querySelectorAll(".swatch");
+    allSwatches.forEach((s) => s.classList.remove("active"));
+    swatch.classList.add("active");
+
+    // Update main product image
+    const img = card.querySelector(".product-img");
+    img.src = variant.images[0];
+
+    // Update main product color
+    const productColorHolder = card.querySelector(".product-color span");
+    productColorHolder.innerHTML = variant.color;
+
+    // Update product price and discount
+    const allPrices = variant.sizes.map((s) => s.sale_price || s.price);
+    const minPrice = Math.min(...allPrices);
+    const maxPrice = Math.max(...allPrices);
+
+    const priceContainer = card.querySelector(".product-price");
+    priceContainer.innerHTML = `
+        <span class="sale-price">KES ${minPrice.toFixed(2)}</span>
+        ${minPrice !== maxPrice ? 
+            `<span class="price-range price original-price"> - KES ${maxPrice.toFixed(2)}</span>` 
+            : ""}
+    `;
+
+    // Update discount badge
+    const firstSize = variant.sizes[0];
+    const discount = firstSize.sale_price
+        ? Math.round(((firstSize.price - firstSize.sale_price) / firstSize.price) * 100)
+        : 0;
+
+    const discountBadge = card.querySelector(".product-card-sale-badge");
+    if (discount) {
+        if (discountBadge) {
+            discountBadge.innerHTML = `<p>-${discount}%</p>`;
+        } else {
+            const newBadge = document.createElement("div");
+            newBadge.classList.add("product-card-sale-badge");
+            newBadge.innerHTML = `<p>-${discount}%</p>`;
+            card.querySelector(".product-info").prepend(newBadge);
+        }
+    } else if (discountBadge) {
+        discountBadge.remove();
+    }
+});

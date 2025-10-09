@@ -37,11 +37,6 @@ h1, h2, h3, h4, h5, h6 {
     text-transform: uppercase;
 }
 
-.nav-links li a {
-    font-family: 'Poppins', 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    font-weight: 600;
-    text-transform: uppercase;
-}
 
 /* Navigation, buttons, labels – clear and sharp */
 button, .btn, label, input, select {
@@ -53,7 +48,7 @@ button, .btn, label, input, select {
 small, .caption, .footer li, .footer li a, .review-text, .price, .counter {
     font-family: 'Roboto', sans-serif;
     font-size: 0.875rem;
-    color: #555;
+    color: var(--neutral-dark-color);
 }
 
 
@@ -75,7 +70,7 @@ section {
 
 .section-header {
     color: var(--neutral-dark-color);
-    background-color: var(--snow);
+    /* background-color: var(--snow); */
     border-bottom: 1px solid var(--gray-shade-color);
 }
 
