@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
      * @param {number|null} limit - Max number of products to show
      * @param {string} imageBase - Path to images relative to this page
      */
-    function renderProducts(productsList, container, limit = null, imageBase = "images/") {
+    function renderProducts(productsList, container, limit = null, imageBase = "./images/") {
         if (!container || !Array.isArray(productsList)) return;
         const list = limit ? productsList.slice(0, limit) : productsList;
         container.innerHTML = list
@@ -30,13 +30,13 @@ document.addEventListener("DOMContentLoaded", () => {
     renderProducts(
         productsData.filter(p => p.featured),
         document.querySelector("#featured-products"),
-        4
+        8
     );
 
     renderProducts(
         productsData.filter(p => p.new),
         document.querySelector("#new-products"),
-        4
+        8
     );
 
     renderProducts(
@@ -50,19 +50,19 @@ document.addEventListener("DOMContentLoaded", () => {
     renderProducts(
         productsData.filter(p => p.category.toLowerCase() === "men"),
         document.querySelector("#men-products"),
-        4
+        8
     );
 
     renderProducts(
         productsData.filter(p => p.category.toLowerCase() === "women"),
         document.querySelector("#women-products"),
-        4
+        8
     );
 
     renderProducts(
         productsData.filter(p => p.category.toLowerCase() === "kids"),
         document.querySelector("#kids-products"),
-        4
+        8
     );
 });
 

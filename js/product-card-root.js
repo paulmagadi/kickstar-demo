@@ -77,7 +77,7 @@ function initProductCardFunctions() {
 
         // Update image + color
         const img = card.querySelector(".product-img");
-        img.src = `../images/${variant.images[0].replace(/^\.?\/?images\//, "")}`;
+        img.src = `./images/${variant.images[0].replace(/^\.?\/?images\//, "")}`;
         const colorHolder = card.querySelector(".product-color span");
         if (colorHolder) colorHolder.textContent = variant.color;
 
