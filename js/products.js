@@ -28,6 +28,66 @@ const productsData = [
                     "./images/nike-air-max-270-3.jpg"
                 ],
                 "sizes": [
+                    { "size": 40, "price": 155.00, "sale_price": 120.00, "stock_quantity": 3 },
+                    { "size": 41, "price": 160.00, "sale_price": null, "stock_quantity": 1 },
+                    { "size": 42, "price": 160.00, "sale_price": 145.00, "stock_quantity": 4 }
+                ]
+            },
+            
+            {
+                "color": "Red/Black",
+                "images": [
+                    "./images/nike-air-max-270-3.jpg"
+                ],
+                "sizes": [
+                    { "size": 40, "price": 155.00, "sale_price": 140.00, "stock_quantity": 3 },
+                    { "size": 41, "price": 160.00, "sale_price": null, "stock_quantity": 1 },
+                    { "size": 42, "price": 160.00, "sale_price": 145.00, "stock_quantity": 4 }
+                ]
+            },
+            
+            {
+                "color": "Red/Black",
+                "images": [
+                    "./images/nike-air-max-270-3.jpg"
+                ],
+                "sizes": [
+                    { "size": 40, "price": 155.00, "sale_price": 140.00, "stock_quantity": 3 },
+                    { "size": 41, "price": 160.00, "sale_price": null, "stock_quantity": 1 },
+                    { "size": 42, "price": 160.00, "sale_price": 145.00, "stock_quantity": 4 }
+                ]
+            },
+            
+            {
+                "color": "Red/Black",
+                "images": [
+                    "./images/nike-air-max-270-3.jpg"
+                ],
+                "sizes": [
+                    { "size": 40, "price": 155.00, "sale_price": 140.00, "stock_quantity": 3 },
+                    { "size": 41, "price": 160.00, "sale_price": null, "stock_quantity": 1 },
+                    { "size": 42, "price": 160.00, "sale_price": 145.00, "stock_quantity": 4 }
+                ]
+            },
+            
+            {
+                "color": "Red/Black",
+                "images": [
+                    "./images/nike-air-max-270-3.jpg"
+                ],
+                "sizes": [
+                    { "size": 40, "price": 155.00, "sale_price": 140.00, "stock_quantity": 3 },
+                    { "size": 41, "price": 160.00, "sale_price": null, "stock_quantity": 1 },
+                    { "size": 42, "price": 160.00, "sale_price": 145.00, "stock_quantity": 4 }
+                ]
+            },
+            
+            {
+                "color": "Red/Black",
+                "images": [
+                    "./images/nike-air-max-270-3.jpg"
+                ],
+                "sizes": [
                     { "size": 40, "price": 155.00, "sale_price": 140.00, "stock_quantity": 3 },
                     { "size": 41, "price": 160.00, "sale_price": null, "stock_quantity": 1 },
                     { "size": 42, "price": 160.00, "sale_price": 145.00, "stock_quantity": 4 }
@@ -408,205 +468,18 @@ const brandsData = {
   // Add more as you expand
 };
 
-// document.addEventListener("DOMContentLoaded", () => {
 
-
-//     function getMaxDiscount(products) {
-//         let maxDiscount = 0;
-
-//         products.forEach(product => {
-//             product.variants.forEach(variant => {
-//                 variant.sizes.forEach(size => {
-//                     if (size.sale_price && size.price) {
-//                         const discount = Math.round(((size.price - size.sale_price) / size.price) * 100);
-//                         if (discount > maxDiscount) {
-//                             maxDiscount = discount;
-//                         }
-//                     }
-//                 });
-//             });
-//         });
-
-//         return maxDiscount;
-//     }
-
-//     const dealsHeader = document.getElementById("deals-header");
-//     if (dealsHeader) {
-//         dealsHeader.innerHTML = `Deals - Up to <span style="color: #e53935;">${getMaxDiscount(productsData)}% Off</span>`;
-//     }
-
-//     // ✅ Render function (reusable)
-//     const renderProducts = (productsList, targetContainer, limit = null) => {
-//         if (!targetContainer) return;
-//         const list = limit ? productsList.slice(0, limit) : productsList;
-//         targetContainer.innerHTML = list.map((product, productIndex) => {
-//             // Use first variant and size for defaults
-//             const firstVariant = product.variants[0];
-//             const firstSize = firstVariant.sizes[0];
-
-//             // Collect all prices (consider sale_price if exists)
-//             const allPrices = product.variants.flatMap(variant =>
-//                 variant.sizes.map(size => size.sale_price || size.price)
-//             );
-
-//             const minPrice = Math.min(...allPrices);
-//             const maxPrice = Math.max(...allPrices);
-
-//             // Discount calculation (badge)
-//             const discount = firstSize.sale_price
-//                 ? Math.round(((firstSize.price - firstSize.sale_price) / firstSize.price) * 100)
-//                 : 0;
-
-//             return `
-//                 <div class="product-card">
-//                     <a href="pages/product-details.html?id=${productIndex}" title="View product">
-//                         <div class="product-image-wrapper">
-//                             <div class="product-image">
-//                                 <img src="${firstVariant.images[0]}" class="product-img" alt="${product.name}" />
-//                                 <div class="product-color">Color: <span>${firstVariant.color}</span></div>
-//                             </div>
-//                         </div>
-//                     </a>
-
-//                     <div class="product-info">
-//                         <a href="pages/product-details.html?id=${productIndex}" title="${product.name}">
-//                             <div class="product-title">${product.name}</div>
-//                         </a>
-
-//                         <div class="product-price">
-//                             <span class="sale-price">KES ${minPrice.toFixed(2)}</span>
-//                             ${minPrice !== maxPrice ? 
-//                                 `<span class="price-range price original-price"> - KES ${maxPrice.toFixed(2)}</span>` 
-//                                 : ""}
-//                         </div>
-                        
-//                         ${discount ? `<div class="product-card-sale-badge"><p>-${discount}%</p></div>` : ""}
-
-//                         <br>
-//                         <div class="swatch-wrapper">
-//                             <div class="swatch-scroll-btn swatch-scroll-left hidden">&#10094;</div>
-//                             <div class="swatches">
-//                                 ${product.variants.map((variant, index) => `
-//                                     <img 
-//                                         src="${variant.images[0]}" 
-//                                         alt="${variant.color}" 
-//                                         title="${variant.color}" 
-//                                         class="swatch ${index === 0 ? "active" : ""}" 
-//                                         data-product="${productIndex}" 
-//                                         data-variant="${index}" />
-//                                 `).join("")}
-//                             </div>
-//                             <div class="swatch-scroll-btn swatch-scroll-right">&#10095;</div>
-//                         </div>
-//                     </div>
-//                 </div>
-//             `;
-//         }).join("");
-//     };
-
-
-//     // ✅ Featured products
-//     const featuredContainer = document.querySelector("#featured-products");
-//     const featuredProducts = productsData.filter(p => p.featured);
-//     renderProducts(featuredProducts, featuredContainer, 4);
-
-//     // ✅ New arrivals
-//     const newContainer = document.querySelector("#new-products");
-//     const newProducts = productsData.filter(p => p.new);
-//     renderProducts(newProducts, newContainer, 4);
-
-//     // ✅ Deals (products with any sale_price)
-//     const dealsContainer = document.querySelector("#deals-products");
-//     const dealsProducts = productsData.filter(p =>
-//         p.variants.some(v => v.sizes.some(s => s.sale_price))
-//     );
-//     renderProducts(dealsProducts, dealsContainer, 8);
-
-//     // ✅ Men’s Shoes
-//     const menContainer = document.querySelector("#men-products");
-//     const menProducts = productsData.filter(p => p.category.toLowerCase() === "men");
-//     renderProducts(menProducts, menContainer, 4);
-
-//     // ✅ Women’s Shoes
-//     const womenContainer = document.querySelector("#women-products");
-//     const womenProducts = productsData.filter(p => p.category.toLowerCase() === "women");
-//     renderProducts(womenProducts, womenContainer, 4);
-
-//     // ✅ Kids
-//     const kidsContainer = document.querySelector("#kids-products");
-//     const kidsProducts = productsData.filter(p => p.category.toLowerCase() === "kids");
-//     renderProducts(kidsProducts, kidsContainer, 4);
-
-//     // ✅ Default full listing (if needed)
-//     // if (container) {
-//     //     renderProducts(productsData, container);
-//     // }
-
-
-
-// });
-
-
-
-// // ✅ Handle variant switching dynamically
-// document.addEventListener("click", (e) => {
-//     const swatch = e.target.closest(".swatch");
-//     if (!swatch) return;
-
-//     const productIndex = parseInt(swatch.dataset.product);
-//     const variantIndex = parseInt(swatch.dataset.variant);
-
-//     const product = productsData[productIndex];
-//     const variant = product.variants[variantIndex];
-
-//     // Find parent card
-//     const card = swatch.closest(".product-card");
-//     if (!card) return;
-
-//     // Update active swatch state
-//     const allSwatches = card.querySelectorAll(".swatch");
-//     allSwatches.forEach((s) => s.classList.remove("active"));
-//     swatch.classList.add("active");
-
-//     // Update main product image
-//     const img = card.querySelector(".product-img");
-//     img.src = variant.images[0];
-
-//     // Update main product color
-//     const productColorHolder = card.querySelector(".product-color span");
-//     productColorHolder.innerHTML = variant.color;
-
-//     // Update product price and discount
-//     const allPrices = variant.sizes.map((s) => s.sale_price || s.price);
-//     const minPrice = Math.min(...allPrices);
-//     const maxPrice = Math.max(...allPrices);
-
-//     const priceContainer = card.querySelector(".product-price");
-//     priceContainer.innerHTML = `
-//         <span class="sale-price">KES ${minPrice.toFixed(2)}</span>
-//         ${minPrice !== maxPrice ? 
-//             `<span class="price-range price original-price"> - KES ${maxPrice.toFixed(2)}</span>` 
-//             : ""}
-//     `;
-
-//     // Update discount badge
-//     const firstSize = variant.sizes[0];
-//     const discount = firstSize.sale_price
-//         ? Math.round(((firstSize.price - firstSize.sale_price) / firstSize.price) * 100)
-//         : 0;
-
-//     const discountBadge = card.querySelector(".product-card-sale-badge");
-//     if (discount) {
-//         if (discountBadge) {
-//             discountBadge.innerHTML = `<p>-${discount}%</p>`;
-//         } else {
-//             const newBadge = document.createElement("div");
-//             newBadge.classList.add("product-card-sale-badge");
-//             newBadge.innerHTML = `<p>-${discount}%</p>`;
-//             card.querySelector(".product-info").prepend(newBadge);
-//         }
-//     } else if (discountBadge) {
-//         discountBadge.remove();
-//     }
-// });
-
+function getMaxDiscount(products) {
+    let maxDiscount = 0;
+    products.forEach(product => {
+        product.variants.forEach(variant => {
+            variant.sizes.forEach(size => {
+                if (size.sale_price && size.price) {
+                    const discount = Math.round(((size.price - size.sale_price) / size.price) * 100);
+                    if (discount > maxDiscount) maxDiscount = discount;
+                }
+            });
+        });
+    });
+    return maxDiscount;
+}
