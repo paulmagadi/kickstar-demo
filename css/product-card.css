@@ -79,7 +79,6 @@
     white-space: normal;
 }
 
-
 .sale-price {
     color: #d32f2f;
     font-weight: 600;
@@ -92,10 +91,6 @@
     font-size: 0.9rem;
     text-decoration: line-through;
     margin-left: 0.5em;
-}
-
-.swatch-wrapper {
-    position: relative;
 }
 
 .product-card-sale-badge {
@@ -118,6 +113,11 @@
     font-size: 12px;
     font-weight: 600;
 }
+
+.swatch-wrapper {
+    position: relative;
+}
+
 
 .swatch-wrapper {
     margin-top: 10px;
@@ -205,9 +205,16 @@
     .original-price {
         font-size: 0.8rem;
     }
+
+    .swatch {
+        width: 38px;
+        height: 38px;
+    }
 }
 
+
 @media (max-width: 560px) {
+
     .product-color,
     .product-color span {
         font-size: 0.5rem;
@@ -225,8 +232,13 @@
         font-size: 0.7rem;
     }
 
-    .swatch-scroll-btn {
-        display: none;
+    .swatch {
+        width: 33px;
+        height: 33px;
     }
+
+    /* .swatch-scroll-btn {
+        display: none;
+    } */
 
 }
