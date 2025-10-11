@@ -37,17 +37,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
-
-    
-    // Only run if 'category' is defined and not empty
-    if (typeof category !== "undefined" && category) {
-        document.querySelectorAll("nav .nav-links a").forEach(link => {
-            if (link.href.includes(`cat=${category}`)) {
-                link.classList.add("active-url");
-            }
-        });
-    }
-
 });
 
 

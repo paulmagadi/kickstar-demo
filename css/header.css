@@ -228,6 +228,7 @@ nav .nav-links a:hover {
 
 .active-url {
   border-bottom: 2px solid var(--primary-color);
+  color: var(--primary-color);
 }
 
 /* Header spacer */

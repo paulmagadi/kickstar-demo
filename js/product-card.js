@@ -1,7 +1,10 @@
 // ========================================
 // PRODUCT CARD FUNCTIONALITIES
 // ========================================
+window.getPageContext = getPageContext; 
+const { imageBase } = getPageContext();
 
+// Initialize product card interactions
 function initProductCardFunctions() {
     const cards = document.querySelectorAll(".product-card");
 
@@ -29,7 +32,7 @@ function initProductCardFunctions() {
                 const variant = product.variants[variantIndex];
 
                 // Update image + color text
-                image.src = `../images/${variant.images[0].replace(/^\.?\/?images\//, "")}`;
+                image.src = `${imageBase}${variant.images[0].replace(/^\.?\/?images\//, "")}`;
                 colorLabel.textContent = variant.color;
 
                 // Update product price and discount

@@ -32,66 +32,6 @@ const productsData = [
                     { "size": 41, "price": 160.00, "sale_price": null, "stock_quantity": 1 },
                     { "size": 42, "price": 160.00, "sale_price": 145.00, "stock_quantity": 4 }
                 ]
-            },
-            
-            {
-                "color": "Red/Black",
-                "images": [
-                    "./images/nike-air-max-270-3.jpg"
-                ],
-                "sizes": [
-                    { "size": 40, "price": 155.00, "sale_price": 140.00, "stock_quantity": 3 },
-                    { "size": 41, "price": 160.00, "sale_price": null, "stock_quantity": 1 },
-                    { "size": 42, "price": 160.00, "sale_price": 145.00, "stock_quantity": 4 }
-                ]
-            },
-            
-            {
-                "color": "Red/Black",
-                "images": [
-                    "./images/nike-air-max-270-3.jpg"
-                ],
-                "sizes": [
-                    { "size": 40, "price": 155.00, "sale_price": 140.00, "stock_quantity": 3 },
-                    { "size": 41, "price": 160.00, "sale_price": null, "stock_quantity": 1 },
-                    { "size": 42, "price": 160.00, "sale_price": 145.00, "stock_quantity": 4 }
-                ]
-            },
-            
-            {
-                "color": "Red/Black",
-                "images": [
-                    "./images/nike-air-max-270-3.jpg"
-                ],
-                "sizes": [
-                    { "size": 40, "price": 155.00, "sale_price": 140.00, "stock_quantity": 3 },
-                    { "size": 41, "price": 160.00, "sale_price": null, "stock_quantity": 1 },
-                    { "size": 42, "price": 160.00, "sale_price": 145.00, "stock_quantity": 4 }
-                ]
-            },
-            
-            {
-                "color": "Red/Black",
-                "images": [
-                    "./images/nike-air-max-270-3.jpg"
-                ],
-                "sizes": [
-                    { "size": 40, "price": 155.00, "sale_price": 140.00, "stock_quantity": 3 },
-                    { "size": 41, "price": 160.00, "sale_price": null, "stock_quantity": 1 },
-                    { "size": 42, "price": 160.00, "sale_price": 145.00, "stock_quantity": 4 }
-                ]
-            },
-            
-            {
-                "color": "Red/Black",
-                "images": [
-                    "./images/nike-air-max-270-3.jpg"
-                ],
-                "sizes": [
-                    { "size": 40, "price": 155.00, "sale_price": 140.00, "stock_quantity": 3 },
-                    { "size": 41, "price": 160.00, "sale_price": null, "stock_quantity": 1 },
-                    { "size": 42, "price": 160.00, "sale_price": 145.00, "stock_quantity": 4 }
-                ]
             }
         ]
     },
@@ -147,7 +87,7 @@ const productsData = [
         "brand": "Puma",
         "category": "Men", 
         "featured" : true,
-        "new": true,
+        "new": false,
         "description": "The Puma RS-X brings retro style with bulky design and bold colors.",
         "variants": [
             {
@@ -259,7 +199,7 @@ const productsData = [
         "id": 5,
         "name": "Converse Chuck Taylor All Star",
         "brand": "Converse",
-        "category": "Men", 
+        "category": "unisex", 
         "featured" : true,
         "new": false,
         "description": "An undisputed classic sneaker with a canvas upper and iconic design.",

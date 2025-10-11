@@ -1,5 +1,34 @@
-// pages/product-card-template.js
-function createProductCardTemplate(product, productIndex, imageBase = "../images/") {
+function getPageContext() {
+    const indexContainer = document.querySelector('.container.index');
+    const pagesContainer = document.querySelector('.container.pages');
+
+    if (indexContainer) {
+        return {
+            type: 'index',
+            imageBase: './images/',
+            linkBase: 'pages/',
+        };
+    } else if (pagesContainer) {
+        return {
+            type: 'pages',
+            imageBase: '../images/',
+            linkBase: '',
+        };
+    } else {
+        // fallback for unknown containers
+        return {
+            type: 'default',
+            imageBase: './images/',
+            linkBase: '',
+        };
+    }
+}
+
+window.getPageContext = getPageContext;
+
+function createProductCardTemplate(product) {
+    if (!product || !product.id) return "";
+    
     const firstVariant = product.variants[0];
     const firstSize = firstVariant.sizes[0];
 
@@ -11,12 +40,13 @@ function createProductCardTemplate(product, productIndex, imageBase = "../images
         ? Math.round(((firstSize.price - firstSize.sale_price) / firstSize.price) * 100)
         : 0;
 
-    // ✅ Link to product details in same folder (no "pages/" prefix here)
-    const detailsUrl = `product-details.html?id=${productIndex}`;
+
+    const { imageBase, linkBase } = getPageContext();
+    const detailsUrl = `${linkBase}product-details.html?id=${product.id}`;
 
     return `
-        <div class="product-card">
-            <a href="${detailsUrl}" title="View product">
+        <div class="product-card" data-product="${product.id}">
+            <a href="${detailsUrl}" title="${product.name}">
                 <div class="product-image-wrapper">
                     <div class="product-image">
                         <img 
@@ -52,7 +82,7 @@ function createProductCardTemplate(product, productIndex, imageBase = "../images
                                 alt="${variant.color}" 
                                 title="${variant.color}" 
                                 class="swatch ${i === 0 ? "active" : ""}" 
-                                data-product="${productIndex}" 
+                                data-product="${product.id}" 
                                 data-variant="${i}" 
                             />
                         `).join("")}
@@ -63,3 +93,5 @@ function createProductCardTemplate(product, productIndex, imageBase = "../images
         </div>
     `;
 }
+
+window.createProductCardTemplate = createProductCardTemplate;
