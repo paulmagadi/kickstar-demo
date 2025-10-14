@@ -169,7 +169,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Re-initialize product card functions
         // Ensure product card interactions work after pagination
-        initProductCardFunctions();
+        // initProductCardFunctions();
+        if (typeof initProductCardFunctions === "function") {
+            initProductCardFunctions();
+        }
     }
 
     // ✅ 8. Call render
