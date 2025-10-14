@@ -1,0 +1,54 @@
+{
+    "brands": [
+        {
+            "name": "Nike",
+            "logo": "./images/brands/nike.png",
+            "description": "Just Do It."
+        },
+        {
+            "name": "Adidas",
+            "logo": "./images/brands/adidas.png",
+            "description": "Impossible is Nothing."
+        },
+        {
+            "name": "Puma",
+            "logo": "./images/brands/puma.png",
+            "description": "Forever Faster."
+        },
+        {
+            "name": "New Balance",
+            "logo": "./images/brands/new-balance.png",
+            "description": "Fearlessly Independent Since 1906."
+        },
+        {
+            "name": "Reebok",
+            "logo": "./images/brands/reebok.png",
+            "description": "Be More Human."
+        },
+        {
+            "name": "Converse",
+            "logo": "./images/brands/converse.png",
+            "description": "Shoes are Boring. Wear Sneakers."
+        },
+        {
+            "name": "Vans",
+            "logo": "./images/brands/vans.png",
+            "description": "Off The Wall."
+        },
+        {
+            "name": "Asics",
+            "logo": "./images/brands/asics.png",
+            "description": "Sound Mind, Sound Body."
+        },
+        {
+            "name": "Jordan",
+            "logo": "./images/brands/jordan.png",
+            "description": "Be Like Mike."
+        },
+        {
+            "name": "Yeezy",
+            "logo": "./images/brands/yeezy.png",
+            "description": "Yeezy by Kanye West."
+        }
+    ]
+}

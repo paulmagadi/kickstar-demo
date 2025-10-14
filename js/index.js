@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", () => {
     // const context = getPageContext();
     // console.log("Page context:", context.type);
@@ -18,8 +19,9 @@ document.addEventListener("DOMContentLoaded", () => {
     function renderProducts(productsList, container, limit = null) {
         if (!container || !Array.isArray(productsList)) return;
         const list = limit ? productsList.slice(0, limit) : productsList;
+
         container.innerHTML = list
-            .map((p, i) => createProductCardTemplate(p, i))
+            .map(product => createProductCardTemplate(product))
             .join("");
 
         // Initialize product interactions after rendering
@@ -27,6 +29,8 @@ document.addEventListener("DOMContentLoaded", () => {
             initProductCardFunctions();
         }
     }
+
+    // const filteredProducts = productsData.filter(p => p.id === productId);
 
     // 🔹 Render product sections
     renderProducts(

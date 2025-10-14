@@ -202,7 +202,7 @@
             ];
 
             // For demo: we simulate a large number of products
-            for (let i = 10; i <= 50; i++) {
+            for (let i = 10; i <= 15; i++) {
                 products.push({
                     id: i,
                     name: "Demo Product " + i,
@@ -212,7 +212,7 @@
                 });
             }
 
-            const productsPerPage = 8;
+            const productsPerPage = 1;
             let currentPage = 1;
             const productsContainer = document.querySelector(".products-cards-container");
             const paginationContainer = document.querySelector(".pagination");
@@ -265,7 +265,7 @@
 
             // Helper for ellipsis pagination
             function getPaginationPages(current, total) {
-                const delta = 2; // how many pages to show around current
+                const delta = 0; // how many pages to show around current
                 const range = [];
                 const rangeWithDots = [];
                 let l;

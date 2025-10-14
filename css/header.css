@@ -221,15 +221,13 @@ nav .nav-links li:last-child {
   color: var(--neutral-dark-color);
 }
 
-nav .nav-links a:hover {
-  border-bottom: 1.5px solid var(--primary-color);
-}
-
-.active-url {
+nav .nav-links a:not(nav .nav-links a.active-url ):hover {
   border-bottom: 2px solid var(--primary-color);
-  color: var(--primary-color);
 }
 
+nav .nav-links a.active-url {
+  color: var(--primary-color); 
+}
 
 /* Mobile Tweaks */
 .mobile-only {

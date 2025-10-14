@@ -26,8 +26,11 @@ function getPageContext() {
 
 window.getPageContext = getPageContext;
 
+// const products = window.productsData || [];
+
 function createProductCardTemplate(product) {
-    if (!product || !product.id) return "";
+    if (!product || product.id === undefined || product.id === null) return "";
+    
     
     const firstVariant = product.variants[0];
     const firstSize = firstVariant.sizes[0];
@@ -63,6 +66,7 @@ function createProductCardTemplate(product) {
                 <a href="${detailsUrl}" title="${product.name}">
                     <div class="product-title">${product.name}</div>
                 </a>
+                <div class="product-category">${product.category[0].toUpperCase()}${product.category.slice(1)}</div>
 
                 <div class="product-price">
                     <span class="sale-price">KES ${minPrice.toFixed(2)}</span>

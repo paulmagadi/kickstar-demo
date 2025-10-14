@@ -1,5 +1,6 @@
-// let productsData = JSON.parse(localStorage.getItem("products")) || 
-const productsData = [
+
+{"products" :
+ [
     {
         "id": 0,
         "name": "Nike Air Max 270",
@@ -39,7 +40,7 @@ const productsData = [
         "id": 1,
         "name": "Adidas Ultraboost 22",
         "brand": "Adidas",
-        "category": "kids", 
+        "category": "kidss", 
         "featured" : true,
         "new": false,
         "description": "Experience next-level comfort with Adidas Ultraboost 22 and responsive Boost cushioning.",
@@ -388,65 +389,8 @@ const productsData = [
             }
         ]
     }
-];
+]
 
-
-
-const brandsData = {
-        "Nike": {
-        logo: "../images/brands/nike.png",
-        description: "Just Do It."
-    },
-        "Adidas": {
-        logo: "./images/brands/adidas.png",
-        description: "Impossible is Nothing."
-    },
-        "Puma": {
-        logo: "./images/brands/puma.png",
-        description: "Forever Faster."
-    },
-        "New Balance": {
-        logo: "./images/brands/new-balance.png",
-        description: "Fearlessly Independent Since 1906."
-    },
-        "Reebok": {
-        logo: "./images/brands/reebok.png",
-        description: "Be More Human."
-    },
-        "Converse": {
-        logo: "./images/brands/converse.png",
-        description: "Shoes are Boring. Wear Sneakers."
-    },
-        "Vans": {
-        logo: "./images/brands/vans.png",
-        description: "Off The Wall."
-    },
-        "Asics": {
-        logo: "./images/brands/asics.png",
-        description: "Sound Mind, Sound Body."
-    },
-        "Jordan": {
-        logo: "./images/brands/jordan.png",
-        description: "Be Like Mike."
-    },
-        "Yeezy": {
-        logo: "./images/brands/yeezy.png",
-        description: "Yeezy by Kanye West."
-    }
 }
 
 
-function getMaxDiscount(products) {
-    let maxDiscount = 0;
-    products.forEach(product => {
-        product.variants.forEach(variant => {
-            variant.sizes.forEach(size => {
-                if (size.sale_price && size.price) {
-                    const discount = Math.round(((size.price - size.sale_price) / size.price) * 100);
-                    if (discount > maxDiscount) maxDiscount = discount;
-                }
-            });
-        });
-    });
-    return maxDiscount;
-}

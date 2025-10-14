@@ -10,12 +10,14 @@
     <link rel="stylesheet" href="../css/product-card.css">
     <link rel="stylesheet" href="../css/footer.css">
     <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/category.css">
 
     <link rel="stylesheet" href="../css/products-grid-view.css">
 
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+
 </head>
 
 <body>
@@ -100,6 +102,12 @@
                 <h1 id="categoryTitle"></h1>
             </div>
             <div id="categoryProducts" class="products-grid products-cards-container"></div>
+            <div class="section-footer">
+                <button id="loadLessBtn" class="load-less-btn hide">Load Less</button>
+                <button id="loadMoreBtn" class="load-more-btn">Load More</button>
+
+                <div id="pagination" class="pagination hide"></div>
+            </div>
         </section>
 
         <footer class="footer">
@@ -178,6 +186,8 @@
     <script src="../js/product-card-template.js"></script>
     <script src="../js/category.js"></script>
     <script src="../js/product-card.js"></script>
+
+    
 
 </body>
 
