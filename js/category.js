@@ -7,8 +7,6 @@
 
 // Main script to handle category page rendering
 document.addEventListener("DOMContentLoaded", () => {
-    // const context = getPageContext();
-    // console.log("Running in:", context.type);
 
     // ✅ 1. Get category from URL
     const urlParams = new URLSearchParams(window.location.search);
@@ -179,15 +177,15 @@ document.addEventListener("DOMContentLoaded", () => {
     renderProductsByCategory(category);
 
     // Highlight active nav link
-    if (typeof category !== "undefined" && category) {
-        document.querySelectorAll("nav .nav-links a").forEach(link => {
-            if (link.href.includes(`cat=${category}`)) {
-                link.classList.add("active-url");
-            } else {
-                link.classList.remove("active-url");
-            }
-        });
-    }
+    // if (typeof category !== "undefined" && category) {
+    //     document.querySelectorAll("nav .nav-links a").forEach(link => {
+    //         if (link.href.includes(`cat=${category}`)) {
+    //             link.classList.add("active-url");
+    //         } else {
+    //             link.classList.remove("active-url");
+    //         }
+    //     });
+    // }
 
     // Optional: Load More button functionality (for non-"all" categories)
     

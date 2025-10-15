@@ -97,7 +97,7 @@ function renderHeader() {
         <!-- Navigation -->
         <nav>
             <ul class="nav-links">
-                <li><a href="${homeLinkBase}index.html" class="active-url" title="Home">Home</a></li>
+                <li><a href="${homeLinkBase}index.html" title="Home">Home</a></li>
                 <li><a href="${linkBase}category.html?cat=all" title="All Products">All</a></li>
                 <li><a href="${linkBase}category.html?cat=featured" title="Featured Products">Featured</a></li>
                 <li><a href="${linkBase}category.html?cat=women" title="Women's Shoes">Women</a></li>

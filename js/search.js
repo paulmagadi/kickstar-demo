@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // 🔹 Renderer with discount logic
-  const renderResults = (list) => {
+  const renderSearchResults = (list) => {
     if (list.length === 0) {
       resultsContainer.innerHTML = "";
       if (noResults) noResults.style.display = "block";
@@ -74,71 +74,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     if (noResults) noResults.style.display = "none";
 
-    resultsContainer.innerHTML = list.map((product, productIndex) => {
-      const firstVariant = product.variants[0];
 
-      // ✅ Find min/max prices
-      const allPrices = product.variants.flatMap(v =>
-        v.sizes.map(s => s.sale_price || s.price)
-      );
-      const minPrice = Math.min(...allPrices);
-      const maxPrice = Math.max(...allPrices);
+   const context = getPageContext();
+    resultsContainer.innerHTML = list.map(product =>
+      createProductCardTemplate(product, product.id, context)
+    ).join("");
 
-      // ✅ Find biggest discount
-      let discount = 0;
-      product.variants.forEach(variant => {
-        variant.sizes.forEach(size => {
-          if (size.sale_price && size.sale_price < size.price) {
-            const d = Math.round(((size.price - size.sale_price) / size.price) * 100);
-            if (d > discount) discount = d;
-          }
-        });
-      });
+   initProductCardFunctions();
 
-      return `
-        <div class="product-card">
-          <a href="../pages/product-details.html?id=${productIndex}" title="View product">
-            <div class="product-image-wrapper">
-              <div class="product-image">
-                <img src="../images/${firstVariant.images[0].replace(/^\.?\/?images\//, "")}" alt="${product.name}" class="product-img">
-              </div>
-            </div>
-          </a>
-
-          <div class="product-info">
-            <a href="../pages/product-details.html?id=${productIndex}" title="${product.name}">
-              <div class="product-title">${product.name}</div>
-            </a>
-
-            <div class="product-price">
-              <span class="sale-price">KES ${minPrice.toFixed(2)}</span>
-              ${minPrice !== maxPrice ? 
-                `<span class="price-range"> - KES ${maxPrice.toFixed(2)}</span>` 
-                : ""}
-            </div>
-            
-            ${discount ? `<div class="product-card-sale-badge"><p>-${discount}%</p></div>` : ""}
-
-            <br>
-            <div class="swatch-wrapper">
-              <div class="swatch-scroll-btn swatch-scroll-left hidden">&#10094;</div>
-              <div class="swatches">
-                ${product.variants.map((variant, index) => `
-                  <img 
-                    src="../images/${variant.images[0].replace(/^\.?\/?images\//, "")}"
-                    alt="${variant.color}" 
-                    title="${variant.color}" 
-                    class="swatch ${index === 0 ? "active" : ""}" 
-                    data-product="${productIndex}" 
-                    data-variant="${index}" />
-                `).join("")}
-              </div>
-              <div class="swatch-scroll-btn swatch-scroll-right">&#10095;</div>
-            </div>
-          </div>
-        </div>
-      `;
-    }).join("");
   };
 
   // 🔹 Filtering logic
@@ -182,7 +125,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return matchesName && matchesVariant;
     });
 
-    renderResults(filtered);
+    renderSearchResults(filtered);
   };
 
   // 🔹 Bind events
@@ -193,4 +136,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // 🔹 Initial load
   filterProducts();
+
 });
