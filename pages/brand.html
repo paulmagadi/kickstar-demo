@@ -2,76 +2,78 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Brand</title>
-    <link rel="stylesheet" href="../css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brand</title>
+  <link rel="stylesheet" href="../css/style.css">
 </head>
 
 <body>
-    <div id="header"></div> <!-- reusable header -->
 
+  <div class="container pages">
     <section class="brand-header" id="brandHeader"></section>
 
     <section class="brand-products">
-        <div id="brandProducts" class="product-grid"></div>
+      <div id="brandProducts" class="product-grid"></div>
     </section>
+  </div>
 
+  <script src="../js/products.js"></script>
+  <script src="../js/context.js"></script>
+  <script src="../js/footer.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const brandName = urlParams.get("brand");
 
-    <script src="../js/products.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const urlParams = new URLSearchParams(window.location.search);
-            const brandName = urlParams.get("brand");
+      const brandHeader = document.getElementById("brandHeader");
+      const brandProductsContainer = document.getElementById("brandProducts");
 
-            const brandHeader = document.getElementById("brandHeader");
-            const brandProductsContainer = document.getElementById("brandProducts");
+      if (!brandName) {
+        brandHeader.innerHTML = "<p>No brand selected.</p>";
+        return;
+      }
 
-            if (!brandName) {
-                brandHeader.innerHTML = "<p>No brand selected.</p>";
-                return;
-            }
+      // Get brand info
+      const brandInfo = brandsData[brandName] || {};
+      const logo = brandInfo.logo || "../images/brands/placeholder.png";
+      const desc = brandInfo.description || `Explore products from ${brandName}.`;
 
-            // Get brand info
-            const brandInfo = brandsData[brandName] || {};
-            const logo = brandInfo.logo || "../images/brands/placeholder.png";
-            const desc = brandInfo.description || `Explore products from ${brandName}.`;
-
-            // Header section
-            brandHeader.innerHTML = `
+      // Header section
+      brandHeader.innerHTML = `
     <img src="${logo}" alt="${brandName} logo" class="brand-logo">
     <h1>${brandName}</h1>
     <p>${desc}</p>
   `;
 
-            // Filter products
-            const filteredProducts = productsData.filter(
-                p => p.brand.toLowerCase() === brandName.toLowerCase()
-            );
+      // Filter products
+      const filteredProducts = productsData.filter(
+        p => p.brand.toLowerCase() === brandName.toLowerCase()
+      );
 
-            if (filteredProducts.length === 0) {
-                brandProductsContainer.innerHTML = "<p>No products found for this brand.</p>";
-                return;
-            }
+      if (filteredProducts.length === 0) {
+        brandProductsContainer.innerHTML = "<p>No products found for this brand.</p>";
+        return;
+      }
 
-            // Render products (same style as categories)
-            filteredProducts.forEach((product, productIndex) => {
-                const firstVariant = product.variants[0];
-                const firstSize = firstVariant.sizes[0];
+      // Render products (same style as categories)
+      filteredProducts.forEach((product, productIndex) => {
+        const firstVariant = product.variants[0];
+        const firstSize = firstVariant.sizes[0];
 
-                // Collect all prices
-                const allPrices = product.variants.flatMap(variant =>
-                    variant.sizes.map(size => size.sale_price || size.price)
-                );
+        // Collect all prices
+        const allPrices = product.variants.flatMap(variant =>
+          variant.sizes.map(size => size.sale_price || size.price)
+        );
 
-                const minPrice = Math.min(...allPrices);
-                const maxPrice = Math.max(...allPrices);
+        const minPrice = Math.min(...allPrices);
+        const maxPrice = Math.max(...allPrices);
 
-                const discount = firstSize.sale_price
-                    ? Math.round(((firstSize.price - firstSize.sale_price) / firstSize.price) * 100)
-                    : 0;
+        const discount = firstSize.sale_price
+          ? Math.round(((firstSize.price - firstSize.sale_price) / firstSize.price) * 100)
+          : 0;
 
-                const productCard = `
+        const productCard = `
       <div class="product-card">
         <a href="product-details.html?id=${product.id}" title="View product">
           <div class="product-image-wrapper">
@@ -114,11 +116,11 @@
       </div>
     `;
 
-                brandProductsContainer.insertAdjacentHTML("beforeend", productCard);
-            });
-        });
+        brandProductsContainer.insertAdjacentHTML("beforeend", productCard);
+      });
+    });
 
-    </script>
+  </script>
 </body>
 
 </html>

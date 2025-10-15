@@ -27,84 +27,8 @@
 
 <body>
     <div class="container index">
-        <header>
-            <div class="header">
-                <!-- Logo -->
-                <div class="logo">
-                    <a href="index.html">
-                        <img src="images/logo2.svg" alt="KickStar" width="70px" title="KickStar Home">
-                    </a>
-                </div>
-
-                <!-- Desktop Search -->
-                <div class="search-bar desktop">
-                    <form action="pages/search.html" method="get">
-                        <input type="search" placeholder="Search Products, Categories, Brands..." name="q"
-                            class="search-input" required>
-                        <i class="ri-search-line"></i>
-                        <input type="submit" value="Search" class="search-btn">
-                    </form>
-                </div>
-
-                <!-- Header Items -->
-                <div class="header-items">
-                    <!-- Mobile Search Toggle -->
-                    <div class="search-toggle mobile-only">
-                        <i class="ri-search-line" title="Search"></i>
-                    </div>
-
-                    <div class="help">
-                        <i class="ri-questionnaire-line"></i>
-                    </div>
-
-                    <div class="account">
-                        <i class="ri-account-circle-line" title="Account"></i>
-                        <div class="account-dropdown">
-                            <p class="login"><a href="#">Login</a></p>
-                            <p class="register"><a href="#">Register</a></p>
-                        </div>
-                    </div>
-
-                    <div class="cart">
-                        <a href="pages/cart.html">
-                            <i class="ri-shopping-cart-line" title="Cart"></i>
-                            <span id="cart-count" class="cart-count">0</span>
-                        </a>
-                    </div>
-
-                    <!-- <div class="nav-toggle mobile-only">
-                        <i class="ri-menu-line" title="Open Menu"></i>
-                    </div> -->
-                </div>
-            </div>
-
-            <!-- Mobile Search -->
-            <div class="search-bar mobile">
-                <form action="pages/search.html" method="get">
-                    <input type="search" class="search-input" placeholder="Search Products, Categories, Brands..."
-                        name="q" required>
-                    <i class="ri-search-line"></i>
-                </form>
-            </div>
-
-            <!-- Navigation -->
-            <nav>
-                <ul class="nav-links">
-                    <li><a href="index.html" class="active-url" title="Home">Home</a></li>
-                    <li><a href="pages/category.html?cat=all" title="All Products">All</a></li>
-                    <li><a href="pages/category.html?cat=featured" title="Featured Products">Featured</a></li>
-                    <li><a href="pages/category.html?cat=women" title="Women's Shoes">Women</a></li>
-                    <li><a href="pages/category.html?cat=men" title="Men's Shoes">Men</a></li>
-                    <li><a href="pages/category.html?cat=kids" title="Kids Shoes">Kids</a></li>
-                    <li><a href="pages/category.html?cat=unisex" title="Unisex Shoes">Unisex</a></li>
-                    <li><a href="pages/category.html?cat=new" title="New in Store">New</a></li>
-                    <li><a href="pages/category.html?cat=deals" title="Deals">Deals</a></li>
-                    <li><a href="pages/brands.html" title="Brands">Brands</a></li>
-                </ul>
-            </nav>
-        </header>
-
-        <div class="header-after"></div>
+        <!-- Header -->
+        <div id="header-placeholder"></div>
 
         <div class="slideshow-container">
             <div class="slide">
@@ -155,7 +79,6 @@
                     More</a>
             </div>
         </section>
-        <!-- <hr> -->
 
         <section>
             <div class="section-header">
@@ -229,77 +152,9 @@
         </section>
 
 
-
-        <footer class="footer">
-            <div class="footer-content">
-                <!-- Logo / Brand -->
-                <div class="footer-brand">
-                    <h2 class="logo">Kick<span>Star</span></h2>
-                    <p>Your trusted shop for sneakers and lifestyle shoes.</p>
-                    <div class="social-links">
-                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="#" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
-                        <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
-                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-
-                <!-- Links -->
-                <div class="footer-links">
-                    <h3>Shop</h3>
-                    <ul>
-                        <li><a href="#">Men</a></li>
-                        <li><a href="#">Women</a></li>
-                        <li><a href="#">Kids</a></li>
-                        <li><a href="#">New Arrivals</a></li>
-                        <li><a href="#">Sale</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-links">
-                    <h3>Support</h3>
-                    <ul>
-                        <li><a href="#">Help Center</a></li>
-                        <li><a href="#">Track Order</a></li>
-                        <li><a href="#">Shipping & Returns</a></li>
-                        <li><a href="#">Size Guide</a></li>
-                        <li><a href="#">FAQs</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-links">
-                    <h3>Company</h3>
-                    <ul>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Sustainability</a></li>
-                        <li><a href="#">Careers</a></li>
-                        <li><a href="#">Press</a></li>
-                        <li><a href="#">Contact</a></li>
-                    </ul>
-                </div>
-
-                <!-- Newsletter -->
-                <div class="footer-newsletter">
-                    <h3>Stay Updated</h3>
-                    <p>Subscribe for exclusive offers and new releases.</p>
-                    <form>
-                        <input type="email" placeholder="Enter your email" required>
-                        <button type="submit">Subscribe</button>
-                    </form>
-                </div>
-            </div>
-
-            <!-- Bottom -->
-            <div class="footer-bottom">
-                <div class="container">
-                    <p>&copy; 2025 Kickstar. All rights reserved.</p>
-                </div>
-            </div>
-        </footer>
-
     </div>
 
+    <script src="js/header-template.js"></script>
     <script src="js/header.js"></script>
     <script src="js/slider.js"></script>
     <script src="js/products.js"></script>
@@ -308,6 +163,8 @@
     <script src="js/product-card.js"></script>
     <script src="js/product-scroll-section.js"></script>
     <script src="js/search.js"></script>
+    <script src="js/context.js"></script>
+    <script src="js/footer.js"></script>
 
 </body>
 

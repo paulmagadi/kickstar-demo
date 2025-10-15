@@ -34,8 +34,8 @@ window.getHeaderPageContext = getHeaderPageContext;
 **/
 function renderHeader() {
     const { homeLinkBase, imageBase, linkBase, type } = getHeaderPageContext();
-    const headerContainer = document.querySelector("#header-placeholder");
-    if (!headerContainer) return;
+    // const headerContainer = document.querySelector("#header-placeholder");
+    // if (!headerContainer) return;
 
     const headerHTML = `
     <header>
@@ -97,7 +97,7 @@ function renderHeader() {
         <!-- Navigation -->
         <nav>
             <ul class="nav-links">
-                <li><a href="${homeLinkBase}index.html" title="Home">Home</a></li>
+                <li><a href="${homeLinkBase}index.html" class="active-url" title="Home">Home</a></li>
                 <li><a href="${linkBase}category.html?cat=all" title="All Products">All</a></li>
                 <li><a href="${linkBase}category.html?cat=featured" title="Featured Products">Featured</a></li>
                 <li><a href="${linkBase}category.html?cat=women" title="Women's Shoes">Women</a></li>
@@ -113,7 +113,9 @@ function renderHeader() {
     <div class="header-after"></div>
     `;
 
-    headerContainer.innerHTML = headerHTML;
+    // headerContainer.innerHTML = headerHTML;
+    const container = document.querySelector(".container");
+    container.insertAdjacentHTML("afterbegin", headerHTML);
 
     console.log(`✅ Header rendered for ${type} page`);
 }
