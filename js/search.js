@@ -80,7 +80,10 @@ document.addEventListener("DOMContentLoaded", () => {
       createProductCardTemplate(product, product.id, context)
     ).join("");
 
-   initProductCardFunctions();
+    // ✅ After rendering, initialize all product card features
+    if (typeof initProductCardFunctions === "function") {
+      initProductCardFunctions();
+    }
 
   };
 
