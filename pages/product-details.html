@@ -39,15 +39,28 @@
                     <div class="product-details-section">
                         <h3 id="product-name"></h3>
                         <small id="product-type"></small><br><br>
-                        <p id="product-price"></p><br>
+                        <div class="price">
+                            <span id="product-price"></span>
+                        </div>
+                        <br>
                         <form id="variant-form">
                             <h4>Available Colors</h4><br>
                             <div class="product-colors"></div><br>
                             <h4>Select Size</h4><br>
-                            <select name="variant_id" class="variant-select" id="variant-select" required></select>
-                            <br><br>
-                            <label>Quantity:</label>
-                            <input type="number" name="quantity" id="qty-input" value="1" min="1" step="1">
+                            <select name="variant_id" class="variant-select" id="variant-select">
+                            </select>
+                            <small class="add-cart-message-err" id="add-cart-message-err"></small>
+                            
+                            <div class="quantity-container">
+                                <br><br>
+                                <label>Quantity:</label>
+                                <div class="quantity-box">
+                                    <button type="button" id="qty-decrease" class="qty-btn">−</button>
+                                    <input type="text" id="qty-input" value="1" readonly>
+                                    <button type="button" id="qty-increase" class="qty-btn">+</button>
+                                </div>
+                            </div>
+
                             <br><br>
                             <button type="submit" class="add-to-cart-btn" id="add-to-cart-btn">Add to Cart</button>
                             <p id="add-cart-message" style="color: green; font-weight: bold;"></p>
@@ -63,207 +76,12 @@
     </div>
 
     <!-- ✅ Product Data -->
-    <script src="../js/products.js"></script>
-    <script>
-        // --- Cart Utilities ---
-        function getCart() {
-            return JSON.parse(localStorage.getItem("cart") || "[]");
-        }
-        function setCart(cart) {
-            localStorage.setItem("cart", JSON.stringify(cart));
-        }
-        function updateCartCount() {
-            const cart = getCart();
-            const count = cart.reduce((sum, item) => sum + item.qty, 0);
-            document.getElementById("cart-count").textContent = count;
-        }
 
-        // --- Product Details Logic ---
-        const params = new URLSearchParams(window.location.search);
-        const productIndex = parseInt(params.get("id"));
-        const product = productsData[productIndex];
-
-        if (!product) {
-            document.querySelector(".product-details-container").innerHTML = "<h2>Product not found.</h2>";
-        } else {
-            const mainImg = document.getElementById("main-product-img");
-            const nameEl = document.getElementById("product-name");
-            const typeEl = document.getElementById("product-type");
-            const descEl = document.getElementById("product-description");
-            const priceEl = document.getElementById("product-price");
-            const colorsWrapper = document.querySelector(".product-colors");
-            const sizeSelect = document.getElementById("variant-select");
-            const thumbnailsWrapper = document.querySelector(".product-thumbnails");
-            const qtyInput = document.getElementById("qty-input");
-
-            nameEl.textContent = product.name;
-            typeEl.textContent = product.brand;
-            descEl.textContent = product.description;
-
-            let currentVariantIndex = 0;
-
-            // Fix image paths for product variants (make relative to this page)
-            product.variants.forEach(variant => {
-                variant.images = variant.images.map(img => {
-                    // If path starts with "./images/", replace with "../images/"
-                    if (img.startsWith("./images/")) {
-                        return img.replace("./images/", "../images/");
-                    }
-                    return img;
-                });
-            });
-
-            colorsWrapper.innerHTML = product.variants.map((variant, i) => `
-        <img src="${variant.images[0]}" 
-             title="${variant.color}" 
-             width="40" height="40" 
-             class="color-btn ${i === 0 ? "selected" : ""}" 
-             style="border-radius: 50%; cursor: pointer;" 
-             data-variant-index="${i}">
-    `).join("");
-
-            updateVariantUI(currentVariantIndex);
-
-            document.querySelectorAll(".color-btn").forEach(btn => {
-                btn.addEventListener("click", () => {
-                    document.querySelectorAll(".color-btn").forEach(b => b.classList.remove("selected"));
-                    btn.classList.add("selected");
-                    currentVariantIndex = parseInt(btn.dataset.variantIndex);
-                    updateVariantUI(currentVariantIndex);
-                });
-            });
-
-            function updateVariantUI(variantIndex) {
-                const variant = product.variants[variantIndex];
-                mainImg.src = variant.images[0];
-                mainImg.dataset.default = variant.images[0];
-                thumbnailsWrapper.innerHTML = variant.images.map(src => `
-            <img src="${src}" width="60" height="60" 
-                 style="object-fit:cover; margin-right:5px; border:1px solid #ccc; padding:2px;">
-        `).join("");
-                thumbnailsWrapper.querySelectorAll("img").forEach(img => {
-                    img.addEventListener("mouseover", () => { mainImg.src = img.src; });
-                    img.addEventListener("mouseout", () => { mainImg.src = variant.images[0]; });
-                });
-                sizeSelect.innerHTML = variant.sizes.map((s, i) => `
-            <option value="${i}" 
-                    data-price="${s.price}" 
-                    data-sale="${s.sale_price || ""}"
-                    data-stock="${s.stock_quantity}"
-                    ${s.stock_quantity === 0 ? "disabled style='color:gray;background:#f5f5f5;'" : ""}>
-              Size: ${s.size} | KES ${s.sale_price || s.price} | Stock: ${s.stock_quantity}${s.stock_quantity === 0 ? " (OUT OF STOCK)" : ""}
-            </option>
-        `).join("");
-                setQtyInputMax();
-                updatePriceUI(sizeSelect.selectedOptions[0]);
-            }
-
-            function setQtyInputMax() {
-                const opt = sizeSelect.selectedOptions[0];
-                if (opt) {
-                    const stock = parseInt(opt.dataset.stock, 10) || 1;
-                    qtyInput.max = stock;
-                    if (parseInt(qtyInput.value, 10) > stock) {
-                        qtyInput.value = stock;
-                    }
-                }
-            }
-
-            sizeSelect.addEventListener("change", e => {
-                updatePriceUI(e.target.selectedOptions[0]);
-                setQtyInputMax();
-            });
-
-            function updatePriceUI(opt) {
-                const price = opt.dataset.price;
-                const sale = opt.dataset.sale;
-                priceEl.innerHTML = sale
-                    ? `<strong style="color:red;">KES ${sale}</strong> <span style="text-decoration:line-through; color:gray;">KES ${price}</span>`
-                    : `<strong>KES ${price}</strong>`;
-            }
-
-            qtyInput.addEventListener("input", () => {
-                const opt = sizeSelect.selectedOptions[0];
-                if (opt) {
-                    const stock = parseInt(opt.dataset.stock, 10) || 1;
-                    if (parseInt(qtyInput.value, 10) > stock) {
-                        qtyInput.value = stock;
-                    }
-                    if (parseInt(qtyInput.value, 10) < 1) {
-                        qtyInput.value = 1;
-                    }
-                }
-            });
-
-            // --- Add to Cart with localStorage ---
-            document.getElementById("variant-form").addEventListener("submit", e => {
-                e.preventDefault();
-                const opt = sizeSelect.selectedOptions[0];
-                const sizeIndex = sizeSelect.value;
-                const qty = parseInt(qtyInput.value, 10);
-                const stock = opt ? parseInt(opt.dataset.stock, 10) : 0;
-                const message = document.getElementById("add-cart-message");
-
-                if (!sizeIndex) {
-                    message.textContent = "Please select a size.";
-                    return;
-                }
-                if (qty > stock) {
-                    message.textContent = `Only ${stock} item(s) in stock for this size.`;
-                    qtyInput.value = stock;
-                    return;
-                }
-                if (qty < 1) {
-                    message.textContent = "Quantity must be at least 1.";
-                    qtyInput.value = 1;
-                    return;
-                }
-
-                // --- Cart logic ---
-                const cart = getCart();
-                const variant = product.variants[currentVariantIndex];
-                const sizeObj = variant.sizes[sizeIndex];
-                // Unique key: productIndex, variantIndex, sizeIndex
-                const cartKey = `${productIndex}-${currentVariantIndex}-${sizeIndex}`;
-                let found = false;
-                for (let item of cart) {
-                    if (item.key === cartKey) {
-                        // Update quantity, but not above stock
-                        item.qty = Math.min(item.qty + qty, stock);
-                        found = true;
-                        break;
-                    }
-                }
-                if (!found) {
-                    cart.push({
-                        key: cartKey,
-                        productIndex,
-                        variantIndex: currentVariantIndex,
-                        sizeIndex: parseInt(sizeIndex),
-                        qty,
-                        name: product.name,
-                        color: variant.color,
-                        size: sizeObj.size,
-                        price: sizeObj.sale_price || sizeObj.price,
-                        image: variant.images[0]
-                    });
-                }
-                setCart(cart);
-                updateCartCount();
-
-                message.textContent = `Added ${qty} item(s) of ${product.name}, ${variant.color}, Size ${sizeObj.size} to cart!`;
-            });
-        }
-
-        // --- On page load, update cart count ---
-        updateCartCount();
-    </script>
-
-
-
+    <script src="../js/context.js"></script>
     <script src="../js/header-template.js"></script>
     <script src="../js/header.js"></script>
-    <script src="../js/context.js"></script>
+    <script src="../js/products.js"></script>
+    <script src="../js/product-details.js"></script>
     <script src="../js/footer.js"></script>
 
 </body>

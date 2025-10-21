@@ -27,4 +27,4 @@ function getPageContext() {
     }
 }
 
-window.getHeaderPageContext = getPageContext;
+window.getPageContext = getPageContext;

@@ -116,8 +116,6 @@ function renderHeader() {
     // headerContainer.innerHTML = headerHTML;
     const container = document.querySelector(".container");
     container.insertAdjacentHTML("afterbegin", headerHTML);
-
-    console.log(`✅ Header rendered for ${type} page`);
 }
 
 window.renderHeader = renderHeader;
