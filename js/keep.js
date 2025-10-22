@@ -32,7 +32,7 @@ if (!product) {
 } else {
     const mainImg = document.getElementById("main-product-img");
     const nameEl = document.getElementById("product-name");
-    const brandEl = document.getElementById("product-brand");
+    const typeEl = document.getElementById("product-type");
     const descEl = document.getElementById("product-description");
     const priceEl = document.getElementById("product-price");
     const colorsWrapper = document.querySelector(".product-colors");
@@ -52,7 +52,7 @@ if (!product) {
     productCategoryEl.textContent = product.category;
 
     if (product.brand) {
-        brandEl.textContent = `${product.brand} |`;
+        typeEl.textContent = `${product.brand} |`;
     }
 
     let currentVariantIndex = 0;
@@ -288,5 +288,3 @@ if (!product) {
 
 // --- 🔃 Initialize Cart Count ---
 updateCartCount();
-
-

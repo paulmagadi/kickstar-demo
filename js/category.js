@@ -30,9 +30,8 @@ document.addEventListener("DOMContentLoaded", () => {
         let products = window.productsData || []; 
         products = productsData || []; 
         let filteredProducts = products;
-        // filteredProducts = productsData.filter(p => p.id === products.id);
 
-
+        document.title = `Category - ${cat.charAt(0).toUpperCase() + cat.slice(1)}`;
         switch (cat) {
             case "featured":
                 filteredProducts = products.filter(p => p.featured);

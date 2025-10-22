@@ -14,6 +14,7 @@
     --black-color: #000000;
     --timberwolf: #ced0ce;
     --black-low-opacity: #00000033;
+    --danger: #ff0000;
 }
 
 * {
@@ -64,13 +65,26 @@ small, .caption, .footer li, .footer li a, .review-text, .price, .counter {
     margin-top: 6.4em;
 }
 
+.breadcrumb {
+    padding: 1em 2em 0 2em;
+    color: var(--neutral-dark-color);
+}
+
+.breadcrumb a {
+    text-decoration: none;
+    color: var(--neutral-dark-color);
+}
+
+.breadcrumb a:hover {
+    border-bottom: 2px solid var(--primary-color);
+}
+
 section {
     /* background-color: var(--snow); */
 }
 
 .section-header {
     color: var(--neutral-dark-color);
-    /* background-color: var(--snow); */
     border-bottom: 1px solid var(--gray-shade-color);
 }
 

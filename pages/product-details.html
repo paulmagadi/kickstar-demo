@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KickStar - eCommerce Shoes Store</title>
+    <title>KickStar</title>
 
     <link rel="shortcut icon" href="../images/logo2.svg" type="image/x-icon">
     <link rel="stylesheet" href="../css/main.css">
@@ -17,10 +17,13 @@
 
 <body>
     <div class="container pages">
-        <div id="header-placeholder"></div>
+        <div class="breadcrumb" id="breadcrumb">
+            <a href="../index.html" title="Home">Home</a>&nbsp; &#10095; &nbsp;
+            <span id="product-breadcrumb">Product</span>
+        </div>
+        <!-- Product Details -->
+        <section class="product-details-container">
 
-        <!-- ✅ Product Details -->
-        <div class="product-details-container">
             <div class="product-details-page">
                 <div class="product-details-preview">
                     <!-- 📸 Left: Images -->
@@ -35,47 +38,53 @@
                             <button class="thumbnail-scroll-btn thumbnail-scroll-right" type="button">&#10095;</button>
                         </div>
                     </div>
+
+                    
                     <!-- 📋 Right: Details -->
                     <div class="product-details-section">
-                        <h3 id="product-name"></h3>
-                        <small id="product-type"></small><br><br>
-                        <div class="price">
+                        <h2 id="product-name"></h2>
+                        <small id="product-brand"></small> 
+                        <small id="product-category"></small>
+                        <div class="variant-price">
                             <span id="product-price"></span>
                         </div>
-                        <br>
+
                         <form id="variant-form">
-                            <h4>Available Colors</h4><br>
-                            <div class="product-colors"></div><br>
-                            <h4>Select Size</h4><br>
-                            <select name="variant_id" class="variant-select" id="variant-select">
-                            </select>
-                            <small class="add-cart-message-err" id="add-cart-message-err"></small>
-                            
+                            <div class="variant-colors"> 
+                                <div class="product-colors"></div>
+                                <small id="selected-color"></small>
+                            </div>
+
+                            <div class="variant-size">
+                                <h5>Select Size</h5>
+                                <select name="variant_id" class="variant-select" id="variant-select" title="Select Size"></select>
+                                <small class="add-cart-message-err" id="add-cart-message-err"></small>
+                            </div>
+
                             <div class="quantity-container">
-                                <br><br>
-                                <label>Quantity:</label>
+                                <label>Quantity:</label> &nbsp;
                                 <div class="quantity-box">
                                     <button type="button" id="qty-decrease" class="qty-btn">−</button>
-                                    <input type="text" id="qty-input" value="1" readonly>
+                                    <input type="text" id="qty-input" value="1" title="Quantity" readonly>
                                     <button type="button" id="qty-increase" class="qty-btn">+</button>
                                 </div>
                             </div>
 
-                            <br><br>
-                            <button type="submit" class="add-to-cart-btn" id="add-to-cart-btn">Add to Cart</button>
+                            <button type="submit" class="add-to-cart-btn" id="add-to-cart-btn" title="Add to cart">Add to Cart</button>
+                            
                             <p id="add-cart-message" style="color: green; font-weight: bold;"></p>
                         </form>
                         <br>
-                        <p id="product-description"></p>
+                        <p class="product-description" id="product-description"></p>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
 
 
     </div>
 
-    <!-- ✅ Product Data -->
+
 
     <script src="../js/context.js"></script>
     <script src="../js/header-template.js"></script>

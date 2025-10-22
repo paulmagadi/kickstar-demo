@@ -4,7 +4,7 @@ const productsData = [
         "id": 0,
         "name": "Nike Air Max 270",
         "brand": "Nike",
-        "category": "kids", 
+        "category": "Kids", 
         "featured" : true,
         "new": true,
         "description": "The Nike Air Max 270 features the biggest heel Air unit yet for a super-soft ride.",
@@ -12,6 +12,18 @@ const productsData = [
             {
                 "color": "Black/White",
                 "images": [
+                    "./images/nike-air-max-270.jpg",
+                    "./images/nike-air-max-270-1.jpg",
+                    "./images/nike-air-max-270-2.jpg",
+                    "./images/nike-air-max-270.jpg",
+                    "./images/nike-air-max-270-1.jpg",
+                    "./images/nike-air-max-270-2.jpg",
+                    "./images/nike-air-max-270.jpg",
+                    "./images/nike-air-max-270-1.jpg",
+                    "./images/nike-air-max-270-2.jpg",
+                    "./images/nike-air-max-270.jpg",
+                    "./images/nike-air-max-270-1.jpg",
+                    "./images/nike-air-max-270-2.jpg",
                     "./images/nike-air-max-270.jpg",
                     "./images/nike-air-max-270-1.jpg",
                     "./images/nike-air-max-270-2.jpg"
