@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../css/product-details.css">
+    <link rel="stylesheet" href="../css/product-card.css">
+    <link rel="stylesheet" href="../css/product-scroll-section.css">
     <link rel="stylesheet" href="../css/footer.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
@@ -39,25 +41,26 @@
                         </div>
                     </div>
 
-                    
+
                     <!-- 📋 Right: Details -->
                     <div class="product-details-section">
                         <h2 id="product-name"></h2>
-                        <small id="product-brand"></small> 
+                        <small id="product-brand"></small>
                         <small id="product-category"></small>
                         <div class="variant-price">
                             <span id="product-price"></span>
                         </div>
 
                         <form id="variant-form">
-                            <div class="variant-colors"> 
+                            <div class="variant-colors">
                                 <div class="product-colors"></div>
                                 <small id="selected-color"></small>
                             </div>
 
                             <div class="variant-size">
                                 <h5>Select Size</h5>
-                                <select name="variant_id" class="variant-select" id="variant-select" title="Select Size"></select>
+                                <select name="variant_id" class="variant-select" id="variant-select"
+                                    title="Select Size"></select>
                                 <small class="add-cart-message-err" id="add-cart-message-err"></small>
                             </div>
 
@@ -70,14 +73,26 @@
                                 </div>
                             </div>
 
-                            <button type="submit" class="add-to-cart-btn" id="add-to-cart-btn" title="Add to cart">Add to Cart</button>
-                            
+                            <button type="submit" class="add-to-cart-btn" id="add-to-cart-btn" title="Add to cart">Add
+                                to Cart</button>
+
                             <p id="add-cart-message" style="color: green; font-weight: bold;"></p>
                         </form>
                         <br>
                         <p class="product-description" id="product-description"></p>
                     </div>
                 </div>
+            </div>
+        </section>
+
+        <section class="related-products-section" data-category-slug="{{ product.category.slug }}">
+            <div class="section-header">
+                <h1>Related Products</h1>
+            </div>
+            <div class="products-scroll-container ">
+                <div class="product-scroll-btn scroll-left hidden">&#10094;</div>
+                <div class="product-scroll-btn scroll-right">&#10095;</div>
+                <div id="related-products" class="product-scroll product-list"></div>
             </div>
         </section>
 
@@ -90,7 +105,10 @@
     <script src="../js/header-template.js"></script>
     <script src="../js/header.js"></script>
     <script src="../js/products.js"></script>
+    <script src="../js/product-card-template.js"></script>
+    <script src="../js/product-card.js"></script>
     <script src="../js/product-details.js"></script>
+    <script src="../js/product-scroll-section.js"></script>
     <script src="../js/footer.js"></script>
 
 </body>

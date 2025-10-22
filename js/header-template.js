@@ -1,55 +1,44 @@
-function getHeaderPageContext() {
+function getHomePageContext() {
     const indexContainer = document.querySelector('.container.index');
     const pagesContainer = document.querySelector('.container.pages');
 
     if (indexContainer) {
         return {
-            type: 'index',
-            homeLinkBase: '',
-            imageBase: './images/',
-            linkBase: 'pages/',
+            homeBase: '',
         };
     } else if (pagesContainer) {
         return {
-            type: 'pages',
-            homeLinkBase: '../',
-            imageBase: '../images/',
-            linkBase: '',
+            homeBase: '../',
         };
     } else {
-        // fallback for unknown containers
         return {
-            type: 'default',
-            homeLinkBase: '',
-            imageBase: './images/',
-            linkBase: '',
+            homeBase: '',
         };
     }
 }
 
-window.getHeaderPageContext = getHeaderPageContext;
+window.getHomePageContext = getHomePageContext;
+window.getPageContext = getPageContext;
 
-/**
- * Injects a dynamic, path-aware header
-**/
+
+
 function renderHeader() {
-    const { homeLinkBase, imageBase, linkBase, type } = getHeaderPageContext();
-    // const headerContainer = document.querySelector("#header-placeholder");
-    // if (!headerContainer) return;
+    const context = getPageContext();
+    const homeContext = getHomePageContext();
 
     const headerHTML = `
     <header>
         <div class="header">
             <!-- Logo -->
             <div class="logo">
-                <a href="${homeLinkBase}index.html">
-                    <img src="${imageBase}logo2.svg" alt="KickStar" width="70px" title="KickStar Home">
+                <a href="${homeContext.homeBase}index.html">
+                    <img src="${context.imageBase}logo2.svg" alt="KickStar" width="70px" title="KickStar Home">
                 </a>
             </div>
 
             <!-- Desktop Search -->
             <div class="search-bar desktop">
-                <form action="${linkBase}search.html" method="get">
+                <form action="${context.linkBase}search.html" method="get">
                     <input type="search" placeholder="Search Products, Categories, Brands..." name="q"
                         class="search-input" required>
                     <i class="ri-search-line"></i>
@@ -77,7 +66,7 @@ function renderHeader() {
                 </div>
 
                 <div class="cart">
-                    <a href="${linkBase}cart.html">
+                    <a href="${context.linkBase}cart.html">
                         <i class="ri-shopping-cart-line" title="Cart"></i>
                         <span id="cart-count" class="cart-count">0</span>
                     </a>
@@ -87,7 +76,7 @@ function renderHeader() {
 
         <!-- Mobile Search -->
         <div class="search-bar mobile">
-            <form action="${linkBase}search.html" method="get">
+            <form action="${context.linkBase}search.html" method="get">
                 <input type="search" class="search-input"
                     placeholder="Search Products, Categories, Brands..." name="q" required>
                 <i class="ri-search-line"></i>
@@ -97,16 +86,16 @@ function renderHeader() {
         <!-- Navigation -->
         <nav>
             <ul class="nav-links">
-                <li><a href="${homeLinkBase}index.html" title="Home">Home</a></li>
-                <li><a href="${linkBase}category.html?cat=all" title="All Products">All</a></li>
-                <li><a href="${linkBase}category.html?cat=featured" title="Featured Products">Featured</a></li>
-                <li><a href="${linkBase}category.html?cat=women" title="Women's Shoes">Women</a></li>
-                <li><a href="${linkBase}category.html?cat=men" title="Men's Shoes">Men</a></li>
-                <li><a href="${linkBase}category.html?cat=kids" title="Kids Shoes">Kids</a></li>
-                <li><a href="${linkBase}category.html?cat=unisex" title="Unisex Shoes">Unisex</a></li>
-                <li><a href="${linkBase}category.html?cat=new" title="New in Store">New</a></li>
-                <li><a href="${linkBase}category.html?cat=deals" title="Deals">Deals</a></li>
-                <li><a href="${linkBase}brands.html" title="Brands">Brands</a></li>
+                <li><a href="${homeContext.homeBase}index.html" title="Home">Home</a></li>
+                <li><a href="${context.linkBase}category.html?cat=all" title="All Products">All</a></li>
+                <li><a href="${context.linkBase}category.html?cat=featured" title="Featured Products">Featured</a></li>
+                <li><a href="${context.linkBase}category.html?cat=women" title="Women's Shoes">Women</a></li>
+                <li><a href="${context.linkBase}category.html?cat=men" title="Men's Shoes">Men</a></li>
+                <li><a href="${context.linkBase}category.html?cat=kids" title="Kids Shoes">Kids</a></li>
+                <li><a href="${context.linkBase}category.html?cat=unisex" title="Unisex Shoes">Unisex</a></li>
+                <li><a href="${context.linkBase}category.html?cat=new" title="New in Store">New</a></li>
+                <li><a href="${context.linkBase}category.html?cat=deals" title="Deals">Deals</a></li>
+                <li><a href="${context.linkBase}brands.html" title="Brands">Brands</a></li>
             </ul>
         </nav>
     </header>
@@ -116,6 +105,21 @@ function renderHeader() {
     // headerContainer.innerHTML = headerHTML;
     const container = document.querySelector(".container");
     container.insertAdjacentHTML("afterbegin", headerHTML);
+
+
+    // Cart count utility
+    function getCart() {
+        return JSON.parse(localStorage.getItem("cart") || "[]");
+    }
+
+    function updateCartCount() {
+        const cart = getCart();
+        const count = cart.reduce((sum, item) => sum + item.qty, 0);
+        const cartCountEl = document.getElementById("cart-count");
+        if (cartCountEl) cartCountEl.textContent = count;
+    }
+
+    updateCartCount();
 }
 
 window.renderHeader = renderHeader;

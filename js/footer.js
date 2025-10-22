@@ -1,4 +1,4 @@
-window.getHeaderPageContext = getPageContext;
+window.getPageContext = getPageContext;
 
 document.addEventListener("DOMContentLoaded", () => {
     const context = getPageContext();

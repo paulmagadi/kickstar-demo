@@ -290,3 +290,35 @@ if (!product) {
 updateCartCount();
 
 
+function renderRelatedProducts(product) {
+    const relatedContainer = document.getElementById("related-products");
+    if (!relatedContainer) return;
+
+    // Find products in the same category, exclude the current one
+    const related = productsData
+        .filter(p => p.category === product.category && p.id !== product.id)
+        .slice(0, 4);
+
+    if (related.length === 0) {
+        relatedContainer.innerHTML = "<p>No related products found.</p>";
+        return;
+    }
+
+    // Render using your existing template function
+    relatedContainer.innerHTML = related
+        .map(p => createProductCardTemplate(p))
+        .join("");
+
+    // Reinitialize swatches + any card interactivity
+    if (typeof initProductCardFunctions === "function") {
+        initProductCardFunctions();
+    }
+
+}
+
+
+if (product) {
+    renderRelatedProducts(product);
+}
+
+

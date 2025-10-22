@@ -1,8 +1,5 @@
 
 document.addEventListener("DOMContentLoaded", () => {
-    // const context = getPageContext();
-    // console.log("Page context:", context.type);
-
     // Update "Deals" header dynamically
     const dealsHeader = document.getElementById("deals-header");
     if (dealsHeader && typeof getMaxDiscount === "function") {
