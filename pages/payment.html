@@ -168,26 +168,20 @@
             <span>Product</span>
         </div>
 
-        <section id="checkout-section">
-            <h2>Checkout Summary</h2>
-            <table class="checkout-table">
-                <thead>
-                    <tr>
-                        <th>Product</th>
-                        <th>Variant</th>
-                        <th>Price</th>
-                        <th>Qty</th>
-                        <th>Subtotal</th>
-                    </tr>
-                </thead>
-                <tbody id="checkout-body"></tbody>
-            </table>
+        <section id="payment-section">
+            <h2>Confirm Your Order</h2>
+            <div id="order-summary"></div>
 
-            <div class="checkout-summary">
-                <p><strong>Total:</strong> <span id="checkout-total">KES 0.00</span></p>
-                <button id="proceed-payment-btn" type="submit">Proceed to Payment</button>
+            <div class="payment-options">
+                <button class="pay-btn" id="cod-btn">Cash on Delivery</button>
+                <button class="pay-btn" id="simulate-mpesa-btn">Simulate MPesa Payment</button>
             </div>
+
+            <p id="payment-status" style="font-weight:bold; margin-top:20px;"></p>
         </section>
+
+        <script src="../js/payment.js"></script>
+
 
 
 

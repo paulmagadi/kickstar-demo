@@ -290,6 +290,7 @@ if (!product) {
 updateCartCount();
 
 
+// Related Products
 function renderRelatedProducts(product) {
     const relatedContainer = document.getElementById("related-products");
     if (!relatedContainer) return;
@@ -297,7 +298,7 @@ function renderRelatedProducts(product) {
     // Find products in the same category, exclude the current one
     const related = productsData
         .filter(p => p.category === product.category && p.id !== product.id)
-        .slice(0, 4);
+        .slice(0, 10);
 
     if (related.length === 0) {
         relatedContainer.innerHTML = "<p>No related products found.</p>";

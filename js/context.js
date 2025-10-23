@@ -1,4 +1,3 @@
-
 function getPageContext() {
     const indexContainer = document.querySelector('.container.index');
     const pagesContainer = document.querySelector('.container.pages');

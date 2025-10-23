@@ -29,8 +29,8 @@ const productsData = [
                     "./images/nike-air-max-270-2.jpg"
                 ],
                 "sizes": [
-                    { "size": 40, "price": 150.00, "sale_price": 135.00, "stock_quantity": 5 },
-                    { "size": 41, "price": 150.00, "sale_price": null, "stock_quantity": 2 },
+                    { "size": 40, "price": 150.00, "sale_price": 135.00, "stock_quantity": 15 },
+                    { "size": 41, "price": 150.00, "sale_price": null, "stock_quantity": 12 },
                     { "size": 42, "price": 155.00, "sale_price": 140.00, "stock_quantity": 0 }
                 ]
             },

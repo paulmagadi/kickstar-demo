@@ -18,7 +18,7 @@ function getHomePageContext() {
 }
 
 window.getHomePageContext = getHomePageContext;
-window.getPageContext = getPageContext;
+// window.getPageContext = getPageContext;
 
 
 

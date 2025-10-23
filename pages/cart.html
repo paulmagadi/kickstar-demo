@@ -70,12 +70,99 @@
             cursor: pointer;
             float: right;
         }
+
+        .cart-qty {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 4px 10px;
+            width: fit-content;
+            margin: auto;
+        }
+
+        .qty-btn {
+            background: #f5f5f5;
+            border: none;
+            font-size: 20px;
+            width: 28px;
+            height: 28px;
+            border-radius: 5px;
+            cursor: pointer;
+            line-height: 1;
+            transition: background 0.2s ease;
+        }
+
+        .qty-btn:hover {
+            background: #e0e0e0;
+        }
+
+        .qty-value {
+            min-width: 25px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .qty-btn:disabled {
+            background: #eee;
+            color: #aaa;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        td:nth-child(5),
+        #cart-total {
+            transition: all 0.3s ease;
+        }
+
+        .qty-value {
+            min-width: 25px;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .cart-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            gap: 10px;
+        }
+
+        .clear-cart-btn,
+        .checkout-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .clear-cart-btn {
+            background: #f44336;
+            color: #fff;
+        }
+
+        .clear-cart-btn:hover {
+            background: #d32f2f;
+        }
+
+        .checkout-btn {
+            background: #4caf50;
+            color: #fff;
+        }
+
+        .checkout-btn:hover {
+            background: #388e3c;
+        }
     </style>
 </head>
 
 <body>
     <div class="container pages">
-       
+
         <div class="breadcrumb" id="breadcrumb">
             <a href="../index.html" title="Home">Home</a>&nbsp; &#10095; &nbsp;
             <span>Product</span>
@@ -96,17 +183,22 @@
                 </thead>
                 <tbody id="cart-body"></tbody>
             </table>
-            <div class="cart-total">
-                <strong>Total: </strong>KES <span id="cart-total">0</span>
+            <div class="cart-footer">
+                <div class="cart-summary">
+                    <strong>Total:</strong> KES <span id="cart-total">0.00</span>
+                </div>
+                <div class="cart-actions">
+                    <button id="clear-cart-btn" class="clear-cart-btn">Clear Cart</button>
+                    <a href="../pages/checkout.html"><button class="checkout-btn">Proceed to Checkout</button></a>
+                </div>
             </div>
-            <br>
-            <a href="../pages/checkout.html"><button class="checkout-btn">Proceed to Checkout</button></a>
+            
         </div>
 
 
 
         <!-- ✅ Product Data -->
-    <script src="../js/context.js"></script>
+        <script src="../js/context.js"></script>
         <script src="../js/header-template.js"></script>
         <script src="../js/header.js"></script>
         <script src="../js/products.js"></script>
