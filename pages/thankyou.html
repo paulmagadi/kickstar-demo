@@ -214,22 +214,28 @@
                     Total: KES <span id="order-total">0.00</span>
                 </div>
 
-                
-            <!-- Signature & Thank You -->
-            <div class="signature-section">
-                <p>Signed,</p>
-                <div class="line"></div>
-                <p><strong>The KickStar Team</strong></p>
-                <p style="font-size: 0.9rem; color: #6c6b6b;">Thank you for supporting sustainable fashion 🌿</p>
+                <div id="shipping-details" style="margin-top: 10px; margin-bottom: 20px; line-height: 1.6;"></div>
+
+
+
+                <!-- Signature & Thank You -->
+                <div class="signature-section">
+                    <p>We’ll notify you once your order is on its way.
+                        If you chose <strong>Cash on Delivery</strong>, please have the amount ready upon delivery.</p>
+                    <br>
+                    <p>Signed,</p>
+                    <div class="line"></div>
+                    <p><strong>The KickStar Team</strong></p>
+                    <p style="font-size: 0.9rem; color: #6c6b6b;">Thank you for supporting sustainable fashion 🌿</p>
+                </div>
             </div>
-            </div>
 
 
-            <button id="download-receipt-btn">Download Receipt (PDF)</button>
 
-            <p class="footer-note">You can keep this receipt for your records. Thank you for shopping sustainably 🌿</p>
         </section>
+        <button id="download-receipt-btn">Download Receipt (PDF)</button>
 
+        <p class="footer-note">You can keep this receipt for your records. Thank you for shopping sustainably 🌿</p>
         <script>
             document.addEventListener("DOMContentLoaded", () => {
                 const order = JSON.parse(localStorage.getItem("lastOrder") || "{}");
@@ -242,6 +248,21 @@
 
                 const itemsEl = document.getElementById("receipt-items");
                 itemsEl.innerHTML = "";
+
+                const shipping = order.shipping;
+                const shippingEl = document.getElementById("shipping-details");
+
+                if (shipping) {
+                    shippingEl.innerHTML = `
+                        <strong>Shipping To:</strong><br>
+                        ${shipping.name}<br>
+                        ${shipping.phone}<br>
+                        ${shipping.address}
+                    `;
+                } else {
+                    shippingEl.innerHTML = `<em>No shipping address provided</em>`;
+                }
+
 
                 if (items.length > 0) {
                     items.forEach(item => {
@@ -281,7 +302,7 @@
                     };
                     html2pdf().set(options).from(element).save();
                 });
-                
+
             });
         </script>
 

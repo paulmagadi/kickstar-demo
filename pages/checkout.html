@@ -7,157 +7,10 @@
     <title>Shopping Cart - KickStar</title>
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/checkout.css">
     <link rel="stylesheet" href="../css/footer.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
-
-    <style>
-        .cart-container {
-            padding: 2em;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-
-        th,
-        td {
-            padding: 12px;
-            border-bottom: 1px solid #ddd;
-            text-align: center;
-        }
-
-        th {
-            background: #f4f6f6;
-        }
-
-        td img {
-            width: 60px;
-            height: 60px;
-            object-fit: cover;
-            border-radius: 6px;
-        }
-
-        .qty-input {
-            width: 60px;
-            padding: 4px;
-            text-align: center;
-        }
-
-        .remove-btn {
-            background: red;
-            color: white;
-            border: none;
-            padding: 6px 10px;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .cart-total {
-            text-align: right;
-            font-size: 18px;
-            margin-top: 10px;
-        }
-
-        .checkout-btn {
-            background: var(--primary-color, #fd3008);
-            color: white;
-            padding: 10px 16px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            float: right;
-        }
-
-        .cart-qty {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            padding: 4px 10px;
-            width: fit-content;
-            margin: auto;
-        }
-
-        .qty-btn {
-            background: #f5f5f5;
-            border: none;
-            font-size: 20px;
-            width: 28px;
-            height: 28px;
-            border-radius: 5px;
-            cursor: pointer;
-            line-height: 1;
-            transition: background 0.2s ease;
-        }
-
-        .qty-btn:hover {
-            background: #e0e0e0;
-        }
-
-        .qty-value {
-            min-width: 25px;
-            text-align: center;
-            font-weight: 600;
-        }
-
-        .qty-btn:disabled {
-            background: #eee;
-            color: #aaa;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        td:nth-child(5),
-        #cart-total {
-            transition: all 0.3s ease;
-        }
-
-        .qty-value {
-            min-width: 25px;
-            display: inline-block;
-            text-align: center;
-        }
-
-        .cart-actions {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-            gap: 10px;
-        }
-
-        .clear-cart-btn,
-        .checkout-btn {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .clear-cart-btn {
-            background: #f44336;
-            color: #fff;
-        }
-
-        .clear-cart-btn:hover {
-            background: #d32f2f;
-        }
-
-        .checkout-btn {
-            background: #4caf50;
-            color: #fff;
-        }
-
-        .checkout-btn:hover {
-            background: #388e3c;
-        }
-    </style>
 </head>
 
 <body>
@@ -165,7 +18,8 @@
 
         <div class="breadcrumb" id="breadcrumb">
             <a href="../index.html" title="Home">Home</a>&nbsp; &#10095; &nbsp;
-            <span>Product</span>
+            <a href="cart.html" title="Cart">Cart</a>&nbsp; &#10095; &nbsp;
+            <span>Checkout</span>
         </div>
 
         <section id="checkout-section">
@@ -182,6 +36,55 @@
                 </thead>
                 <tbody id="checkout-body"></tbody>
             </table>
+
+
+            <section class="shipping-section">
+                <h2>Shipping Information</h2>
+
+                <div class="saved-address">
+                    <h4>Saved Address</h4>
+                    <div id="saved-address-details">
+                        <p><strong>Name:</strong> John Doe</p>
+                        <p><strong>Phone:</strong> +254 712 345 678</p>
+                        <p><strong>Address:</strong> 123 Eco Street, Nairobi, Kenya</p>
+                    </div>
+                    <div class="address-actions">
+                        <button id="use-saved-address" class="btn">Use This Address</button>
+                        <button id="edit-saved-address" class="btn btn-outline">Edit</button>
+                    </div>
+                </div>
+
+                <div class="new-address">
+                    <button id="add-new-address" class="btn-secondary">+ Add New Address</button>
+                </div>
+
+                <div id="selected-address" class="selected-address hidden">
+                    <h4>Selected Address</h4>
+                    <p id="selected-address-text"></p>
+                </div>
+            </section>
+
+
+            <div id="address-modal" class="modal hidden">
+                <div class="modal-content">
+                    <span class="close-btn" id="close-modal">&times;</span>
+                    <h3>Add / Edit Shipping Address</h3>
+
+                    <form id="address-form">
+                        <label>Full Name:</label>
+                        <input type="text" id="full-name" required>
+
+                        <label>Phone Number:</label>
+                        <input type="tel" id="phone-number" required>
+
+                        <label>Address:</label>
+                        <textarea id="address-text" rows="3" required></textarea>
+
+                        <button type="submit" class="btn">Save Address</button>
+                    </form>
+                </div>
+            </div>
+
 
             <div class="checkout-summary">
                 <p><strong>Total:</strong> <span id="checkout-total">KES 0.00</span></p>

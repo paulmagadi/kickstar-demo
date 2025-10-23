@@ -70,11 +70,18 @@ function simulatePayment(method) {
     setTimeout(() => {
         const summary = JSON.parse(sessionStorage.getItem("checkoutSummary") || "{}");
 
+        // const orderData = {
+        //     id: "ORD" + Date.now(),
+        //     total: summary.total || 0,
+        //     paymentMethod: method,
+        //     cart: summary.cart || []
+        // };
         const orderData = {
             id: "ORD" + Date.now(),
-            total: summary.total || 0,
             paymentMethod: method,
-            cart: summary.cart || []
+            cart: summary.cart || [],
+            total: summary.total || 0,
+            shipping: summary.shipping || null,
         };
 
         // Save order
