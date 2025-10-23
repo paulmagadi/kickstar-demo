@@ -12,7 +12,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+        integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <style>
         .thankyou-section {
             text-align: center;
@@ -63,111 +65,112 @@
         }
 
         #thank-you {
-      max-width: 700px;
-      margin: 0 auto;
-      background: #fff;
-      padding: 30px;
-      border-radius: 16px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    }
+            max-width: 700px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
 
-    .brand-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 25px;
-    }
+        .brand-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
 
-    .brand-header img {
-      height: 60px;
-    }
+        .brand-header img {
+            height: 60px;
+        }
 
-    .brand-header h2 {
-      color: #2a7a55;
-      font-size: 1.8rem;
-      font-weight: 600;
-    }
+        .brand-header h2 {
+            color: #2a7a55;
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
 
-    #receipt-content {
-      border-top: 2px solid #2a7a55;
-      margin-top: 20px;
-      padding-top: 20px;
-    }
+        #receipt-content {
+            border-top: 2px solid #2a7a55;
+            margin-top: 20px;
+            padding-top: 20px;
+        }
 
-    #receipt-content h3 {
-      color: #2a7a55;
-      margin-bottom: 10px;
-    }
+        #receipt-content h3 {
+            color: #2a7a55;
+            margin-bottom: 10px;
+        }
 
-    .receipt-info {
-      margin-bottom: 10px;
-    }
+        .receipt-info {
+            margin-bottom: 10px;
+        }
 
-    .receipt-info strong {
-      display: inline-block;
-      width: 140px;
-    }
+        .receipt-info strong {
+            display: inline-block;
+            width: 140px;
+        }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 15px;
-    }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
 
-    table th, table td {
-      border: 1px solid #ddd;
-      padding: 10px;
-      text-align: left;
-      font-size: 0.95rem;
-    }
+        table th,
+        table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+            font-size: 0.95rem;
+        }
 
-    table th {
-      background: #f3f3f3;
-    }
+        table th {
+            background: #f3f3f3;
+        }
 
-    .receipt-total {
-      text-align: right;
-      margin-top: 15px;
-      font-weight: 600;
-      font-size: 1.1rem;
-    }
+        .receipt-total {
+            text-align: right;
+            margin-top: 15px;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
 
-    .signature-section {
-      margin-top: 35px;
-      text-align: right;
-      font-style: italic;
-      color: #444;
-    }
+        .signature-section {
+            margin-top: 35px;
+            text-align: right;
+            font-style: italic;
+            color: #444;
+        }
 
-    .signature-section .line {
-      margin-top: 40px;
-      border-top: 1px solid #ccc;
-      width: 200px;
-      float: right;
-    }
+        .signature-section .line {
+            margin-top: 40px;
+            border-top: 1px solid #ccc;
+            width: 200px;
+            float: right;
+        }
 
-    #download-receipt-btn {
-      margin-top: 25px;
-      background: #2a7a55;
-      color: #fff;
-      border: none;
-      padding: 12px 25px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: background 0.3s ease;
-    }
+        #download-receipt-btn {
+            margin-top: 25px;
+            background: #2a7a55;
+            color: #fff;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
 
-    #download-receipt-btn:hover {
-      background: #256347;
-    }
+        #download-receipt-btn:hover {
+            background: #256347;
+        }
 
-    .footer-note {
-      margin-top: 25px;
-      font-size: 0.9rem;
-      color: #6e6d6d;
-      text-align: center;
-    }
+        .footer-note {
+            margin-top: 25px;
+            font-size: 0.9rem;
+            color: #6e6d6d;
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -176,97 +179,113 @@
 
         <div class="breadcrumb" id="breadcrumb">
             <a href="../index.html" title="Home">Home</a>&nbsp; &#10095; &nbsp;
-            <span>Product</span>
+            <span>Order Confirmation</span>
         </div>
 
         <section id="thank-you">
-    <div class="brand-header">
-      <img src="../images/logo4.svg" alt="Brand Logo">
-      <h2>Thank You for Your Order!</h2>
-    </div>
+            <div class="brand-header">
+                <img src="../images/logo4.svg" alt="Brand Logo">
+                <h2>Thank You for Your Order!</h2>
+            </div>
 
-    <p>Your order has been placed successfully. A summary is below:</p>
+            <p>Your order has been placed successfully. A summary is below:</p>
 
-    <div id="receipt-content">
-      <h3>Order Receipt</h3>
+            <div id="receipt-content">
+                <h3>Order Receipt</h3>
 
-      <div class="receipt-info"><strong>Order ID:</strong> <span id="order-id">#12345</span></div>
-      <div class="receipt-info"><strong>Date:</strong> <span id="order-date"></span></div>
-      <div class="receipt-info"><strong>Payment:</strong> <span id="order-payment">MPesa</span></div>
+                <div class="receipt-info"><strong>Order ID:</strong> <span id="order-id">#12345</span></div>
+                <div class="receipt-info"><strong>Date:</strong> <span id="order-date"></span></div>
+                <div class="receipt-info"><strong>Payment:</strong> <span id="order-payment">MPesa</span></div>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Product</th>
-            <th>Details</th>
-            <th>Qty</th>
-            <th>Price</th>
-            <th>Subtotal</th>
-          </tr>
-        </thead>
-        <tbody id="receipt-items"></tbody>
-      </table>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Details</th>
+                            <th>Qty</th>
+                            <th>Price</th>
+                            <th>Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody id="receipt-items"></tbody>
+                </table>
 
-      <div class="receipt-total">
-        Total: KES <span id="order-total">0.00</span>
-      </div>
-    </div>
+                <div class="receipt-total">
+                    Total: KES <span id="order-total">0.00</span>
+                </div>
 
-    <!-- Signature & Thank You -->
-      <div class="signature-section">
-        <p>Signed,</p>
-        <div class="line"></div>
-        <p><strong>The GreenWear Team</strong></p>
-        <p style="font-size: 0.9rem; color: #666;">Thank you for supporting sustainable fashion 🌿</p>
-      </div>
+                
+            <!-- Signature & Thank You -->
+            <div class="signature-section">
+                <p>Signed,</p>
+                <div class="line"></div>
+                <p><strong>The KickStar Team</strong></p>
+                <p style="font-size: 0.9rem; color: #6c6b6b;">Thank you for supporting sustainable fashion 🌿</p>
+            </div>
+            </div>
 
-    <button id="download-receipt-btn">Download Receipt (PDF)</button>
 
-    <p class="footer-note">You can keep this receipt for your records. Thank you for shopping sustainably 🌿</p>
-  </section>
+            <button id="download-receipt-btn">Download Receipt (PDF)</button>
 
-  <script>
-  document.addEventListener("DOMContentLoaded", () => {
-      const order = JSON.parse(localStorage.getItem("lastOrder") || "{}");
-      const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+            <p class="footer-note">You can keep this receipt for your records. Thank you for shopping sustainably 🌿</p>
+        </section>
 
-      document.getElementById("order-id").textContent = order.id || "#12345";
-      document.getElementById("order-date").textContent = new Date().toLocaleString();
-      document.getElementById("order-payment").textContent = order.paymentMethod || "MPesa";
-      document.getElementById("order-total").textContent = order.total?.toFixed(2) || "0.00";
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                const order = JSON.parse(localStorage.getItem("lastOrder") || "{}");
+                const items = order.items || order.cart || [];
 
-      const itemsEl = document.getElementById("receipt-items");
-      itemsEl.innerHTML = "";
+                document.getElementById("order-id").textContent = order.id || "#12345";
+                document.getElementById("order-date").textContent = new Date().toLocaleString();
+                document.getElementById("order-payment").textContent = order.paymentMethod || "MPesa";
+                document.getElementById("order-total").textContent = order.total?.toFixed(2) || "0.00";
 
-      if (cart.length > 0) {
-          cart.forEach(item => {
-              const subtotal = item.qty * item.price;
-              const row = document.createElement("tr");
-              row.innerHTML = `
-                  <td>${item.name}</td>
-                  <td>${item.color}, Size ${item.size}</td>
-                  <td>${item.qty}</td>
-                  <td>KES ${item.price}</td>
-                  <td>KES ${subtotal.toFixed(2)}</td>
-              `;
-              itemsEl.appendChild(row);
-          });
-      }
+                const itemsEl = document.getElementById("receipt-items");
+                itemsEl.innerHTML = "";
 
-      // PDF generation
-      document.getElementById("download-receipt-btn").addEventListener("click", () => {
-          const element = document.getElementById("receipt-content");
-          const options = {
-              margin: 10,
-              filename: `Kickstar_${order.id || Date.now()}.pdf`,
-              image: { type: 'jpeg', quality: 0.98 },
-              html2canvas: { scale: 2 },
-              jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-          };
-          html2pdf().set(options).from(element).save();
-      });
-  });
-  </script>
+                if (items.length > 0) {
+                    items.forEach(item => {
+                        const name = item.name || item.product || "Unnamed";
+                        const qty = item.qty || item.quantity || 1;
+                        const price = item.price || 0;
+                        const color = item.color || "-";
+                        const size = item.size || "-";
+                        const subtotal = qty * price;
+
+                        const row = document.createElement("tr");
+                        row.innerHTML = `
+                <td>${name}</td>
+                <td>${color}, Size ${size}</td>
+                <td>${qty}</td>
+                <td>KES ${price.toFixed(2)}</td>
+                <td>KES ${subtotal.toFixed(2)}</td>
+            `;
+                        itemsEl.appendChild(row);
+                    });
+                } else {
+                    itemsEl.innerHTML = `<tr><td colspan="5" style="text-align:center;">No items found</td></tr>`;
+                }
+
+                // Auto-clear cart (optional)
+                localStorage.removeItem("cart");
+
+                // PDF generation
+                document.getElementById("download-receipt-btn").addEventListener("click", () => {
+                    const element = document.getElementById("receipt-content");
+                    const options = {
+                        margin: 10,
+                        filename: `KickStar_${order.id || Date.now()}.pdf`,
+                        image: { type: 'jpeg', quality: 0.98 },
+                        html2canvas: { scale: 2 },
+                        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                    };
+                    html2pdf().set(options).from(element).save();
+                });
+                
+            });
+        </script>
+
+
 
 
 
@@ -277,11 +296,9 @@
         <script src="../js/header-template.js"></script>
         <script src="../js/header.js"></script>
         <script src="../js/products.js"></script>
-        <script src="../js/cart.js"></script>
-        <script src="../js/checkout.js"></script>
         <script src="../js/footer.js"></script>
 
-     
+
 </body>
 
 </html>

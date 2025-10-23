@@ -56,37 +56,65 @@ function renderPaymentSummary() {
 }
 
 function simulatePayment(method) {
-  const statusEl = document.getElementById("payment-status");
+    const statusEl = document.getElementById("payment-status");
+    statusEl.style.color = "blue";
+    statusEl.textContent = `Processing ${method}...`;
 
-  statusEl.style.color = "blue";
-  statusEl.textContent = `Processing ${method}...`;
+    // Add a spinner
+    const spinner = document.createElement("div");
+    spinner.classList.add("spinner");
+    spinner.innerHTML = `<i class="ri-loader-4-line ri-spin" style="font-size: 24px; color: blue;"></i>`;
+    statusEl.appendChild(spinner);
 
-  setTimeout(() => {
-    const summary = JSON.parse(sessionStorage.getItem("checkoutSummary") || "{}");
+    // Simulate payment delay
+    setTimeout(() => {
+        const summary = JSON.parse(sessionStorage.getItem("checkoutSummary") || "{}");
 
-    const orderData = {
-      orderId: "ORD" + Date.now(),
-      method,
-      cart: summary.cart || [],
-      total: summary.total || 0,
-    };
+        const orderData = {
+            id: "ORD" + Date.now(),
+            total: summary.total || 0,
+            paymentMethod: method,
+            cart: summary.cart || []
+        };
 
-    localStorage.setItem("lastOrder", JSON.stringify({
-  id: "12345",
-  total: 2599.00,
-  paymentMethod: "MPesa"
-}));
+        // Save order
+        localStorage.setItem("lastOrder", JSON.stringify(orderData));
 
+        // Clear cart
+        localStorage.removeItem("cart");
+        sessionStorage.removeItem("checkoutSummary");
 
-    // Save order for receipt page
-    sessionStorage.setItem("lastOrder", JSON.stringify(orderData));
+        // Remove spinner
+        spinner.remove();
 
-    // Clear cart
-    localStorage.removeItem("cart");
-    sessionStorage.removeItem("checkoutSummary");
+        // Show success popup
+        showPaymentSuccessPopup(method);
 
-    // Redirect to thank-you page
-    window.location.href = "../pages/thankyou.html";
-  }, 2000);
+        // Redirect after short delay
+        setTimeout(() => {
+            window.location.href = "../pages/thankyou.html";
+        }, 3500);
+    }, 2500);
 }
 
+function showPaymentSuccessPopup(method) {
+    const popup = document.createElement("div");
+    popup.classList.add("payment-popup");
+
+    popup.innerHTML = `
+        <div class="popup-content">
+            <div class="success-icon">
+                <i class="ri-checkbox-circle-fill"></i>
+            </div>
+            <h3>Payment Successful!</h3>
+            <p>Your payment via <strong>${method}</strong> was completed successfully.</p>
+            <p class="redirect-note">Redirecting to receipt...</p>
+        </div>
+    `;
+
+    document.body.appendChild(popup);
+
+    setTimeout(() => popup.classList.add("show"), 50);
+    setTimeout(() => popup.classList.remove("show"), 3200);
+    setTimeout(() => popup.remove(), 4000);
+}
