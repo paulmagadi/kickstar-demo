@@ -37,7 +37,10 @@ function renderPaymentSummary() {
         const subtotal = item.qty * item.price;
         html += `
             <tr>
-                <td>${item.name}</td>
+                <td>
+                    <img src="${item.image}" alt="${item.name}" width="50">
+                    <br>${item.name}
+                </td>
                 <td>${item.color}, ${item.size}</td>
                 <td>${item.qty}</td>
                 <td>KES ${item.price}</td>
@@ -69,13 +72,6 @@ function simulatePayment(method) {
     // Simulate payment delay
     setTimeout(() => {
         const summary = JSON.parse(sessionStorage.getItem("checkoutSummary") || "{}");
-
-        // const orderData = {
-        //     id: "ORD" + Date.now(),
-        //     total: summary.total || 0,
-        //     paymentMethod: method,
-        //     cart: summary.cart || []
-        // };
         const orderData = {
             id: "ORD" + Date.now(),
             paymentMethod: method,

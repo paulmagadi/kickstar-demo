@@ -21,6 +21,7 @@
     <div class="container pages">
         <div class="breadcrumb" id="breadcrumb">
             <a href="../index.html" title="Home">Home</a>&nbsp; &#10095; &nbsp;
+            <span id="category-breadcrumb">Product</span>
             <span id="product-breadcrumb">Product</span>
         </div>
         <!-- Product Details -->
@@ -47,21 +48,23 @@
                         <h2 id="product-name"></h2>
                         <small id="product-brand"></small>
                         <small id="product-category"></small>
+
                         <div class="variant-price">
                             <span id="product-price"></span>
                         </div>
 
                         <form id="variant-form">
                             <div class="variant-colors">
-                                <div class="product-colors"></div>
+                                <h3>Available Colors</h3>
+                                <div class="product-colors"> </div>
                                 <small id="selected-color"></small>
                             </div>
 
                             <div class="variant-size">
                                 <h5>Select Size</h5>
                                 <select name="variant_id" class="variant-select" id="variant-select"
-                                    title="Select Size"></select>
-                                <small class="add-cart-message-err" id="add-cart-message-err"></small>
+                                    title="Select Size"> </select>
+                                <br><small class="add-cart-message-err" id="add-cart-message-err"></small>
                             </div>
 
                             <div class="quantity-container">
@@ -76,7 +79,7 @@
                             <button type="submit" class="add-to-cart-btn" id="add-to-cart-btn" title="Add to cart">Add
                                 to Cart</button>
 
-                            <p id="add-cart-message" style="color: green; font-weight: bold;"></p>
+                            <p id="add-cart-message"></p>
                         </form>
                         <br>
                         <p class="product-description" id="product-description"></p>

@@ -48,15 +48,11 @@ function renderCheckoutSummary() {
     const cart = getCart();
     const total = cart.reduce((sum, item) => sum + (item.qty * item.price), 0);
 
-    // Save summary in sessionStorage for the next step
-    // sessionStorage.setItem("checkoutSummary", JSON.stringify({
-    //     cart,
-    //     total,
-    // }));
 
     // Include selected shipping address
     const selectedAddress = JSON.parse(sessionStorage.getItem("selectedAddress") || "null");
 
+    // Save summary in sessionStorage for the next step
     sessionStorage.setItem("checkoutSummary", JSON.stringify({
         cart,
         total,
@@ -81,7 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const selectedText = document.getElementById("selected-address-text");
 
     const savedAddress = {
-        name: "John Doe",
+        name: "Bella Diamonds",
         phone: "+254 712 345 678",
         address: "123 Eco Street, Nairobi, Kenya"
     };

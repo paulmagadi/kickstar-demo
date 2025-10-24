@@ -124,6 +124,7 @@ function attachCartEventHandlers() {
     // Remove items
     document.querySelectorAll(".remove-btn").forEach(btn => {
         btn.addEventListener("click", (e) => {
+            if (confirm(`Are you sure you want to remove this item from your cart?`)) {
             const index = e.target.dataset.index;
             const row = e.target.closest("tr");
             row.style.transition = "opacity 0.3s ease";
@@ -136,6 +137,7 @@ function attachCartEventHandlers() {
                 renderCart();
                 updateCartCount();
             }, 300);
+            }
         });
 
     });

@@ -186,85 +186,109 @@
         }
 
         .spinner {
-  display: inline-block;
-  margin-left: 10px;
-  vertical-align: middle;
-}
+            display: inline-block;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
 
-.ri-spin {
-  animation: spin 1s linear infinite;
-}
+        .ri-spin {
+            animation: spin 1s linear infinite;
+        }
 
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
 
-/* Payment Success Popup */
-.payment-popup {
-  position: fixed;
-  inset: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: rgba(0,0,0,0.4);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.4s ease;
-  z-index: 9999;
-}
+            to {
+                transform: rotate(360deg);
+            }
+        }
 
-.payment-popup.show {
-  opacity: 1;
-  pointer-events: all;
-}
+        /* Payment Success Popup */
+        .payment-popup {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.4);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+            z-index: 9999;
+        }
 
-.popup-content {
-  background: #fff;
-  padding: 40px 50px;
-  border-radius: 14px;
-  text-align: center;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-  transform: translateY(20px);
-  transition: transform 0.4s ease;
-  animation: slideUp 0.5s ease forwards;
-}
+        .payment-popup.show {
+            opacity: 1;
+            pointer-events: all;
+        }
 
-@keyframes slideUp {
-  from { transform: translateY(30px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
-}
+        .popup-content {
+            background: #fff;
+            padding: 40px 50px;
+            border-radius: 14px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            transform: translateY(20px);
+            transition: transform 0.4s ease;
+            animation: slideUp 0.5s ease forwards;
+        }
 
-.success-icon {
-  color: #2a7a55;
-  font-size: 3rem;
-  margin-bottom: 10px;
-  animation: pop 0.5s ease forwards;
-}
+        @keyframes slideUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
 
-@keyframes pop {
-  0% { transform: scale(0); }
-  70% { transform: scale(1.2); }
-  100% { transform: scale(1); }
-}
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
 
-.popup-content h3 {
-  color: #2a7a55;
-  margin: 10px 0 5px;
-  font-size: 1.5rem;
-}
+        .success-icon {
+            color: #2a7a55;
+            font-size: 3rem;
+            margin-bottom: 10px;
+            animation: pop 0.5s ease forwards;
+        }
 
-.popup-content p {
-  color: #555;
-  font-size: 1rem;
-}
+        @keyframes pop {
+            0% {
+                transform: scale(0);
+            }
 
-.redirect-note {
-  color: #888;
-  font-size: 0.9rem;
-  margin-top: 8px;
-}
+            70% {
+                transform: scale(1.2);
+            }
 
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .popup-content h3 {
+            color: #2a7a55;
+            margin: 10px 0 5px;
+            font-size: 1.5rem;
+        }
+
+        .popup-content p {
+            color: #555;
+            font-size: 1rem;
+        }
+
+        .redirect-note {
+            color: #888;
+            font-size: 0.9rem;
+            margin-top: 8px;
+        }
+
+        #payment-status {
+            font-weight: bold;
+            margin-top: 20px;
+        }
     </style>
 </head>
 
@@ -273,7 +297,9 @@
 
         <div class="breadcrumb" id="breadcrumb">
             <a href="../index.html" title="Home">Home</a>&nbsp; &#10095; &nbsp;
-            <span>Product</span>
+            <a href="cart.html" title="Cart">Cart</a>&nbsp; &#10095; &nbsp;
+            <a href="checkout.html" title="Checkout">Checkout</a>&nbsp; &#10095; &nbsp;
+            <span>Payment</span>
         </div>
 
         <section id="payment-section">
@@ -282,13 +308,12 @@
 
             <div class="payment-options">
                 <button class="pay-btn" id="cod-btn">Cash on Delivery</button>
-                <button class="pay-btn" id="simulate-mpesa-btn">Simulate MPesa Payment</button>
+                <button class="pay-btn" id="simulate-mpesa-btn">Pay with MPesa</button>
             </div>
 
-            <p id="payment-status" style="font-weight:bold; margin-top:20px;"></p>
+            <p id="payment-status"></p>
         </section>
 
-        <script src="../js/payment.js"></script>
 
 
 
@@ -299,8 +324,7 @@
         <script src="../js/header-template.js"></script>
         <script src="../js/header.js"></script>
         <script src="../js/products.js"></script>
-        <script src="../js/cart.js"></script>
-        <script src="../js/checkout.js"></script>
+        <script src="../js/payment.js"></script>
         <script src="../js/footer.js"></script>
 </body>
 

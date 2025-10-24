@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // ✅ 2. Target elements
     const categoryTitle = document.getElementById("categoryTitle");
     const categoryContainer = document.getElementById("categoryProducts");
+    const breadcrumbCategory = document.getElementById("category-breadcrumb");
 
     // Pagination variables
     let currentPage = 1;
@@ -26,6 +27,8 @@ document.addEventListener("DOMContentLoaded", () => {
     function renderProductsByCategory(cat) {
         if (!categoryContainer) return;
         categoryContainer.innerHTML = "";
+
+        breadcrumbCategory.innerText = cat.charAt(0).toUpperCase() + cat.slice(1);
 
         let products = window.productsData || []; 
         products = productsData || []; 
@@ -77,6 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
             default:
                 filteredProducts = products;
                 categoryTitle.textContent = "All Products";
+                breadcrumbCategory.innerText = "All Products";
                 break;
         }
 
@@ -148,7 +152,7 @@ document.addEventListener("DOMContentLoaded", () => {
         currentPageDisplay.className = "current-page";
         currentPageDisplay.textContent = currentPage;
 
-        pageIndicator.innerHTML = `<span class="active">${currentPage}</span> of ${totalPages}`;
+        pageIndicator.innerHTML = `Page<span class="active"> ${currentPage}</span> of ${totalPages}`;
         pageIndicator.className = "page-indicator";
         paginationContainer.appendChild(pageIndicator);
 

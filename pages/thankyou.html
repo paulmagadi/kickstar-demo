@@ -266,6 +266,7 @@
 
                 if (items.length > 0) {
                     items.forEach(item => {
+                        const image = item.image || item.product || "Unnamed";
                         const name = item.name || item.product || "Unnamed";
                         const qty = item.qty || item.quantity || 1;
                         const price = item.price || 0;
@@ -275,7 +276,9 @@
 
                         const row = document.createElement("tr");
                         row.innerHTML = `
-                <td>${name}</td>
+                <td>
+                    <img src="${image}" alt="${item.name}" width="50">
+                    <br>${name}</td>
                 <td>${color}, Size ${size}</td>
                 <td>${qty}</td>
                 <td>KES ${price.toFixed(2)}</td>

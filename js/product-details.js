@@ -169,6 +169,7 @@ if (!product) {
         messageErr.innerHTML = "";
         sizeSelect.style.border = "1px solid #ccc"; // reset red border when valid
         updatePriceUI(e.target.selectedOptions[0]);
+        qtyInput.value = 1; // reset quantity to default (1)
         setQtyInputMax();
     });
 
@@ -280,6 +281,7 @@ if (!product) {
 
         setCart(cart);
         updateCartCount();
+        qtyInput.value = 1; // reset quantity to default (1)
 
         message.textContent = `Added ${qty} item(s) of ${product.name} (${variant.color}, Size ${sizeObj.size}) to cart!`;
         setTimeout(() => message.textContent = "", 3000);
@@ -316,7 +318,6 @@ function renderRelatedProducts(product) {
     }
 
 }
-
 
 if (product) {
     renderRelatedProducts(product);
