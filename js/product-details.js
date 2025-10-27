@@ -46,10 +46,20 @@ if (!product) {
     const rightScrollBtn = document.querySelector(".thumbnail-scroll-right");
     const selectedColor = document.getElementById("selected-color");
     const productCategoryEl = document.getElementById("product-category");
+    
 
     nameEl.textContent = product.name;
     descEl.textContent = product.description;
     productCategoryEl.textContent = product.category;
+
+    // Breadcrumb
+    const categoryBreadcrumbEl = document.getElementById("category-breadcrumb");
+    if (categoryBreadcrumbEl) {
+        categoryBreadcrumbEl.textContent = product.category;
+        categoryBreadcrumbEl.title = product.category;
+        const href = `category.html?cat=${encodeURIComponent(product.category.toLowerCase())}`;
+        categoryBreadcrumbEl.setAttribute("href", href);
+    }
 
     if (product.brand) {
         brandEl.textContent = `${product.brand} |`;

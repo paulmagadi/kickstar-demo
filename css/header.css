@@ -141,12 +141,17 @@ header {
 .header .cart-count {
   position: absolute;
   top: -8px;
-  right: -10px;
+  right: -8px;
   padding: 2px 7px;
   background-color: var(--primary-color);
-  border-radius: 45%;
+  border-radius: 50%;
   color: var(--neutral-light-color);
-  font-size: 0.8rem;
+  font-size: 12px;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .header .cart-count:hover {
@@ -221,12 +226,12 @@ nav .nav-links li:last-child {
   color: var(--neutral-dark-color);
 }
 
-nav .nav-links a:not(nav .nav-links a.active-url ):hover {
+nav .nav-links a:not(nav .nav-links a.active-url):hover {
   border-bottom: 2px solid var(--primary-color);
 }
 
 nav .nav-links a.active-url {
-  color: var(--primary-color); 
+  color: var(--primary-color);
 }
 
 /* Mobile Tweaks */

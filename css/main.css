@@ -89,6 +89,7 @@ small,
 .breadcrumb a {
     text-decoration: none;
     color: var(--neutral-dark-color);
+    border-bottom: 1.2px solid var(--black-color);
 }
 
 .breadcrumb a:hover {
