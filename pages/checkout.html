@@ -1,57 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shopping Cart - KickStar</title>
-    <link rel="stylesheet" href="../css/main.css">
-    <link rel="stylesheet" href="../css/header.css">
-    <link rel="stylesheet" href="../css/checkout.css">
-    <link rel="stylesheet" href="../css/footer.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="../css/checkout.css">
 </head>
 
 <body>
     <div class="container pages">
-
         <h1 class="section-header">Checkout</h1>
 
         <!-- 🧭 Step Indicator -->
         <div class="steps-indicator">
-            <div class="step active" data-step="1">Shipping</div> &rarr;
-            <div class="step" data-step="2">Payment</div> &rarr;
-            <div class="step" data-step="3">Review</div>
+            <div class="step active" data-step="1">
+                <span class="step-number">1</span>
+                Shipping
+            </div>
+            <div class="step" data-step="2">
+                <span class="step-number">2</span>
+                Payment
+            </div>
+            <div class="step" data-step="3">
+                <span class="step-number">3</span>
+                Review
+            </div>
         </div>
-        <div class="checkout-container">
 
+        <div class="checkout-container">
             <!-- Left side: steps -->
             <div class="checkout-main">
-
-
                 <!-- 🏠 Step 1: Shipping -->
                 <section class="checkout-section open" data-step="1">
                     <h3>1. Shipping Information</h3>
+                    <div class="success-message" id="shipping-success">
+                        <i class="ri-checkbox-circle-fill"></i> Shipping information saved successfully!
+                    </div>
                     <div id="saved-addresses-container"></div>
                     <button id="add-address-btn" class="btn-primary">Add New Address</button>
 
                     <div class="checkout-nav">
-                        <button id="to-payment" class="next-step-btn">Next →</button>
+                        <button id="to-payment" class="next-step-btn">Continue to Payment →</button>
                     </div>
                 </section>
 
                 <!-- 💳 Step 2: Payment -->
                 <section class="checkout-section" data-step="2">
                     <h3>2. Payment Method</h3>
+                    <div class="success-message" id="payment-success">
+                        <i class="ri-checkbox-circle-fill"></i> Payment method selected!
+                    </div>
                     <div class="payment-methods">
-                        <label><input type="radio" name="payment" value="MPesa" checked> MPesa</label>
-                        <label><input type="radio" name="payment" value="Cash on Delivery"> Cash on Delivery</label>
+                        <label>
+                            <input type="radio" name="payment" value="MPesa" checked>
+                            <div class="payment-method-content">
+                                <div class="payment-icon">📱</div>
+                                <div class="payment-details">
+                                    <div class="payment-name">MPesa</div>
+                                    <div class="payment-description">Pay via MPesa mobile money</div>
+                                </div>
+                            </div>
+                        </label>
+                        <label>
+                            <input type="radio" name="payment" value="Cash on Delivery">
+                            <div class="payment-method-content">
+                                <div class="payment-icon">💵</div>
+                                <div class="payment-details">
+                                    <div class="payment-name">Cash on Delivery</div>
+                                    <div class="payment-description">Pay when you receive your order</div>
+                                </div>
+                            </div>
+                        </label>
                     </div>
 
                     <div class="checkout-nav">
-                        <button class="prev-step-btn">← Back</button>
-                        <button class="next-step-btn">Next →</button>
+                        <button class="prev-step-btn">← Back to Shipping</button>
+                        <button class="next-step-btn">Continue to Review →</button>
                     </div>
                 </section>
 
@@ -61,7 +91,7 @@
                     <div id="review-summary"></div>
 
                     <div class="checkout-nav">
-                        <button class="prev-step-btn">← Back</button>
+                        <button class="prev-step-btn">← Back to Payment</button>
                     </div>
                 </section>
             </div>
@@ -78,12 +108,17 @@
                     <span>Shipping</span>
                     <span id="summary-shipping">KES 0.00</span>
                 </div>
+                
+                <div class="summary-row">
+                    <span>Tax</span>
+                    <span id="summary-tax">KES 0.00</span>
+                </div>
                 <div class="summary-row summary-total">
                     <span>Total</span>
                     <span id="summary-total">KES 0.00</span>
                 </div>
 
-                <button id="complete-order-btn" class="btn-primary">Complete Order</button>
+                <button id="complete-order-btn" class="btn-primary" disabled>Complete Order</button>
             </aside>
         </div>
 
@@ -94,30 +129,35 @@
                 <h3 id="modal-title">Add New Address</h3>
                 <form id="address-form">
                     <input type="hidden" id="address-id" />
-                    <label>Full Name</label>
-                    <input type="text" id="fullname" required />
-                    <label>Address</label>
-                    <input type="text" id="address" required />
-                    <label>City</label>
-                    <input type="text" id="city" required />
-                    <label>Phone</label>
-                    <input type="text" id="phone" required />
+                    <div class="form-group">
+                        <label for="fullname">Full Name</label>
+                        <input type="text" id="fullname" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Address</label>
+                        <input type="text" id="address" required />
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="city">City</label>
+                            <input type="text" id="city" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone</label>
+                            <input type="tel" id="phone" required />
+                        </div>
+                    </div>
                     <button type="submit" class="btn-primary">Save Address</button>
                 </form>
             </div>
         </div>
     </div>
-
-
-
-    <!-- ✅ Product Data -->
     <script src="../js/context.js"></script>
     <script src="../js/header-template.js"></script>
     <script src="../js/header.js"></script>
     <script src="../js/products.js"></script>
-    <script src="../js/cart.js"></script>
     <script src="../js/checkout.js"></script>
     <script src="../js/footer.js"></script>
-</body>
 
+</body>
 </html>

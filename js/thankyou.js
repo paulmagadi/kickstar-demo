@@ -1,55 +1,71 @@
+
 document.addEventListener("DOMContentLoaded", () => {
-  const receiptEl = document.getElementById("order-receipt");
-  const orderData = JSON.parse(sessionStorage.getItem("lastOrder") || "{}");
+    const order = JSON.parse(localStorage.getItem("lastOrder") || "{}");
+    const items = order.items || order.cart || [];
 
-  if (!orderData.cart || orderData.cart.length === 0) {
-    receiptEl.innerHTML = `<p>No order found. Please <a href="../index.html">go back to the shop</a>.</p>`;
-    return;
-  }
+    document.getElementById("order-id").textContent = order.id || "#12345";
+    document.getElementById("order-date").textContent = new Date().toLocaleString();
+    document.getElementById("order-payment").textContent = order.paymentMethod || "MPesa";
+    document.getElementById("order-total").textContent = order.total?.toFixed(2) || "0.00";
 
-  const orderId = orderData.orderId || "ORD" + Date.now();
-  const date = new Date().toLocaleString();
+    const itemsEl = document.getElementById("receipt-items");
+    itemsEl.innerHTML = "";
 
-  let html = `
-    <div class="receipt-box">
-      <h2>Order Receipt</h2>
-      <p><strong>Order ID:</strong> ${orderId}</p>
-      <p><strong>Date:</strong> ${date}</p>
-      <hr>
-      <table class="receipt-table">
-        <thead>
-          <tr>
-            <th>Product</th>
-            <th>Variant</th>
-            <th>Qty</th>
-            <th>Price</th>
-            <th>Subtotal</th>
-          </tr>
-        </thead>
-        <tbody>
-  `;
+    const shipping = order.shipping;
+    const shippingEl = document.getElementById("shipping-details");
 
-  orderData.cart.forEach(item => {
-    const subtotal = item.qty * item.price;
-    html += `
-      <tr>
-        <td>${item.name}</td>
-        <td>${item.color}, Size ${item.size}</td>
-        <td>${item.qty}</td>
-        <td>KES ${item.price}</td>
-        <td>KES ${subtotal.toFixed(2)}</td>
-      </tr>
-    `;
-  });
+    if (shipping) {
+        shippingEl.innerHTML = `
+            <strong>Shipping To:</strong><br>
+            ${shipping.name}<br>
+            ${shipping.phone}<br>
+            ${shipping.address}
+        `;
+    } else {
+        shippingEl.innerHTML = `<em>No shipping address provided</em>`;
+    }
 
-  html += `
-        </tbody>
-      </table>
-      <hr>
-      <p class="receipt-total"><strong>Total:</strong> KES ${orderData.total.toFixed(2)}</p>
-      <p class="receipt-method"><strong>Payment Method:</strong> ${orderData.method}</p>
-    </div>
-  `;
 
-  receiptEl.innerHTML = html;
+    if (items.length > 0) {
+        items.forEach(item => {
+            const image = item.image || item.product || "Unnamed";
+            const name = item.name || item.product || "Unnamed";
+            const qty = item.qty || item.quantity || 1;
+            const price = item.price || 0;
+            const color = item.color || "-";
+            const size = item.size || "-";
+            const subtotal = qty * price;
+
+            const row = document.createElement("tr");
+            row.innerHTML = `
+    <td>
+        <img src="${image}" alt="${item.name}" width="50">
+        <br>${name}</td>
+    <td>${color}, Size ${size}</td>
+    <td>${qty}</td>
+    <td>KES ${price.toFixed(2)}</td>
+    <td>KES ${subtotal.toFixed(2)}</td>
+`;
+            itemsEl.appendChild(row);
+        });
+    } else {
+        itemsEl.innerHTML = `<tr><td colspan="5" style="text-align:center;">No items found</td></tr>`;
+    }
+
+    // Auto-clear cart (optional)
+    localStorage.removeItem("cart");
+
+    // PDF generation
+    document.getElementById("download-receipt-btn").addEventListener("click", () => {
+        const element = document.getElementById("receipt-content");
+        const options = {
+            margin: 10,
+            filename: `KickStar_${order.id || Date.now()}.pdf`,
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+        html2pdf().set(options).from(element).save();
+    });
+
 });
