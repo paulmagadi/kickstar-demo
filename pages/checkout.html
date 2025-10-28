@@ -16,93 +16,108 @@
 <body>
     <div class="container pages">
 
-        <div class="breadcrumb" id="breadcrumb">
-            <a href="../index.html" title="Home">Home</a>&nbsp; &#10095; &nbsp;
-            <a href="cart.html" title="Cart">Cart</a>&nbsp; &#10095; &nbsp;
-            <span>Checkout</span>
+        <h1 class="section-header">Checkout</h1>
+
+        <!-- 🧭 Step Indicator -->
+        <div class="steps-indicator">
+            <div class="step active" data-step="1">Shipping</div> &rarr;
+            <div class="step" data-step="2">Payment</div> &rarr;
+            <div class="step" data-step="3">Review</div>
+        </div>
+        <div class="checkout-container">
+
+            <!-- Left side: steps -->
+            <div class="checkout-main">
+
+
+                <!-- 🏠 Step 1: Shipping -->
+                <section class="checkout-section open" data-step="1">
+                    <h3>1. Shipping Information</h3>
+                    <div id="saved-addresses-container"></div>
+                    <button id="add-address-btn" class="btn-primary">Add New Address</button>
+
+                    <div class="checkout-nav">
+                        <button id="to-payment" class="next-step-btn">Next →</button>
+                    </div>
+                </section>
+
+                <!-- 💳 Step 2: Payment -->
+                <section class="checkout-section" data-step="2">
+                    <h3>2. Payment Method</h3>
+                    <div class="payment-methods">
+                        <label><input type="radio" name="payment" value="MPesa" checked> MPesa</label>
+                        <label><input type="radio" name="payment" value="Cash on Delivery"> Cash on Delivery</label>
+                    </div>
+
+                    <div class="checkout-nav">
+                        <button class="prev-step-btn">← Back</button>
+                        <button class="next-step-btn">Next →</button>
+                    </div>
+                </section>
+
+                <!-- ✅ Step 3: Review -->
+                <section class="checkout-section" data-step="3">
+                    <h3>3. Review & Confirm</h3>
+                    <div id="review-summary"></div>
+
+                    <div class="checkout-nav">
+                        <button class="prev-step-btn">← Back</button>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Right side: Sticky summary -->
+            <aside class="order-summary">
+                <h2>Order Summary</h2>
+                <div id="summary-items"></div>
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span id="summary-subtotal">KES 0.00</span>
+                </div>
+                <div class="summary-row">
+                    <span>Shipping</span>
+                    <span id="summary-shipping">KES 0.00</span>
+                </div>
+                <div class="summary-row summary-total">
+                    <span>Total</span>
+                    <span id="summary-total">KES 0.00</span>
+                </div>
+
+                <button id="complete-order-btn" class="btn-primary">Complete Order</button>
+            </aside>
         </div>
 
-        <section id="checkout-section">
-            <h2>Checkout Summary</h2>
-            <table class="checkout-table">
-                <thead>
-                    <tr>
-                        <th>Product</th>
-                        <th>Variant</th>
-                        <th>Price</th>
-                        <th>Qty</th>
-                        <th>Subtotal</th>
-                    </tr>
-                </thead>
-                <tbody id="checkout-body"></tbody>
-            </table>
-
-
-            <section class="shipping-section">
-                <h2>Shipping Information</h2>
-
-                <div class="saved-address">
-                    <h4>Saved Address</h4>
-                    <div id="saved-address-details">
-                        <p><strong>Name:</strong> John Doe</p>
-                        <p><strong>Phone:</strong> +254 712 345 678</p>
-                        <p><strong>Address:</strong> 123 Eco Street, Nairobi, Kenya</p>
-                    </div>
-                    <div class="address-actions">
-                        <button id="use-saved-address" class="btn">Use This Address</button>
-                        <button id="edit-saved-address" class="btn btn-outline">Edit</button>
-                    </div>
-                </div>
-
-                <div class="new-address">
-                    <button id="add-new-address" class="btn-secondary">+ Add New Address</button>
-                </div>
-
-                <div id="selected-address" class="selected-address hidden">
-                    <h4>Selected Address</h4>
-                    <p id="selected-address-text"></p>
-                </div>
-            </section>
-
-
-            <div id="address-modal" class="modal hidden">
-                <div class="modal-content">
-                    <span class="close-btn" id="close-modal">&times;</span>
-                    <h3>Add / Edit Shipping Address</h3>
-
-                    <form id="address-form">
-                        <label>Full Name:</label>
-                        <input type="text" id="full-name" required>
-
-                        <label>Phone Number:</label>
-                        <input type="tel" id="phone-number" required>
-
-                        <label>Address:</label>
-                        <textarea id="address-text" rows="3" required></textarea>
-
-                        <button type="submit" class="btn">Save Address</button>
-                    </form>
-                </div>
+        <!-- 📦 Address Modal -->
+        <div id="address-modal" class="modal">
+            <div class="modal-content">
+                <span id="close-modal" class="close">&times;</span>
+                <h3 id="modal-title">Add New Address</h3>
+                <form id="address-form">
+                    <input type="hidden" id="address-id" />
+                    <label>Full Name</label>
+                    <input type="text" id="fullname" required />
+                    <label>Address</label>
+                    <input type="text" id="address" required />
+                    <label>City</label>
+                    <input type="text" id="city" required />
+                    <label>Phone</label>
+                    <input type="text" id="phone" required />
+                    <button type="submit" class="btn-primary">Save Address</button>
+                </form>
             </div>
-
-
-            <div class="checkout-summary">
-                <p><strong>Total:</strong> <span id="checkout-total">KES 0.00</span></p>
-                <button id="proceed-payment-btn" type="submit">Proceed to Payment</button>
-            </div>
-        </section>
+        </div>
+    </div>
 
 
 
-
-        <!-- ✅ Product Data -->
-        <script src="../js/context.js"></script>
-        <script src="../js/header-template.js"></script>
-        <script src="../js/header.js"></script>
-        <script src="../js/products.js"></script>
-        <script src="../js/cart.js"></script>
-        <script src="../js/checkout.js"></script>
-        <script src="../js/footer.js"></script>
+    <!-- ✅ Product Data -->
+    <script src="../js/context.js"></script>
+    <script src="../js/header-template.js"></script>
+    <script src="../js/header.js"></script>
+    <script src="../js/products.js"></script>
+    <script src="../js/cart.js"></script>
+    <script src="../js/checkout.js"></script>
+    <script src="../js/footer.js"></script>
 </body>
 
 </html>
