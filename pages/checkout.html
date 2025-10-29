@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,12 +39,16 @@
             <div class="checkout-main">
                 <!-- 🏠 Step 1: Shipping -->
                 <section class="checkout-section open" data-step="1">
-                    <h3>1. Shipping Information</h3>
-                    <div class="success-message" id="shipping-success">
-                        <i class="ri-checkbox-circle-fill"></i> Shipping information saved successfully!
+                    <div class="shipping-details-container">
+                        <h3>1. Shipping Information</h3>
+                        <div class="success-message" id="shipping-success">
+                            <i class="ri-checkbox-circle-fill"></i> Shipping information saved successfully!
+                        </div>
+                        <div id="saved-addresses-container"></div>
+                        <button id="add-address-btn" class="btn-primary">Add New Address</button>
                     </div>
-                    <div id="saved-addresses-container"></div>
-                    <button id="add-address-btn" class="btn-primary">Add New Address</button>
+
+                    <div class="no-address-error">Please add a shipping address before proceeding.</div>
 
                     <div class="checkout-nav">
                         <button id="to-payment" class="next-step-btn">Continue to Payment →</button>
@@ -104,7 +109,7 @@
                     <span>Subtotal</span>
                     <span id="summary-subtotal">KES 0.00</span>
                 </div>
-                
+
                 <div class="summary-row">
                     <span>Tax (16%)</span>
                     <span id="summary-tax">KES 0.00</span>
@@ -151,6 +156,10 @@
                 </form>
             </div>
         </div>
+
+        <!-- <div class="custom-alert">
+            <div class="error-alert">Please select a shipping address before proceeding.</div>
+        </div> -->
     </div>
     <script src="../js/context.js"></script>
     <script src="../js/header-template.js"></script>
@@ -160,4 +169,5 @@
     <script src="../js/footer.js"></script>
 
 </body>
+
 </html>

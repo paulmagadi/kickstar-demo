@@ -62,15 +62,20 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // ===== Step Validation =====
+
+
+const errorEl = document.querySelector(".no-address-error");
+const shippingContainer = document.querySelector(".shipping-details-container");
 function validateStep(step) {
     switch(step) {
         case 1:
             const addresses = getAddresses();
             const hasDefaultAddress = addresses.some(a => a.isDefault);
             if (!hasDefaultAddress) {
-                alert("Please select a shipping address before proceeding.");
+                shippingContainer.classList.add("error");
+                errorEl.style.display = "block";
                 return false;
-            }
+            } 
             showSuccessMessage('shipping-success');
             return true;
         case 2:
@@ -144,7 +149,12 @@ function renderAddresses() {
     addressContainer.innerHTML = "";
 
     if (addresses.length === 0) {
-        addressContainer.innerHTML = `<p class="no-addresses">No saved addresses yet. Please add your shipping address.</p>`;
+        addressContainer.innerHTML = `
+            <div class="no-addresses">
+                <i class="ri-map-pin-add-line"></i>
+                No saved addresses yet. Please add your shipping address.
+            </div>
+        `;
         return;
     }
 
@@ -275,6 +285,8 @@ document.getElementById("add-address-btn").onclick = () => {
     document.getElementById("address-form").reset();
     document.getElementById("address-id").value = "";
     modal.style.display = "flex";
+    shippingContainer.classList.remove("error");
+    errorEl.style.display = "none";
 };
 
 document.getElementById("close-modal").onclick = () => modal.style.display = "none";

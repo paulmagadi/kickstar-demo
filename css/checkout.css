@@ -10,6 +10,10 @@ header {
   position: absolute;
 }
 
+.search-toggle.mobile-only {
+  display: none;
+}
+
 .header-after {
   margin-top: 0;
 }
@@ -132,6 +136,23 @@ header {
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
+}
+
+#saved-addresses-container .no-addresses {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 15px;
+  background-color: #efefef83;
+}
+
+#saved-addresses-container .no-addresses i {
+  font-size: 1.5rem;
+  font-weight: 600;
 }
 
 .address-card {
@@ -436,6 +457,26 @@ input:focus {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 15px;
+}
+
+.custom-alert {
+  width: 95%;
+  max-width: 300px;
+  border-radius: 8px;
+  background-color: #e2e8f07d;
+  padding: 1em;
+}
+
+.no-address-error {
+  color: red;
+  padding-top: 1em;
+  display: none;
+}
+
+.shipping-details-container.error {
+  border-radius: 8px;
+  border: 2px solid red;
+  padding: 5px;
 }
 
 /* ===== RESPONSIVE STYLES ===== */
