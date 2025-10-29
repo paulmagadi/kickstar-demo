@@ -46,31 +46,37 @@ function renderHeader() {
                 </form>
             </div>
 
+                
+
+                
+
             <!-- Header Items -->
-            <div class="header-items">
-                <!-- Mobile Search Toggle -->
+            <div class="header-items-container">
+                    <!-- Mobile Search Toggle -->
                 <div class="search-toggle mobile-only">
                     <i class="ri-search-line" title="Search"></i>
                 </div>
+                <div class="header-items">
+                    
+                    <div class="help">
+                        <i class="ri-questionnaire-line"></i>
+                    </div>
+                    <div class="account">
+                        <i class="ri-account-circle-line" title="Account"></i>
+                        <div class="account-dropdown">
+                            <p class="login"><a href="#">Login</a></p>
+                            <p class="register"><a href="#">Register</a></p>
+                        </div>
+                    </div>
 
-                <div class="help">
-                    <i class="ri-questionnaire-line"></i>
-                </div>
-
-                <div class="account">
-                    <i class="ri-account-circle-line" title="Account"></i>
-                    <div class="account-dropdown">
-                        <p class="login"><a href="#">Login</a></p>
-                        <p class="register"><a href="#">Register</a></p>
+                    <div class="cart">
+                        <a href="${context.linkBase}cart.html">
+                            <i class="ri-shopping-cart-line" title="Cart"></i>
+                            <span id="cart-count" class="cart-count">0</span>
+                        </a>
                     </div>
                 </div>
-
-                <div class="cart">
-                    <a href="${context.linkBase}cart.html">
-                        <i class="ri-shopping-cart-line" title="Cart"></i>
-                        <span id="cart-count" class="cart-count">0</span>
-                    </a>
-                </div>
+                
             </div>
         </div>
 

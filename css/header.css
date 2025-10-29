@@ -90,6 +90,13 @@ header {
 }
 
 /* Header Items */
+.header-items-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+
 .header .header-items {
   display: flex;
   gap: 1em;
@@ -100,7 +107,7 @@ header {
   background-color: #edf2f4;
 }
 
-.header .header-items i {
+.header .header-items-container i {
   font-size: 1.5rem;
   font-size: 1.4rem;
   color: var(--neutral-dark-color);
