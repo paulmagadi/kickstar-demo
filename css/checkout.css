@@ -15,8 +15,6 @@ header {
 }
 
 /* ===== RESET & BASE STYLES ===== */
-
-
 .section-header {
   text-align: center;
   margin: 20px 0 30px;
@@ -144,6 +142,10 @@ header {
   align-items: flex-start;
 }
 
+.address-card.selected {
+  border: 2px solid #2d87f0;
+}
+
 .address-card:hover {
   border-color: #2d87f0;
   box-shadow: 0 2px 8px rgba(45, 135, 240, 0.1);
@@ -216,9 +218,12 @@ header {
   background-color: rgba(45, 135, 240, 0.03);
 }
 
+.payment-methods label.selected{
+  border: 2px solid #2d87f0;
+}
+
 .payment-methods input[type="radio"]:checked+.payment-method-content {
   border-color: #2d87f0;
-  background-color: rgba(45, 135, 240, 0.05);
 }
 
 .payment-method-content {

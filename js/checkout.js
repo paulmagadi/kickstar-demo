@@ -65,14 +65,47 @@ function validateStep(step) {
             showSuccessMessage('shipping-success');
             return true;
         case 2:
-            const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
+            const checked = document.querySelector('input[name="payment"]:checked');
+            if (!checked) {
+                alert("Please select a payment method before proceeding.");
+                return false;
+            }
+            const paymentMethod = checked.value;
             localStorage.setItem("paymentMethod", paymentMethod);
+            updateSelectedPaymentUI(paymentMethod);
             showSuccessMessage('payment-success');
             return true;
         default:
             return true;
     }
 }
+
+function updateSelectedPaymentUI(selectedValue) {
+    // Support both .payment-option and the typo .payment-optionn labels
+    document.querySelectorAll('.payment-methods label.payment-option, .payment-methods label.payment-optionn').forEach(label => {
+        label.classList.remove('selected');
+        const input = label.querySelector('input[name="payment"]');
+        if (input && input.value === selectedValue) {
+            label.classList.add('selected');
+        }
+    });
+}
+
+// Wire up change handlers and initialize the visual state when DOM is ready
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll('input[name="payment"]').forEach(radio => {
+        radio.addEventListener('change', e => {
+            const val = e.target.value;
+            localStorage.setItem("paymentMethod", val);
+            updateSelectedPaymentUI(val);
+            showSuccessMessage('payment-success');
+        });
+    });
+
+    // Initialize selection UI from saved method or checked radio
+    const initVal = localStorage.getItem("paymentMethod") || (document.querySelector('input[name="payment"]:checked') && document.querySelector('input[name="payment"]:checked').value);
+    if (initVal) updateSelectedPaymentUI(initVal);
+});
 
 function showSuccessMessage(id) {
     const message = document.getElementById(id);
@@ -81,6 +114,7 @@ function showSuccessMessage(id) {
         message.style.display = 'none';
     }, 3000);
 }
+
 
 // ===== Address Handling =====
 const addressContainer = document.getElementById("saved-addresses-container");
@@ -107,8 +141,9 @@ function renderAddresses() {
 
     addresses.forEach(addr => {
         const checked = addr.isDefault ? "checked" : "";
+        const selClass = addr.isDefault ? "selected" : "";
         addressContainer.innerHTML += `
-            <div class="address-card">
+            <div class="address-card ${selClass}" data-id="${addr.id}">
                 <label>
                     <input type="radio" name="selectedAddress" value="${addr.id}" ${checked}>
                     <div class="address-details">
@@ -125,12 +160,32 @@ function renderAddresses() {
         `;
     });
 
+    // Update selection state when radio changes
     document.querySelectorAll("input[name='selectedAddress']").forEach(radio => {
         radio.addEventListener("change", e => {
             const addresses = getAddresses();
             addresses.forEach(a => a.isDefault = a.id === e.target.value);
             saveAddresses(addresses);
+
+            // Update visual selected class
+            document.querySelectorAll(".address-card").forEach(card => card.classList.remove("selected"));
+            const card = e.target.closest(".address-card");
+            if (card) card.classList.add("selected");
+
             renderReview();
+        });
+        
+    });
+
+    // Make the whole card clickable (except action buttons) to select the address
+    document.querySelectorAll(".address-card").forEach(card => {
+        card.addEventListener("click", e => {
+            if (e.target.closest(".edit-address-btn") || e.target.closest(".delete-address-btn")) return;
+            const radio = card.querySelector("input[name='selectedAddress']");
+            if (radio && !radio.checked) {
+                radio.checked = true;
+                radio.dispatchEvent(new Event('change', { bubbles: true }));
+            }
         });
     });
 
@@ -163,7 +218,7 @@ function deleteAddress(id) {
         const updated = addresses.filter(a => a.id !== id);
         
         // If we're deleting the default address, set a new default
-        if (addressToDelete.isDefault && updated.length > 0) {
+        if (addressToDelete && addressToDelete.isDefault && updated.length > 0) {
             updated[0].isDefault = true;
         }
         
@@ -176,20 +231,28 @@ function deleteAddress(id) {
 document.getElementById("address-form").addEventListener("submit", e => {
     e.preventDefault();
     const id = document.getElementById("address-id").value;
-    const newAddr = {
+    const baseAddr = {
         id: id || "ADDR" + Date.now(),
         fullname: document.getElementById("fullname").value,
         address: document.getElementById("address").value,
         city: document.getElementById("city").value,
-        phone: document.getElementById("phone").value,
-        isDefault: getAddresses().length === 0
+        phone: document.getElementById("phone").value
     };
 
     let addresses = getAddresses();
+
     if (id) {
-        addresses = addresses.map(a => a.id === id ? newAddr : a);
+        // Editing: make edited address the selected/default one
+        addresses = addresses.map(a => {
+            if (a.id === id) {
+                return { ...baseAddr, isDefault: true };
+            }
+            return { ...a, isDefault: false };
+        });
     } else {
-        addresses.push(newAddr);
+        // Adding new: make new address the selected/default one and unset others
+        addresses = addresses.map(a => ({ ...a, isDefault: false }));
+        addresses.push({ ...baseAddr, isDefault: true });
     }
 
     saveAddresses(addresses);
