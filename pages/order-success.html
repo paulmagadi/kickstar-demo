@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - KickStar</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/order-success.css">
+    <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+        crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <div class="container pages">
+
+        <div class="breadcrumb" id="breadcrumb">
+            <a href="../index.html" title="Home">Home</a>&nbsp; &#10095; &nbsp;
+            <a href="#" title="Account">Account</a>&nbsp; &#10095; &nbsp;
+            <a href="#" title="orders">orders</a>&nbsp; &#10095; &nbsp;
+            <span>Order Confirmation</span>
+        </div>
+
+        <div class="order-receipt-container">
+             <div class="order-receipt" id="order-receipt">
+            <div class="brand-header">
+                <img src="../images/logo4.svg" alt="Brand Logo">
+                <h2>Thank You for Your Order!</h2>
+            </div>
+
+            <p>Your order has been placed successfully. A summary is below:</p>
+            <hr>
+            <h3>Order Receipt</h3>
+
+            <div class="receipt-info"><strong>Order ID:</strong> <span id="order-id">#12345</span></div>
+            <div class="receipt-info"><strong>Date:</strong> <span id="order-date"></span></div>
+            <div class="receipt-info"><strong>Payment:</strong> <span id="order-payment">MPesa</span></div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Details</th>
+                        <th>Qty</th>
+                        <th>Price</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody id="receipt-items"></tbody>
+            </table>
+
+            <div class="receipt-cost-summery">
+                Subtotal: &nbsp;&nbsp;KES <span id="order-subtotal"></span> <br>
+                Shipping: &nbsp;&nbsp;KES <span id="order-shipping"></span> <br>
+                Tax: &nbsp;&nbsp;KES <span id="order-tax"></span><br>
+                <div class="receipt-total">
+                    Total: KES <span id="order-total">0.00</span>
+                </div>
+            </div>
+
+            <div id="shipping-details" style="margin-top: 10px; margin-bottom: 20px; line-height: 1.6;"></div>
+
+
+
+            <!-- Signature & Thank You -->
+            <div class="signature-section">
+                <p>We’ll notify you once your order is on its way.
+                    If you chose <strong>Cash on Delivery</strong>, please have the amount ready upon delivery.
+                </p>
+                <br>
+                <p>Signed,</p>
+                <div class="line"></div>
+                <p><strong>The KickStar Team</strong></p>
+                <p style="font-size: 0.9rem; color: #6c6b6b;">Thank you for supporting sustainable fashion 🌿
+                </p>
+            </div>
+        </div>
+        <button id="download-receipt-btn" type="button">Download Receipt (PDF)</button>
+
+        <p class="footer-note">You can keep this receipt for your records. Thank you for shopping sustainably 🌿</p>
+   
+        </div>
+        </div>
+
+
+    <script src="../js/context.js"></script>
+    <script src="../js/header-template.js"></script>
+    <script src="../js/header.js"></script>
+    <script src="../js/products.js"></script>
+    <script src="../js/order-success.js"></script>
+    <script src="../js/footer.js"></script>
+
+
+</body>
+
+</html>

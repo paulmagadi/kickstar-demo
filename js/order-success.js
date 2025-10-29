@@ -3,9 +3,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const order = JSON.parse(localStorage.getItem("lastOrder") || "{}");
     const items = order.items || order.cart || [];
 
+    const shippingFee = 300;
+
     document.getElementById("order-id").textContent = order.id || "#12345";
     document.getElementById("order-date").textContent = new Date().toLocaleString();
     document.getElementById("order-payment").textContent = order.paymentMethod || "MPesa";
+    document.getElementById("order-subtotal").textContent = order.subtotal.toFixed(2) || "0.00";
+    document.getElementById("order-shipping").textContent = shippingFee.toFixed(2) || "0.00";
+    document.getElementById("order-tax").textContent = order.tax?.toFixed(2) || "0.00";
     document.getElementById("order-total").textContent = order.total?.toFixed(2) || "0.00";
 
     const itemsEl = document.getElementById("receipt-items");
@@ -58,6 +63,7 @@ if (items.length > 0) {
         // Other cells
         const tdDetails = document.createElement("td");
         tdDetails.textContent = `${color}, Size ${size}`;
+        row.appendChild(tdDetails);
         const options = {
             margin: 10,
             filename: `KickStar_${order.id || Date.now()}.pdf`,
@@ -65,6 +71,12 @@ if (items.length > 0) {
             html2canvas: { scale: 2, useCORS: true, allowTaint: false },
             jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
         };
+
+        const tdQty = document.createElement("td");
+        tdQty.textContent = `${qty}`;
+        row.appendChild(tdQty);
+
+        const tdPrice = document.createElement("td");
         tdPrice.textContent = `KES ${price.toFixed(2)}`;
         row.appendChild(tdPrice);
 
@@ -83,7 +95,7 @@ if (items.length > 0) {
 
     // PDF generation
     document.getElementById("download-receipt-btn").addEventListener("click", () => {
-        const element = document.getElementById("receipt-content");
+        const element = document.getElementById("order-receipt");
         const options = {
             margin: 10,
             filename: `KickStar_${order.id || Date.now()}.pdf`,
@@ -95,3 +107,7 @@ if (items.length > 0) {
     });
 
 });
+
+
+
+// Add crossOrigin and useCORS so html2canvas can include remote images and build image elements programmatically (setting crossOrigin before src) to avoid tainting the canvas.

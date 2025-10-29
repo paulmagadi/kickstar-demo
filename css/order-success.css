@@ -1,0 +1,160 @@
+.order-receipt-container {
+    text-align: center;
+}
+
+.order-receipt {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    margin: 20px auto;
+    max-width: 800px;
+    text-align: left;
+}
+
+.receipt-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.receipt-table th,
+.receipt-table td {
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+.receipt-cost-summery,
+.receipt-method {
+    margin-top: 15px;
+    font-size: 1.1em;
+}
+
+.btn {
+    display: inline-block;
+    background: black;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 6px;
+    text-decoration: none;
+    margin-top: 25px;
+}
+
+.btn:hover {
+    background: #333;
+}
+
+#thank-you {
+    max-width: 700px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.brand-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.brand-header img {
+    height: 60px;
+}
+
+.brand-header h2 {
+    color: #2a7a55;
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+#receipt-content {
+    border-top: 2px solid #2a7a55;
+    margin-top: 20px;
+    padding-top: 20px;
+}
+
+#receipt-content h3 {
+    color: #2a7a55;
+    margin-bottom: 10px;
+}
+
+.receipt-info {
+    margin-bottom: 10px;
+}
+
+.receipt-info strong {
+    display: inline-block;
+    width: 140px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+table th,
+table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+    font-size: 0.95rem;
+}
+
+table th {
+    background: #f3f3f3;
+}
+
+.receipt-cost-summery {
+    text-align: right;
+    margin-top: 15px;
+    font-size: 1.1rem;
+}
+
+.receipt-total {
+    font-weight: 600;
+    border-top: 2px solid gray;
+    padding-top: 10px;
+}
+
+.signature-section {
+    margin-top: 35px;
+    text-align: right;
+    font-style: italic;
+    color: #444;
+}
+
+.signature-section .line {
+    margin-top: 40px;
+    border-top: 1px solid #ccc;
+    width: 200px;
+    float: right;
+}
+
+#download-receipt-btn {
+    margin-top: 25px;
+    background: #2a7a55;
+    color: #fff;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s ease;
+    margin: 0 auto;
+}
+
+#download-receipt-btn:hover {
+    background: #256347;
+}
+
+.footer-note {
+    margin-top: 25px;
+    font-size: 0.9rem;
+    color: #6e6d6d;
+    text-align: center;
+}

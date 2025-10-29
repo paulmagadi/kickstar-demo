@@ -99,7 +99,7 @@ function renderCart() {
     cartLayout.appendChild(cartItems);
 
     // Render order summary
-    const shipping = 250; // Example shipping cost
+    const shipping = 300; // Example shipping cost
     const tax = Math.round(subtotal * 0.16); // 16% tax example
     const total = subtotal + shipping + tax;
 
@@ -207,7 +207,7 @@ function updateQuantityLive(index, newQty, container) {
 function updateCartTotal() {
     const cart = getCart();
     const subtotal = cart.reduce((sum, item) => sum + (item.qty * item.price), 0);
-    const shipping = 250; // Example static shipping cost
+    const shipping = 300; // Example static shipping cost
     const tax = Math.round(subtotal * 0.16); // Example 16% VAT
     const total = subtotal + shipping + tax;
 

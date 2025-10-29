@@ -40,12 +40,21 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
+
     document.querySelectorAll(".prev-step-btn").forEach(btn => {
         btn.addEventListener("click", () => {
             const current = parseInt(btn.closest(".checkout-section").dataset.step);
+
+            // If we're leaving step 3 (going back), disable the complete order button
+            if (current === 3) {
+                const completeBtn = document.getElementById("complete-order-btn");
+                if (completeBtn) completeBtn.disabled = true;
+            }
+
             goToStep(current - 1);
         });
     });
+
 
     renderAddresses();
     renderSummary();
@@ -275,6 +284,7 @@ window.onclick = e => { if (e.target === modal) modal.style.display = "none"; };
 function renderSummary() {
     const cart = getCart();
     const itemsEl = document.getElementById("summary-items");
+    const shippingFee = 300; // Example static shipping cost
     let subtotal = 0;
     itemsEl.innerHTML = "";
 
@@ -294,10 +304,11 @@ function renderSummary() {
         });
     }
 
-    const shipping = subtotal > 0 ? 300 : 0;
     document.getElementById("summary-subtotal").textContent = formatKES(subtotal);
-    document.getElementById("summary-shipping").textContent = formatKES(shipping);
-    document.getElementById("summary-total").textContent = formatKES(subtotal + shipping);
+    const tax = Math.round(subtotal * 0.16); // Example 16% VAT
+    document.getElementById("summary-shipping").textContent = formatKES(shippingFee);
+    document.getElementById("summary-tax").textContent = formatKES(tax);
+    document.getElementById("summary-total").textContent = formatKES(subtotal + shippingFee + tax);
 }
 
 // ===== Review Section =====
@@ -367,7 +378,8 @@ document.getElementById("complete-order-btn").addEventListener("click", () => {
     // Calculate totals directly here
     const subtotal = cart.reduce((acc, item) => acc + item.price * item.qty, 0);
     const shipping = subtotal > 0 ? 300 : 0;
-    const total = subtotal + shipping;
+    const tax = Math.round(subtotal * 0.16); // Example 16% VAT
+    const total = subtotal + shipping + tax;
 
     // Get selected/default shipping address
     const addresses = getAddresses();
@@ -381,9 +393,12 @@ document.getElementById("complete-order-btn").addEventListener("click", () => {
 
     const order = {
         id: "ORD" + Date.now(),
+        subtotal,
         total,
         paymentMethod,
         shippingAddress: selected,
+        shipping,
+        tax,
         items: cart,
         date: new Date().toISOString()
     };
@@ -400,7 +415,7 @@ document.getElementById("complete-order-btn").addEventListener("click", () => {
     document.body.classList.add('loading');
     setTimeout(() => {
         // Redirect to thank-you page
-        window.location.href = "../pages/thankyou.html";
+        window.location.href = "../pages/order-success.html";
     }, 1500);
 });
 
