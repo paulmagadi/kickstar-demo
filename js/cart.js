@@ -67,12 +67,12 @@ function renderCart() {
         cartItems.innerHTML += `
             <div class="cart-item">
                 <div class="item-image">
-                    <a href="${linkBase}product-details.html?id=${item.productId}" title="View Product">
+                    <a href="${linkBase}product-details.html?id=${item.productId}" title="View ${item.name}">
                         <img src="${item.image}" alt="${item.name}">
                     </a>
                 </div>
                 <div class="item-details">
-                    <a href="${linkBase}product-details.html?id=${item.productId}">
+                    <a href="${linkBase}product-details.html?id=${item.productId}" title=" View ${item.name}">
                         <h3 class="item-name">${item.name}</h3>
                     </a>
                     <small>${item.color}, Size ${item.size}</small>
@@ -88,7 +88,7 @@ function renderCart() {
 
                         ${stock === 0 ? "<small class='stock-warning'>Out of Stock</small>" : ""}
 
-                        <button class="remove-btn" data-index="${index}">Remove</button>
+                        <button class="remove-btn" data-index="${index}"><i class="fa-solid fa-trash"></i> Remove</button>
                     </div>
                 </div>
             </div>
@@ -207,7 +207,7 @@ function updateQuantityLive(index, newQty, container) {
 function updateCartTotal() {
     const cart = getCart();
     const subtotal = cart.reduce((sum, item) => sum + (item.qty * item.price), 0);
-    const shipping = 300; // Example static shipping cost
+    const shipping = 300; 
     const tax = Math.round(subtotal * 0.16); // Example 16% VAT
     const total = subtotal + shipping + tax;
 
