@@ -11,178 +11,32 @@
     <link rel="stylesheet" href="../css/footer.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
-
-    <style>
-        /* .cart-container {
-            padding: 2em;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-
-        th,
-        td {
-            padding: 12px;
-            border-bottom: 1px solid #ddd;
-            text-align: center;
-        }
-
-        th {
-            background: #f4f6f6;
-        }
-
-        td img {
-            width: 60px;
-            height: 60px;
-            object-fit: cover;
-            border-radius: 6px;
-        }
-
-        .qty-input {
-            width: 60px;
-            padding: 4px;
-            text-align: center;
-        }
-
-        .remove-btn {
-            background: red;
-            color: white;
-            border: none;
-            padding: 6px 10px;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .cart-total {
-            text-align: right;
-            font-size: 18px;
-            margin-top: 10px;
-        }
-
-        .checkout-btn {
-            background: var(--primary-color, #fd3008);
-            color: white;
-            padding: 10px 16px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            float: right;
-        }
-
-        .cart-qty {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            padding: 4px 10px;
-            width: fit-content;
-            margin: auto;
-        }
-
-        .qty-btn {
-            background: #f5f5f5;
-            border: none;
-            font-size: 20px;
-            width: 28px;
-            height: 28px;
-            border-radius: 5px;
-            cursor: pointer;
-            line-height: 1;
-            transition: background 0.2s ease;
-        }
-
-        .qty-btn:hover {
-            background: #e0e0e0;
-        }
-
-        .qty-value {
-            min-width: 25px;
-            text-align: center;
-            font-weight: 600;
-        }
-
-        .qty-btn:disabled {
-            background: #eee;
-            color: #aaa;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        td:nth-child(5),
-        #cart-total {
-            transition: all 0.3s ease;
-        }
-
-        .qty-value {
-            min-width: 25px;
-            display: inline-block;
-            text-align: center;
-        }
-
-        .cart-actions {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-            gap: 10px;
-        }
-
-        .clear-cart-btn,
-        .checkout-btn {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .clear-cart-btn {
-            background: #f44336;
-            color: #fff;
-        }
-
-        .clear-cart-btn:hover {
-            background: #d32f2f;
-        }
-
-        .checkout-btn {
-            background: #4caf50;
-            color: #fff;
-        }
-
-        .checkout-btn:hover {
-            background: #388e3c;
-        } */
-    </style>
 </head>
 
 <body>
     <div class="container pages">
 
         <div class="breadcrumb" id="breadcrumb">
-            <a href="../index.html" title="Home">Home</a>&nbsp; &#10095; &nbsp;
-            <span>Cart</span>
+            <a href="../index.html" title="Home"><small>Home</small></a>&nbsp; &#10095; &nbsp;
+            <small>Cart</small>
+        </div>
+
+        <div class="section-header">
+            <h1>Your Cart (<span id="cart-quantity"></span>)</h1>
         </div>
 
         <div class="cart-layout">
         </div>
 
 
-
-
-        <!-- ✅ Product Data -->
-        <script src="../js/context.js"></script>
-        <script src="../js/header-template.js"></script>
-        <script src="../js/header.js"></script>
-        <script src="../js/products.js"></script>
-        <script src="../js/cart.js"></script>
-        <script src="../js/footer.js"></script>
     </div>
+
+    <script src="../js/context.js"></script>
+    <script src="../js/header-template.js"></script>
+    <script src="../js/header.js"></script>
+    <script src="../js/products.js"></script>
+    <script src="../js/cart.js"></script>
+    <script src="../js/footer.js"></script>
 </body>
 
 </html>

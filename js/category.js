@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // ✅ 2. Target elements
     const categoryTitle = document.getElementById("categoryTitle");
+    const categoryTitleNote = document.getElementById("categoryTitleNote");
     const categoryContainer = document.getElementById("categoryProducts");
     const breadcrumbCategory = document.getElementById("category-breadcrumb");
 
@@ -39,11 +40,13 @@ document.addEventListener("DOMContentLoaded", () => {
             case "featured":
                 filteredProducts = products.filter(p => p.featured);
                 categoryTitle.textContent = "Featured Items";
+                categoryTitleNote.textContent = "Our handpicked selection of top-rated shoes"
                 break;
 
             case "new":
                 filteredProducts = products.filter(p => p.new);
                 categoryTitle.textContent = "New in Store";
+                categoryTitleNote.textContent = "Check out the latest additions to our collection"
                 break;
 
             case "deals":
@@ -54,26 +57,32 @@ document.addEventListener("DOMContentLoaded", () => {
                 categoryTitle.innerHTML = maxDealDiscount
                     ? `Deals — Up to <span style="color: #e53935;">${maxDealDiscount}% Off</span>`
                     : "Deals";
+                
+                categoryTitleNote.textContent = "Don't miss out on our exclusive deals and discounts"
                 break;
 
             case "men":
                 filteredProducts = products.filter(p => p.category.toLowerCase() === "men");
                 categoryTitle.textContent = "Men's Shoes";
+                categoryTitleNote.textContent = "Explore our collection of stylish and comfortable men’s shoes"
                 break;
 
             case "women":
                 filteredProducts = products.filter(p => p.category.toLowerCase() === "women");
                 categoryTitle.textContent = "Women's Shoes";
+                categoryTitleNote.textContent = "Discover our range of fashionable and trendy women’s shoes"
                 break;
 
             case "kids":
                 filteredProducts = products.filter(p => p.category.toLowerCase() === "kids");
                 categoryTitle.textContent = "Kids' Shoes";
+                categoryTitleNote.textContent = "Find the perfect shoes for your little ones"
                 break;
 
             case "unisex":
                 filteredProducts = products.filter(p => p.category.toLowerCase() === "unisex");
                 categoryTitle.textContent = "Unisex Shoes";
+                categoryTitleNote.textContent = "Check out our collection of Unisex Shoes. Fit for all genders"
                 break;
 
             case "all":

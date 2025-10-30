@@ -20,7 +20,9 @@ function updateCartCount() {
     const count = cart.reduce((sum, item) => sum + item.qty, 0);
     const cartCountEl = document.getElementById("cart-count");
     if (cartCountEl) cartCountEl.textContent = count;
+document.getElementById("cart-quantity").textContent = `${count} items`;
 }
+
 
 /* -----------------------------
    🔹 Render Cart Layout
@@ -88,7 +90,7 @@ function renderCart() {
 
                         ${stock === 0 ? "<small class='stock-warning'>Out of Stock</small>" : ""}
 
-                        <button class="remove-btn" data-index="${index}"><i class="fa-solid fa-trash"></i> Remove</button>
+                        <button class="remove-btn" data-index="${index}" title="Remove item"><i class="fa-solid fa-trash"></i> Remove</button>
                     </div>
                 </div>
             </div>
@@ -112,10 +114,10 @@ function renderCart() {
         <div class="summary-row"><span>Tax</span><span>KES ${tax.toFixed(2)}</span></div>
         <div class="summary-row summary-total"><span>Total</span><span>KES ${total.toFixed(2)}</span></div>
 
-        <a href="../pages/checkout.html"><button class="checkout-btn">Proceed to Checkout</button></a>
+        <a href="../pages/checkout.html"><button class="checkout-btn"  title="Proceed to Checkout">Proceed to Checkout</button></a>
         
         <div class="continue-shopping">
-            <a href="../index.html">← Continue Shopping</a>
+            <a href="../index.html" title="Home">← Continue Shopping</a>
         </div>
     `;
     cartLayout.appendChild(summary);

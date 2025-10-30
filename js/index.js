@@ -67,5 +67,11 @@ document.addEventListener("DOMContentLoaded", () => {
         document.querySelector("#kids-products"),
         8
     );
+
+    renderProducts(
+        productsData.filter(p => p.category.toLowerCase() === "unisex"),
+        document.querySelector("#unisex-products"),
+        8
+    );
 });
 
