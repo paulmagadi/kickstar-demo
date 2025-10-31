@@ -30,6 +30,7 @@ function goToStep(step) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+
     // Step navigation
     document.querySelectorAll(".next-step-btn").forEach(btn => {
         btn.addEventListener("click", () => {
@@ -39,7 +40,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     });
-
 
     document.querySelectorAll(".prev-step-btn").forEach(btn => {
         btn.addEventListener("click", () => {
@@ -62,8 +62,6 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // ===== Step Validation =====
-
-
 const errorEl = document.querySelector(".no-address-error");
 const shippingContainer = document.querySelector(".shipping-details-container");
 function validateStep(step) {

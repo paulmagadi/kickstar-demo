@@ -32,13 +32,17 @@ header {
 }
 
 .header-after {
-  margin-top: 2rem;
+  margin-top: 3rem;
 }
 
 /* ===== RESET & BASE STYLES ===== */
-.section-header {
-  text-align: center;
+
+.page-heading {
   font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  text-transform: uppercase;
   color: var(--neutral-dark-color);
 }
 
@@ -51,7 +55,6 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 10px;
   margin-bottom: 2rem;
   position: sticky;
   top: 0;
@@ -61,26 +64,41 @@ header {
 
 .step {
   flex: 1;
-  cursor: pointer;
   transition: all 0.3s;
   font-weight: 500;
   display: flex;
   align-items: center;
-  gap: 0px;
+  gap: 10px;
   padding: 10px;
-  border-bottom: 2px solid var(--gray-shade-color);
   opacity: 0.6;
 }
 
-.step.active {
+.step:not(:last-child)::after {
+  content: "";
+  flex: 1;
+  height: 2px;
+  background: var(--gray-shade-color);
+  margin-left: 10px;
+}
+
+.step.active:not(:last-child)::after {
+  background: var(--white-color);
+}
+
+.step.completed:not(:last-child)::after {
   background: var(--primary-color);
+}
+
+.step.active {
+  background: var(--black-color);
   color: var(--white-color);
   opacity: 1;
+  border-bottom: 2px solid var(--black-color);
 }
 
 .step.completed {
   opacity: 1;
-  border-color: var(--primary-color);
+  /* border-bottom: 2px solid var(--primary-color); */
   color: var(--primary-color);
 }
 
@@ -92,7 +110,14 @@ header {
   height: 24px;
   border-radius: 50%;
   font-size: 14px;
-  margin-right: 5px;
+  border: 1.5px solid var(--gray-shade-color);
+  background: var(--timberwolf);
+  color: var(--black-color);
+}
+
+.step.active .step-number {
+  background: var(--white-color);
+  color: var(--black-color);
 }
 
 .step.completed .step-number {
@@ -338,6 +363,38 @@ header {
   padding: 15px;
   border-radius: 6px;
   border: 1px solid var(--gray-shade-color);
+}
+
+
+.hidden-step {
+  margin: 3rem 0;
+}
+
+.hidden-step.payment {
+  display: none;
+}
+
+.address-hidden {
+  pointer-events: none;
+  border-top:  1.5px solid var(--gray-shade-color);
+  border-bottom:  1.5px solid var(--gray-shade-color);
+  padding: 1.5rem 0;
+  opacity: 0.6;
+}
+
+.payment-hidden {
+  pointer-events: none;
+  border-top:  1.5px solid var(--gray-shade-color);
+  border-bottom:  1.5px solid var(--gray-shade-color);
+  padding: 1.5rem 0;
+  opacity: 0.6;
+}
+
+.review-hidden {
+  pointer-events: none;
+  border-bottom:  1px solid var(--gray-shade-color);
+  padding: 1.5rem 0;
+  opacity: 0.6;
 }
 
 /* ===== ORDER SUMMARY ===== */

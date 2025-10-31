@@ -17,7 +17,7 @@
 <body>
     <div class="container pages">
         <div class="checkout-page">
-            <h1 class="section-header">Checkout</h1>
+            <div class="page-heading">Checkout</div>
 
             <!-- 🧭 Step Indicator -->
             <div class="steps-indicator">
@@ -31,7 +31,7 @@
                 </div>
                 <div class="step" data-step="3">
                     <span class="step-number">3</span>
-                    Review
+                    Review &amp; Confirm
                 </div>
             </div>
 
@@ -56,6 +56,11 @@
                             <button id="to-payment" class="next-step-btn">Continue to Payment →</button>
                         </div>
                     </section>
+
+                    <div class="hidden-step address">
+                        <h3 class="payment-hidden">2. Payment Method</h3>
+                        <h3 class="review-hidden">3. Review &amp; Confirm</h3>
+                    </div>
 
                     <!-- 💳 Step 2: Payment -->
                     <section class="checkout-section" data-step="2">
@@ -92,8 +97,13 @@
                         </div>
                     </section>
 
+                    <div class="hidden-step payment">
+                        <h3 class="address-hidden">1. Shipping Information</h3>
+                        <h3 class="review-hidden">3. Review &amp; Confirm</h3>
+                    </div>
+
                     <!-- ✅ Step 3: Review -->
-                    <section class="checkout-section" data-step="3">
+                    <section class="checkout-section review" data-step="3">
                         <h3>3. Review & Confirm</h3>
                         <div id="review-summary"></div>
 

@@ -203,7 +203,7 @@
 }
 
 .add-to-cart-btn:hover {
-    background: #e62e00;
+    background: var(--primary-color);
 }
 
 #add-cart-message {
