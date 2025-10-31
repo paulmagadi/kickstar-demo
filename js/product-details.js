@@ -258,7 +258,7 @@ if (!product) {
         const messageErr = document.getElementById("add-cart-message-err");
 
         if (!sizeIndex) {
-            messageErr.innerHTML = "Please select a size.";
+            messageErr.style.display = "block";
             sizeSelect.style.border = "2px solid red";
             return;
         }

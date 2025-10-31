@@ -167,8 +167,14 @@
     border-radius: 8px;
     font-size: 1rem;
 }
+
 .add-cart-message-err {
-    color: var(--danger);
+    margin-top: 10px;
+    display: none;
+}
+
+.add-cart-message-err small{
+    color: var(--warning);
 }
 
 .quantity-container {

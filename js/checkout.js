@@ -146,6 +146,7 @@ function saveAddresses(addresses) {
 
 function renderAddresses() {
     const addresses = getAddresses();
+    const addAddressBtn = document.getElementById("add-address-btn");
     addressContainer.innerHTML = "";
 
     if (addresses.length === 0) {
@@ -155,6 +156,7 @@ function renderAddresses() {
                 No saved addresses yet. Please add your shipping address.
             </div>
         `;
+        addAddressBtn.classList.add("empty-state");
         return;
     }
 
