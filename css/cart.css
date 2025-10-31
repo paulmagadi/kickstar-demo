@@ -154,6 +154,64 @@ td:nth-child(5),
     margin-right: 5px;
 }
 
+.remove-item-confirm-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--black-low-opacity);
+    z-index: 1000;
+
+}
+
+.remove-item-confirm-content {
+    display: flex;
+    flex-direction: column;
+    margin: 10% auto;
+    background-color: var(--white-color);
+    border-radius: 8px;
+    width: 100%;
+    max-width: 350px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+}
+
+.remove-item-confirm-header,
+.remove-item-confirm-body,
+.remove-item-confirm-footer {
+    padding: 16px;
+    text-align: center;
+}
+
+.remove-item-confirm-header {
+    border-bottom: 1px solid var(--gray-shade-color);
+}
+
+.remove-item-confirm-footer {
+    border-bottom: 1px solid var(--gray-shade-color);
+}
+
+.confirm-remove-btn,
+.cancel-remove-btn {
+    padding: 8px 16px;
+    margin: 0 8px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.confirm-remove-btn {
+    background-color: var(--warning);
+    color: var(--white-color);
+}
+
+.cancel-remove-btn {
+    background-color: var(--timberwolf);
+    color: var(--white-color);
+}
+
 /* Cart summary */
 .cart-summary {
     border-radius: 8px;

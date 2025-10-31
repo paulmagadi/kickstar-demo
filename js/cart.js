@@ -20,7 +20,8 @@ function updateCartCount() {
     const count = cart.reduce((sum, item) => sum + item.qty, 0);
     const cartCountEl = document.getElementById("cart-count");
     if (cartCountEl) cartCountEl.textContent = count;
-document.getElementById("cart-quantity").textContent = `${count} items`;
+
+    document.getElementById("cart-quantity").textContent = (count > 1)? `${count} items`: `${count} item`;
 }
 
 
@@ -161,15 +162,25 @@ function attachCartEventHandlers() {
     document.querySelectorAll(".remove-btn").forEach(btn => {
         btn.addEventListener("click", e => {
             const index = e.target.dataset.index;
-            if (confirm("Remove this item from cart?")) {
+            const removeItemConfirmModal = document.querySelector(".remove-item-confirm-modal");
+            const removeItemConfirmBtn = document.querySelector(".confirm-remove-btn");
+            const cancelRemoveBtn = document.querySelector(".cancel-remove-btn");
+            removeItemConfirmModal.style.display = "block";
+
+            removeItemConfirmBtn.onclick = function() {
                 const cart = getCart();
                 cart.splice(index, 1);
                 setCart(cart);
                 renderCart();
                 updateCartCount();
                 updateCartTotal();
+                removeItemConfirmModal.style.display = "none";
+            };
+
+            cancelRemoveBtn.onclick = function() {
+                removeItemConfirmModal.style.display = "none";
             }
-        });
+        });         
     });
 }
 
