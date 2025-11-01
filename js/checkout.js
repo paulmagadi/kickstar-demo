@@ -419,8 +419,20 @@ function renderReview() {
 
     if (cart.length > 0) {
         cart.forEach(item => {
+            let amount = item.qty * item.price
+
             reviewHTML += `
-                <p>${item.name} - ${item.qty} x ${formatKES(item.price)}</p>
+            <div>
+            <img src="${item.image}" alt="${item.name}" width="60px" height="60px" style="border-radius: 4px;">
+            <p>${item.name}</p>
+            <p><strong>Color: </strong>${item.color}, <strong>Size: </strong>${item.size}</p>
+            <p><strong>Price: </strong>${formatKES(item.price)}</p>
+            <p><strong>Qty: </strong>${item.qty}</p>
+            <p><strong>Amount: </strong>${formatKES(amount)}</p>
+            </div>
+            <br>
+            <hr>
+            <br>
             `;
         });
     } else {

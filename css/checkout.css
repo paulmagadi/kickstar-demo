@@ -238,6 +238,8 @@ header {
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
+  max-height: 300px;
+  overflow-y: auto;
 }
 
 #saved-addresses-container .no-addresses {
@@ -401,11 +403,13 @@ header {
 #review-summary {
   background: var(--anti-flash-white);
   border-radius: 8px;
-  padding: 20px;
+  padding: 1rem;
 }
 
 .review-section {
   margin-bottom: 20px;
+  max-height: 400px;
+  overflow-y: auto;
 }
 
 .review-section h4 {
@@ -640,7 +644,7 @@ input:focus {
   }
 
   .steps-indicator {
-    padding: .5rem;
+    padding: 5px;
     gap: 5px;
   }
 
@@ -699,6 +703,10 @@ input:focus {
     font-size: 13px;
 
   }
+
+  #review-summary {
+  padding: 5px;
+}
 }
 
 /* ===== LOADING & SUCCESS STATES ===== */
