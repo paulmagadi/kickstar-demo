@@ -145,9 +145,10 @@ function validateStep(step) {
     }
 }
 
+
+// Payment Method
 function updateSelectedPaymentUI(selectedValue) {
-    // Support both .payment-option and the typo .payment-optionn labels
-    document.querySelectorAll('.payment-methods label.payment-option, .payment-methods label.payment-optionn').forEach(label => {
+    document.querySelectorAll('.payment-methods label.payment-option').forEach(label => {
         label.classList.remove('selected');
         const input = label.querySelector('input[name="payment"]');
         if (input && input.value === selectedValue) {
@@ -268,8 +269,60 @@ function renderAddresses() {
         btn.addEventListener("click", () => openEditModal(btn.dataset.id));
     });
 
+    // Delete shipping address
     document.querySelectorAll(".delete-address-btn").forEach(btn => {
-        btn.addEventListener("click", () => deleteAddress(btn.dataset.id));
+        btn.addEventListener("click", e => {
+            const id = btn.dataset.id;
+            const addresses = getAddresses();
+            const addressToDelete = addresses.find(a => a.id === id);
+
+            const deleteAddressConfirmModal = document.querySelector(".delete-address-confirm-modal");
+            const deleteAddressConfirmBtn = document.querySelector(".confirm-delete-btn");
+            const cancelDeleteBtn = document.querySelector(".cancel-delete-btn");
+
+            // Fallback to native confirm if modal elements are missing
+            if (!deleteAddressConfirmModal || !deleteAddressConfirmBtn || !cancelDeleteBtn) {
+                if (!confirm("Are you sure you want to delete this address?")) return;
+                const updated = addresses.filter(a => a.id !== id);
+                if (addressToDelete && addressToDelete.isDefault && updated.length > 0) {
+                    updated[0].isDefault = true;
+                }
+                saveAddresses(updated);
+                renderAddresses();
+                renderReview();
+                return;
+            }
+
+            deleteAddressConfirmModal.style.display = "block";
+
+            // handlers defined so we can remove them after use (avoid duplicate bindings)
+            const onConfirm = () => {
+                const updated = addresses.filter(a => a.id !== id);
+
+                // If deleting the default address, set a new default if possible
+                if (addressToDelete && addressToDelete.isDefault && updated.length > 0) {
+                    updated[0].isDefault = true;
+                }
+
+                saveAddresses(updated);
+                deleteAddressConfirmModal.style.display = "none";
+                renderAddresses();
+                renderReview();
+
+                // cleanup
+                deleteAddressConfirmBtn.removeEventListener("click", onConfirm);
+                cancelDeleteBtn.removeEventListener("click", onCancel);
+            };
+
+            const onCancel = () => {
+                deleteAddressConfirmModal.style.display = "none";
+                deleteAddressConfirmBtn.removeEventListener("click", onConfirm);
+                cancelDeleteBtn.removeEventListener("click", onCancel);
+            };
+
+            deleteAddressConfirmBtn.addEventListener("click", onConfirm);
+            cancelDeleteBtn.addEventListener("click", onCancel);
+        });
     });
 }
 
@@ -286,22 +339,6 @@ function openEditModal(id) {
     modal.style.display = "flex";
 }
 
-function deleteAddress(id) {
-    if (confirm("Are you sure you want to delete this address?")) {
-        const addresses = getAddresses();
-        const addressToDelete = addresses.find(a => a.id === id);
-        const updated = addresses.filter(a => a.id !== id);
-        
-        // If we're deleting the default address, set a new default
-        if (addressToDelete && addressToDelete.isDefault && updated.length > 0) {
-            updated[0].isDefault = true;
-        }
-        
-        saveAddresses(updated);
-        renderAddresses();
-        renderReview();
-    }
-}
 
 document.getElementById("address-form").addEventListener("submit", e => {
     e.preventDefault();

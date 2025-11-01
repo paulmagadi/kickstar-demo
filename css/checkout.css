@@ -334,6 +334,76 @@ header {
   color: var(--warning);
 }
 
+.no-address-error {
+  color: red;
+  padding-top: 1em;
+  display: none;
+}
+
+.shipping-details-container.error {
+  border-radius: 8px;
+  border: 2px solid red;
+  padding: 5px;
+}
+
+.delete-address-confirm-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--black-low-opacity);
+  z-index: 1000;
+
+}
+
+.delete-address-confirm-content {
+  display: flex;
+  flex-direction: column;
+  margin: 10% auto;
+  background-color: var(--white-color);
+  border-radius: 8px;
+  width: 100%;
+  max-width: 350px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+}
+
+.delete-address-confirm-header,
+.delete-address-confirm-body,
+.delete-address-confirm-footer {
+  padding: 16px;
+  text-align: center;
+}
+
+.delete-address-confirm-header {
+  border-bottom: 1px solid var(--gray-shade-color);
+}
+
+.delete-address-confirm-footer {
+  border-bottom: 1px solid var(--gray-shade-color);
+}
+
+.confirm-delete-btn,
+.cancel-delete-btn {
+  padding: 8px 16px;
+  margin: 0 8px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.confirm-delete-btn {
+  background-color: var(--warning);
+  color: var(--white-color);
+}
+
+.cancel-delete-btn {
+  background-color: var(--timberwolf);
+  color: var(--white-color);
+}
+
 /* ===== PAYMENT METHODS ===== */
 .payment-methods {
   display: flex;
@@ -602,25 +672,9 @@ input:focus {
   gap: 15px;
 }
 
-.custom-alert {
-  width: 95%;
-  max-width: 300px;
-  border-radius: 8px;
-  background-color: #e2e8f07d;
-  padding: 1em;
-}
 
-.no-address-error {
-  color: red;
-  padding-top: 1em;
-  display: none;
-}
 
-.shipping-details-container.error {
-  border-radius: 8px;
-  border: 2px solid red;
-  padding: 5px;
-}
+
 
 /* ===== RESPONSIVE STYLES ===== */
 @media (max-width: 992px) {
@@ -635,6 +689,11 @@ input:focus {
   .order-summary {
     position: static;
     width: 100%;
+  }
+
+  .complete-order-btn {
+    position: sticky;
+    bottom: 0;
   }
 }
 
@@ -666,7 +725,6 @@ input:focus {
     height: 20px;
     font-size: 12px;
   }
-
 
   .prev-step-btn,
   .next-step-btn {
@@ -705,8 +763,8 @@ input:focus {
   }
 
   #review-summary {
-  padding: 5px;
-}
+    padding: 5px;
+  }
 }
 
 /* ===== LOADING & SUCCESS STATES ===== */

@@ -31,7 +31,7 @@
                 </div>
                 <div class="step" data-step="3">
                     <span class="step-number">3</span>
-                    Review 
+                    Review
                 </div>
             </div>
 
@@ -46,10 +46,11 @@
                                 <i class="ri-checkbox-circle-fill"></i> Shipping information saved successfully!
                             </div>
                             <div id="saved-addresses-container" title="Select Shipping Address"></div>
-                            <button id="add-address-btn" class="btn-primary add-address-btn" title="Add New Address">Add New Address</button>
+                            <button id="add-address-btn" class="btn-primary add-address-btn" title="Add New Address" type="button">Add
+                                New Address</button>
                         </div>
 
-                        <div class="no-address-error"><i class="ri-error-warning-line"></i> 
+                        <div class="no-address-error"><i class="ri-error-warning-line"></i>
                             Please select a shipping address before proceeding.</div>
 
                         <div class="checkout-nav">
@@ -62,12 +63,24 @@
                         <h3 class="default-review-hidden">3. Review &amp; Confirm</h3>
                     </div>
 
+                    <div class="delete-address-confirm-modal">
+                        <div class="delete-address-confirm-content">
+                            <div class="delete-address-confirm-header">
+                                <h3>Delete Address</h3>
+                            </div>
+                            <div class="delete-address-confirm-body">
+                                <p>Are you sure you want to delete this address from your profile?</p>
+                            </div>
+                            <div class="delete-address-confirm-footer">
+                                <button class="confirm-delete-btn" type="button">Yes, Delete</button>
+                                <button class="cancel-delete-btn" type="button">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- 💳 Step 2: Payment -->
                     <section class="checkout-section" data-step="2">
                         <h3>2. Payment Method</h3>
-                        <div class="success-message" id="payment-success">
-                            <i class="ri-checkbox-circle-fill"></i> Payment method selected!
-                        </div>
                         <div class="payment-methods">
                             <label class="payment-option">
                                 <input type="radio" name="payment" value="MPesa" checked>
@@ -79,7 +92,7 @@
                                     </div>
                                 </div>
                             </label>
-                            <label class="payment-optionn">
+                            <label class="payment-option">
                                 <input type="radio" name="payment" value="Cash on Delivery">
                                 <div class="payment-method-content">
                                     <div class="payment-icon">💵</div>
@@ -90,10 +103,13 @@
                                 </div>
                             </label>
                         </div>
+                        <div class="success-message" id="payment-success">
+                            <i class="ri-checkbox-circle-fill"></i> Payment method selected!
+                        </div>
 
                         <div class="checkout-nav">
-                            <button class="prev-step-btn">← Back to Shipping</button>
-                            <button class="next-step-btn">Continue to Review →</button>
+                            <button class="prev-step-btn" type="button">← Back to Shipping</button>
+                            <button class="next-step-btn" type="button">Continue to Review →</button>
                         </div>
                     </section>
 
@@ -129,7 +145,7 @@
                         <span id="summary-total">KES 0.00</span>
                     </div>
 
-                    <button id="complete-order-btn" class="btn-primary" type="button" disabled>Complete Order</button>
+                    <button id="complete-order-btn" class="complete-order-btn btn-primary" type="button" disabled>Complete Order</button>
                     <small></small>
                 </aside>
             </div>
@@ -165,9 +181,6 @@
             </div>
 
         </div>
-        <!-- <div class="custom-alert">
-            <div class="error-alert">Please select a shipping address before proceeding.</div>
-        </div> -->
     </div>
     <script src="../js/context.js"></script>
     <script src="../js/header-template.js"></script>
