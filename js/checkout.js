@@ -1,3 +1,7 @@
+
+
+
+
 // ===== Utility functions =====
 function getCart() {
     return JSON.parse(localStorage.getItem("cart") || "[]");
@@ -10,8 +14,53 @@ function formatKES(amount) {
 // ====== Step Navigation ======
 function goToStep(step) {
     document.querySelectorAll(".checkout-section").forEach(s => s.classList.remove("open"));
-    document.querySelector(`.checkout-section[data-step="${step}"]`).classList.add("open");
+    const checkoutSection = document.querySelector(`.checkout-section[data-step="${step}"]`);
+    if (!checkoutSection) return;
+    checkoutSection.classList.add("open");
 
+    // remove any previously inserted dynamic hidden-step elements so navigation back works
+    document.querySelectorAll('.hidden-step.address, .hidden-step.payment, .hidden-step.review').forEach(el => el.remove());
+
+    // default placeholder (the one present in DOM initially)
+    const defaultHidden = document.querySelector(".hidden-step.default");
+
+    // show default only on step 1, hide otherwise
+    if (defaultHidden) {
+        defaultHidden.style.display = step === 1 ? "" : "none";
+    }
+
+    const addressHidden = `
+        <div class="hidden-step address">
+            <h3 class="address-hidden">1. Shipping Address</h3>
+        </div>
+    `;
+    const paymentHidden = `
+        <div class="hidden-step payment">
+            <h3 class="payment-hidden">2. Payment Method</h3>
+        </div>
+    `;
+    const reviewHidden = `
+        <div class="hidden-step review">
+            <h3 class="review-hidden">3. Review &amp; Confirm</h3>
+        </div>
+    `;
+
+    // Insert appropriate side/above/below helpers depending on active step
+    if (step === 2) {
+        checkoutSection.insertAdjacentHTML("beforebegin", addressHidden.trim());
+        checkoutSection.insertAdjacentHTML("afterend", reviewHidden.trim());
+        document.querySelector(".address-hidden").classList.add("completed");
+    } else if (step === 3) {
+        checkoutSection.insertAdjacentHTML("beforebegin", addressHidden.trim());
+        checkoutSection.insertAdjacentHTML("beforebegin", paymentHidden.trim());
+        
+        // document.querySelector(".address-hidden").style.paddingBottom = "0px";
+        document.querySelector(".address-hidden").style.borderBottom = "none";
+        document.querySelector(".address-hidden").classList.add("completed");
+        document.querySelector(".payment-hidden").classList.add("completed");
+    }
+
+    // step badges
     document.querySelectorAll(".step").forEach(s => {
         s.classList.remove("active", "completed");
         if (parseInt(s.dataset.step) === step) {
@@ -25,9 +74,11 @@ function goToStep(step) {
     if (step === 3) {
         const addresses = getAddresses();
         const hasDefaultAddress = addresses.some(a => a.isDefault);
-        document.getElementById("complete-order-btn").disabled = !hasDefaultAddress;
+        const completeBtn = document.getElementById("complete-order-btn");
+        if (completeBtn) completeBtn.disabled = !hasDefaultAddress;
     }
 }
+
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -143,10 +194,11 @@ function saveAddresses(addresses) {
 
 
 function renderAddresses() {
-    const addresses = getAddresses();
     const addAddressBtn = document.getElementById("add-address-btn");
+    const addresses = getAddresses();
     addressContainer.innerHTML = "";
 
+    // No addresses
     if (addresses.length === 0) {
         addressContainer.innerHTML = `
             <div class="no-addresses">
@@ -154,10 +206,12 @@ function renderAddresses() {
                 No saved addresses yet. Please add your shipping address.
             </div>
         `;
-        addAddressBtn.classList.add("empty-state");
+        addAddressBtn.classList.add("empty-state"); // Special styling when no addresses exist (make the button more prominent)
         return;
     }
 
+    // We have addresses
+    addAddressBtn.classList.remove("empty-state"); // Remove special styling when addresses exist (less prominent style)
     addresses.forEach(addr => {
         const checked = addr.isDefault ? "checked" : "";
         const selClass = addr.isDefault ? "selected" : "";

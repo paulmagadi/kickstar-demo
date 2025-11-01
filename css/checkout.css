@@ -115,6 +115,59 @@ header {
   color: var(--black-color);
 }
 
+.hidden-step.default {
+  margin-top: 3rem;
+}
+
+.hidden-step {
+  pointer-events: none;
+  margin: 1rem 0;
+}
+
+.address-hidden {
+  border-top: 1.5px solid var(--gray-shade-color);
+  border-bottom: 1.5px solid var(--gray-shade-color);
+  padding: 1.5rem 10px;
+  border-radius: 8px;
+  opacity: 0.6;
+}
+
+.address-hidden.completed {
+  background-color: rgba(154, 215, 154, 0.5);
+  opacity: 0.8;
+}
+
+.default-payment-hidden {
+  border-top: 1.5px solid var(--gray-shade-color);
+  border-bottom: 1.5px solid var(--gray-shade-color);
+  padding: 1.5rem 10px;
+  border-radius: 8px;
+  opacity: 0.6;
+}
+
+.payment-hidden {
+  border-top: 1.5px solid var(--gray-shade-color);
+  border-bottom: 1.5px solid var(--gray-shade-color);
+  padding: 1.5rem 10px;
+  border-radius: 8px;
+  opacity: 0.6;
+}
+
+.payment-hidden.completed {
+  background-color: rgba(154, 215, 154, 0.5);
+  opacity: 0.8;
+}
+
+.default-review-hidden, 
+.review-hidden {
+  border-bottom: 1px solid var(--gray-shade-color);
+  padding: 1.5rem 10px;
+  border-radius: 8px;
+  opacity: 0.6;
+}
+
+
+
 .step.active .step-number {
   background: var(--white-color);
   color: var(--black-color);
@@ -366,37 +419,6 @@ header {
 }
 
 
-.hidden-step {
-  margin: 3rem 0;
-}
-
-.hidden-step.payment {
-  display: none;
-}
-
-.address-hidden {
-  pointer-events: none;
-  border-top:  1.5px solid var(--gray-shade-color);
-  border-bottom:  1.5px solid var(--gray-shade-color);
-  padding: 1.5rem 0;
-  opacity: 0.6;
-}
-
-.payment-hidden {
-  pointer-events: none;
-  border-top:  1.5px solid var(--gray-shade-color);
-  border-bottom:  1.5px solid var(--gray-shade-color);
-  padding: 1.5rem 0;
-  opacity: 0.6;
-}
-
-.review-hidden {
-  pointer-events: none;
-  border-bottom:  1px solid var(--gray-shade-color);
-  padding: 1.5rem 0;
-  opacity: 0.6;
-}
-
 /* ===== ORDER SUMMARY ===== */
 .order-summary h2 {
   margin-bottom: 20px;
@@ -614,13 +636,27 @@ input:focus {
   }
 
   .steps-indicator {
-    padding: 1rem;
+    padding: .5rem;
     gap: 5px;
   }
 
   .step {
     width: 100%;
+    font-weight: normal;
     justify-content: center;
+    gap: 5px;
+    padding: 5px;
+    font-size: 14px;
+  }
+
+  .step:not(:last-child)::after {
+    margin-left: 5px;
+  }
+
+  .step-number {
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
   }
 
   .form-row {
