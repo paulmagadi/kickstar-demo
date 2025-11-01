@@ -31,17 +31,18 @@ function goToStep(step) {
 
     const addressHidden = `
         <div class="hidden-step address">
-            <h3 class="address-hidden">1. Shipping Address</h3>
+            <h3 class="address-hidden">1. Shipping Address <span></span></h3>
         </div>
     `;
     const paymentHidden = `
         <div class="hidden-step payment">
-            <h3 class="payment-hidden">2. Payment Method</h3>
+            <h3 class="payment-hidden">2. Payment Method <span></span></h3>
+            
         </div>
     `;
     const reviewHidden = `
         <div class="hidden-step review">
-            <h3 class="review-hidden">3. Review &amp; Confirm</h3>
+            <h3 class="review-hidden">3. Review &amp; Confirm <span></span></h3>
         </div>
     `;
 
@@ -49,13 +50,14 @@ function goToStep(step) {
     if (step === 2) {
         checkoutSection.insertAdjacentHTML("beforebegin", addressHidden.trim());
         checkoutSection.insertAdjacentHTML("afterend", reviewHidden.trim());
+        document.querySelector(".address-hidden span").innerHTML = `<i class="fa-solid fa-check"></i>`;
         document.querySelector(".address-hidden").classList.add("completed");
     } else if (step === 3) {
         checkoutSection.insertAdjacentHTML("beforebegin", addressHidden.trim());
         checkoutSection.insertAdjacentHTML("beforebegin", paymentHidden.trim());
         
-        // document.querySelector(".address-hidden").style.paddingBottom = "0px";
-        document.querySelector(".address-hidden").style.borderBottom = "none";
+        document.querySelector(".address-hidden span").innerHTML = `<i class="fa-solid fa-check"></i>`;
+        document.querySelector(".payment-hidden span").innerHTML = `<i class="fa-solid fa-check"></i>`;
         document.querySelector(".address-hidden").classList.add("completed");
         document.querySelector(".payment-hidden").classList.add("completed");
     }
