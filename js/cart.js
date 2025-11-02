@@ -21,7 +21,7 @@ function updateCartCount() {
     const cartCountEl = document.getElementById("cart-count");
     if (cartCountEl) cartCountEl.textContent = count;
 
-    document.getElementById("cart-quantity").textContent = (count > 1)? `${count} items`: `${count} item`;
+    document.getElementById("cart-quantity").textContent = (count == 1)? `${count} item`: `${count} items`;
 }
 
 
@@ -118,7 +118,7 @@ function renderCart() {
         <a href="../pages/checkout.html"><button class="checkout-btn"  title="Proceed to Checkout">Proceed to Checkout</button></a>
         
         <div class="continue-shopping">
-            <a href="../index.html" title="Home">← Continue Shopping</a>
+            <a href="../index.html" title="Continue Shopping">← Continue Shopping</a>
         </div>
     `;
     cartLayout.appendChild(summary);

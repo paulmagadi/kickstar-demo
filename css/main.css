@@ -144,10 +144,14 @@ section {
 
 @media (max-width: 480px) {
     .breadcrumb {
-        font-size: 0.8rem;
+        font-size: 10px;
     }
 
     .breadcrumb a {
-        font-size: 0.8rem;
+        font-size: 10px;
+    }
+
+    .breadcrumb small {
+        font-size: 10px;
     }
 }

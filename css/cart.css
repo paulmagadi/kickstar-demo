@@ -15,8 +15,20 @@
     --info: #2a7a55;
 }
 
+.page-heading {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    text-transform: uppercase;
+    color: var(--neutral-dark-color);
+    border-bottom: 1px solid var(--gray-shade-color);
+}
+
 #cart-quantity {
     color: var(--primary-color);
+    font-size: 1.8rem;
+    font-weight: 600;
 }
 
 .cart-layout {
@@ -39,8 +51,6 @@
     border-radius: 8px;
     margin-bottom: 10px;
 }
-
-
 
 .item-image {
     width: 120px;
@@ -70,13 +80,13 @@
 }
 
 .item-name {
-    font-size: 18px;
+    font-size: 1.1rem;
     font-weight: 600;
     margin-bottom: 5px;
 }
 
 .item-price {
-    font-size: 18px;
+    font-size: 1.1rem;
     font-weight: 700;
     color: var(--primary-color);
     margin-bottom: 10px;
@@ -132,12 +142,6 @@
 td:nth-child(5),
 #cart-total {
     transition: all 0.3s ease;
-}
-
-.qty-value {
-    min-width: 25px;
-    display: inline-block;
-    text-align: center;
 }
 
 .remove-btn {
@@ -246,7 +250,7 @@ td:nth-child(5),
 
 .checkout-btn {
     width: 100%;
-    padding: 15px;
+    padding: 12px;
     background-color: var(--primary-color);
     color: var(--white-color);
     border: none;
@@ -294,21 +298,6 @@ td:nth-child(5),
     margin-bottom: 30px;
 }
 
-.shop-now-btn {
-    display: inline-block;
-    padding: 12px 30px;
-    background-color: #4a6cf7;
-    color: white;
-    text-decoration: none;
-    border-radius: 8px;
-    font-weight: 600;
-    transition: background-color 0.3s;
-}
-
-.shop-now-btn:hover {
-    background-color: #3a5bd9;
-}
-
 
 /* Responsive styles */
 @media (max-width: 1000px) {
@@ -318,6 +307,12 @@ td:nth-child(5),
 }
 
 @media (max-width: 800px) {
+
+    .page-heading,
+    #cart-quantity {
+        font-size: 1.6rem;
+    }
+
     .cart-layout {
         grid-template-columns: 1fr;
         padding: 1em;
@@ -331,8 +326,15 @@ td:nth-child(5),
 }
 
 @media (max-width: 480px) {
-    .page-title h1 {
-        font-size: 24px;
+
+    .page-heading,
+    #cart-quantity {
+        font-size: 1.2rem;
+    }
+
+    .item-name ,
+    .item-price  {
+        font-size: 0.9rem;
     }
 
     .item-actions {
@@ -351,6 +353,11 @@ td:nth-child(5),
 }
 
 @media (max-width: 300px) {
+
+    .page-heading,
+    #cart-quantity {
+        font-size: 1.1rem;
+    }
 
     .cart-item {
         flex-direction: column;
