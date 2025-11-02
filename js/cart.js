@@ -111,8 +111,8 @@ function renderCart() {
     summary.innerHTML = `
         <h2 class="summary-title">Order Summary</h2>
         <div class="summary-row"><span>Subtotal</span><span>KES ${subtotal.toFixed(2)}</span></div>
+        <div class="summary-row"><span>Tax (16%)</span><span>KES ${tax.toFixed(2)}</span></div>
         <div class="summary-row"><span>Shipping</span><span>KES ${shipping.toFixed(2)}</span></div>
-        <div class="summary-row"><span>Tax</span><span>KES ${tax.toFixed(2)}</span></div>
         <div class="summary-row summary-total"><span>Total</span><span>KES ${total.toFixed(2)}</span></div>
 
         <a href="../pages/checkout.html"><button class="checkout-btn"  title="Proceed to Checkout">Proceed to Checkout</button></a>
@@ -226,8 +226,8 @@ function updateCartTotal() {
 
     // Update any summary rows if present
     const subtotalEl = document.querySelector(".summary-row span:nth-child(2)");
-    const shippingEl = document.querySelector(".summary-row:nth-child(3) span:nth-child(2)");
-    const taxEl = document.querySelector(".summary-row:nth-child(4) span:nth-child(2)");
+    const taxEl = document.querySelector(".summary-row:nth-child(3) span:nth-child(2)");
+    const shippingEl = document.querySelector(".summary-row:nth-child(4) span:nth-child(2)");
     const totalEl = document.querySelector(".summary-total span:nth-child(2)");
 
     if (subtotalEl) subtotalEl.textContent = `KES ${subtotal.toFixed(2)}`;

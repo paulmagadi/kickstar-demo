@@ -63,12 +63,19 @@ function goToStep(step) {
     }
 
     // step badges
+    
+    const completeBtn = document.getElementById("complete-order-btn");
+    const completeOrderNoticEl = document.querySelector(".complete-order-notice");
+    const acceptTermsEl = document.querySelector(".accept-terms");
     document.querySelectorAll(".step").forEach(s => {
         s.classList.remove("active", "completed");
         if (parseInt(s.dataset.step) === step) {
             s.classList.add("active");
         } else if (parseInt(s.dataset.step) < step) {
             s.classList.add("completed");
+            completeBtn.title = "";
+            completeOrderNoticEl.style.display = "flex";
+            acceptTermsEl.style.display = "none";
         }
     });
 
@@ -76,8 +83,10 @@ function goToStep(step) {
     if (step === 3) {
         const addresses = getAddresses();
         const hasDefaultAddress = addresses.some(a => a.isDefault);
-        const completeBtn = document.getElementById("complete-order-btn");
         if (completeBtn) completeBtn.disabled = !hasDefaultAddress;
+        completeBtn.title = "Complete Order";
+        completeOrderNoticEl.style.display = "none";
+        acceptTermsEl.style.display = "flex";
     }
 }
 

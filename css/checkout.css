@@ -598,6 +598,29 @@ header {
   opacity: 0.9;
 }
 
+.complete-order-notice,
+.accept-terms {
+  font-size: 11px;
+  color: var(--neutral-dark-color);
+  opacity: 0.8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.accept-terms {
+  display: none;
+}
+
+
+.accept-terms a {
+  font-size: 11px;
+  color: var(--neutral-dark-color);
+  opacity: 0.8;
+}
+
+
 /* ===== MODAL ===== */
 .modal {
   display: none;
