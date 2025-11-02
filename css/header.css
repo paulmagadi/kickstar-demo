@@ -104,7 +104,7 @@ header {
   border: 1px solid var(--gray-shade-color);
   padding: .2em .5em;
   border-radius: 8px;
-  background-color: #edf2f4;
+  /* background-color: #edf2f4; */
 }
 
 .header .header-items-container i {
@@ -266,6 +266,11 @@ nav .nav-links a.active-url {
   .search-toggle.mobile-only {
     display: block;
   }
+
+  .header .header-items {
+    border: none;
+  }
+
 
   nav .nav-links {
     justify-content: flex-start;

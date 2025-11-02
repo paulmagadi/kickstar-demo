@@ -32,7 +32,7 @@ header {
 }
 
 .header-after {
-  margin-top: 3rem;
+  margin-top: 3.3rem;
 }
 
 /* ===== RESET & BASE STYLES ===== */
@@ -692,14 +692,20 @@ input:focus {
   }
 
   .complete-order-btn {
+    width: 100%;
     position: sticky;
-    bottom: 0;
+    bottom: 2px;
+    z-index: 100;
   }
 }
 
 @media (max-width: 768px) {
   .checkout-page {
     padding: 0 1rem;
+  }
+
+  .page-heading {
+    font-size: 1.5rem;
   }
 
   .steps-indicator {
@@ -747,6 +753,10 @@ input:focus {
 }
 
 @media (max-width:400px) {
+  .page-heading {
+    font-size: 1.2rem;
+  }
+
   .address-card {
     min-width: 100%;
   }
