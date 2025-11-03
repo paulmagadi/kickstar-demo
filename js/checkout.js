@@ -1,7 +1,4 @@
 
-
-
-
 // ===== Utility functions =====
 function getCart() {
     return JSON.parse(localStorage.getItem("cart") || "[]");
@@ -79,7 +76,6 @@ function goToStep(step) {
         }
     });
 
-    // Update complete order button state
     if (step === 3) {
         const addresses = getAddresses();
         const hasDefaultAddress = addresses.some(a => a.isDefault);
@@ -92,7 +88,6 @@ function goToStep(step) {
 
 
 document.addEventListener("DOMContentLoaded", () => {
-
     // Step navigation
     document.querySelectorAll(".next-step-btn").forEach(btn => {
         btn.addEventListener("click", () => {
@@ -148,6 +143,7 @@ function validateStep(step) {
             localStorage.setItem("paymentMethod", paymentMethod);
             updateSelectedPaymentUI(paymentMethod);
             showSuccessMessage('payment-success');
+            renderReview(); // ✅ Reflect change in review step
             return true;
         default:
             return true;
@@ -156,40 +152,66 @@ function validateStep(step) {
 
 
 // Payment Method
+// ===== Payment Method Handling =====
 function updateSelectedPaymentUI(selectedValue) {
     document.querySelectorAll('.payment-methods label.payment-option').forEach(label => {
-        label.classList.remove('selected');
-        label.attributes.checked = "none";
         const input = label.querySelector('input[name="payment"]');
-        if (input && input.value === selectedValue) {
-            label.classList.add('selected');
+        label.classList.toggle('selected', input && input.value === selectedValue);
+    });
+}
+
+// ✅ Restore previously selected payment method from localStorage
+function restorePaymentSelection() {
+    const savedPayment = localStorage.getItem("paymentMethod");
+    const paymentRadios = document.querySelectorAll('input[name="payment"]');
+
+    let restored = false;
+    paymentRadios.forEach(radio => {
+        if (savedPayment && radio.value === savedPayment) {
+            radio.checked = true;
+            restored = true;
+        } else {
+            radio.checked = false;
         }
     });
+
+    // Default to MPesa if none saved
+    if (!restored && paymentRadios.length > 0) {
+        const mpesaRadio = [...paymentRadios].find(r => r.value === "MPesa");
+        if (mpesaRadio) mpesaRadio.checked = true;
+        localStorage.setItem("paymentMethod", "MPesa");
+    }
+
+    // Update UI highlight
+    const currentPayment = localStorage.getItem("paymentMethod") || "MPesa";
+    updateSelectedPaymentUI(currentPayment);
 }
 
-// Wire up change handlers and initialize the visual state when DOM is ready
-document.addEventListener("DOMContentLoaded", () => {
-    document.querySelectorAll('input[name="payment"]').forEach(radio => {
-        radio.addEventListener('change', e => {
-            const val = e.target.value;
-            localStorage.setItem("paymentMethod", val);
-            updateSelectedPaymentUI(val);
-            showSuccessMessage('payment-success');
-        });
-    });
-
-    // Initialize selection UI from saved method or checked radio
-    const initVal = localStorage.getItem("paymentMethod") || (document.querySelector('input[name="payment"]:checked') && document.querySelector('input[name="payment"]:checked').value);
-    if (initVal) updateSelectedPaymentUI(initVal);
-});
-
+// ✅ Show success feedback briefly
 function showSuccessMessage(id) {
     const message = document.getElementById(id);
+    if (!message) return;
     message.style.display = 'block';
-    setTimeout(() => {
-        message.style.display = 'none';
-    }, 3000);
+    setTimeout(() => (message.style.display = 'none'), 3000);
 }
+
+// ✅ Initialize payment behavior
+document.addEventListener("DOMContentLoaded", () => {
+    restorePaymentSelection();
+
+    const paymentRadios = document.querySelectorAll('input[name="payment"]');
+    paymentRadios.forEach(radio => {
+        radio.addEventListener('change', e => {
+            const selected = e.target.value;
+            localStorage.setItem("paymentMethod", selected);
+            updateSelectedPaymentUI(selected);
+            showSuccessMessage('payment-success');
+            renderReview(); // refresh review step
+        });
+    });
+});
+
+
 
 
 // ===== Address Handling =====
@@ -439,7 +461,7 @@ function renderReview() {
             <h4>Shipping Address</h4>
             <div class="review-details">
     `;
-
+    
     if (selectedAddress) {
         reviewHTML += `
             <p><strong>${selectedAddress.fullname}</strong></p>
@@ -496,6 +518,10 @@ function renderReview() {
 
 // ✅ Complete Order
 document.getElementById("complete-order-btn").addEventListener("click", () => {
+    const btn = e.target;
+    if (btn.disabled) return; // prevent double clicks
+    btn.disabled = true;
+
     const cart = getCart();
     if (cart.length === 0) {
         alert("Your cart is empty.");
@@ -515,6 +541,7 @@ document.getElementById("complete-order-btn").addEventListener("click", () => {
         alert("Please select a shipping address before completing your order.");
         return;
     }
+
 
     const paymentMethod = localStorage.getItem("paymentMethod") || "Cash on Delivery";
 
