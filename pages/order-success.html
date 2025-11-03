@@ -652,6 +652,7 @@
             const img = document.createElement("img");
             img.alt = name;
             img.className = "product-image";
+            // img.src = imageSrc;
 
             if (imageSrc) {
                 img.crossOrigin = "anonymous";
@@ -739,27 +740,6 @@
         }
 
 
-        // function setupPDFDownload(order) {
-        //     const downloadBtn = document.getElementById("download-receipt-btn");
-        //     if (!downloadBtn) return;
-
-        //     downloadBtn.addEventListener("click", () => {
-        //         try {
-        //             // Show loading state
-        //             downloadBtn.innerHTML = '<i class="ri-loader-4-line spin"></i> Generating PDF...';
-        //             downloadBtn.disabled = true;
-
-        //             generatePDF(order);
-
-        //         } catch (error) {
-        //             console.error("PDF generation failed:", error);
-        //             alert("Sorry, we couldn't generate your receipt. Please try again.");
-        //         } finally {
-        //             downloadBtn.innerHTML = '<i class="ri-loader-4-line"></i> Generating PDF...';
-        //             downloadBtn.disabled = true;
-        //         }
-        //     });
-        // }
 
         function setupPDFDownload(order) {
             const downloadBtn = document.getElementById("download-receipt-btn");
