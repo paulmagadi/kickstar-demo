@@ -430,10 +430,19 @@ header {
   border: 2px solid var(--primary-color);
 }
 
-.payment-methodsinput[type="radio"]:checked,
-.payment-methods input[type="radio"]:default {
+/* .payment-methodsinput[type="radio"]:checked,
+.payment-methods input[type="radio"].selected {
+  accent-color: var(--primary-color);
+} */
+
+/* .payment-methods input[type="radio"] {
+  accent-color: var(--primary-color);
+} */
+
+.payment-methods label.selected.payment-methods input[type="radio"]{
   accent-color: var(--primary-color);
 }
+
 
 .payment-methods input[type="radio"]:checked+.payment-method-content {
   border-color: var(--primary-color);

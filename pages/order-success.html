@@ -5,6 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Order Success - KickStar</title>
+
+    <link rel="shortcut icon" href="../images/logo2.svg" type="image/x-icon">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="../css/main.css">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
@@ -28,26 +34,6 @@
             --info: #2a7a55;
             --success: #2a7a55;
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background-color: var(--neutral-light-color);
-            color: var(--neutral-dark-color);
-            line-height: 1.6;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
         /* Breadcrumb */
         .breadcrumb {
             margin: 20px 0;
@@ -60,9 +46,9 @@
             text-decoration: none;
         }
 
-        .breadcrumb a:hover {
+        /* .breadcrumb a:hover {
             text-decoration: underline;
-        }
+        } */
 
         /* Order Receipt Container */
         .order-receipt-container {
@@ -80,7 +66,6 @@
             border: 1px solid var(--gray-shade-color);
             padding: 30px;
             width: 100%;
-            max-width: 800px;
             margin-bottom: 30px;
         }
 
@@ -534,6 +519,12 @@
             <p class="footer-note">You can keep this receipt for your records. Thank you for shopping sustainably 🌿</p>
         </div>
     </div>
+
+    <script src="../js/context.js"></script>
+    <script src="../js/header-template.js"></script>
+    <script src="../js/header.js"></script>
+    <script src="../js/products.js"></script>
+    <script src="../js/footer.js"></script>
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
@@ -1107,6 +1098,7 @@
             console.log(`Tracking: ${eventName}`, properties);
         }
     </script>
+
 </body>
 
 </html>

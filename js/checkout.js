@@ -159,6 +159,7 @@ function validateStep(step) {
 function updateSelectedPaymentUI(selectedValue) {
     document.querySelectorAll('.payment-methods label.payment-option').forEach(label => {
         label.classList.remove('selected');
+        label.attributes.checked = "none";
         const input = label.querySelector('input[name="payment"]');
         if (input && input.value === selectedValue) {
             label.classList.add('selected');
