@@ -3,7 +3,9 @@
 
 :root {
     --primary-color: #fd3008;
+    --primary-color-dark: #e02b07;
     --secondary-color: #00a896;
+    --secondary-color-dark: #008f7a;
     --neutral-light-color: #f8f9fa;
     --neutral-dark-color: #2d2d2d;
     --accent-color: #ffd166;
@@ -14,8 +16,9 @@
     --black-color: #000000;
     --timberwolf: #ced0ce;
     --black-low-opacity: #00000033;
-    --warning: #ff0000;
-    --info: #2a7a55;
+    --warning: #da980a;
+    --danger: #ff0000;
+    --info: #14a7d0;
     --success: #2a7a55;
 }
 

@@ -1,15 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Order Success - KickStar</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" crossorigin="anonymous"></script>
     <style>
         :root {
             --primary-color: #fd3008;
@@ -77,6 +74,7 @@
         .order-receipt {
             background: var(--white-color);
             border-radius: 12px;
+            /* box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08); */
             border: 1px solid var(--gray-shade-color);
             padding: 30px;
             width: 100%;
@@ -186,15 +184,12 @@
             gap: 4px;
         }
 
-        .color,
-        .size {
+        .color, .size {
             font-size: 14px;
             color: var(--neutral-dark-color);
         }
 
-        .quantity,
-        .price,
-        .subtotal {
+        .quantity, .price, .subtotal {
             text-align: center;
         }
 
@@ -235,8 +230,7 @@
             margin-bottom: 5px;
         }
 
-        .shipping-phone,
-        .shipping-address {
+        .shipping-phone, .shipping-address {
             display: flex;
             align-items: center;
             gap: 8px;
@@ -326,47 +320,27 @@
         }
 
         .success-animation.animate i {
-            animation: bounce 1s ease-in-out;
+            animation: bounce 0.6s ease-in-out;
         }
 
         @keyframes bounce {
-
-            0%,
-            20%,
-            60%,
-            100% {
-                transform: translateY(0);
-            }
-
-            40% {
-                transform: translateY(-10px);
-            }
-
-            80% {
-                transform: translateY(-5px);
-            }
+            0%, 20%, 60%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            80% { transform: translateY(-5px); }
         }
 
         /* Loading Spinner */
-        /* Loading Spinner */
         .spin {
-            animation: spin 1s linear infinite;
+            animation: spin 2s linear infinite;
         }
 
         @keyframes spin {
-            from {
-                transform: rotate(0deg);
-            }
-
-            to {
-                transform: rotate(360deg);
-            }
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
-
         /* No Items & Error States */
-        .no-items,
-        .no-shipping {
+        .no-items, .no-shipping {
             text-align: center;
             padding: 20px;
             color: var(--neutral-dark-color);
@@ -393,34 +367,33 @@
             .container {
                 padding: 10px;
             }
-
+            
             .order-receipt {
                 padding: 20px;
             }
-
+            
             table {
                 font-size: 14px;
             }
-
-            th,
-            td {
+            
+            th, td {
                 padding: 8px 10px;
             }
-
+            
             .action-buttons {
                 flex-direction: column;
                 align-items: center;
             }
-
+            
             .btn {
                 width: 100%;
                 justify-content: center;
             }
-
+            
             .receipt-info {
                 flex-direction: column;
             }
-
+            
             .receipt-info strong {
                 width: auto;
                 margin-bottom: 5px;
@@ -431,17 +404,17 @@
             .brand-header h2 {
                 font-size: 24px;
             }
-
+            
             table {
                 display: block;
                 overflow-x: auto;
             }
-
+            
             .product-info {
                 flex-direction: column;
                 align-items: flex-start;
             }
-
+            
             .product-image-container {
                 margin-bottom: 8px;
             }
@@ -462,12 +435,11 @@
             <div class="success-animation">
                 <i class="ri-checkbox-circle-fill"></i>
             </div>
-
+            
             <div class="order-receipt" id="order-receipt">
                 <div class="brand-header">
                     <!-- Using a placeholder for the logo - replace with your actual logo -->
-                    <div
-                        style="height: 60px; display: flex; align-items: center; justify-content: center; margin-bottom: 15px;">
+                    <div style="height: 60px; display: flex; align-items: center; justify-content: center; margin-bottom: 15px;">
                         <h1 style="color: var(--primary-color);">KickStar</h1>
                     </div>
                     <h2>Thank You for Your Order!</h2>
@@ -485,7 +457,7 @@
                     <thead>
                         <tr>
                             <th>Product</th>
-                            <!-- <th>Details</th> -->
+                            <th>Details</th>
                             <th>Qty</th>
                             <th>Price</th>
                             <th>Subtotal</th>
@@ -518,7 +490,7 @@
                     </p>
                 </div>
             </div>
-
+            
             <div class="action-buttons">
                 <button id="download-receipt-btn" class="btn btn-primary">
                     <i class="ri-download-line"></i> Download Receipt (PDF)
@@ -549,22 +521,22 @@
 
                 // Update order details
                 updateOrderDetails(order, shippingFee);
-
+                
                 // Render order items
                 renderOrderItems(items);
-
+                
                 // Update shipping details
                 updateShippingDetails(order.shippingAddress);
-
+                
                 // Setup PDF download
                 setupPDFDownload(order);
-
+                
                 // Setup additional actions
                 setupAdditionalActions();
-
+                
                 // Clear cart after successful order
                 clearCart();
-
+                
                 // Show success animation
                 showSuccessAnimation();
 
@@ -581,9 +553,9 @@
 
             const elements = {
                 'order-id': order.id || "#12345",
-                'order-date': new Date().toLocaleString('en-KE', {
-                    year: 'numeric',
-                    month: 'long',
+                'order-date': new Date().toLocaleString('en-KE', { 
+                    year: 'numeric', 
+                    month: 'long', 
                     day: 'numeric',
                     hour: '2-digit',
                     minute: '2-digit'
@@ -645,14 +617,14 @@
             // Image and name cell
             const tdImage = document.createElement("td");
             tdImage.className = "product-info";
-
+            
             const imgContainer = document.createElement("div");
             imgContainer.className = "product-image-container";
-
+            
             const img = document.createElement("img");
             img.alt = name;
             img.className = "product-image";
-
+            
             if (imageSrc) {
                 img.crossOrigin = "anonymous";
                 img.src = imageSrc;
@@ -665,15 +637,15 @@
             } else {
                 img.src = getFallbackImage();
             }
-
+            
             imgContainer.appendChild(img);
             tdImage.appendChild(imgContainer);
-
+            
             const nameSpan = document.createElement("span");
             nameSpan.className = "product-name";
             nameSpan.textContent = name;
             tdImage.appendChild(nameSpan);
-
+            
             row.appendChild(tdImage);
 
             // Details cell
@@ -738,307 +710,50 @@
             }
         }
 
-
-        // function setupPDFDownload(order) {
-        //     const downloadBtn = document.getElementById("download-receipt-btn");
-        //     if (!downloadBtn) return;
-
-        //     downloadBtn.addEventListener("click", () => {
-        //         try {
-        //             // Show loading state
-        //             downloadBtn.innerHTML = '<i class="ri-loader-4-line spin"></i> Generating PDF...';
-        //             downloadBtn.disabled = true;
-
-        //             generatePDF(order);
-
-        //         } catch (error) {
-        //             console.error("PDF generation failed:", error);
-        //             alert("Sorry, we couldn't generate your receipt. Please try again.");
-        //         } finally {
-        //             downloadBtn.innerHTML = '<i class="ri-loader-4-line"></i> Generating PDF...';
-        //             downloadBtn.disabled = true;
-        //         }
-        //     });
-        // }
-
         function setupPDFDownload(order) {
             const downloadBtn = document.getElementById("download-receipt-btn");
             if (!downloadBtn) return;
 
-            downloadBtn.addEventListener("click", () => {
-                // Store original button state
-                const originalHTML = downloadBtn.innerHTML;
-
+            downloadBtn.addEventListener("click", async () => {
                 try {
                     // Show loading state
                     downloadBtn.innerHTML = '<i class="ri-loader-4-line spin"></i> Generating PDF...';
                     downloadBtn.disabled = true;
 
-                    // Generate PDF 
-                    generatePDF(order);
+                    const element = document.getElementById("order-receipt");
+                    const options = {
+                        margin: 10,
+                        filename: `KickStar_Receipt_${order.id || Date.now()}.pdf`,
+                        image: { type: 'jpeg', quality: 0.98 },
+                        html2canvas: { 
+                            scale: 2, 
+                            useCORS: true, 
+                            allowTaint: false,
+                            logging: false,
+                            backgroundColor: '#ffffff'
+                        },
+                        jsPDF: { 
+                            unit: 'mm', 
+                            format: 'a4', 
+                            orientation: 'portrait' 
+                        }
+                    };
+
+                    await html2pdf().set(options).from(element).save();
+                    
+                    // Track download event
+                    trackEvent('receipt_downloaded', { orderId: order.id });
 
                 } catch (error) {
                     console.error("PDF generation failed:", error);
                     alert("Sorry, we couldn't generate your receipt. Please try again.");
                 } finally {
-                    // Reset button state after a small delay to ensure UI updates
-                    setTimeout(() => {
-                        downloadBtn.innerHTML = '<i class="ri-download-line"></i> Download Receipt (PDF)';
-                        downloadBtn.disabled = false;
-                    }, 1000);
+                    // Reset button state
+                    downloadBtn.innerHTML = '<i class="ri-download-line"></i> Download Receipt (PDF)';
+                    downloadBtn.disabled = false;
                 }
             });
         }
-
-        function generatePDF(order) {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-
-            const items = order.items || order.cart || [];
-            const shippingFee = 300;
-            const subtotal = order.subtotal || calculateSubtotal(items);
-            const tax = order.tax || subtotal * 0.16;
-            const total = order.total || (subtotal + shippingFee + tax);
-            const shipping = order.shippingAddress;
-
-            let yPosition = 20;
-
-            // Header Section
-            doc.setFontSize(24);
-            doc.setTextColor(0, 168, 150); // Secondary color
-            doc.text("KICKSTAR", 105, yPosition, { align: 'center' });
-
-            yPosition += 10;
-            doc.setFontSize(16);
-            doc.setTextColor(253, 48, 8); // Primary color
-            doc.text("ORDER CONFIRMATION", 105, yPosition, { align: 'center' });
-
-            yPosition += 15;
-            doc.setFontSize(12);
-            doc.setTextColor(0, 0, 0);
-            doc.text("Thank you for your order! Your purchase supports sustainable fashion.", 105, yPosition, { align: 'center' });
-
-            yPosition += 20;
-
-            // Order Information
-            doc.setFontSize(14);
-            doc.setTextColor(45, 45, 45); // Dark color
-            doc.text("ORDER DETAILS", 20, yPosition);
-
-            yPosition += 10;
-            doc.setFontSize(10);
-            doc.text(`Order ID: ${order.id || "#12345"}`, 20, yPosition);
-            doc.text(`Date: ${new Date().toLocaleString('en-KE')}`, 120, yPosition);
-
-            yPosition += 6;
-            doc.text(`Payment Method: ${order.paymentMethod || "MPesa"}`, 20, yPosition);
-
-            yPosition += 15;
-
-            // Shipping Information
-            if (shipping) {
-                doc.setFontSize(14);
-                doc.text("SHIPPING ADDRESS", 20, yPosition);
-
-                yPosition += 8;
-                doc.setFontSize(10);
-                doc.text(`${shipping.fullname}`, 20, yPosition);
-                yPosition += 5;
-                doc.text(`${shipping.phone}`, 20, yPosition);
-                yPosition += 5;
-                doc.text(`${shipping.address}, ${shipping.city}`, 20, yPosition);
-
-                yPosition += 15;
-            }
-
-            // Order Items Table
-            doc.setFontSize(14);
-            doc.text("ORDER ITEMS", 20, yPosition);
-            yPosition += 10;
-
-            // Table Headers - Adjusted for images
-            doc.setFillColor(244, 246, 246); // Light gray background
-            doc.rect(20, yPosition, 170, 8, 'F');
-            doc.setFontSize(10);
-            doc.setTextColor(0, 0, 0);
-            doc.text("Product", 35, yPosition + 6); // Moved right to accommodate image
-            doc.text("Details", 90, yPosition + 6);
-            doc.text("Qty", 140, yPosition + 6);
-            doc.text("Price", 150, yPosition + 6);
-            doc.text("Subtotal", 170, yPosition + 6);
-
-            yPosition += 12;
-
-            // Order Items with Images
-            if (items.length > 0) {
-                // Process items sequentially to handle async image loading
-                processItemsForPDF(doc, items, yPosition, subtotal, tax, shippingFee, total, shipping, order);
-            } else {
-                doc.text("No items in this order", 22, yPosition);
-                yPosition += 10;
-                completePDF(doc, yPosition, subtotal, tax, shippingFee, total, order);
-            }
-        }
-
-        function processItemsForPDF(doc, items, startY, subtotal, tax, shippingFee, total, shipping, order) {
-            let yPosition = startY;
-            let processedItems = 0;
-
-            items.forEach((item, index) => {
-                const name = item.name || item.product || "Unnamed Product";
-                const qty = item.qty || item.quantity || 1;
-                const price = item.price || 0;
-                const color = item.color || "-";
-                const size = item.size || "-";
-                const itemSubtotal = qty * price;
-                const imageSrc = item.image || '';
-
-                // Alternate row background
-                if (index % 2 === 0) {
-                    doc.setFillColor(248, 249, 250);
-                    doc.rect(20, yPosition - 4, 170, 12, 'F');
-                }
-
-                doc.setTextColor(0, 0, 0);
-
-                // Add product image if available
-                if (imageSrc) {
-                    try {
-                        // Create a temporary image to check if it loads
-                        const img = new Image();
-                        img.crossOrigin = "Anonymous";
-                        img.onload = function () {
-                            try {
-                                // Add image to PDF (15x15px)
-                                doc.addImage(img, 'JPEG', 22, yPosition - 3, 15, 15);
-                                addTextToRow();
-                            } catch (e) {
-                                console.warn('Could not add image to PDF, using fallback:', e);
-                                addFallbackImage();
-                            }
-                        };
-                        img.onerror = function () {
-                            addFallbackImage();
-                        };
-                        img.src = imageSrc;
-                    } catch (e) {
-                        addFallbackImage();
-                    }
-                } else {
-                    addFallbackImage();
-                }
-
-                function addFallbackImage() {
-                    // Add a simple rectangle as fallback
-                    doc.setFillColor(220, 220, 220);
-                    doc.rect(22, yPosition - 3, 15, 15, 'F');
-                    doc.setTextColor(150, 150, 150);
-                    doc.setFontSize(6);
-                    doc.text("No", 26, yPosition + 3);
-                    doc.text("Img", 26, yPosition + 6);
-                    doc.setFontSize(10);
-                    doc.setTextColor(0, 0, 0);
-                    addTextToRow();
-                }
-
-                function addTextToRow() {
-                    // Product name (starting after image)
-                    doc.text(name.substring(0, 20), 40, yPosition + 4);
-
-                    // Other details
-                    doc.text(`${color}, ${size}`, 90, yPosition + 4);
-                    doc.text(qty.toString(), 140, yPosition + 4);
-                    doc.text(`KES ${price.toFixed(2)}`, 150, yPosition + 4);
-                    doc.text(`KES ${itemSubtotal.toFixed(2)}`, 170, yPosition + 4);
-
-                    yPosition += 12;
-                    processedItems++;
-
-                    // Check if all items are processed
-                    if (processedItems === items.length) {
-                        completePDF(doc, yPosition, subtotal, tax, shippingFee, total, order);
-                    }
-
-                    // Page break check
-                    if (yPosition > 250 && processedItems < items.length) {
-                        doc.addPage();
-                        yPosition = 20;
-
-                        // Add table headers on new page
-                        doc.setFillColor(244, 246, 246);
-                        doc.rect(20, yPosition, 170, 8, 'F');
-                        doc.setFontSize(10);
-                        doc.setTextColor(0, 0, 0);
-                        doc.text("Product", 35, yPosition + 6);
-                        doc.text("Details", 90, yPosition + 6);
-                        doc.text("Qty", 140, yPosition + 6);
-                        doc.text("Price", 150, yPosition + 6);
-                        doc.text("Subtotal", 170, yPosition + 6);
-                        yPosition += 12;
-                    }
-                }
-            });
-        }
-
-        function completePDF(doc, yPosition, subtotal, tax, shippingFee, total, order) {
-            yPosition += 10;
-
-            // Cost Summary
-            doc.setDrawColor(200, 200, 200);
-            doc.line(20, yPosition, 190, yPosition);
-            yPosition += 8;
-
-            doc.setFontSize(11);
-            doc.text("Subtotal:", 120, yPosition);
-            doc.text(`KES ${subtotal.toFixed(2)}`, 170, yPosition, { align: 'right' });
-
-            yPosition += 6;
-            doc.text("Tax (16%):", 120, yPosition);
-            doc.text(`KES ${tax.toFixed(2)}`, 170, yPosition, { align: 'right' });
-
-            yPosition += 6;
-            doc.text("Shipping:", 120, yPosition);
-            doc.text(`KES ${shippingFee.toFixed(2)}`, 170, yPosition, { align: 'right' });
-
-            yPosition += 10;
-            doc.setFontSize(12);
-            doc.setFont(undefined, 'bold');
-            doc.text("TOTAL:", 120, yPosition);
-            doc.text(`KES ${total.toFixed(2)}`, 170, yPosition, { align: 'right' });
-
-            yPosition += 20;
-
-            // Footer Message
-            doc.setFont(undefined, 'normal');
-            doc.setFontSize(10);
-            doc.setTextColor(100, 100, 100);
-
-            const footerText = [
-                "We'll notify you once your order is on its way.",
-                "If you chose Cash on Delivery, please have the amount ready upon delivery.",
-                "",
-                "Signed,",
-                "The KickStar Team",
-                "Thank you for supporting sustainable fashion"
-            ];
-
-            footerText.forEach(line => {
-                if (yPosition > 270) {
-                    doc.addPage();
-                    yPosition = 20;
-                }
-                doc.text(line, 105, yPosition, { align: 'center' });
-                yPosition += 5;
-            });
-
-            // Save the PDF
-            doc.save(`KickStar_Receipt_${order.id || Date.now()}.pdf`);
-
-            // Track download event
-            trackEvent('receipt_downloaded', { orderId: order.id });
-        }
-
-
 
         function setupAdditionalActions() {
             // Continue shopping button
@@ -1128,5 +843,4 @@
         }
     </script>
 </body>
-
 </html>

@@ -1,3 +1,21 @@
+:root {
+    --primary-color: #fd3008;
+    --secondary-color: #00a896;
+    --neutral-light-color: #f8f9fa;
+    --neutral-dark-color: #2d2d2d;
+    --accent-color: #ffd166;
+    --snow: #fffafa;
+    --anti-flash-white: #f4f6f6;
+    --gray-shade-color: #dee7e7;
+    --white-color: #ffffff;
+    --black-color: #000000;
+    --timberwolf: #ced0ce;
+    --black-low-opacity: #00000033;
+    --warning: #ff0000;
+    --info: #2a7a55;
+    --success: #2a7a55;
+}
+
 .order-receipt-container {
     text-align: center;
 }
