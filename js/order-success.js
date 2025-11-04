@@ -1,9 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
     // Initialize the thank you page
-    initOrderSucessPage();
+    initOrderSuccessPage();
 });
 
-function initOrderSucessPage() {
+function initOrderSuccessPage() {
     try {
         const order = JSON.parse(localStorage.getItem("lastOrder") || "{}");
         const items = order.items || order.cart || [];
@@ -11,22 +11,22 @@ function initOrderSucessPage() {
 
         // Update order details
         updateOrderDetails(order, shippingFee);
-        
+
         // Render order items
         renderOrderItems(items);
-        
+
         // Update shipping details
         updateShippingDetails(order.shippingAddress);
-        
+
         // Setup PDF download
         setupPDFDownload(order);
-        
+
         // Setup additional actions
         setupAdditionalActions();
-        
+
         // Clear cart after successful order
         clearCart();
-        
+
         // Show success animation
         showSuccessAnimation();
 
@@ -37,20 +37,24 @@ function initOrderSucessPage() {
 }
 
 function updateOrderDetails(order, shippingFee) {
+    const subtotal = order.subtotal || calculateSubtotal(order.items || order.cart || []);
+    const tax = order.tax || subtotal * 0.16; // 16% tax
+    const total = order.total || (subtotal + shippingFee + tax);
+
     const elements = {
         'order-id': order.id || "#12345",
-        'order-date': new Date().toLocaleString('en-KE', { 
-            year: 'numeric', 
-            month: 'long', 
+        'order-date': new Date().toLocaleString('en-KE', {
+            year: 'numeric',
+            month: 'long',
             day: 'numeric',
             hour: '2-digit',
             minute: '2-digit'
         }),
         'order-payment': order.paymentMethod || "MPesa",
-        'order-subtotal': formatCurrency(order.subtotal || calculateSubtotal(order.items || order.cart || [])),
+        'order-subtotal': formatCurrency(subtotal),
         'order-shipping': formatCurrency(shippingFee),
-        'order-tax': formatCurrency(order.tax || 0),
-        'order-total': formatCurrency(order.total || (calculateSubtotal(order.items || order.cart || []) + shippingFee))
+        'order-tax': formatCurrency(tax),
+        'order-total': formatCurrency(total)
     };
 
     Object.entries(elements).forEach(([id, value]) => {
@@ -103,16 +107,16 @@ function createOrderItemRow(item) {
     // Image and name cell
     const tdImage = document.createElement("td");
     tdImage.className = "product-info";
-    
+
     const imgContainer = document.createElement("div");
     imgContainer.className = "product-image-container";
-    
+
     const img = document.createElement("img");
     img.alt = name;
     img.className = "product-image";
-    
+
     if (imageSrc) {
-        img.crossOrigin = "anonymous";
+        // img.crossOrigin = "anonymous";
         img.src = imageSrc;
         img.onerror = () => {
             img.src = getFallbackImage();
@@ -123,15 +127,15 @@ function createOrderItemRow(item) {
     } else {
         img.src = getFallbackImage();
     }
-    
+
     imgContainer.appendChild(img);
     tdImage.appendChild(imgContainer);
-    
+
     const nameSpan = document.createElement("span");
     nameSpan.className = "product-name";
     nameSpan.textContent = name;
     tdImage.appendChild(nameSpan);
-    
+
     row.appendChild(tdImage);
 
     // Details cell
@@ -196,50 +200,286 @@ function updateShippingDetails(shipping) {
     }
 }
 
+
+
 function setupPDFDownload(order) {
     const downloadBtn = document.getElementById("download-receipt-btn");
     if (!downloadBtn) return;
 
-    downloadBtn.addEventListener("click", async () => {
+    downloadBtn.addEventListener("click", () => {
+        // Store original button state
+        const originalHTML = downloadBtn.innerHTML;
+
         try {
             // Show loading state
             downloadBtn.innerHTML = '<i class="ri-loader-4-line spin"></i> Generating PDF...';
             downloadBtn.disabled = true;
 
-            const element = document.getElementById("order-receipt");
-            const options = {
-                margin: 10,
-                filename: `KickStar_Receipt_${order.id || Date.now()}.pdf`,
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { 
-                    scale: 2, 
-                    useCORS: true, 
-                    allowTaint: false,
-                    logging: false,
-                    backgroundColor: '#ffffff'
-                },
-                jsPDF: { 
-                    unit: 'mm', 
-                    format: 'a4', 
-                    orientation: 'portrait' 
-                }
-            };
-
-            await html2pdf().set(options).from(element).save();
-            
-            // Track download event
-            trackEvent('receipt_downloaded', { orderId: order.id });
+            // Generate PDF 
+            generatePDF(order);
 
         } catch (error) {
             console.error("PDF generation failed:", error);
             alert("Sorry, we couldn't generate your receipt. Please try again.");
         } finally {
-            // Reset button state
-            downloadBtn.innerHTML = '<i class="ri-download-line"></i> Download Receipt';
-            downloadBtn.disabled = false;
+            // Reset button state after a small delay to ensure UI updates
+            setTimeout(() => {
+                downloadBtn.innerHTML = '<i class="ri-download-line"></i> Download Receipt (PDF)';
+                downloadBtn.disabled = false;
+            }, 1000);
         }
     });
 }
+
+function generatePDF(order) {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    const items = order.items || order.cart || [];
+    const shippingFee = 300;
+    const subtotal = order.subtotal || calculateSubtotal(items);
+    const tax = order.tax || subtotal * 0.16;
+    const total = order.total || (subtotal + shippingFee + tax);
+    const shipping = order.shippingAddress;
+
+    let yPosition = 20;
+
+    // Header Section
+    doc.setFontSize(24);
+    doc.setTextColor(0, 168, 150); // Secondary color
+    doc.text("KICKSTAR", 105, yPosition, { align: 'center' });
+
+    yPosition += 10;
+    doc.setFontSize(16);
+    doc.setTextColor(253, 48, 8); // Primary color
+    doc.text("ORDER CONFIRMATION", 105, yPosition, { align: 'center' });
+
+    yPosition += 15;
+    doc.setFontSize(12);
+    doc.setTextColor(0, 0, 0);
+    doc.text("Thank you for your order! Your purchase supports sustainable fashion.", 105, yPosition, { align: 'center' });
+
+    yPosition += 20;
+
+    // Order Information
+    doc.setFontSize(14);
+    doc.setTextColor(45, 45, 45); // Dark color
+    doc.text("ORDER DETAILS", 20, yPosition);
+
+    yPosition += 10;
+    doc.setFontSize(10);
+    doc.text(`Order ID: ${order.id || "#12345"}`, 20, yPosition);
+    doc.text(`Date: ${new Date().toLocaleString('en-KE')}`, 120, yPosition);
+
+    yPosition += 6;
+    doc.text(`Payment Method: ${order.paymentMethod || "MPesa"}`, 20, yPosition);
+
+    yPosition += 15;
+
+    // Shipping Information
+    if (shipping) {
+        doc.setFontSize(14);
+        doc.text("SHIPPING ADDRESS", 20, yPosition);
+
+        yPosition += 8;
+        doc.setFontSize(10);
+        doc.text(`${shipping.fullname}`, 20, yPosition);
+        yPosition += 5;
+        doc.text(`${shipping.phone}`, 20, yPosition);
+        yPosition += 5;
+        doc.text(`${shipping.address}, ${shipping.city}`, 20, yPosition);
+
+        yPosition += 15;
+    }
+
+    // Order Items Table
+    doc.setFontSize(14);
+    doc.text("ORDER ITEMS", 20, yPosition);
+    yPosition += 10;
+
+    // Table Headers - Adjusted for images
+    doc.setFillColor(244, 246, 246); // Light gray background
+    doc.rect(20, yPosition, 170, 8, 'F');
+    doc.setFontSize(10);
+    doc.setTextColor(0, 0, 0);
+    doc.text("Product", 35, yPosition + 6); // Moved right to accommodate image
+    doc.text("Details", 90, yPosition + 6);
+    doc.text("Qty", 140, yPosition + 6);
+    doc.text("Price", 150, yPosition + 6);
+    doc.text("Subtotal", 170, yPosition + 6);
+
+    yPosition += 12;
+
+    // Order Items with Images
+    if (items.length > 0) {
+        // Process items sequentially to handle async image loading
+        processItemsForPDF(doc, items, yPosition, subtotal, tax, shippingFee, total, shipping, order);
+    } else {
+        doc.text("No items in this order", 22, yPosition);
+        yPosition += 10;
+        completePDF(doc, yPosition, subtotal, tax, shippingFee, total, order);
+    }
+}
+
+function processItemsForPDF(doc, items, startY, subtotal, tax, shippingFee, total, shipping, order) {
+    let yPosition = startY;
+    let processedItems = 0;
+
+    items.forEach((item, index) => {
+        const name = item.name || item.product || "Unnamed Product";
+        const qty = item.qty || item.quantity || 1;
+        const price = item.price || 0;
+        const color = item.color || "-";
+        const size = item.size || "-";
+        const itemSubtotal = qty * price;
+        const imageSrc = item.image || '';
+
+        // Alternate row background
+        if (index % 2 === 0) {
+            doc.setFillColor(248, 249, 250);
+            doc.rect(20, yPosition - 4, 170, 12, 'F');
+        }
+
+        doc.setTextColor(0, 0, 0);
+
+        // Add product image if available
+        if (imageSrc) {
+            try {
+                // Create a temporary image to check if it loads
+                const img = new Image();
+                img.crossOrigin = "Anonymous";
+                img.onload = function () {
+                    try {
+                        // Add image to PDF (15x15px)
+                        doc.addImage(img, 'JPEG', 22, yPosition - 3, 15, 15);
+                        addTextToRow();
+                    } catch (e) {
+                        console.warn('Could not add image to PDF, using fallback:', e);
+                        addFallbackImage();
+                    }
+                };
+                img.onerror = function () {
+                    addFallbackImage();
+                };
+                img.src = imageSrc;
+            } catch (e) {
+                addFallbackImage();
+            }
+        } else {
+            addFallbackImage();
+        }
+
+        function addFallbackImage() {
+            // Add a simple rectangle as fallback
+            doc.setFillColor(220, 220, 220);
+            doc.rect(22, yPosition - 3, 15, 15, 'F');
+            doc.setTextColor(150, 150, 150);
+            doc.setFontSize(6);
+            doc.text("No", 26, yPosition + 3);
+            doc.text("Img", 26, yPosition + 6);
+            doc.setFontSize(10);
+            doc.setTextColor(0, 0, 0);
+            addTextToRow();
+        }
+
+        function addTextToRow() {
+            // Product name (starting after image)
+            doc.text(name.substring(0, 20), 40, yPosition + 4);
+
+            // Other details
+            doc.text(`${color}, ${size}`, 90, yPosition + 4);
+            doc.text(qty.toString(), 140, yPosition + 4);
+            doc.text(`KES ${price.toFixed(2)}`, 150, yPosition + 4);
+            doc.text(`KES ${itemSubtotal.toFixed(2)}`, 170, yPosition + 4);
+
+            yPosition += 12;
+            processedItems++;
+
+            // Check if all items are processed
+            if (processedItems === items.length) {
+                completePDF(doc, yPosition, subtotal, tax, shippingFee, total, order);
+            }
+
+            // Page break check
+            if (yPosition > 250 && processedItems < items.length) {
+                doc.addPage();
+                yPosition = 20;
+
+                // Add table headers on new page
+                doc.setFillColor(244, 246, 246);
+                doc.rect(20, yPosition, 170, 8, 'F');
+                doc.setFontSize(10);
+                doc.setTextColor(0, 0, 0);
+                doc.text("Product", 35, yPosition + 6);
+                doc.text("Details", 90, yPosition + 6);
+                doc.text("Qty", 140, yPosition + 6);
+                doc.text("Price", 150, yPosition + 6);
+                doc.text("Subtotal", 170, yPosition + 6);
+                yPosition += 12;
+            }
+        }
+    });
+}
+
+function completePDF(doc, yPosition, subtotal, tax, shippingFee, total, order) {
+    yPosition += 10;
+
+    // Cost Summary
+    doc.setDrawColor(200, 200, 200);
+    doc.line(20, yPosition, 190, yPosition);
+    yPosition += 8;
+
+    doc.setFontSize(11);
+    doc.text("Subtotal:", 120, yPosition);
+    doc.text(`KES ${subtotal.toFixed(2)}`, 170, yPosition, { align: 'right' });
+
+    yPosition += 6;
+    doc.text("Tax (16%):", 120, yPosition);
+    doc.text(`KES ${tax.toFixed(2)}`, 170, yPosition, { align: 'right' });
+
+    yPosition += 6;
+    doc.text("Shipping:", 120, yPosition);
+    doc.text(`KES ${shippingFee.toFixed(2)}`, 170, yPosition, { align: 'right' });
+
+    yPosition += 10;
+    doc.setFontSize(12);
+    doc.setFont(undefined, 'bold');
+    doc.text("TOTAL:", 120, yPosition);
+    doc.text(`KES ${total.toFixed(2)}`, 170, yPosition, { align: 'right' });
+
+    yPosition += 20;
+
+    // Footer Message
+    doc.setFont(undefined, 'normal');
+    doc.setFontSize(10);
+    doc.setTextColor(100, 100, 100);
+
+    const footerText = [
+        "We'll notify you once your order is on its way.",
+        "If you chose Cash on Delivery, please have the amount ready upon delivery.",
+        "",
+        "Signed,",
+        "The KickStar Team",
+        "Thank you for supporting sustainable fashion"
+    ];
+
+    footerText.forEach(line => {
+        if (yPosition > 270) {
+            doc.addPage();
+            yPosition = 20;
+        }
+        doc.text(line, 105, yPosition, { align: 'center' });
+        yPosition += 5;
+    });
+
+    // Save the PDF
+    doc.save(`KickStar_Receipt_${order.id || Date.now()}.pdf`);
+
+    // Track download event
+    trackEvent('receipt_downloaded', { orderId: order.id });
+}
+
+
 
 function setupAdditionalActions() {
     // Continue shopping button
@@ -258,23 +498,6 @@ function setupAdditionalActions() {
             alert(`Your order ${order.id} has been confirmed! You will receive tracking information via SMS.`);
         });
     }
-
-    // Share receipt button
-    const shareBtn = document.getElementById("share-receipt-btn");
-    if (shareBtn && navigator.share) {
-        shareBtn.style.display = 'block';
-        shareBtn.addEventListener("click", async () => {
-            try {
-                await navigator.share({
-                    title: `My KickStar Order Receipt`,
-                    text: `Check out my order from KickStar!`,
-                    url: window.location.href
-                });
-            } catch (error) {
-                console.log('Sharing cancelled or failed');
-            }
-        });
-    }
 }
 
 function clearCart() {
@@ -288,7 +511,7 @@ function clearCart() {
 }
 
 function showSuccessAnimation() {
-    const successIcon = document.querySelector('.success-animation');
+    const successIcon = document.querySelector('.success-animation i');
     if (successIcon) {
         successIcon.classList.add('animate');
         setTimeout(() => {
@@ -305,7 +528,7 @@ function showErrorState() {
                 <i class="ri-error-warning-line"></i>
                 <h3>Unable to Load Order Details</h3>
                 <p>There was a problem loading your order information.</p>
-                <button onclick="window.location.href='../index.html'" class="btn-primary">
+                <button onclick="window.location.href='../index.html'" class="btn btn-primary">
                     Continue Shopping
                 </button>
             </div>
@@ -344,89 +567,3 @@ function trackEvent(eventName, properties = {}) {
     // In a real app, you would send this to your analytics service
     console.log(`Tracking: ${eventName}`, properties);
 }
-
-// Add some basic CSS for the new elements
-const additionalStyles = `
-    .success-animation.animate {
-        animation: bounce 0.6s ease-in-out;
-    }
-    
-    @keyframes bounce {
-        0%, 20%, 60%, 100% { transform: translateY(0); }
-        40% { transform: translateY(-10px); }
-        80% { transform: translateY(-5px); }
-    }
-    
-    .spin {
-        animation: spin 1s linear infinite;
-    }
-    
-    @keyframes spin {
-        from { transform: rotate(0deg); }
-        to { transform: rotate(360deg); }
-    }
-    
-    .product-image-container {
-        position: relative;
-        width: 50px;
-        height: 50px;
-        border-radius: 8px;
-        overflow: hidden;
-        background: #f8f9fa;
-        display: inline-block;
-        vertical-align: middle;
-        margin-right: 10px;
-    }
-    
-    .product-image {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: opacity 0.3s ease;
-    }
-    
-    .product-image-container:not(.loaded) .product-image {
-        opacity: 0.5;
-    }
-    
-    .no-items, .no-shipping {
-        text-align: center;
-        padding: 20px;
-        color: #718096;
-    }
-    
-    .error-state {
-        text-align: center;
-        padding: 40px 20px;
-        color: #718096;
-    }
-    
-    .error-state i {
-        font-size: 48px;
-        color: #e53e3e;
-        margin-bottom: 20px;
-    }
-    
-    .shipping-header {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        margin-bottom: 10px;
-    }
-    
-    .shipping-info {
-        line-height: 1.6;
-    }
-    
-    .shipping-phone, .shipping-address {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        margin-top: 5px;
-    }
-`;
-
-// Inject additional styles
-const styleSheet = document.createElement("style");
-styleSheet.textContent = additionalStyles;
-document.head.appendChild(styleSheet);

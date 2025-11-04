@@ -517,7 +517,7 @@ function renderReview() {
 }
 
 // ✅ Complete Order
-document.getElementById("complete-order-btn").addEventListener("click", () => {
+document.getElementById("complete-order-btn").addEventListener("click", (e) => {
     const btn = e.target;
     if (btn.disabled) return; // prevent double clicks
     btn.disabled = true;
