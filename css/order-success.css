@@ -18,6 +18,12 @@
 
 .order-success-container {
     text-align: center;
+    width: 100%;
+    max-width: 600px;
+    border: 1px solid var(--gray-shade-color);
+    border-radius: 8px;
+    margin: 2rem auto;
+    padding: 1rem;
 }
 
 
@@ -28,6 +34,7 @@
     flex-direction: column;
     align-items: center;
     padding: 1rem 0;
+    margin: 0 2rem;
 }
 
 /* Order Receipt */
