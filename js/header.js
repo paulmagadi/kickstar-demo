@@ -40,3 +40,109 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
+
+// Add to your existing header.js file
+class AuthHeader {
+    static updateAuthUI() {
+        const authSection = document.getElementById('auth-section');
+        const userSection = document.getElementById('user-section');
+        const userName = document.getElementById('user-name');
+        
+        const isAuthenticated = AuthHelper.isAuthenticated();
+        const currentUser = AuthHelper.getCurrentUser();
+
+        if (authSection && userSection) {
+            if (isAuthenticated && currentUser) {
+                authSection.style.display = 'none';
+                userSection.style.display = 'flex';
+                if (userName) {
+                    userName.textContent = `${currentUser.firstName} ${currentUser.lastName}`;
+                }
+            } else {
+                authSection.style.display = 'flex';
+                userSection.style.display = 'none';
+            }
+        }
+    }
+
+    static setupAuthListeners() {
+        // Logout button
+        const logoutBtn = document.getElementById('logout-btn');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (confirm('Are you sure you want to logout?')) {
+                    AuthHelper.logout();
+                }
+            });
+        }
+
+        // Listen for auth changes
+        window.addEventListener('userLoggedIn', this.updateAuthUI);
+        window.addEventListener('userLoggedOut', this.updateAuthUI);
+    }
+}
+
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    AuthHeader.updateAuthUI();
+    AuthHeader.setupAuthListeners();
+});
+
+
+
+
+
+// Authentication Helper
+class AuthHelper {
+    static isAuthenticated() {
+        return localStorage.getItem('isAuthenticated') === 'true';
+    }
+
+    static getCurrentUser() {
+        try {
+            const userData = localStorage.getItem('currentUser');
+            return userData ? JSON.parse(userData) : null;
+        } catch (error) {
+            console.error('Error getting current user:', error);
+            return null;
+        }
+    }
+
+    static logout() {
+        localStorage.removeItem('currentUser');
+        localStorage.removeItem('isAuthenticated');
+        localStorage.removeItem('lastLogin');
+        // Keep remembered email for convenience
+        window.dispatchEvent(new Event('userLoggedOut'));
+        window.location.href = 'login.html';
+    }
+
+    static requireAuth(redirectUrl = 'login.html') {
+        if (!this.isAuthenticated()) {
+            window.location.href = redirectUrl;
+            return false;
+        }
+        return true;
+    }
+
+    static updateUserProfile(updatedData) {
+        try {
+            const currentUser = this.getCurrentUser();
+            if (currentUser) {
+                const updatedUser = { ...currentUser, ...updatedData };
+                localStorage.setItem('currentUser', JSON.stringify(updatedUser));
+                localStorage.setItem('userProfile', JSON.stringify(updatedUser));
+                window.dispatchEvent(new Event('userProfileUpdated'));
+                return true;
+            }
+        } catch (error) {
+            console.error('Error updating user profile:', error);
+        }
+        return false;
+    }
+}
+
+// Make it globally available
+window.AuthHelper = AuthHelper;
+

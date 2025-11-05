@@ -57,11 +57,45 @@ function renderHeader() {
                     <div class="help">
                         <i class="ri-questionnaire-line"></i>
                     </div>
-                    <div class="account">
-                        <i class="ri-account-circle-line" title="Account"></i>
-                        <div class="account-dropdown">
-                            <p class="login"><a href="${context.linkBase}login.html">Login</a></p>
-                            <p class="register"><a href="${context.linkBase}register.html">Register</a></p>
+
+                    <!-- Auth Section -->
+                    <div id="auth-section" class="auth-section">
+                        <a href="${context.linkBase}login.html" class="auth-link">
+                            <i class="ri-user-line"></i>
+                            <span>Sign In</span>
+                        </a>
+                        <a href="${context.linkBase}register.html" class="auth-link register">
+                            <span>Register</span>
+                        </a>
+                    </div>
+
+                    <!-- User Section (hidden by default) -->
+                    <div id="user-section" class="user-section" style="display: none;">
+                        <div class="user-menu">
+                            <button class="user-toggle" id="user-toggle">
+                                <i class="ri-user-line"></i>
+                                <span id="user-name">User Name</span>
+                                <i class="ri-arrow-down-s-line"></i>
+                            </button>
+                            <div class="user-dropdown">
+                                <a href="${context.linkBase}account.html" class="dropdown-item">
+                                    <i class="ri-user-line"></i>
+                                    My Account
+                                </a>
+                                <a href="${context.linkBase}orders.html" class="dropdown-item">
+                                    <i class="ri-shopping-bag-line"></i>
+                                    My Orders
+                                </a>
+                                <a href="${context.linkBase}wishlist.html" class="dropdown-item">
+                                    <i class="ri-heart-line"></i>
+                                    Wishlist
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a href="#" class="dropdown-item logout" id="logout-btn">
+                                    <i class="ri-logout-box-line"></i>
+                                    Logout
+                                </a>
+                            </div>
                         </div>
                     </div>
 

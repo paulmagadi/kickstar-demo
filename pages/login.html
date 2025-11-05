@@ -30,6 +30,23 @@
                     <p>Sign in to your account</p>
                 </div>
 
+                <!-- Demo Credentials -->
+                <div class="demo-credentials">
+                    <h4>Demo Credentials:</h4>
+                    <div class="credential-item">
+                        <span>Email: demo@kickstar.com</span>
+                        <button class="copy-credential" data-value="demo@kickstar.com">
+                            <i class="ri-file-copy-line"></i> Copy
+                        </button>
+                    </div>
+                    <div class="credential-item">
+                        <span>Password: Demo123!</span>
+                        <button class="copy-credential" data-value="Demo123!">
+                            <i class="ri-file-copy-line"></i> Copy
+                        </button>
+                    </div>
+                </div>
+
                 <form class="register-form" id="login-form">
                     <div class="form-group">
                         <label for="login-email">Email Address *</label>
@@ -63,6 +80,22 @@
                         </button>
                     </div>
 
+                    <div class="social-login">
+                        <div class="social-divider">
+                            <span>Or continue with</span>
+                        </div>
+                        <div class="social-buttons">
+                            <a href="#" class="social-btn google">
+                                <i class="ri-google-fill"></i>
+                                Google
+                            </a>
+                            <a href="#" class="social-btn facebook">
+                                <i class="ri-facebook-fill"></i>
+                                Facebook
+                            </a>
+                        </div>
+                    </div>
+
                     <div class="form-footer">
                         <p>Don't have an account? <a href="register.html">Create one here</a></p>
                     </div>
@@ -71,10 +104,27 @@
         </div>
     </div>
 
+    <!-- Success Modal -->
+    <div id="login-success-modal" class="modal">
+        <div class="modal-content success-modal">
+            <div class="modal-header">
+                <i class="ri-checkbox-circle-fill"></i>
+                <h3>Welcome Back!</h3>
+            </div>
+            <div class="modal-body">
+                <p>You have successfully signed in to your account.</p>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-primary" id="go-to-account-login">Go to My Account</button>
+                <button class="btn btn-outline" id="continue-shopping-login">Continue Shopping</button>
+            </div>
+        </div>
+    </div>
+
     <script src="../js/context.js"></script>
     <script src="../js/header-template.js"></script>
     <script src="../js/header.js"></script>
-    <script src="../js/register.js"></script>
+    <script src="../js/login.js"></script>
     <script src="../js/footer.js"></script>
 </body>
 </html>
