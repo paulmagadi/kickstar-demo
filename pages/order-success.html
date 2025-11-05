@@ -17,7 +17,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
         crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    
+
 </head>
 
 <body>
@@ -30,21 +30,26 @@
         </div>
 
         <div class="order-success-container">
-            <div class="success-animation">
-                <i class="ri-checkbox-circle-fill"></i>
-            </div>
-            <h2>Thank You for Your Order!</h2>
-            <p>Your order has been placed successfully.</p>
+            <div class="order-success-card">
+                <div class="success-animation">
+                    <i class="ri-checkbox-circle-fill"></i>
+                </div>
+                <h2>Thank You for Your Order!</h2>
+                <p>Your order has been placed successfully.</p>
 
-            <a href="#"><button type="button">View Order</button></a>
-            <a href="../index.html"><button type="button"><i class="ri-shopping-bag-line"></i> Continue Shopping</button></a>
+                <p>Order Ref: <strong id="order-id-number"></strong></p>
+
+                <a href="#"><button type="button">View Order</button></a>
+                <a href="../index.html"><button type="button"><i class="ri-shopping-bag-line"></i> Continue
+                        Shopping</button></a>
+            </div>
         </div>
 
-        <div class="order-receipt-container">
+        <div class="order-summery-container">
 
-            <div class="order-receipt" id="order-receipt">
+            <div class="order-summery" id="order-summery">
                 <h3>Order Summary</h3>
-                
+
                 <hr>
 
                 <div class="receipt-info"><strong>Order ID:</strong> <span id="order-id">#12345</span></div>
@@ -108,10 +113,11 @@
     <script src="../js/context.js"></script>
     <script src="../js/header-template.js"></script>
     <script src="../js/header.js"></script>
-     <script src="../js/order-success.js"></script>
+    <script src="../js/order-success.js"></script>
+    <script src="../js/order-pdf.js"></script>
     <script src="../js/footer.js"></script>
 
-    
+
 
 </body>
 

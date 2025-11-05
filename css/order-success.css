@@ -17,18 +17,60 @@
 }
 
 .order-success-container {
-    text-align: center;
+    margin: 2rem 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+.order-success-card {
     width: 100%;
     max-width: 600px;
+    text-align: center;
     border: 1px solid var(--gray-shade-color);
     border-radius: 8px;
-    margin: 2rem auto;
     padding: 1rem;
 }
 
+.order-success-card h2 {
+    color: var(--success);
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+}
 
-/* Order Receipt Container */
-.order-receipt-container {
+.order-success-card p {
+    margin-bottom: 1rem;
+    color: var(--neutral-dark-color);
+}
+
+.order-success-card button {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    margin: 0.5rem;
+    transition: background-color 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.order-success-card button:hover {
+    background: #e02b07;
+}
+
+.order-success-card a:last-child button {
+    background: var(--secondary-color);
+}
+
+.order-success-card a:last-child button:hover {
+    background: #008f7a;
+}
+
+/* Order summery Container */
+.order-summery-container {
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -37,12 +79,12 @@
     margin: 0 2rem;
 }
 
-/* Order Receipt */
-.order-receipt {
+/* Order summery */
+.order-summery {
     background: var(--white-color);
     border-radius: 12px;
     border: 1px solid var(--gray-shade-color);
-    padding: 30px;
+    padding: 16px;
     width: 100%;
     margin-bottom: 30px;
 }
@@ -65,19 +107,19 @@
     margin-bottom: 10px;
 }
 
-.order-receipt p {
+.order-summery p {
     margin-bottom: 15px;
     color: var(--neutral-dark-color);
 }
 
-.order-receipt hr {
+.order-summery hr {
     border: none;
     height: 1px;
     background: var(--gray-shade-color);
     margin: 20px 0;
 }
 
-.order-receipt h3 {
+.order-summery h3 {
     margin-bottom: 20px;
     color: var(--neutral-dark-color);
     font-size: 22px;
@@ -351,14 +393,30 @@ td {
     margin-bottom: 20px;
 }
 
+
 /* Responsive Styles */
 @media (max-width: 768px) {
-    .container {
+    .order-summery-container {
+        padding: 1rem 0;
+        margin: 0 1rem;
+    }
+
+    .order-summery {
         padding: 10px;
     }
 
-    .order-receipt {
-        padding: 20px;
+    .order-success-card {
+        padding: 1.5rem;
+    }
+    
+    .order-success-card h2 {
+        font-size: 1.5rem;
+    }
+    
+    .order-success-card button {
+        width: 100%;
+        justify-content: center;
+        margin: 0.25rem 0;
     }
 
     table {
@@ -391,6 +449,18 @@ td {
 }
 
 @media (max-width: 576px) {
+    .order-success-container {
+        margin: 2rem 1rem;
+    }
+    .order-summery-container {
+        padding: 10px 0;
+        margin: 0 1rem;
+    }
+
+    .order-summery {
+        padding: 10px 5px;
+    }
+
     .brand-header h2 {
         font-size: 24px;
     }
@@ -407,5 +477,15 @@ td {
 
     .product-image-container {
         margin-bottom: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .order-success-container {
+        margin: 1rem 0.5rem;
+    }
+    
+    .order-summery-container {
+        margin: 0 0.5rem;
     }
 }
