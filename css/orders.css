@@ -1,0 +1,554 @@
+:root {
+    --primary-color: #fd3008;
+    --secondary-color: #00a896;
+    --neutral-light-color: #f8f9fa;
+    --neutral-dark-color: #2d2d2d;
+    --accent-color: #ffd166;
+    --snow: #fffafa;
+    --anti-flash-white: #f4f6f6;
+    --gray-shade-color: #dee7e7;
+    --white-color: #ffffff;
+    --black-color: #000000;
+    --timberwolf: #ced0ce;
+    --black-low-opacity: #00000033;
+    --warning: #ff0000;
+    --info: #2a7a55;
+    --success: #2a7a55;
+}
+
+/* Orders Page Styles */
+.orders-page {
+    padding: 2rem 0;
+}
+
+.page-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.page-header h1 {
+    color: var(--neutral-dark-color);
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.page-header p {
+    color: var(--neutral-dark-color);
+    opacity: 0.7;
+    font-size: 1.1rem;
+}
+
+/* Orders Filter */
+.orders-filter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.filter-options {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--gray-shade-color);
+    background: var(--white-color);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 0.9rem;
+}
+
+.filter-btn.active,
+.filter-btn:hover {
+    background: var(--primary-color);
+    color: var(--white-color);
+    border-color: var(--primary-color);
+}
+
+.search-box {
+    position: relative;
+    min-width: 250px;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 0.5rem 2.5rem 0.5rem 1rem;
+    border: 1px solid var(--gray-shade-color);
+    border-radius: 6px;
+    font-size: 0.9rem;
+}
+
+.search-box i {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--neutral-dark-color);
+    opacity: 0.5;
+}
+
+/* Orders List */
+.orders-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.order-card {
+    background: var(--white-color);
+    border: 1px solid var(--gray-shade-color);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.order-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.order-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.order-info h3 {
+    margin: 0 0 0.5rem 0;
+    color: var(--neutral-dark-color);
+    font-size: 1.1rem;
+}
+
+.order-meta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.order-meta span {
+    font-size: 0.9rem;
+    color: var(--neutral-dark-color);
+    opacity: 0.7;
+}
+
+.order-status {
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.status-pending {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.status-processing {
+    background: #cce7ff;
+    color: #004085;
+}
+
+.status-shipped {
+    background: #d1ecf1;
+    color: #0c5460;
+}
+
+.status-delivered {
+    background: #d4edda;
+    color: #155724;
+}
+
+.status-cancelled {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.order-items-preview {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.order-item-preview {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    background: var(--anti-flash-white);
+    border-radius: 8px;
+    flex: 1;
+    min-width: 200px;
+}
+
+.item-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 6px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.item-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.item-details h4 {
+    margin: 0 0 0.25rem 0;
+    font-size: 0.9rem;
+    color: var(--neutral-dark-color);
+}
+
+.item-details p {
+    margin: 0;
+    font-size: 0.8rem;
+    color: var(--neutral-dark-color);
+    opacity: 0.7;
+}
+
+.order-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+    border-top: 1px solid var(--gray-shade-color);
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.order-total {
+    font-weight: 600;
+    color: var(--neutral-dark-color);
+    font-size: 1.1rem;
+}
+
+.order-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.btn {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    text-decoration: none;
+}
+
+.btn-primary {
+    background: var(--primary-color);
+    color: var(--white-color);
+}
+
+.btn-primary:hover {
+    background: #e02b07;
+}
+
+.btn-outline {
+    background: transparent;
+    color: var(--neutral-dark-color);
+    border: 1px solid var(--gray-shade-color);
+}
+
+.btn-outline:hover {
+    background: var(--anti-flash-white);
+}
+
+.btn-danger {
+    background: #dc3545;
+    color: var(--white-color);
+}
+
+.btn-danger:hover {
+    background: #c82333;
+}
+
+/* Loading and Empty States */
+.loading-state {
+    text-align: center;
+    padding: 3rem;
+    color: var(--neutral-dark-color);
+}
+
+.loading-state i {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--neutral-dark-color);
+}
+
+.empty-state i {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    color: var(--gray-shade-color);
+}
+
+.empty-state h3 {
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.empty-state p {
+    margin-bottom: 2rem;
+    opacity: 0.7;
+}
+
+
+/* Pagination Styles */
+.orders-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--gray-shade-color);
+}
+
+.pagination-btn {
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--gray-shade-color);
+    background: var(--white-color);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.pagination-btn:hover:not(.disabled):not(.active) {
+    background: var(--anti-flash-white);
+}
+
+.pagination-btn.active {
+    background: var(--primary-color);
+    color: var(--white-color);
+    border-color: var(--primary-color);
+}
+
+.pagination-btn.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.pagination-ellipsis {
+    padding: 0.5rem;
+    color: var(--neutral-dark-color);
+    opacity: 0.5;
+}
+
+/* Orders counter */
+.orders-counter {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: var(--neutral-dark-color);
+    opacity: 0.7;
+    font-size: 0.9rem;
+}
+
+
+
+
+/* Pagination Styles */
+.orders-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--gray-shade-color);
+    flex-wrap: wrap;
+}
+
+.page-counter {
+    font-size: 0.9rem;
+    color: var(--neutral-dark-color);
+    opacity: 0.7;
+    margin-right: 1rem;
+    font-weight: 500;
+}
+
+.pagination-btn {
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--gray-shade-color);
+    background: var(--white-color);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.pagination-btn:hover:not(.disabled):not(.active) {
+    background: var(--anti-flash-white);
+}
+
+.pagination-btn.active {
+    background: var(--primary-color);
+    color: var(--white-color);
+    border-color: var(--primary-color);
+}
+
+.pagination-btn.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.pagination-ellipsis {
+    padding: 0.5rem;
+    color: var(--neutral-dark-color);
+    opacity: 0.5;
+}
+
+/* Orders counter */
+.orders-counter {
+    text-align: center;
+    margin: 1rem 0;
+    color: var(--neutral-dark-color);
+    opacity: 0.7;
+    font-size: 0.9rem;
+    padding: 0.5rem;
+    background: var(--anti-flash-white);
+    border-radius: 6px;
+}
+
+/* Empty state improvements */
+.empty-state {
+    text-align: center;
+    padding: 3rem 2rem;
+    color: var(--neutral-dark-color);
+}
+
+.empty-state i {
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+    color: var(--gray-shade-color);
+    opacity: 0.7;
+}
+
+.empty-state h3 {
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    color: var(--neutral-dark-color);
+}
+
+.empty-state p {
+    margin-bottom: 2rem;
+    opacity: 0.7;
+    line-height: 1.6;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Responsive pagination */
+@media (max-width: 768px) {
+    .orders-pagination {
+        gap: 0.25rem;
+    }
+    
+    .pagination-btn {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+    }
+    
+    .page-counter {
+        margin-right: 0.5rem;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .orders-pagination {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .page-counter {
+        margin-right: 0;
+        margin-bottom: 0.5rem;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .orders-filter {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .filter-options {
+        justify-content: center;
+    }
+
+    .search-box {
+        min-width: auto;
+    }
+
+    .order-card-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .order-footer {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .order-actions {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .order-actions .btn {
+        flex: 1;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .orders-page {
+        padding: 1rem 0;
+    }
+
+    .page-header h1 {
+        font-size: 2rem;
+    }
+
+    .order-items-preview {
+        flex-direction: column;
+    }
+
+    .order-item-preview {
+        min-width: auto;
+    }
+}
