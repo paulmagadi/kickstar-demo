@@ -19,6 +19,7 @@
 /* Order Detail Page Styles */
 .order-detail-page {
     padding: 2rem 0;
+    margin: 2rem;
 }
 
 .order-header {
@@ -310,8 +311,13 @@
 }
 
 @keyframes spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 /* Responsive Design */
@@ -329,6 +335,7 @@
 @media (max-width: 768px) {
     .order-detail-page {
         padding: 1rem 0;
+        margin: 1rem;
     }
 
     .order-header {
@@ -340,6 +347,7 @@
         flex-direction: column;
         align-items: flex-start;
         text-align: left;
+        padding: 1rem;
     }
 
     .item-quantity,
@@ -347,6 +355,11 @@
         text-align: left;
         min-width: auto;
     }
+
+    .order-summary-card {
+        padding: 1rem;
+    }
+
 
     .action-buttons {
         flex-direction: row;
@@ -357,9 +370,26 @@
         flex: 1;
         min-width: 150px;
     }
+
+    .info-card {
+        padding: 1rem;
+    }
+
+    .order-timeline {
+        padding: 1rem;
+    }
+
 }
 
 @media (max-width: 480px) {
+    .order-item {
+        padding: 10px;
+    }
+
+    .order-summary-card {
+        padding: 10px;
+    }
+
     .order-header h1 {
         font-size: 1.5rem;
     }
@@ -376,5 +406,13 @@
 
     .action-buttons .btn {
         min-width: 100%;
+    }
+
+    .info-card {
+        padding: 10px;
+    }
+
+    .order-timeline {
+        padding: 10px;
     }
 }

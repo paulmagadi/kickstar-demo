@@ -46,10 +46,6 @@ function renderHeader() {
                 </form>
             </div>
 
-                
-
-                
-
             <!-- Header Items -->
             <div class="header-items-container">
                     <!-- Mobile Search Toggle -->
@@ -64,8 +60,8 @@ function renderHeader() {
                     <div class="account">
                         <i class="ri-account-circle-line" title="Account"></i>
                         <div class="account-dropdown">
-                            <p class="login"><a href="#">Login</a></p>
-                            <p class="register"><a href="#">Register</a></p>
+                            <p class="login"><a href="${context.linkBase}login.html">Login</a></p>
+                            <p class="register"><a href="${context.linkBase}register.html">Register</a></p>
                         </div>
                     </div>
 

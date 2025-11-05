@@ -7,7 +7,7 @@ class OrderDetailPage {
 
     init() {
         this.loadOrder();
-        this.setupEventListeners();
+        // this.setupEventListeners();
     }
 
     loadOrder() {
@@ -378,7 +378,7 @@ class OrderDetailPage {
             if (confirm('Items added to cart! Would you like to proceed to checkout?')) {
                 window.location.href = 'checkout.html';
             } else {
-                window.location.href = '../index.html';
+                window.location.href = 'order-detail';
             }
         } catch (error) {
             console.error('Error adding items to cart:', error);

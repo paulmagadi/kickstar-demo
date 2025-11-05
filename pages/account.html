@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account - KickStar</title>
+    
+    <link rel="shortcut icon" href="../images/logo2.svg" type="image/x-icon">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/account.css">
+    <link rel="stylesheet" href="../css/footer.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+</head>
+<body>
+    <div class="container pages">
+        <div class="breadcrumb" id="breadcrumb">
+            <a href="../index.html" title="Home"><small>Home</small></a>&nbsp; &#10095; &nbsp;
+            <small>My Account</small>
+        </div>
+
+        <div class="account-page">
+            <div class="page-header">
+                <h1>My Account</h1>
+                <p>Manage your profile, orders, and preferences</p>
+            </div>
+
+            <div class="account-layout">
+                <!-- Sidebar Navigation -->
+                <aside class="account-sidebar">
+                    <div class="user-profile-card">
+                        <div class="user-avatar">
+                            <img src="" alt="Profile" id="user-avatar-img" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ccircle cx=%2250%22 cy=%2250%22 r=%2245%22 fill=%22%23f0f0f0%22/%3E%3Ctext x=%2250%22 y=%2255%22 font-family=%22Arial%22 font-size=%2230%22 text-anchor=%22middle%22 fill=%22%23999%22%3E👤%3C/text%3E%3C/svg%3E'">
+                            <button class="change-avatar-btn" id="change-avatar-btn" type="button" title="User">
+                                <i class="ri-camera-line"></i>
+                            </button>
+                        </div>
+                        <div class="user-info">
+                            <h3 id="user-fullname">Loading...</h3>
+                            <p id="user-email">Loading...</p>
+                            <p class="member-since">Member since <span id="member-since">2024</span></p>
+                        </div>
+                    </div>
+
+                    <nav class="account-nav">
+                        <a href="#dashboard" class="nav-item active" data-tab="dashboard">
+                            <i class="ri-dashboard-line"></i>
+                            <span>Dashboard</span>
+                        </a>
+                        <a href="#profile" class="nav-item" data-tab="profile">
+                            <i class="ri-user-line"></i>
+                            <span>Profile</span>
+                        </a>
+                        <a href="#orders" class="nav-item" data-tab="orders">
+                            <i class="ri-shopping-bag-line"></i>
+                            <span>Orders</span>
+                            <span class="nav-badge" id="orders-badge">0</span>
+                        </a>
+                        <a href="#addresses" class="nav-item" data-tab="addresses">
+                            <i class="ri-map-pin-line"></i>
+                            <span>Addresses</span>
+                        </a>
+                        <a href="#wishlist" class="nav-item" data-tab="wishlist">
+                            <i class="ri-heart-line"></i>
+                            <span>Wishlist</span>
+                            <span class="nav-badge" id="wishlist-badge">0</span>
+                        </a>
+                        <a href="#settings" class="nav-item" data-tab="settings">
+                            <i class="ri-settings-line"></i>
+                            <span>Settings</span>
+                        </a>
+                        <a href="#logout" class="nav-item logout-btn" id="logout-btn">
+                            <i class="ri-logout-box-line"></i>
+                            <span>Logout</span>
+                        </a>
+                    </nav>
+                </aside>
+
+                <!-- Main Content -->
+                <main class="account-content">
+                    <!-- Dashboard Tab -->
+                    <div class="tab-content active" id="dashboard-tab">
+                        <div class="tab-header">
+                            <h2>Dashboard</h2>
+                            <p>Welcome back! Here's your account overview.</p>
+                        </div>
+
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-icon orders">
+                                    <i class="ri-shopping-bag-line"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3 id="total-orders">0</h3>
+                                    <p>Total Orders</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon pending">
+                                    <i class="ri-time-line"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3 id="pending-orders">0</h3>
+                                    <p>Pending Orders</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon addresses">
+                                    <i class="ri-map-pin-line"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3 id="saved-addresses">0</h3>
+                                    <p>Saved Addresses</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon wishlist">
+                                    <i class="ri-heart-line"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3 id="wishlist-items">0</h3>
+                                    <p>Wishlist Items</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="recent-activity">
+                            <h3>Recent Activity</h3>
+                            <div class="activity-list" id="recent-activity">
+                                <!-- Recent orders will be loaded here -->
+                                <div class="loading-state">
+                                    <i class="ri-loader-4-line spin"></i>
+                                    <p>Loading recent activity...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Profile Tab -->
+                    <div class="tab-content" id="profile-tab">
+                        <div class="tab-header">
+                            <h2>Profile Information</h2>
+                            <p>Manage your personal information and preferences</p>
+                        </div>
+
+                        <form class="profile-form" id="profile-form">
+                            <div class="form-section">
+                                <h3>Personal Information</h3>
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label for="first-name">First Name</label>
+                                        <input type="text" id="first-name" name="firstName" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="last-name">Last Name</label>
+                                        <input type="text" id="last-name" name="lastName" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">Email Address</label>
+                                        <input type="email" id="email" name="email" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="phone">Phone Number</label>
+                                        <input type="tel" id="phone" name="phone">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <h3>Preferences</h3>
+                                <div class="preferences">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="marketing-emails" name="marketingEmails">
+                                        <span class="checkmark"></span>
+                                        Receive marketing emails and promotions
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="order-updates" name="orderUpdates">
+                                        <span class="checkmark"></span>
+                                        Receive order updates via email
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="sms-notifications" name="smsNotifications">
+                                        <span class="checkmark"></span>
+                                        Receive SMS notifications
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="ri-save-line"></i> Save Changes
+                                </button>
+                                <button type="button" class="btn btn-outline" id="cancel-profile">
+                                    Cancel
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Orders Tab -->
+                    <div class="tab-content" id="orders-tab">
+                        <div class="tab-header">
+                            <h2>Order History</h2>
+                            <p>View and manage your orders</p>
+                        </div>
+
+                        <div class="orders-overview">
+                            <div class="orders-filter">
+                                <button class="filter-btn active" data-filter="all">All Orders</button>
+                                <button class="filter-btn" data-filter="pending">Pending</button>
+                                <button class="filter-btn" data-filter="processing">Processing</button>
+                                <button class="filter-btn" data-filter="delivered">Delivered</button>
+                            </div>
+
+                            <div class="orders-list" id="account-orders-list">
+                                <!-- Orders will be loaded here -->
+                                <div class="loading-state">
+                                    <i class="ri-loader-4-line spin"></i>
+                                    <p>Loading your orders...</p>
+                                </div>
+                            </div>
+
+                            <div class="view-all-orders">
+                                <a href="orders.html" class="btn btn-outline">
+                                    <i class="ri-eye-line"></i> View All Orders
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Addresses Tab -->
+                    <div class="tab-content" id="addresses-tab">
+                        <div class="tab-header">
+                            <h2>Saved Addresses</h2>
+                            <p>Manage your shipping addresses</p>
+                        </div>
+
+                        <div class="addresses-section">
+                            <button class="btn btn-primary" id="add-address-btn">
+                                <i class="ri-add-line"></i> Add New Address
+                            </button>
+
+                            <div class="addresses-grid" id="addresses-grid">
+                                <!-- Addresses will be loaded here -->
+                                <div class="loading-state">
+                                    <i class="ri-loader-4-line spin"></i>
+                                    <p>Loading your addresses...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Wishlist Tab -->
+                    <div class="tab-content" id="wishlist-tab">
+                        <div class="tab-header">
+                            <h2>My Wishlist</h2>
+                            <p>Your saved items</p>
+                        </div>
+
+                        <div class="wishlist-container" id="wishlist-container">
+                            <!-- Wishlist items will be loaded here -->
+                            <div class="empty-state">
+                                <i class="ri-heart-line"></i>
+                                <h3>Your Wishlist is Empty</h3>
+                                <p>Save items you love to your wishlist for later</p>
+                                <a href="../index.html" class="btn btn-primary">
+                                    <i class="ri-shopping-bag-line"></i> Start Shopping
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Settings Tab -->
+                    <div class="tab-content" id="settings-tab">
+                        <div class="tab-header">
+                            <h2>Account Settings</h2>
+                            <p>Manage your account security and preferences</p>
+                        </div>
+
+                        <div class="settings-sections">
+                            <div class="settings-section">
+                                <h3>Security</h3>
+                                <div class="security-actions">
+                                    <button class="btn btn-outline" id="change-password-btn">
+                                        <i class="ri-lock-line"></i> Change Password
+                                    </button>
+                                    <button class="btn btn-outline" id="two-factor-btn">
+                                        <i class="ri-shield-keyhole-line"></i> Two-Factor Authentication
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="settings-section">
+                                <h3>Data & Privacy</h3>
+                                <div class="privacy-actions">
+                                    <button class="btn btn-outline" id="download-data-btn">
+                                        <i class="ri-download-line"></i> Download My Data
+                                    </button>
+                                    <button class="btn btn-danger" id="delete-account-btn">
+                                        <i class="ri-delete-bin-line"></i> Delete Account
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <!-- Address Modal (Reuse from checkout) -->
+    <div id="address-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">Add New Address</h3>
+                <span class="close-modal" id="close-modal">&times;</span>
+            </div>
+            <form id="address-form">
+                <input type="hidden" id="address-id">
+                <div class="form-group">
+                    <label for="fullname">Full Name</label>
+                    <input type="text" id="fullname" name="fullname" required>
+                </div>
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <input type="text" id="address" name="address" required>
+                </div>
+                <div class="form-group">
+                    <label for="city">City</label>
+                    <input type="text" id="city" name="city" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Save Address</button>
+                    <button type="button" class="btn btn-outline" id="cancel-address">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Change Password Modal -->
+    <div id="password-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Change Password</h3>
+                <span class="close-modal" id="close-password-modal">&times;</span>
+            </div>
+            <form id="password-form">
+                <div class="form-group">
+                    <label for="current-password">Current Password</label>
+                    <input type="password" id="current-password" name="currentPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="new-password">New Password</label>
+                    <input type="password" id="new-password" name="newPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirm-password">Confirm New Password</label>
+                    <input type="password" id="confirm-password" name="confirmPassword" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Update Password</button>
+                    <button type="button" class="btn btn-outline" id="cancel-password">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="../js/context.js"></script>
+    <script src="../js/header-template.js"></script>
+    <script src="../js/header.js"></script>
+    <script src="../js/account.js"></script>
+    <script src="../js/footer.js"></script>
+</body>
+</html>

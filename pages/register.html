@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account - KickStar</title>
+    
+    <link rel="shortcut icon" href="../images/logo2.svg" type="image/x-icon">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/register.css">
+    <link rel="stylesheet" href="../css/footer.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+</head>
+<body>
+    <div class="container pages">
+        <div class="breadcrumb" id="breadcrumb">
+            <a href="../index.html" title="Home"><small>Home</small></a>&nbsp; &#10095; &nbsp;
+            <small>Create Account</small>
+        </div>
+
+        <div class="register-page">
+            <div class="register-container">
+                <div class="register-header">
+                    <div class="logo">
+                        <h1>KickStar</h1>
+                    </div>
+                    <h2>Create Your Account</h2>
+                    <p>Join thousands of sustainable fashion lovers</p>
+                </div>
+
+                <form class="register-form" id="register-form">
+                    <div class="form-section">
+                        <h3>Personal Information</h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="first-name">First Name *</label>
+                                <input type="text" id="first-name" name="firstName" required>
+                                <div class="error-message" id="first-name-error"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="last-name">Last Name *</label>
+                                <input type="text" id="last-name" name="lastName" required>
+                                <div class="error-message" id="last-name-error"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Account Details</h3>
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" required>
+                            <div class="error-message" id="email-error"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" placeholder="+254 XXX XXX XXX">
+                            <div class="error-message" id="phone-error"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Security</h3>
+                        <div class="form-group">
+                            <label for="password">Password *</label>
+                            <div class="password-input">
+                                <input type="password" id="password" name="password" required>
+                                <button type="button" class="toggle-password" id="toggle-password">
+                                    <i class="ri-eye-line"></i>
+                                </button>
+                            </div>
+                            <div class="password-strength">
+                                <div class="strength-bar">
+                                    <div class="strength-fill" id="strength-fill"></div>
+                                </div>
+                                <span class="strength-text" id="strength-text">Weak</span>
+                            </div>
+                            <div class="error-message" id="password-error"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm-password">Confirm Password *</label>
+                            <div class="password-input">
+                                <input type="password" id="confirm-password" name="confirmPassword" required>
+                                <button type="button" class="toggle-password" id="toggle-confirm-password">
+                                    <i class="ri-eye-line"></i>
+                                </button>
+                            </div>
+                            <div class="error-message" id="confirm-password-error"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Preferences</h3>
+                        <div class="preferences">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="newsletter" name="newsletter" checked>
+                                <span class="checkmark"></span>
+                                Subscribe to our newsletter for updates and exclusive offers
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="terms" name="terms" required>
+                                <span class="checkmark"></span>
+                                I agree to the <a href="terms.html" target="_blank">Terms of Service</a> and <a href="privacy.html" target="_blank">Privacy Policy</a> *
+                            </label>
+                        </div>
+                        <div class="error-message" id="terms-error"></div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary btn-large" id="submit-btn">
+                            <i class="ri-user-add-line"></i> Create Account
+                        </button>
+                    </div>
+
+                    <div class="form-footer">
+                        <p>Already have an account? <a href="login.html">Sign in here</a></p>
+                    </div>
+                </form>
+
+                <div class="register-benefits">
+                    <h3>Why Join KickStar?</h3>
+                    <div class="benefits-list">
+                        <div class="benefit-item">
+                            <i class="ri-truck-line"></i>
+                            <div>
+                                <h4>Fast & Free Shipping</h4>
+                                <p>Free delivery on orders over KES 3,000</p>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="ri-heart-line"></i>
+                            <div>
+                                <h4>Wishlist & Save</h4>
+                                <p>Save your favorite items for later</p>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="ri-star-line"></i>
+                            <div>
+                                <h4>Exclusive Offers</h4>
+                                <p>Get member-only discounts and early access</p>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="ri-history-line"></i>
+                            <div>
+                                <h4>Order History</h4>
+                                <p>Track your orders and reorder easily</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="modal">
+        <div class="modal-content success-modal">
+            <div class="modal-header">
+                <i class="ri-checkbox-circle-fill"></i>
+                <h3>Account Created Successfully!</h3>
+            </div>
+            <div class="modal-body">
+                <p>Welcome to KickStar! Your account has been created successfully.</p>
+                <p>We've sent a confirmation email to your inbox.</p>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-primary" id="go-to-account">Go to My Account</button>
+                <button class="btn btn-outline" id="continue-shopping">Continue Shopping</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/context.js"></script>
+    <script src="../js/header-template.js"></script>
+    <script src="../js/header.js"></script>
+    <script src="../js/register.js"></script>
+    <script src="../js/footer.js"></script>
+</body>
+</html>
