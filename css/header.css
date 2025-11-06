@@ -101,10 +101,8 @@ header {
   display: flex;
   gap: 1em;
   align-items: center;
-  border: 1px solid var(--gray-shade-color);
   padding: .2em .5em;
   border-radius: 8px;
-  /* background-color: #edf2f4; */
 }
 
 .header .header-items-container i {
@@ -120,24 +118,309 @@ header {
   font-size: 0.9rem;
 }
 
-/* Account Dropdown */
-.header .account {
+
+/* Auth Section Styles */
+.auth-section {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.auth-link {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--neutral-dark-color);
+  text-decoration: none;
+  border-radius: 6px;
+  transition: all 0.3s;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.auth-link:hover {
+  background: var(--anti-flash-white);
+  color: var(--primary-color);
+}
+
+.auth-link i {
+  font-size: 1.1rem;
+}
+
+
+.auth-link.register {
+  background: var(--primary-color);
+  color: var(--white-color);
+  /* padding: 0.5rem 1.25rem; */
+  padding: 0.4rem 1rem;
+}
+
+.auth-link.register:hover {
+  background: #e02b07;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(253, 48, 8, 0.3);
+}
+
+/* User Section Styles */
+.user-section {
+  display: flex;
+  align-items: center;
+}
+
+.user-menu {
   position: relative;
 }
 
-.header .account-dropdown {
-  position: absolute;
-  top: 110%;
-  left: 50%;
-  transform: translateX(-50%);
+.user-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.3rem .8rem;
   background: var(--white-color);
-  border-radius: 8px;
-  padding: 1em;
-  display: none;
+  border: 1px solid var(--gray-shade-color);
+  border-radius: 6px;
+  color: var(--neutral-dark-color);
+  cursor: pointer;
+  transition: all 0.3s;
+  font-weight: 500;
+  font-size: 0.8rem;
 }
 
-.header .account:hover .account-dropdown {
-  display: block;
+.user-toggle:hover {
+  border-color: var(--primary-color);
+  box-shadow: 0 2px 8px rgba(253, 48, 8, 0.1);
+}
+
+.user-toggle i:first-child {
+  font-size: 1.1rem;
+  color: var(--primary-color);
+}
+
+.user-toggle i:last-child {
+  font-size: 1rem;
+  transition: transform 0.3s;
+}
+
+.user-toggle.active i:last-child {
+  transform: rotate(180deg);
+}
+
+.user-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 0.5rem;
+  background: var(--white-color);
+  border: 1px solid var(--gray-shade-color);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  min-width: 200px;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s;
+}
+
+.user-dropdown.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  color: var(--neutral-dark-color);
+  text-decoration: none;
+  transition: all 0.3s;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  font-size: 0.9rem;
+}
+
+.dropdown-item:first-child {
+  border-radius: 8px 8px 0 0;
+}
+
+.dropdown-item:last-child {
+  border-radius: 0 0 8px 8px;
+}
+
+.dropdown-item:hover {
+  background: var(--anti-flash-white);
+  color: var(--primary-color);
+}
+
+.dropdown-item i {
+  font-size: 1.1rem;
+  width: 16px;
+  text-align: center;
+}
+
+.dropdown-item.logout {
+  color: var(--warning);
+}
+
+.dropdown-item.logout:hover {
+  background: #fee;
+  color: var(--warning);
+}
+
+.dropdown-divider {
+  height: 1px;
+  background: var(--gray-shade-color);
+  margin: 0.25rem 0;
+}
+
+/* User Avatar Variant */
+.user-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--primary-color);
+  color: var(--white-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.8rem;
+  flex-shrink: 0;
+}
+
+.user-toggle.with-avatar {
+  gap: 0.75rem;
+  padding: 0.4rem 0.75rem 0.4rem 0.4rem;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .auth-section {
+    gap: 0.5rem;
+  }
+
+  .auth-link {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.8rem;
+  }
+
+  .auth-link.register {
+    padding: 0.4rem 1rem;
+  }
+
+  .user-toggle {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.8rem;
+  }
+
+  .user-toggle span {
+    display: none;
+  }
+
+  .user-toggle i:last-child {
+    display: none;
+  }
+
+  .user-dropdown {
+    right: -1rem;
+    min-width: 180px;
+  }
+
+  .dropdown-item {
+    padding: 0.75rem;
+    font-size: 0.85rem;
+  }
+
+  .user-avatar {
+    width: 27px;
+    height: 27px;
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .auth-link span {
+    display: none;
+  }
+
+  .auth-link {
+    padding: 0.5rem;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    justify-content: center;
+  }
+
+  .auth-link.register {
+    padding: 0.5rem;
+    width: auto;
+    height: auto;
+    border-radius: 6px;
+  }
+
+  .auth-link.register span {
+    display: inline;
+  }
+
+  .user-toggle {
+    padding: 0.5rem;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    justify-content: center;
+  }
+
+  .user-toggle span {
+    display: none;
+  }
+
+  .user-toggle i:first-child {
+    margin: 0;
+  }
+}
+
+/* Animation for dropdown */
+@keyframes dropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.user-dropdown {
+  animation: dropdownFadeIn 0.2s ease-out;
+}
+
+/* Focus states for accessibility */
+.auth-link:focus-visible,
+.user-toggle:focus-visible,
+.dropdown-item:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+
+  .auth-link,
+  .user-toggle,
+  .user-dropdown,
+  .dropdown-item {
+    transition: none;
+  }
+
+  .user-dropdown {
+    animation: none;
+  }
 }
 
 /* Cart Count */
@@ -246,13 +529,7 @@ nav .nav-links a.active-url {
   display: none;
 }
 
-/* @media (max-width:1000px) {
-  .help { display: none; }
 
-  .nav-toggle.mobile-only {
-    display: block;
-  }
-} */
 
 @media (max-width: 800px) {
   .header {

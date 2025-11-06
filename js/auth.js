@@ -1,4 +1,4 @@
-// Authentication Helper
+// Enhanced Authentication Helper
 class AuthHelper {
     static isAuthenticated() {
         return localStorage.getItem('isAuthenticated') === 'true';
@@ -14,11 +14,63 @@ class AuthHelper {
         }
     }
 
+    static getUserInitials() {
+        const user = this.getCurrentUser();
+        if (user && user.firstName && user.lastName) {
+            return (user.firstName.charAt(0) + user.lastName.charAt(0)).toUpperCase();
+        }
+        return 'U';
+    }
+
+    static updateAuthUI() {
+        const authSection = document.getElementById('auth-section');
+        const userSection = document.getElementById('user-section');
+        const userName = document.getElementById('user-name');
+        const userToggle = document.getElementById('user-toggle');
+        
+        const isAuthenticated = this.isAuthenticated();
+        const currentUser = this.getCurrentUser();
+
+        if (authSection && userSection) {
+            if (isAuthenticated && currentUser) {
+                authSection.style.display = 'none';
+                userSection.style.display = 'flex';
+                
+                // Update user name
+                if (userName) {
+                    userName.textContent = `${currentUser.firstName} ${currentUser.lastName}`;
+                }
+                
+                // Add avatar to user toggle
+                if (userToggle && !userToggle.querySelector('.user-avatar')) {
+                    const avatar = document.createElement('div');
+                    avatar.className = 'user-avatar';
+                    avatar.textContent = this.getUserInitials();
+                    userToggle.insertBefore(avatar, userToggle.firstChild);
+                    userToggle.classList.add('with-avatar');
+                }
+                
+                // Initialize dropdown if not already initialized
+                if (!window.userDropdown) {
+                    window.userDropdown = new UserDropdown();
+                }
+            } else {
+                authSection.style.display = 'flex';
+                userSection.style.display = 'none';
+                
+                // Clean up dropdown
+                if (window.userDropdown) {
+                    window.userDropdown.closeDropdown();
+                    window.userDropdown = null;
+                }
+            }
+        }
+    }
+
     static logout() {
         localStorage.removeItem('currentUser');
         localStorage.removeItem('isAuthenticated');
         localStorage.removeItem('lastLogin');
-        // Keep remembered email for convenience
         window.dispatchEvent(new Event('userLoggedOut'));
         window.location.href = 'login.html';
     }
@@ -38,6 +90,10 @@ class AuthHelper {
                 const updatedUser = { ...currentUser, ...updatedData };
                 localStorage.setItem('currentUser', JSON.stringify(updatedUser));
                 localStorage.setItem('userProfile', JSON.stringify(updatedUser));
+                
+                // Update UI if needed
+                this.updateAuthUI();
+                
                 window.dispatchEvent(new Event('userProfileUpdated'));
                 return true;
             }
@@ -48,5 +104,16 @@ class AuthHelper {
     }
 }
 
-// Make it globally available
-window.AuthHelper = AuthHelper;
+// Update auth UI when user logs in/out
+window.addEventListener('userLoggedIn', () => {
+    AuthHelper.updateAuthUI();
+});
+
+window.addEventListener('userLoggedOut', () => {
+    AuthHelper.updateAuthUI();
+});
+
+// Initialize auth UI on page load
+document.addEventListener('DOMContentLoaded', () => {
+    AuthHelper.updateAuthUI();
+});
