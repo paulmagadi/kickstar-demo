@@ -800,3 +800,179 @@
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
 }
+
+
+
+
+
+
+
+
+
+
+/* Delete Account Modal Styles */
+.danger-modal .modal-header {
+    text-align: center;
+    padding: 2rem 2rem 1rem;
+    border-bottom: none;
+    background: linear-gradient(135deg, #fee 0%, #fff 100%);
+}
+
+.danger-modal .modal-header i {
+    font-size: 4rem;
+    color: var(--warning);
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.danger-modal .modal-header h3 {
+    margin: 0;
+    color: var(--warning);
+    font-size: 1.5rem;
+}
+
+.danger-modal .modal-body {
+    padding: 1rem 2rem;
+}
+
+.warning-message {
+    color: var(--neutral-dark-color);
+}
+
+.warning-message strong {
+    color: var(--warning);
+}
+
+.deletion-consequences {
+    margin: 1.5rem 0;
+    padding: 1rem;
+    background: var(--anti-flash-white);
+    border-radius: 8px;
+    border-left: 4px solid var(--warning);
+}
+
+.deletion-consequences h4 {
+    margin: 0 0 0.5rem 0;
+    color: var(--neutral-dark-color);
+    font-size: 1rem;
+}
+
+.deletion-consequences ul {
+    margin: 0;
+    padding-left: 1.5rem;
+    color: var(--neutral-dark-color);
+    opacity: 0.8;
+}
+
+.deletion-consequences li {
+    margin: 0.25rem 0;
+}
+
+.confirmation-step {
+    margin: 1.5rem 0;
+    padding: 1rem;
+    background: #fffaf0;
+    border: 1px solid #ffeaa7;
+    border-radius: 6px;
+}
+
+.final-confirmation {
+    margin: 1.5rem 0;
+}
+
+.final-confirmation label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--neutral-dark-color);
+    font-weight: 500;
+}
+
+.final-confirmation input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--gray-shade-color);
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+
+.final-confirmation input:focus {
+    outline: none;
+    border-color: var(--warning);
+    box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.1);
+}
+
+.final-confirmation input.error {
+    border-color: var(--warning);
+    box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.1);
+}
+
+.danger-modal .modal-actions {
+    padding: 1.5rem 2rem 2rem;
+    display: flex;
+    gap: 1rem;
+}
+
+.danger-modal .modal-actions .btn {
+    flex: 1;
+}
+
+/* Disabled danger button */
+.btn-danger:disabled {
+    background: var(--gray-shade-color);
+    color: var(--neutral-dark-color);
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.btn-danger:disabled:hover {
+    background: var(--gray-shade-color);
+    transform: none;
+    box-shadow: none;
+}
+
+/* Loading state for delete button */
+.btn-danger.loading {
+    position: relative;
+    color: transparent;
+}
+
+.btn-danger.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid transparent;
+    border-top: 2px solid currentColor;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* Success state for account deletion */
+.account-deletion-success {
+    text-align: center;
+    padding: 4rem 2rem;
+}
+
+.account-deletion-success i {
+    font-size: 4rem;
+    color: var(--success);
+    margin-bottom: 1.5rem;
+    display: block;
+}
+
+.account-deletion-success h2 {
+    color: var(--neutral-dark-color);
+    margin-bottom: 1rem;
+}
+
+.account-deletion-success p {
+    color: var(--neutral-dark-color);
+    opacity: 0.8;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}

@@ -4,6 +4,7 @@ class AccountPage {
         this.currentUser = null;
         this.currentTab = 'dashboard';
         this.init();
+        this.setupDeleteAccount();
     }
 
     init() {
@@ -757,6 +758,332 @@ class AccountPage {
                 }
             }, 300);
         }, 3000);
+    }
+
+   
+    // Add these methods to the AccountPage class
+    setupDeleteAccount() {
+        const deleteAccountBtn = document.getElementById('delete-account-btn');
+        const deleteAccountModal = document.getElementById('delete-account-modal');
+        const confirmDeleteBtn = document.getElementById('confirm-delete-account');
+        const cancelDeleteBtn = document.getElementById('cancel-delete-account');
+        const confirmDeletionCheckbox = document.getElementById('confirm-deletion');
+        const confirmEmailInput = document.getElementById('confirm-email');
+
+        if (deleteAccountBtn) {
+            deleteAccountBtn.addEventListener('click', () => {
+                this.openDeleteAccountModal();
+            });
+        }
+
+        if (cancelDeleteBtn) {
+            cancelDeleteBtn.addEventListener('click', () => {
+                this.closeDeleteAccountModal();
+            });
+        }
+
+        if (confirmDeleteBtn) {
+            confirmDeleteBtn.addEventListener('click', () => {
+                this.confirmAccountDeletion();
+            });
+        }
+
+        // Real-time validation for confirmation
+        if (confirmDeletionCheckbox && confirmEmailInput) {
+            const validateConfirmation = () => {
+                const isChecked = confirmDeletionCheckbox.checked;
+                const emailMatches = confirmEmailInput.value === this.currentUser.email;
+                confirmDeleteBtn.disabled = !(isChecked && emailMatches);
+            };
+
+            confirmDeletionCheckbox.addEventListener('change', validateConfirmation);
+            confirmEmailInput.addEventListener('input', validateConfirmation);
+        }
+
+        // Close modal on background click
+        if (deleteAccountModal) {
+            deleteAccountModal.addEventListener('click', (e) => {
+                if (e.target === deleteAccountModal) {
+                    this.closeDeleteAccountModal();
+                }
+            });
+        }
+
+        // Close on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && deleteAccountModal.style.display === 'flex') {
+                this.closeDeleteAccountModal();
+            }
+        });
+    }
+
+    openDeleteAccountModal() {
+        const modal = document.getElementById('delete-account-modal');
+        if (!modal) return;
+
+        // Reset confirmation fields
+        document.getElementById('confirm-deletion').checked = false;
+        document.getElementById('confirm-email').value = '';
+        document.getElementById('confirm-delete-account').disabled = true;
+
+        modal.style.display = 'flex';
+        modal.setAttribute('aria-hidden', 'false');
+        
+        // Focus on the first interactive element for accessibility
+        document.getElementById('confirm-deletion').focus();
+    }
+
+    closeDeleteAccountModal() {
+        const modal = document.getElementById('delete-account-modal');
+        if (modal) {
+            modal.style.display = 'none';
+            modal.setAttribute('aria-hidden', 'true');
+        }
+    }
+
+    async confirmAccountDeletion() {
+        const confirmBtn = document.getElementById('confirm-delete-account');
+        const userEmail = document.getElementById('confirm-email').value;
+
+        // Final validation
+        if (userEmail !== this.currentUser.email) {
+            this.showNotification('Email does not match. Please enter your exact email address.', 'error');
+            return;
+        }
+
+        if (!document.getElementById('confirm-deletion').checked) {
+            this.showNotification('Please confirm that you understand this action is irreversible.', 'error');
+            return;
+        }
+
+        // Show loading state
+        confirmBtn.classList.add('loading');
+        confirmBtn.disabled = true;
+
+        try {
+            // Simulate API call delay
+            await new Promise(resolve => setTimeout(resolve, 2000));
+
+            // Perform account deletion
+            await this.deleteUserAccount();
+
+            // Show success message and redirect
+            this.showDeletionSuccess();
+
+        } catch (error) {
+            console.error('Account deletion error:', error);
+            this.showNotification('Failed to delete account. Please try again.', 'error');
+            
+            // Reset button state
+            confirmBtn.classList.remove('loading');
+            confirmBtn.disabled = false;
+        }
+    }
+
+    async deleteUserAccount() {
+        try {
+            const userId = this.currentUser.id;
+            
+            // Remove user from users list
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const updatedUsers = users.filter(user => user.id !== userId);
+            localStorage.setItem('users', JSON.stringify(updatedUsers));
+
+            // Remove user data
+            localStorage.removeItem('currentUser');
+            localStorage.removeItem('userProfile');
+            localStorage.removeItem('isAuthenticated');
+            localStorage.removeItem('lastLogin');
+            localStorage.removeItem('rememberedEmail');
+
+            // Remove user-specific data
+            this.removeUserOrders(userId);
+            this.removeUserAddresses(userId);
+            this.removeUserWishlist(userId);
+
+            // Track deletion for analytics (in real app, this would be an API call)
+            this.trackAccountDeletion(userId);
+
+            return true;
+
+        } catch (error) {
+            console.error('Error deleting user account:', error);
+            throw new Error('Failed to delete account data');
+        }
+    }
+
+    removeUserOrders(userId) {
+        try {
+            // In a real app, orders might be kept for business records
+            // For demo, we'll remove them
+            const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+            const userOrders = orders.filter(order => order.userId === userId);
+            
+            if (userOrders.length > 0) {
+                // Keep orders but anonymize them for demo purposes
+                const updatedOrders = orders.map(order => {
+                    if (order.userId === userId) {
+                        return {
+                            ...order,
+                            userId: 'DELETED_USER',
+                            customerEmail: 'deleted@user.com',
+                            shippingAddress: null
+                        };
+                    }
+                    return order;
+                });
+                localStorage.setItem('orders', JSON.stringify(updatedOrders));
+            }
+        } catch (error) {
+            console.error('Error removing user orders:', error);
+        }
+    }
+
+    removeUserAddresses(userId) {
+        try {
+            // Remove user's addresses
+            localStorage.removeItem('addresses');
+        } catch (error) {
+            console.error('Error removing user addresses:', error);
+        }
+    }
+
+    removeUserWishlist(userId) {
+        try {
+            // Remove user's wishlist
+            localStorage.removeItem('wishlist');
+        } catch (error) {
+            console.error('Error removing user wishlist:', error);
+        }
+    }
+
+    trackAccountDeletion(userId) {
+        // In a real app, you would send this to your analytics service
+        console.log(`Account deleted: ${userId}`);
+        
+        const deletionLog = JSON.parse(localStorage.getItem('accountDeletions') || '[]');
+        deletionLog.push({
+            userId: userId,
+            deletedAt: new Date().toISOString(),
+            reason: 'user_initiated'
+        });
+        localStorage.setItem('accountDeletions', JSON.stringify(deletionLog));
+    }
+
+    showDeletionSuccess() {
+        // Replace the entire account page content with success message
+        const accountPage = document.querySelector('.account-page');
+        
+        accountPage.innerHTML = `
+            <div class="account-deletion-success">
+                <i class="ri-checkbox-circle-fill"></i>
+                <h2>Account Successfully Deleted</h2>
+                <p>Your account and all associated data have been permanently deleted from our systems.<br>
+                We're sorry to see you go and hope you'll consider rejoining us in the future.</p>
+                <div class="success-actions">
+                    <a href="../index.html" class="btn btn-primary">
+                        <i class="ri-home-line"></i> Return to Homepage
+                    </a>
+                    <a href="register.html" class="btn btn-outline">
+                        <i class="ri-user-add-line"></i> Create New Account
+                    </a>
+                </div>
+                <div class="deletion-feedback" style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--gray-shade-color);">
+                    <p style="font-size: 0.9rem; opacity: 0.7;">
+                        If you have any feedback about why you left, we'd appreciate 
+                        <a href="mailto:feedback@kickstar.com" style="color: var(--primary-color);">hearing from you</a>.
+                    </p>
+                </div>
+            </div>
+        `;
+
+        // Add styles for success actions
+        const successActions = accountPage.querySelector('.success-actions');
+        if (successActions) {
+            successActions.style.cssText = `
+                display: flex;
+                gap: 1rem;
+                justify-content: center;
+                flex-wrap: wrap;
+            `;
+        }
+
+        // Dispatch event for other components
+        window.dispatchEvent(new Event('userLoggedOut'));
+    }
+
+    // Update the setupEventListeners method to include delete account
+    setupEventListeners() {
+        // ... existing code ...
+
+        // Delete account
+        const deleteAccountBtn = document.getElementById('delete-account-btn');
+        if (deleteAccountBtn) {
+            deleteAccountBtn.addEventListener('click', () => {
+                this.openDeleteAccountModal();
+            });
+        }
+    }
+
+
+    // Additional security method to prevent accidental deletion
+    setupDeleteAccountSafety() {
+        // Double-check for demo accounts
+        if (this.currentUser.isDemo) {
+            this.showDemoAccountWarning();
+            return;
+        }
+
+        // Check for recent activity
+        this.checkRecentActivity();
+    }
+
+    showDemoAccountWarning() {
+        const deleteBtn = document.getElementById('delete-account-btn');
+        if (deleteBtn) {
+            deleteBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.showNotification('Demo accounts cannot be deleted. This is a protective measure.', 'info');
+            });
+        }
+    }
+
+    checkRecentActivity() {
+        // Check if user has recent orders that might need to be completed
+        const orders = this.getUserOrders();
+        const recentPendingOrders = orders.filter(order => 
+            (order.status === 'pending' || order.status === 'processing') &&
+            new Date(order.date) > new Date(Date.now() - 7 * 24 * 60 * 60 * 1000) // Last 7 days
+        );
+
+        if (recentPendingOrders.length > 0) {
+            this.showPendingOrdersWarning(recentPendingOrders.length);
+        }
+    }
+
+    showPendingOrdersWarning(orderCount) {
+        const deleteBtn = document.getElementById('delete-account-btn');
+        if (deleteBtn) {
+            const originalText = deleteBtn.innerHTML;
+            deleteBtn.innerHTML = `<i class="ri-alert-line"></i> ${orderCount} Pending Orders`;
+            deleteBtn.style.background = '#fff3cd';
+            deleteBtn.style.color = '#856404';
+            deleteBtn.style.borderColor = '#ffeaa7';
+
+            deleteBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.showNotification(
+                    `You have ${orderCount} pending order(s). Please complete or cancel them before deleting your account.`,
+                    'warning'
+                );
+            });
+
+            // Restore original button after 10 seconds
+            setTimeout(() => {
+                deleteBtn.innerHTML = originalText;
+                deleteBtn.style.cssText = '';
+            }, 10000);
+        }
     }
 }
 

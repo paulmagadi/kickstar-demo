@@ -1,20 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Account - KickStar</title>
-    
+
     <link rel="shortcut icon" href="../images/logo2.svg" type="image/x-icon">
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/account.css">
-    
+
     <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../css/footer.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
 </head>
+
 <body>
     <div class="container pages">
         <div class="breadcrumb" id="breadcrumb">
@@ -33,7 +35,8 @@
                 <aside class="account-sidebar">
                     <div class="user-profile-card">
                         <div class="user-avatar">
-                            <img src="" alt="Profile" id="user-avatar-img" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ccircle cx=%2250%22 cy=%2250%22 r=%2245%22 fill=%22%23f0f0f0%22/%3E%3Ctext x=%2250%22 y=%2255%22 font-family=%22Arial%22 font-size=%2230%22 text-anchor=%22middle%22 fill=%22%23999%22%3E👤%3C/text%3E%3C/svg%3E'">
+                            <img src="" alt="Profile" id="user-avatar-img"
+                                onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ccircle cx=%2250%22 cy=%2250%22 r=%2245%22 fill=%22%23f0f0f0%22/%3E%3Ctext x=%2250%22 y=%2255%22 font-family=%22Arial%22 font-size=%2230%22 text-anchor=%22middle%22 fill=%22%23999%22%3E👤%3C/text%3E%3C/svg%3E'">
                             <button class="change-avatar-btn" id="change-avatar-btn" type="button" title="User">
                                 <i class="ri-camera-line"></i>
                             </button>
@@ -303,12 +306,67 @@
                                     <button class="btn btn-danger" id="delete-account-btn">
                                         <i class="ri-delete-bin-line"></i> Delete Account
                                     </button>
+                                    <p
+                                        tyle="font-size: 0.8rem; color: var(--neutral-dark-color); opacity: 0.7; margin-top: 0.5rem;">
+                                        Deleting your account will permanently remove all your data from our
+                                        systems.</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </main>
             </div>
+
+
+            <!-- Delete Account Confirmation Modal -->
+            <div id="delete-account-modal" class="modal">
+                <div class="modal-content danger-modal">
+                    <div class="modal-header">
+                        <i class="ri-error-warning-fill"></i>
+                        <h3>Delete Your Account</h3>
+                    </div>
+                    <div class="modal-body">
+                        <div class="warning-message">
+                            <p><strong>This action cannot be undone.</strong> This will permanently delete your account
+                                and remove all your data from our servers.</p>
+
+                            <div class="deletion-consequences">
+                                <h4>What will be deleted:</h4>
+                                <ul>
+                                    <li>Your profile information</li>
+                                    <li>Order history</li>
+                                    <li>Saved addresses</li>
+                                    <li>Wishlist items</li>
+                                    <li>Account preferences</li>
+                                </ul>
+                            </div>
+
+                            <div class="confirmation-step">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="confirm-deletion" name="confirmDeletion">
+                                    <span class="checkmark"></span>
+                                    I understand that this action is irreversible and I want to proceed with account
+                                    deletion.
+                                </label>
+                            </div>
+
+                            <div class="final-confirmation">
+                                <label for="confirm-email">To confirm, type your email address:</label>
+                                <input type="email" id="confirm-email" placeholder="Enter your email address">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-actions">
+                        <button class="btn btn-danger" id="confirm-delete-account" disabled>
+                            <i class="ri-delete-bin-line"></i> Permanently Delete Account
+                        </button>
+                        <button class="btn btn-outline" id="cancel-delete-account">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 
@@ -379,4 +437,5 @@
     <script src="../js/account.js"></script>
     <script src="../js/footer.js"></script>
 </body>
+
 </html>
