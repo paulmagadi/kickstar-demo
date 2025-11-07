@@ -84,6 +84,7 @@ small,
 .header-after {
     content: "";
     margin-top: 6.4em;
+    margin-top: 110.2px
 }
 
 .breadcrumb {
@@ -140,6 +141,9 @@ section {
 
 
 @media (max-width: 800px) {
+    .header-after {
+        margin-top: 105.2px;
+    }
     .breadcrumb {
         padding: 1em 1em 0 1em;
     }

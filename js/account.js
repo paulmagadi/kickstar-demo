@@ -84,10 +84,18 @@ class AccountPage {
         });
 
         // Logout
-        document.getElementById('logout-btn').addEventListener('click', (e) => {
+        document.getElementById('logout-btn-acc').addEventListener('click', (e) => {
             e.preventDefault();
             this.logout();
         });
+
+        // Delete account
+        const deleteAccountBtn = document.getElementById('delete-account-btn');
+        if (deleteAccountBtn) {
+            deleteAccountBtn.addEventListener('click', () => {
+                this.openDeleteAccountModal();
+            });
+        }
 
         // Modal close handlers
         this.setupModalHandlers();
@@ -684,13 +692,13 @@ class AccountPage {
         this.showNotification('Item removed from wishlist', 'success');
     }
 
+    // Call the AuthHelper on logout
     logout() {
         if (confirm('Are you sure you want to logout?')) {
-            // In a real app, you would clear authentication tokens
-            // For demo, we'll just redirect to home page
-            window.location.href = '../index.html';
+            AuthHelper.logout();
         }
     }
+
 
     showOrderDetails(orderId) {
         const orders = this.getUserOrders();
@@ -761,7 +769,7 @@ class AccountPage {
     }
 
    
-    // Add these methods to the AccountPage class
+    // Delete Account
     setupDeleteAccount() {
         const deleteAccountBtn = document.getElementById('delete-account-btn');
         const deleteAccountModal = document.getElementById('delete-account-modal');
@@ -837,7 +845,7 @@ class AccountPage {
         const modal = document.getElementById('delete-account-modal');
         if (modal) {
             modal.style.display = 'none';
-            modal.setAttribute('aria-hidden', 'true');
+            // modal.setAttribute('aria-hidden', 'true');
         }
     }
 
@@ -1011,20 +1019,6 @@ class AccountPage {
         // Dispatch event for other components
         window.dispatchEvent(new Event('userLoggedOut'));
     }
-
-    // Update the setupEventListeners method to include delete account
-    setupEventListeners() {
-        // ... existing code ...
-
-        // Delete account
-        const deleteAccountBtn = document.getElementById('delete-account-btn');
-        if (deleteAccountBtn) {
-            deleteAccountBtn.addEventListener('click', () => {
-                this.openDeleteAccountModal();
-            });
-        }
-    }
-
 
     // Additional security method to prevent accidental deletion
     setupDeleteAccountSafety() {

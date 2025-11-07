@@ -75,7 +75,7 @@
                             <i class="ri-settings-line"></i>
                             <span>Settings</span>
                         </a>
-                        <a href="#logout" class="nav-item logout-btn" id="logout-btn">
+                        <a href="#logout" class="nav-item logout-btn" id="logout-btn-acc">
                             <i class="ri-logout-box-line"></i>
                             <span>Logout</span>
                         </a>
@@ -327,7 +327,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="warning-message">
-                            <p><strong>This action cannot be undone.</strong> This will permanently delete your account
+                            <p><strong>This action cannot be undone.</strong> This will <strong><u>PERMANENTLY DELETE</u></strong> your account
                                 and remove all your data from our servers.</p>
 
                             <div class="deletion-consequences">
@@ -357,10 +357,10 @@
                         </div>
                     </div>
                     <div class="modal-actions">
-                        <button class="btn btn-danger" id="confirm-delete-account" disabled>
+                        <button class="btn btn-danger" id="confirm-delete-account" disabled  type="button">
                             <i class="ri-delete-bin-line"></i> Permanently Delete Account
                         </button>
-                        <button class="btn btn-outline" id="cancel-delete-account">
+                        <button class="btn btn-outline" id="cancel-delete-account" type="button">
                             Cancel
                         </button>
                     </div>
@@ -405,7 +405,7 @@
 
     <!-- Change Password Modal -->
     <div id="password-modal" class="modal">
-        <div class="modal-content">
+        <div class="modal-content" style="padding: 1rem;">
             <div class="modal-header">
                 <h3>Change Password</h3>
                 <span class="close-modal" id="close-password-modal">&times;</span>
@@ -435,6 +435,8 @@
     <script src="../js/header-template.js"></script>
     <script src="../js/header.js"></script>
     <script src="../js/account.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/checkout.js"></script>
     <script src="../js/footer.js"></script>
 </body>
 

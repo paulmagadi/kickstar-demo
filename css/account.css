@@ -805,17 +805,13 @@
 
 
 
-
-
-
-
-
 /* Delete Account Modal Styles */
 .danger-modal .modal-header {
     text-align: center;
     padding: 2rem 2rem 1rem;
     border-bottom: none;
     background: linear-gradient(135deg, #fee 0%, #fff 100%);
+    
 }
 
 .danger-modal .modal-header i {
@@ -874,6 +870,10 @@
     background: #fffaf0;
     border: 1px solid #ffeaa7;
     border-radius: 6px;
+}
+
+.checkmark {
+    border: 1.5px solid black;
 }
 
 .final-confirmation {

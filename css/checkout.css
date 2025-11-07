@@ -31,9 +31,9 @@ header {
   display: none;
 }
 
-.header-after {
-  margin-top: 3.3rem;
-}
+/* .header-after {
+  margin-top: 72px;
+} */
 
 /* ===== RESET & BASE STYLES ===== */
 
@@ -58,7 +58,7 @@ header {
   margin-bottom: 2rem;
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 10;
   background: var(--anti-flash-white);
 }
 

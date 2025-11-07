@@ -38,17 +38,19 @@ class AuthHelper {
                 
                 // Update user name
                 if (userName) {
-                    userName.textContent = `${currentUser.firstName} ${currentUser.lastName}`;
+                    userName.textContent, userName.title = `${currentUser.firstName} ${currentUser.lastName}`;
                 }
                 
                 // Add avatar to user toggle
-                if (userToggle && !userToggle.querySelector('.user-avatar')) {
-                    const avatar = document.createElement('div');
-                    avatar.className = 'user-avatar';
+                if (userToggle) {
+                    const avatar = document.querySelector(".user-avatar");
+                    avatar.title = `${currentUser.firstName} ${currentUser.lastName}`;
                     avatar.textContent = this.getUserInitials();
                     userToggle.insertBefore(avatar, userToggle.firstChild);
                     userToggle.classList.add('with-avatar');
                 }
+               
+                document.querySelector(".user-toggle .ri-user-line").style.display = "none";
                 
                 // Initialize dropdown if not already initialized
                 if (!window.userDropdown) {
@@ -72,10 +74,10 @@ class AuthHelper {
         localStorage.removeItem('isAuthenticated');
         localStorage.removeItem('lastLogin');
         window.dispatchEvent(new Event('userLoggedOut'));
-        window.location.href = 'login.html';
+        window.location.href = `${context.linkBase}login.html`;
     }
 
-    static requireAuth(redirectUrl = 'login.html') {
+    static requireAuth(redirectUrl = `${context.linkBase}login.html`) {
         if (!this.isAuthenticated()) {
             window.location.href = redirectUrl;
             return false;
@@ -109,11 +111,14 @@ window.addEventListener('userLoggedIn', () => {
     AuthHelper.updateAuthUI();
 });
 
-window.addEventListener('userLoggedOut', () => {
-    AuthHelper.updateAuthUI();
-});
+// window.addEventListener('userLoggedOut', () => {
+//     AuthHelper.updateAuthUI();
+// });
 
 // Initialize auth UI on page load
 document.addEventListener('DOMContentLoaded', () => {
     AuthHelper.updateAuthUI();
 });
+
+// // Make it globally available
+window.AuthHelper = AuthHelper;
