@@ -1,23 +1,22 @@
 :root {
-  --primary-color: #fd3008;
-  --secondary-color: #00a896;
-  --neutral-light-color: #f8f9fa;
-  --neutral-dark-color: #2d2d2d;
-  --accent-color: #ffd166;
-  --snow: #fffafa;
-  --anti-flash-white: #f4f6f6;
-  --gray-shade-color: #dee7e7;
-  --white-color: #ffffff;
-  --black-color: #000000;
-  --timberwolf: #ced0ce;
-}
-
-
-/* Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    --primary-color: #fd3008;
+    --primary-color-dark: #e02b07;
+    --secondary-color: #00a896;
+    --secondary-color-dark: #008f7a;
+    --neutral-light-color: #f8f9fa;
+    --neutral-dark-color: #2d2d2d;
+    --accent-color: #ffd166;
+    --snow: #fffafa;
+    --anti-flash-white: #f4f6f6;
+    --gray-shade-color: #dee7e7;
+    --white-color: #ffffff;
+    --black-color: #000000;
+    --timberwolf: #ced0ce;
+    --black-low-opacity: #00000033;
+    --warning: #da980a;
+    --danger: #ff0000;
+    --info: #14a7d0;
+    --success: #2a7a55;
 }
 
 /* Header Base */
@@ -86,7 +85,7 @@ header {
 
 .search-bar input[type=submit]:hover,
 .search-btn:hover {
-  opacity: 0.8;
+  background-color: var(--primary-color-dark);
 }
 
 /* Header Items */
@@ -156,7 +155,7 @@ header {
 }
 
 .auth-link.register:hover {
-  background: #e02b07;
+  background-color: var(--primary-color-dark);
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(253, 48, 8, 0.3);
 }
@@ -445,7 +444,33 @@ header {
 }
 
 .header .cart-count:hover {
-  opacity: 0.8;
+  background-color: var(--primary-color-dark);
+}
+
+
+.header .wishlist {
+  position: relative;
+}
+
+.header .wishlist-count {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  padding: 2px 7px;
+  background-color: var(--primary-color);
+  border-radius: 50%;
+  color: var(--neutral-light-color);
+  font-size: 12px;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.header .wishlist-count:hover {
+  background-color: var(--primary-color-dark);
 }
 
 /* Mobile Search */

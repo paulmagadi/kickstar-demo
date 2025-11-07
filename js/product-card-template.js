@@ -75,6 +75,8 @@ function createProductCardTemplate(product) {
                         : ""}
                 </div>
 
+                <div class="wishlist-badge" title="Add to Wishlist"><i class="ri-heart-line"></i></div>
+
                 ${discount ? `<div class="product-card-sale-badge"><p>-${discount}%</p></div>` : ""}
 
                 <div class="swatch-wrapper">

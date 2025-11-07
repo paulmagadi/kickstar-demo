@@ -3,12 +3,14 @@ class AccountPage {
     constructor() {
         this.currentUser = null;
         this.currentTab = 'dashboard';
+        this.addressManager = null;
         this.init();
         this.setupDeleteAccount();
     }
 
     init() {
         this.loadUserData();
+        this.setupAddressManagement(); // Initialize address manager first
         this.setupEventListeners();
         this.setupTabs();
         this.loadDashboardData();
@@ -73,10 +75,7 @@ class AccountPage {
             this.updateUserProfile(); // Reset form
         });
 
-        // Address management
-        document.getElementById('add-address-btn').addEventListener('click', () => {
-            this.openAddressModal();
-        });
+        // Address management is now handled by addressManager
 
         // Password change
         document.getElementById('change-password-btn').addEventListener('click', () => {
@@ -99,6 +98,29 @@ class AccountPage {
 
         // Modal close handlers
         this.setupModalHandlers();
+    }
+
+    // Replace manual address management with the reusable manager
+    setupAddressManagement() {
+        this.addressManager = new ShippingAddressManager({
+            containerId: "addresses-grid",
+            modalId: "address-modal", 
+            addButtonId: "add-address-btn",
+            formId: "address-form",
+            onAddressUpdate: (addresses) => {
+                // Update stats when addresses change
+                this.updateStats();
+                
+                // If we're on the addresses tab, refresh the display
+                if (this.currentTab === 'addresses') {
+                    this.loadAddresses();
+                }
+            },
+            onAddressChange: (addresses) => {
+                // Handle address selection changes if needed
+                console.log('Address selection changed:', addresses);
+            }
+        });
     }
 
     setupTabs() {
@@ -182,7 +204,7 @@ class AccountPage {
 
     updateStats() {
         const orders = this.getUserOrders();
-        const addresses = this.getUserAddresses();
+        const addresses = this.addressManager ? this.addressManager.getAddresses() : [];
         const wishlist = this.getUserWishlist();
 
         // Update stats cards
@@ -277,7 +299,6 @@ class AccountPage {
         document.querySelectorAll('.order-card').forEach(card => {
             card.addEventListener('click', () => {
                 const orderId = card.dataset.orderId;
-                // Use modal approach instead of URL
                 this.showOrderDetails(orderId);
             });
         });
@@ -315,76 +336,13 @@ class AccountPage {
         `;
     }
 
+    // Simplified addresses loading - now handled by addressManager
     loadAddresses() {
-        const addresses = this.getUserAddresses();
-        const addressesGrid = document.getElementById('addresses-grid');
-
-        if (addresses.length === 0) {
-            addressesGrid.innerHTML = `
-                <div class="empty-state">
-                    <i class="ri-map-pin-line"></i>
-                    <h3>No Saved Addresses</h3>
-                    <p>Add your first shipping address</p>
-                </div>
-            `;
-            return;
+        // The addressManager automatically handles rendering
+        // This method is kept for compatibility with tab switching
+        if (this.addressManager) {
+            this.addressManager.renderAddresses();
         }
-
-        addressesGrid.innerHTML = addresses.map(address => this.createAddressCard(address)).join('');
-        this.setupAddressActions();
-    }
-
-    createAddressCard(address) {
-        const isDefault = address.isDefault ? '<span class="default-badge">Default</span>' : '';
-
-        return `
-            <div class="address-card ${address.isDefault ? 'selected' : ''}">
-                <h4>${address.fullname} ${isDefault}</h4>
-                <p>${address.phone}</p>
-                <p>${address.address}</p>
-                <p>${address.city}</p>
-                <div class="address-actions">
-                    <button class="btn btn-outline edit-address" data-id="${address.id}">
-                        <i class="ri-edit-line"></i> Edit
-                    </button>
-                    <button class="btn btn-outline set-default-address" data-id="${address.id}">
-                        <i class="ri-check-line"></i> Set Default
-                    </button>
-                    <button class="btn btn-danger delete-address" data-id="${address.id}">
-                        <i class="ri-delete-bin-line"></i>
-                    </button>
-                </div>
-            </div>
-        `;
-    }
-
-    setupAddressActions() {
-        // Edit address
-        document.querySelectorAll('.edit-address').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const addressId = btn.dataset.id;
-                this.editAddress(addressId);
-            });
-        });
-
-        // Set default address
-        document.querySelectorAll('.set-default-address').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const addressId = btn.dataset.id;
-                this.setDefaultAddress(addressId);
-            });
-        });
-
-        // Delete address
-        document.querySelectorAll('.delete-address').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const addressId = btn.dataset.id;
-                this.deleteAddress(addressId);
-            });
-        });
     }
 
     loadWishlist() {
@@ -440,72 +398,7 @@ class AccountPage {
         });
     }
 
-    // Address Management (reusing checkout functionality)
-    openAddressModal() {
-        document.getElementById('modal-title').textContent = 'Add New Address';
-        document.getElementById('address-form').reset();
-        document.getElementById('address-id').value = '';
-        document.getElementById('address-modal').style.display = 'flex';
-    }
-
-    editAddress(addressId) {
-        const addresses = this.getUserAddresses();
-        const address = addresses.find(addr => addr.id === addressId);
-        
-        if (!address) return;
-
-        document.getElementById('modal-title').textContent = 'Edit Address';
-        document.getElementById('address-id').value = address.id;
-        document.getElementById('fullname').value = address.fullname;
-        document.getElementById('address').value = address.address;
-        document.getElementById('city').value = address.city;
-        document.getElementById('phone').value = address.phone;
-        
-        document.getElementById('address-modal').style.display = 'flex';
-    }
-
-    setDefaultAddress(addressId) {
-        const addresses = this.getUserAddresses();
-        const updatedAddresses = addresses.map(addr => ({
-            ...addr,
-            isDefault: addr.id === addressId
-        }));
-
-        localStorage.setItem('addresses', JSON.stringify(updatedAddresses));
-        this.loadAddresses();
-    }
-
-    deleteAddress(addressId) {
-        if (!confirm('Are you sure you want to delete this address?')) return;
-
-        const addresses = this.getUserAddresses();
-        const updatedAddresses = addresses.filter(addr => addr.id !== addressId);
-        
-        localStorage.setItem('addresses', JSON.stringify(updatedAddresses));
-        this.loadAddresses();
-        this.updateStats();
-    }
-
     setupModalHandlers() {
-        // Address modal
-        const addressModal = document.getElementById('address-modal');
-        const addressForm = document.getElementById('address-form');
-        const closeAddressModal = document.getElementById('close-modal');
-        const cancelAddress = document.getElementById('cancel-address');
-
-        addressForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            this.saveAddress();
-        });
-
-        closeAddressModal.addEventListener('click', () => {
-            addressModal.style.display = 'none';
-        });
-
-        cancelAddress.addEventListener('click', () => {
-            addressModal.style.display = 'none';
-        });
-
         // Password modal
         const passwordModal = document.getElementById('password-modal');
         const passwordForm = document.getElementById('password-form');
@@ -527,9 +420,6 @@ class AccountPage {
 
         // Close modals when clicking outside
         window.addEventListener('click', (e) => {
-            if (e.target === addressModal) {
-                addressModal.style.display = 'none';
-            }
             if (e.target === passwordModal) {
                 passwordModal.style.display = 'none';
             }
@@ -547,15 +437,6 @@ class AccountPage {
             return JSON.parse(localStorage.getItem('orders') || '[]');
         } catch (error) {
             console.error('Error loading orders:', error);
-            return [];
-        }
-    }
-
-    getUserAddresses() {
-        try {
-            return JSON.parse(localStorage.getItem('addresses') || '[]');
-        } catch (error) {
-            console.error('Error loading addresses:', error);
             return [];
         }
     }
@@ -593,43 +474,6 @@ class AccountPage {
         this.showNotification('Profile updated successfully!', 'success');
     }
 
-    saveAddress() {
-        const formData = new FormData(document.getElementById('address-form'));
-        const addressId = document.getElementById('address-id').value;
-        const addresses = this.getUserAddresses();
-
-        const addressData = {
-            id: addressId || 'ADDR' + Date.now(),
-            fullname: formData.get('fullname'),
-            address: formData.get('address'),
-            city: formData.get('city'),
-            phone: formData.get('phone'),
-            isDefault: addresses.length === 0 // Set as default if first address
-        };
-
-        let updatedAddresses;
-        if (addressId) {
-            // Editing existing address
-            updatedAddresses = addresses.map(addr => 
-                addr.id === addressId ? { ...addressData, isDefault: addr.isDefault } : addr
-            );
-        } else {
-            // Adding new address
-            updatedAddresses = [...addresses, addressData];
-        }
-
-        localStorage.setItem('addresses', JSON.stringify(updatedAddresses));
-        document.getElementById('address-modal').style.display = 'none';
-        
-        // Reload addresses if we're on that tab
-        if (this.currentTab === 'addresses') {
-            this.loadAddresses();
-        }
-        
-        this.updateStats();
-        this.showNotification('Address saved successfully!', 'success');
-    }
-
     changePassword() {
         const formData = new FormData(document.getElementById('password-form'));
         const currentPassword = formData.get('currentPassword');
@@ -648,7 +492,6 @@ class AccountPage {
         }
 
         // In a real app, you would verify current password with backend
-        // For demo purposes, we'll just show success
         document.getElementById('password-modal').style.display = 'none';
         this.showNotification('Password updated successfully!', 'success');
     }
@@ -699,15 +542,13 @@ class AccountPage {
         }
     }
 
-
     showOrderDetails(orderId) {
         const orders = this.getUserOrders();
         const order = orders.find(o => o.id === orderId);
         
         if (!order) return;
 
-        // You can implement a modal for order details here
-        // For now, redirect to order details page
+        // Redirect to order details page
         window.location.href = `order-details.html?orderId=${orderId}`;
     }
 
@@ -768,8 +609,7 @@ class AccountPage {
         }, 3000);
     }
 
-   
-    // Delete Account
+    // Delete Account functionality remains the same
     setupDeleteAccount() {
         const deleteAccountBtn = document.getElementById('delete-account-btn');
         const deleteAccountModal = document.getElementById('delete-account-modal');
@@ -845,7 +685,6 @@ class AccountPage {
         const modal = document.getElementById('delete-account-modal');
         if (modal) {
             modal.style.display = 'none';
-            // modal.setAttribute('aria-hidden', 'true');
         }
     }
 
@@ -904,12 +743,12 @@ class AccountPage {
             localStorage.removeItem('lastLogin');
             localStorage.removeItem('rememberedEmail');
 
-            // Remove user-specific data
+            // Remove user-specific data using addressManager
             this.removeUserOrders(userId);
             this.removeUserAddresses(userId);
             this.removeUserWishlist(userId);
 
-            // Track deletion for analytics (in real app, this would be an API call)
+            // Track deletion for analytics
             this.trackAccountDeletion(userId);
 
             return true;
@@ -922,13 +761,10 @@ class AccountPage {
 
     removeUserOrders(userId) {
         try {
-            // In a real app, orders might be kept for business records
-            // For demo, we'll remove them
             const orders = JSON.parse(localStorage.getItem('orders') || '[]');
             const userOrders = orders.filter(order => order.userId === userId);
             
             if (userOrders.length > 0) {
-                // Keep orders but anonymize them for demo purposes
                 const updatedOrders = orders.map(order => {
                     if (order.userId === userId) {
                         return {
@@ -949,7 +785,7 @@ class AccountPage {
 
     removeUserAddresses(userId) {
         try {
-            // Remove user's addresses
+            // Clear all addresses for this user
             localStorage.removeItem('addresses');
         } catch (error) {
             console.error('Error removing user addresses:', error);
@@ -958,7 +794,6 @@ class AccountPage {
 
     removeUserWishlist(userId) {
         try {
-            // Remove user's wishlist
             localStorage.removeItem('wishlist');
         } catch (error) {
             console.error('Error removing user wishlist:', error);
@@ -966,7 +801,6 @@ class AccountPage {
     }
 
     trackAccountDeletion(userId) {
-        // In a real app, you would send this to your analytics service
         console.log(`Account deleted: ${userId}`);
         
         const deletionLog = JSON.parse(localStorage.getItem('accountDeletions') || '[]');
@@ -979,7 +813,6 @@ class AccountPage {
     }
 
     showDeletionSuccess() {
-        // Replace the entire account page content with success message
         const accountPage = document.querySelector('.account-page');
         
         accountPage.innerHTML = `
@@ -1005,7 +838,6 @@ class AccountPage {
             </div>
         `;
 
-        // Add styles for success actions
         const successActions = accountPage.querySelector('.success-actions');
         if (successActions) {
             successActions.style.cssText = `
@@ -1016,84 +848,9 @@ class AccountPage {
             `;
         }
 
-        // Dispatch event for other components
         window.dispatchEvent(new Event('userLoggedOut'));
     }
-
-    // Additional security method to prevent accidental deletion
-    setupDeleteAccountSafety() {
-        // Double-check for demo accounts
-        if (this.currentUser.isDemo) {
-            this.showDemoAccountWarning();
-            return;
-        }
-
-        // Check for recent activity
-        this.checkRecentActivity();
-    }
-
-    showDemoAccountWarning() {
-        const deleteBtn = document.getElementById('delete-account-btn');
-        if (deleteBtn) {
-            deleteBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                this.showNotification('Demo accounts cannot be deleted. This is a protective measure.', 'info');
-            });
-        }
-    }
-
-    checkRecentActivity() {
-        // Check if user has recent orders that might need to be completed
-        const orders = this.getUserOrders();
-        const recentPendingOrders = orders.filter(order => 
-            (order.status === 'pending' || order.status === 'processing') &&
-            new Date(order.date) > new Date(Date.now() - 7 * 24 * 60 * 60 * 1000) // Last 7 days
-        );
-
-        if (recentPendingOrders.length > 0) {
-            this.showPendingOrdersWarning(recentPendingOrders.length);
-        }
-    }
-
-    showPendingOrdersWarning(orderCount) {
-        const deleteBtn = document.getElementById('delete-account-btn');
-        if (deleteBtn) {
-            const originalText = deleteBtn.innerHTML;
-            deleteBtn.innerHTML = `<i class="ri-alert-line"></i> ${orderCount} Pending Orders`;
-            deleteBtn.style.background = '#fff3cd';
-            deleteBtn.style.color = '#856404';
-            deleteBtn.style.borderColor = '#ffeaa7';
-
-            deleteBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                this.showNotification(
-                    `You have ${orderCount} pending order(s). Please complete or cancel them before deleting your account.`,
-                    'warning'
-                );
-            });
-
-            // Restore original button after 10 seconds
-            setTimeout(() => {
-                deleteBtn.innerHTML = originalText;
-                deleteBtn.style.cssText = '';
-            }, 10000);
-        }
-    }
 }
-
-// Add notification animations to CSS
-const notificationStyles = document.createElement('style');
-notificationStyles.textContent = `
-    @keyframes slideIn {
-        from { transform: translateX(100%); opacity: 0; }
-        to { transform: translateX(0); opacity: 1; }
-    }
-    @keyframes slideOut {
-        from { transform: translateX(0); opacity: 1; }
-        to { transform: translateX(100%); opacity: 0; }
-    }
-`;
-document.head.appendChild(notificationStyles);
 
 // Initialize account page
 document.addEventListener('DOMContentLoaded', () => {
