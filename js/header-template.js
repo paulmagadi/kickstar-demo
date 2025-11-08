@@ -61,7 +61,6 @@ function renderHeader() {
                     <!-- Auth Section -->
                     <div id="auth-section" class="auth-section">
                         <a href="${context.linkBase}login.html" class="auth-link signin" aria-label="Sign in to your account">
-                            <i class="ri-user-line" aria-hidden="true"></i>
                             <span>Sign In</span>
                         </a>
                         <a href="${context.linkBase}register.html" class="auth-link register" aria-label="Create a new account">
@@ -74,7 +73,6 @@ function renderHeader() {
                         <div class="user-menu">
                             <button class="user-toggle" id="user-toggle" aria-expanded="false" aria-haspopup="true" aria-label="User menu">
                                 <div class="user-avatar" aria-hidden="true">DU</div>
-                                <i class="ri-user-line" aria-hidden="true"></i>
                                 <span id="user-name">User Name</span>
                                 <i class="ri-arrow-down-s-line" aria-hidden="true"></i>
                             </button>

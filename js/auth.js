@@ -49,8 +49,6 @@ class AuthHelper {
                     userToggle.insertBefore(avatar, userToggle.firstChild);
                     userToggle.classList.add('with-avatar');
                 }
-               
-                document.querySelector(".user-toggle .ri-user-line").style.display = "none";
                 
                 // Initialize dropdown if not already initialized
                 if (!window.userDropdown) {
