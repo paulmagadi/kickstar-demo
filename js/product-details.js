@@ -174,7 +174,7 @@ if (!product) {
     });
 
     sizeSelect.addEventListener("change", e => {
-        quantityContainer.style.display = "block";
+        quantityContainer.style.display = "flex";
         const messageErr = document.getElementById("add-cart-message-err");
         messageErr.innerHTML = "";
         sizeSelect.style.border = "1px solid #ccc"; // reset red border when valid
