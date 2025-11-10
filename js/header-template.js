@@ -99,12 +99,14 @@ function renderHeader() {
                     </div>
 
                     <div class="wishlist">
-                        <i class="ri-heart-line" title="Wishlist"></i>
-                        <span id="wishlist-count" class="wishlist-count">0</span>
+                        <a href="${context.linkBase}wishlist.html">
+                            <i class="ri-heart-line" title="Wishlist"></i>
+                            <span id="wishlist-count" class="wishlist-count">0</span>
+                        </a>
                     </div>
 
                     <div class="cart">
-                        <a href="${context.linkBase}cart.html">
+                        
                         <i class="ri-shopping-cart-line"title="Cart"></i>
                             <span id="cart-count" class="cart-count">0</span>
                         </a>
@@ -161,7 +163,7 @@ function renderHeader() {
 
     updateCartCount();
 
-    const WISHLIST_STORAGE_KEY = 'user_wishlist';
+const WISHLIST_STORAGE_KEY = 'user_wishlist';
 
 // // Get wishlist from localStorage
 function getWishlist() {

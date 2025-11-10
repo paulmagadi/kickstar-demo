@@ -110,7 +110,7 @@ const productsData = [
                 ],
                 "sizes": [
                     { "size": 40, "price": 120.00, "sale_price": null, "stock_quantity": 4 },
-                    { "size": 41, "price": 125.00, "sale_price": 115.00, "stock_quantity": 2 },
+                    { "size": 41, "price": 125.00, "sale_price": 115.00, "stock_quantity": 2, "featured" : true },
                     { "size": 42, "price": 130.00, "sale_price": null, "stock_quantity": 0 }
                 ]
             },
