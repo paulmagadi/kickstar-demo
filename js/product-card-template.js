@@ -35,9 +35,12 @@ function createProductCardTemplate(product) {
     const firstVariant = product.variants[0];
     const firstSize = firstVariant.sizes[0];
 
-    const allPrices = product.variants.flatMap(v => v.sizes.map(s => s.sale_price || s.price));
-    const minPrice = Math.min(...allPrices);
-    const maxPrice = Math.max(...allPrices);
+    const sale_price = firstSize.sale_price;
+    const price = firstSize.price;
+
+    // const allPrices = product.variants.flatMap(v => v.sizes.map(s => s.sale_price || s.price));
+    // const minPrice = Math.min(...allPrices);
+    // const maxPrice = Math.max(...allPrices);
 
     const discount = firstSize.sale_price
         ? Math.round(((firstSize.price - firstSize.sale_price) / firstSize.price) * 100)
@@ -69,13 +72,14 @@ function createProductCardTemplate(product) {
                 <div class="product-category">${product.category[0].toUpperCase()}${product.category.slice(1)}</div>
 
                 <div class="product-price">
-                    <span class="sale-price">KES ${minPrice.toFixed(2)}</span>
-                    ${minPrice !== maxPrice 
-                        ? `<span class="price-range price original-price"> - KES ${maxPrice.toFixed(2)}</span>` 
-                        : ""}
+                    ${sale_price && sale_price < price 
+                        ? `<span class="sale-price">KES ${sale_price}</span>
+                        <span class="price-range price original-price"> - KES ${price}</span>`
+                        : `<span class="price-range price original-price only">KES ${price}</span>`
+                    }
                 </div>
 
-                <div class="wishlist-badge" title="Add to Wishlist"><i class="ri-heart-line"></i></div>
+                <div class="wishlist-badge"><i class="ri-heart-line"></i></div>
 
                 ${discount ? `<div class="product-card-sale-badge"><p>-${discount}%</p></div>` : ""}
 
@@ -96,6 +100,11 @@ function createProductCardTemplate(product) {
                     <div class="swatch-scroll-btn swatch-scroll-right">&#10095;</div>
                 </div>
             </div>
+        </div>
+
+        <div class="toast" id="wishlist-toast">
+            <i class="ri-heart-fill"></i>
+            <span id="toast-message">Product added to wishlist</span>
         </div>
     `;
 }

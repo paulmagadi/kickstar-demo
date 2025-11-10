@@ -160,6 +160,25 @@ function renderHeader() {
     }
 
     updateCartCount();
+
+    const WISHLIST_STORAGE_KEY = 'user_wishlist';
+
+// // Get wishlist from localStorage
+function getWishlist() {
+    const wishlist = localStorage.getItem(WISHLIST_STORAGE_KEY);
+    return wishlist ? JSON.parse(wishlist) : [];
+}
+
+function updateWishlistCount() {
+    const wishlist = getWishlist();
+    const countElement = document.getElementById('wishlist-count');
+    if (countElement) {
+        countElement.textContent = wishlist.length;
+    }
+}
+
+updateWishlistCount() 
+
 }
 
 window.renderHeader = renderHeader;
