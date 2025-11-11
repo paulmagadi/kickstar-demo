@@ -76,7 +76,6 @@ if (!product) {
         brandEl.textContent = product.brand;
     }
 
-
     // ✅ Fix image paths
     product.variants.forEach(variant => {
         variant.images = variant.images.map(img => {
@@ -141,29 +140,68 @@ if (!product) {
 
         updateScrollButtons();
 
-        // ✅ Populate size options with default "Select Size"
-        sizeSelect.innerHTML = `
-            <option value="" selected>Select Size</option>
-            ${variant.sizes.map((s, i) => `
-                <option value="${i}"
-                        data-price="${s.price}"
-                        data-sale="${s.sale_price || ""}"
-                        data-stock="${s.stock_quantity}"
-                        ${s.stock_quantity === 0 ? "disabled style='color:gray;background:#f5f5f5;'" : ""}>
-                    Size: ${s.size} | KES ${s.sale_price || s.price} | Stock: ${s.stock_quantity}
-                    ${s.stock_quantity === 0 ? " (OUT OF STOCK)" : ""}
-                </option>
-            `).join("")}
-        `;
+        // Populate size options as boxes instead of dropdown
+        const sizeOptionsContainer = document.getElementById('size-options');
+        sizeOptionsContainer.innerHTML = variant.sizes.map((size, i) => {
+            const isOutOfStock = size.stock_quantity === 0;
+            const isOnSale = size.sale_price && size.sale_price < size.price;
+            const displayPrice = isOnSale ? size.sale_price : size.price;
+            
+            return `
+                <div class="size-option ${isOutOfStock ? 'out-of-stock' : ''}" 
+                    data-size-index="${i}"
+                    data-price="${size.price}"
+                    data-sale="${size.sale_price || ''}"
+                    data-stock="${size.stock_quantity}"
+                    ${isOutOfStock ? 'disabled' : ''}>
+                    <div class="size-label">${size.size}</div>
+                    <div class="size-price">KES ${displayPrice.toFixed(2)}</div>
+                    ${isOnSale ? '<div class="size-info">SALE</div>' : ''}
+                    <div class="size-stock">${isOutOfStock ? 'OUT OF STOCK' : `${size.stock_quantity} left`}</div>
+                </div>
+            `;
+        }).join('');
 
-        if (variant.sizes[0].sale_price && variant.sizes[0].sale_price < variant.sizes[0].price) {
-            priceEl.innerHTML = `<strong style="color:red;">KES ${variant.sizes[0].sale_price}</strong> &nbsp; <span style="text-decoration:line-through; color:gray;">KES ${variant.sizes[0].price}</span>`;
-        } else {
-            priceEl.innerHTML = `<strong>KES ${variant.sizes[0].price}</strong>`
+        // Update the main price display to show the first available size
+        const firstAvailableSize = variant.sizes.find(size => size.stock_quantity > 0);
+        if (firstAvailableSize) {
+            const isOnSale = firstAvailableSize.sale_price && firstAvailableSize.sale_price < firstAvailableSize.price;
+            const displayPrice = isOnSale ? firstAvailableSize.sale_price : firstAvailableSize.price;
+            const originalPrice = firstAvailableSize.price;
+            
+            const priceEl = document.getElementById("product-price");
+            priceEl.innerHTML = isOnSale
+                ? `<strong style="color:red;">KES ${displayPrice.toFixed(2)}</strong> <span style="text-decoration:line-through; color:gray;">KES ${originalPrice.toFixed(2)}</span>`
+                : `<strong>KES ${displayPrice.toFixed(2)}</strong>`;
         }
 
-        sizeSelect.style.border = "1px solid #ccc";
-        setQtyInputMax();
+        // Add click handlers for size options
+        sizeOptionsContainer.querySelectorAll('.size-option:not(.out-of-stock)').forEach(option => {
+            option.addEventListener('click', () => {
+                // Remove selected class from all size options
+                sizeOptionsContainer.querySelectorAll('.size-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                
+                // Add selected class to clicked option
+                option.classList.add('selected');
+                
+                // Show quantity container
+                quantityContainer.style.display = "flex";
+                const messageErr = document.getElementById("add-cart-message-err");
+                messageErr.innerHTML = "";
+                
+                // Update price display
+                updatePriceUI(option);
+                qtyInput.value = 1; // reset quantity to default (1)
+                setQtyInputMax();
+            });
+        });
+
+        // Reset size selection
+        sizeOptionsContainer.querySelectorAll('.size-option').forEach(opt => {
+            opt.classList.remove('selected');
+        });
         
         quantityContainer.style.display = "none";
 
@@ -177,17 +215,15 @@ if (!product) {
     }
 
 
-
     // --- 🧮 Quantity + Stock Handling ---
     function setQtyInputMax() {
-        const opt = sizeSelect.selectedOptions[0];
-        if (opt && opt.dataset.stock) {
-            const stock = parseInt(opt.dataset.stock, 10);
+        const selectedSize = document.querySelector('.size-option.selected');
+        if (selectedSize && selectedSize.dataset.stock) {
+            const stock = parseInt(selectedSize.dataset.stock, 10);
             qtyInput.dataset.max = stock;
             if (parseInt(qtyInput.value, 10) > stock) qtyInput.value = stock;
         }
     }
-
     decreaseBtn.addEventListener("click", () => {
         let qty = parseInt(qtyInput.value, 10) || 1;
         qty = Math.max(1, qty - 1);
@@ -200,27 +236,29 @@ if (!product) {
         if (qty < max) qtyInput.value = qty + 1;
     });
 
-    sizeSelect.addEventListener("change", e => {
-        quantityContainer.style.display = "flex";
-        const messageErr = document.getElementById("add-cart-message-err");
-        messageErr.innerHTML = "";
-        sizeSelect.style.border = "1px solid #ccc"; // reset red border when valid
-        updatePriceUI(e.target.selectedOptions[0]);
-        qtyInput.value = 1; // reset quantity to default (1)
-        setQtyInputMax();
-    });
+    // sizeSelect.addEventListener("change", e => {
+    //     quantityContainer.style.display = "flex";
+    //     const messageErr = document.getElementById("add-cart-message-err");
+    //     messageErr.innerHTML = "";
+    //     sizeSelect.style.border = "1px solid #ccc"; // reset red border when valid
+    //     updatePriceUI(e.target.selectedOptions[0]);
+    //     qtyInput.value = 1; // reset quantity to default (1)
+    //     setQtyInputMax();
+    // });
 
-    // --- 💰 Price UI ---
-    function updatePriceUI(opt) {
-        if (!opt || !opt.dataset.price) return;
-        const price = opt.dataset.price;
-        const sale = opt.dataset.sale;
+    // --- Price UI ---
+    function updatePriceUI(sizeOption) {
+        if (!sizeOption) return;
+        const price = sizeOption.dataset.price;
+        const sale = sizeOption.dataset.sale;
+        
+        const priceEl = document.getElementById("product-price");
         priceEl.innerHTML = sale
             ? `<strong style="color:red;">KES ${sale}</strong> <span style="text-decoration:line-through; color:gray;">KES ${price}</span>`
             : `<strong>KES ${price}</strong>`;
     }
 
-    // --- 🖼️ Thumbnail Scroll ---
+    // --- Thumbnail Scroll ---
     function updateScrollButtons() {
         const scrollWidth = thumbnailsWrapper.scrollWidth;
         const visibleWidth = thumbnailsWrapper.clientWidth;
@@ -270,7 +308,7 @@ if (!product) {
 
     requestAnimationFrame(updateScrollButtons);
 
-    // --- 🛍️ Add to Cart ---
+    // --- Add to Cart ---
     document.getElementById("variant-form").addEventListener("submit", e => {
         e.preventDefault();
         
@@ -283,16 +321,16 @@ if (!product) {
         }
         
         // Otherwise, handle add to cart
-        const opt = sizeSelect.selectedOptions[0];
-        const sizeIndex = sizeSelect.value;
+        const selectedSizeOption = document.querySelector('.size-option.selected');
+        const sizeIndex = selectedSizeOption ? selectedSizeOption.dataset.sizeIndex : null;
         const qty = parseInt(qtyInput.value, 10);
-        const stock = opt ? parseInt(opt.dataset.stock, 10) : 0;
+        const stock = selectedSizeOption ? parseInt(selectedSizeOption.dataset.stock, 10) : 0;
         const message = document.getElementById("add-cart-message");
         const messageErr = document.getElementById("add-cart-message-err");
 
         if (!sizeIndex) {
             messageErr.style.display = "block";
-            sizeSelect.style.border = "2px solid red";
+            messageErr.innerHTML = "<small><i class='ri-error-warning-line'></i> Please select a size.</small>";
             return;
         }
 
