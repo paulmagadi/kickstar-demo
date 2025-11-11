@@ -1,197 +1,9 @@
-// ========================================
-// WISHLIST FUNCTIONALITY
-// ========================================
-const WISHLIST_STORAGE_KEY = 'user_wishlist';
-
-// Get wishlist from localStorage
-function getWishlist() {
-    const wishlist = localStorage.getItem(WISHLIST_STORAGE_KEY);
-    return wishlist ? JSON.parse(wishlist) : [];
-}
-
-// Save wishlist to localStorage
-function saveWishlist(wishlist) {
-    localStorage.setItem(WISHLIST_STORAGE_KEY, JSON.stringify(wishlist));
-}
-
-// Add product to wishlist
-function addToWishlist(productId, variantIndex = 0) {
-    const wishlist = getWishlist();
-    const itemId = `${productId}-${variantIndex}`;
-    
-    // Check if item is already in wishlist
-    if (!wishlist.some(item => item.id === itemId)) {
-        wishlist.push({
-            id: itemId,
-            productId: productId,
-            variantIndex: variantIndex,
-            addedAt: new Date().toISOString()
-        });
-        
-        saveWishlist(wishlist);
-        updateWishlistUI();
-        showToast('Product added to wishlist');
-        return true;
-    }
-    
-    return false;
-}
-
-// Remove product from wishlist
-function removeFromWishlist(productId, variantIndex = 0) {
-    const wishlist = getWishlist();
-    const itemId = `${productId}-${variantIndex}`;
-    const updatedWishlist = wishlist.filter(item => item.id !== itemId);
-    
-    saveWishlist(updatedWishlist);
-    updateWishlistUI();
-    showToast('Product removed from wishlist');
-    return true;
-}
-
-// Check if product is in wishlist
-function isInWishlist(productId, variantIndex = 0) {
-    const wishlist = getWishlist();
-    const itemId = `${productId}-${variantIndex}`;
-    return wishlist.some(item => item.id === itemId);
-}
-
-// Update wishlist count in header
-function updateWishlistCount() {
-    const wishlist = getWishlist();
-    const countElement = document.getElementById('wishlist-count');
-    if (countElement) {
-        countElement.textContent = wishlist.length;
-    }
-}
-
-
-// Update wishlist badges on product cards
-function updateWishlistBadges() {
-    document.querySelectorAll('.product-card').forEach(card => {
-        const productId = parseInt(card.dataset.product);
-        const activeSwatch = card.querySelector('.swatch.active');
-        if (activeSwatch) {
-            const variantIndex = parseInt(activeSwatch.dataset.variant);
-            const wishlistBadge = card.querySelector('.wishlist-badge');
-            
-            if (wishlistBadge && isInWishlist(productId, variantIndex)) {
-                wishlistBadge.classList.add('active');
-                wishlistBadge.innerHTML = '<i class="ri-heart-fill"></i>';
-                wishlistBadge.title = "Remove from Wishlist";
-            } else if (wishlistBadge) {
-                wishlistBadge.classList.remove('active');
-                wishlistBadge.innerHTML = '<i class="ri-heart-line"></i>';
-                wishlistBadge.title = "Add to Wishlist";
-            }
-        }
-    });
-}
-
-// Update all wishlist UI elements
-function updateWishlistUI() {
-    updateWishlistCount();
-    updateWishlistBadges();
-}
-
-// Show toast notification
-function showToast(message) {
-    // Create toast if it doesn't exist
-    let toast = document.getElementById('wishlist-toast');
-    if (!toast) {
-        toast = document.createElement('div');
-        toast.id = 'wishlist-toast';
-        toast.className = 'toast';
-        toast.innerHTML = `
-            <i class="ri-heart-fill"></i>
-            <span id="toast-message">${message}</span>
-        `;
-        document.body.appendChild(toast);
-        
-        // Add basic toast styles if not already in CSS
-        if (!document.querySelector('#wishlist-toast-styles')) {
-            const style = document.createElement('style');
-            style.id = 'wishlist-toast-styles';
-            style.textContent = `
-                .toast {
-                    position: fixed;
-                    bottom: 20px;
-                    right: 20px;
-                    background: #2c3e50;
-                    color: white;
-                    padding: 12px 20px;
-                    border-radius: 6px;
-                    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-                    display: flex;
-                    align-items: center;
-                    gap: 10px;
-                    transform: translateY(100px);
-                    opacity: 0;
-                    transition: all 0.3s;
-                    z-index: 1000;
-                }
-                .toast.show {
-                    transform: translateY(0);
-                    opacity: 1;
-                }
-                .toast i {
-                    font-size: 18px;
-                    color: var(--primary-color);
-                }
-            `;
-            document.head.appendChild(style);
-        }
-    }
-    
-    const toastMessage = document.getElementById('toast-message');
-    if (toastMessage) {
-        toastMessage.textContent = message;
-    }
-    
-    toast.classList.add('show');
-    
-    setTimeout(() => {
-        toast.classList.remove('show');
-    }, 3000);
-}
-
-// Initialize wishlist functionality
-function initWishlistFunctionality() {
-    // Update UI on page load
-    updateWishlistUI();
-
-    // Add this to your initWishlistFunctionality or update the existing one
-    document.addEventListener('click', function(e) {
-        const wishlistBadge = e.target.closest('.wishlist-badge');
-        if (wishlistBadge) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            const productCard = wishlistBadge.closest('.product-card');
-            if (productCard) {
-                const productId = parseInt(productCard.dataset.product);
-                const activeSwatch = productCard.querySelector('.swatch.active');
-                const variantIndex = activeSwatch ? parseInt(activeSwatch.dataset.variant) : 0;
-                
-                if (isInWishlist(productId, variantIndex)) {
-                    removeFromWishlist(productId, variantIndex);
-                    wishlistBadge.title = "Add to Wishlist";
-                } else {
-                    addToWishlist(productId, variantIndex);
-                    wishlistBadge.title = "Remove from Wishlist";
-                }
-            }
-        }
-    });
-}
-
-// ========================================
-// MODIFIED PRODUCT CARD FUNCTIONALITIES
+// PRODUCT CARD FUNCTIONALITIES
 // ========================================
 window.getPageContext = getPageContext; 
 const { imageBase } = getPageContext();
 
-// Initialize product card interactions (updated with wishlist support)
+// Initialize product card interactions
 function initProductCardFunctions() {
     const cards = document.querySelectorAll(".product-card");
 
@@ -254,22 +66,13 @@ function initProductCardFunctions() {
                 } else if (discountBadge) {
                     discountBadge.remove();
                 }
-                
-                // Update wishlist badge for current variant
+
+                 // Update wishlist badge for the NEW current variant
                 const productId = parseInt(card.dataset.product);
                 const wishlistBadge = card.querySelector('.wishlist-badge');
-                if (wishlistBadge) {
-                    if (isInWishlist(productId, variantIndex)) {
-                        wishlistBadge.classList.add('active');
-                        wishlistBadge.innerHTML = '<i class="ri-heart-fill"></i>';
-                        wishlistBadge.title = "Remove from Wishlist";
-                    } else {
-                        wishlistBadge.classList.remove('active');
-                        wishlistBadge.innerHTML = '<i class="ri-heart-line"></i>';
-                        wishlistBadge.title = "Add to Wishlist";
-                    }
+                if (wishlistBadge && typeof updateWishlistButton === 'function') {
+                    updateWishlistButton(wishlistBadge, productId, variantIndex);
                 }
-                
             });
         });
 
@@ -310,12 +113,5 @@ function initProductCardFunctions() {
 document.addEventListener("DOMContentLoaded", () => {
     if (document.querySelector(".product-card")) {
         initProductCardFunctions();
-        initWishlistFunctionality();
     }
 });
-
-// Make functions available globally
-window.addToWishlist = addToWishlist;
-window.removeFromWishlist = removeFromWishlist;
-window.isInWishlist = isInWishlist;
-window.getWishlist = getWishlist;

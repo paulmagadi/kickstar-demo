@@ -1,321 +1,302 @@
 // ========================================
-// WISHLIST FUNCTIONALITY
+// PRODUCT DETAILS LOGIC
 // ========================================
-const WISHLIST_STORAGE_KEY = 'user_wishlist';
 
-// Get wishlist from localStorage
-function getWishlist() {
-    const wishlist = localStorage.getItem(WISHLIST_STORAGE_KEY);
-    return wishlist ? JSON.parse(wishlist) : [];
+// --- Cart Utilities ---
+function getCart() {
+    return JSON.parse(localStorage.getItem("cart") || "[]");
 }
 
-// Save wishlist to localStorage
-function saveWishlist(wishlist) {
-    localStorage.setItem(WISHLIST_STORAGE_KEY, JSON.stringify(wishlist));
+function setCart(cart) {
+    localStorage.setItem("cart", JSON.stringify(cart));
 }
 
-// Add product to wishlist
-function addToWishlist(productId, variantIndex = 0) {
-    const wishlist = getWishlist();
-    const itemId = `${productId}-${variantIndex}`;
+function updateCartCount() {
+    const cart = getCart();
+    const count = cart.reduce((sum, item) => sum + item.qty, 0);
+    const cartCountEl = document.getElementById("cart-count");
+    if (cartCountEl) cartCountEl.textContent = count;
+}
+
+// Move these variables to global scope
+let currentVariantIndex = 0;
+let sizeSelect, qtyInput, product;
+
+// --- 🏷️ Product Details Logic ---
+const params = new URLSearchParams(window.location.search);
+const productId = parseInt(params.get("id"));
+product = productsData.find(p => p.id === productId);
+
+if (!product) {
+    document.querySelector(".product-details-container").innerHTML = "<h2>Product not found.</h2>";
+} else {
+    document.title = product.name;
+    document.getElementById('product-breadcrumb').textContent = product.name;
+
+    const mainImg = document.getElementById("main-product-img");
+    const nameEl = document.getElementById("product-name");
+    const brandEl = document.getElementById("product-brand");
+    const descEl = document.getElementById("product-description");
+    const priceEl = document.getElementById("product-price");
+    const colorsWrapper = document.querySelector(".product-colors");
+    sizeSelect = document.getElementById("variant-select");
+    const thumbnailsWrapper = document.querySelector(".product-thumbnails");
+    const quantityContainer = document.querySelector('.quantity-container');
+    qtyInput = document.getElementById("qty-input");
+    const decreaseBtn = document.getElementById("qty-decrease");
+    const increaseBtn = document.getElementById("qty-increase");
+    const leftScrollBtn = document.querySelector(".thumbnail-scroll-left");
+    const rightScrollBtn = document.querySelector(".thumbnail-scroll-right");
+    const selectedColor = document.getElementById("selected-color");
+    const productCategoryEl = document.getElementById("product-category");
     
-    // Check if item is already in wishlist
-    if (!wishlist.some(item => item.id === itemId)) {
-        wishlist.push({
-            id: itemId,
-            productId: productId,
-            variantIndex: variantIndex,
-            addedAt: new Date().toISOString()
+    // Get wishlist button
+    const wishlistBtn = document.getElementById('add-to-wishlist-btn');
+
+    nameEl.textContent = product.name;
+    descEl.textContent = product.description;
+    productCategoryEl.textContent = product.category;
+
+    // Breadcrumb
+    const categoryBreadcrumbEl = document.getElementById("category-breadcrumb");
+    if (categoryBreadcrumbEl) {
+        categoryBreadcrumbEl.textContent = product.category;
+        categoryBreadcrumbEl.title = product.category;
+        const href = `category.html?cat=${encodeURIComponent(product.category.toLowerCase())}`;
+        categoryBreadcrumbEl.setAttribute("href", href);
+    }
+
+    if (product.brand) {
+        brandEl.textContent = `${product.brand} |`;
+    }
+
+    // ✅ Fix image paths
+    product.variants.forEach(variant => {
+        variant.images = variant.images.map(img => {
+            if (img.startsWith("./images/")) return img.replace("./images/", "../images/");
+            return img;
         });
-        
-        saveWishlist(wishlist);
-        updateWishlistUI();
-        showToast('Product added to wishlist');
-        return true;
-    }
-    
-    return false;
-}
-
-// Remove product from wishlist
-function removeFromWishlist(productId, variantIndex = 0) {
-    const wishlist = getWishlist();
-    const itemId = `${productId}-${variantIndex}`;
-    const updatedWishlist = wishlist.filter(item => item.id !== itemId);
-    
-    saveWishlist(updatedWishlist);
-    updateWishlistUI();
-    showToast('Product removed from wishlist');
-    return true;
-}
-
-// Check if product is in wishlist
-function isInWishlist(productId, variantIndex = 0) {
-    const wishlist = getWishlist();
-    const itemId = `${productId}-${variantIndex}`;
-    return wishlist.some(item => item.id === itemId);
-}
-
-// Update wishlist count in header
-function updateWishlistCount() {
-    const wishlist = getWishlist();
-    const countElement = document.getElementById('wishlist-count');
-    if (countElement) {
-        countElement.textContent = wishlist.length;
-    }
-}
-
-// Update wishlist badges on product cards
-function updateWishlistBadges() {
-    document.querySelectorAll('.product-card').forEach(card => {
-        const productId = parseInt(card.dataset.productId);
-        const variantIndex = parseInt(card.querySelector('.swatch.active').dataset.variant);
-        const wishlistBadge = card.querySelector('.wishlist-badge');
-        
-        if (isInWishlist(productId, variantIndex)) {
-            wishlistBadge.classList.add('active');
-        } else {
-            wishlistBadge.classList.remove('active');
-        }
     });
-}
 
-// Update all wishlist UI elements
-function updateWishlistUI() {
-    updateWishlistCount();
-    updateWishlistBadges();
-}
+    // ✅ Render color swatches
+    colorsWrapper.innerHTML = product.variants.map((variant, i) => `
+        <img src="${variant.images[0] || ''}"
+             title="${variant.color}"
+             width="60" height="60"
+             class="color-btn ${i === 0 ? "selected" : ""}"
+             style="border-radius: 4px; cursor: pointer;"
+             data-variant-index="${i}">
+    `).join("");
 
-// Show toast notification
-function showToast(message) {
-    const toast = document.getElementById('wishlist-toast');
-    const toastMessage = document.getElementById('toast-message');
-    
-    toastMessage.textContent = message;
-    toast.classList.add('show');
-    
-    setTimeout(() => {
-        toast.classList.remove('show');
-    }, 3000);
-}
-
-// ========================================
-// PRODUCT CARD FUNCTIONALITIES
-// ========================================
-function getPageContext() {
-    return { imageBase };
-}
-
-window.getPageContext = getPageContext;
-
-// Initialize product card interactions
-function initProductCardFunctions() {
-    const cards = document.querySelectorAll(".product-card");
-
-    cards.forEach(card => {
-        const swatches = card.querySelectorAll(".swatch");
-        const image = card.querySelector(".product-img");
-        const colorLabel = card.querySelector(".product-color span");
-        const scrollWrapper = card.querySelector(".swatches");
-        const wishlistBadge = card.querySelector(".wishlist-badge");
-
-        // ==========================
-        // 1. Handle wishlist badge click
-        // ==========================
-        wishlistBadge.addEventListener("click", (e) => {
-            e.stopPropagation();
-            const productId = parseInt(card.dataset.productId);
-            const variantIndex = parseInt(card.querySelector('.swatch.active').dataset.variant);
-            
-            if (isInWishlist(productId, variantIndex)) {
-                removeFromWishlist(productId, variantIndex);
-            } else {
-                addToWishlist(productId, variantIndex);
+    // ✅ Attach color switching
+    document.querySelectorAll(".color-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+            document.querySelectorAll(".color-btn").forEach(b => b.classList.remove("selected"));
+            btn.classList.add("selected");
+            currentVariantIndex = parseInt(btn.dataset.variantIndex);
+            updateVariantUI(currentVariantIndex);
+            // Update wishlist button when variant changes
+            if (typeof updateProductDetailsWishlistButton === 'function') {
+                updateProductDetailsWishlistButton();
             }
         });
-
-        // ==========================
-        // 2. Handle swatch click
-        // ==========================
-        swatches.forEach(swatch => {
-            swatch.addEventListener("click", () => {
-                // Remove active class from other swatches
-                swatches.forEach(s => s.classList.remove("active"));
-                swatch.classList.add("active");
-
-                // Get variant index
-                const variantIndex = parseInt(swatch.dataset.variant);
-                const productIndex = parseInt(swatch.dataset.product);
-
-                // Get the variant data
-                const product = productsData[productIndex];
-                const variant = product.variants[variantIndex];
-
-                // Update image + color text
-                image.src = `${imageBase}${variant.images[0].replace(/^\.?\/?images\//, "")}`;
-                colorLabel.textContent = variant.color;
-
-                // Update product price and discount
-                const allPrices = variant.sizes.map((s) => s.sale_price || s.price);
-                const minPrice = Math.min(...allPrices);
-                const maxPrice = Math.max(...allPrices);
-
-                const priceContainer = card.querySelector(".product-price");
-                priceContainer.innerHTML = `
-                    <span class="sale-price">KES ${minPrice.toFixed(2)}</span>
-                    ${minPrice !== maxPrice ? 
-                        `<span class="price-range price original-price"> - KES ${maxPrice.toFixed(2)}</span>` 
-                        : ""}
-                `;
-
-                // Update discount badge
-                const firstSize = variant.sizes[0];
-                const discount = firstSize.sale_price
-                    ? Math.round(((firstSize.price - firstSize.sale_price) / firstSize.price) * 100)
-                    : 0;
-
-                const discountBadge = card.querySelector(".product-card-sale-badge");
-                if (discount) {
-                    if (discountBadge) {
-                        discountBadge.innerHTML = `<p>-${discount}%</p>`;
-                    } else {
-                        const newBadge = document.createElement("div");
-                        newBadge.classList.add("product-card-sale-badge");
-                        newBadge.innerHTML = `<p>-${discount}%</p>`;
-                        card.querySelector(".product-info").prepend(newBadge);
-                    }
-                } else if (discountBadge) {
-                    discountBadge.remove();
-                }
-                
-                // Update wishlist badge state
-                const productId = parseInt(card.dataset.productId);
-                if (isInWishlist(productId, variantIndex)) {
-                    wishlistBadge.classList.add('active');
-                } else {
-                    wishlistBadge.classList.remove('active');
-                }
-            });
-        });
-
-        // ==========================
-        // 3. Swatch scroll buttons
-        // ==========================
-        const btnLeft = card.querySelector(".swatch-scroll-left");
-        const btnRight = card.querySelector(".swatch-scroll-right");
-
-        if (scrollWrapper && btnLeft && btnRight) {
-            const updateScrollButtons = () => {
-                const maxScrollLeft = scrollWrapper.scrollWidth - scrollWrapper.clientWidth;
-                btnLeft.classList.toggle("hidden", scrollWrapper.scrollLeft <= 0);
-                btnRight.classList.toggle("hidden", scrollWrapper.scrollLeft >= maxScrollLeft - 2);
-            };
-
-            btnLeft.addEventListener("click", () => {
-                scrollWrapper.scrollBy({ left: -80, behavior: "smooth" });
-                setTimeout(updateScrollButtons, 300);
-            });
-
-            btnRight.addEventListener("click", () => {
-                scrollWrapper.scrollBy({ left: 80, behavior: "smooth" });
-                setTimeout(updateScrollButtons, 300);
-            });
-
-            scrollWrapper.addEventListener("scroll", updateScrollButtons);
-
-            // Initialize scroll state
-            updateScrollButtons();
-        }
     });
-}
 
-// Generate product cards
-function generateProductCards() {
-    const container = document.getElementById('products-container');
-    
-    productsData.forEach((product, productIndex) => {
-        const firstVariant = product.variants[0];
-        const allPrices = firstVariant.sizes.map((s) => s.sale_price || s.price);
-        const minPrice = Math.min(...allPrices);
-        const maxPrice = Math.max(...allPrices);
+    // ✅ Initialize first variant
+    updateVariantUI(currentVariantIndex);
+
+    // --- 🔄 Update variant images, sizes, and price ---
+    function updateVariantUI(variantIndex) {
+        const variant = product.variants[variantIndex];
+        mainImg.src = variant.images[0];
+        mainImg.dataset.default = variant.images[0];
+        selectedColor.textContent = variant.color;
+
+        // ✅ Build thumbnails
+        thumbnailsWrapper.innerHTML = variant.images.map((src, index) => `
+            <img src="${src}" 
+            class="thumbnail-img ${index === 0 ? "selected" : ""}">
+        `).join("");
         
-        const discount = firstVariant.sizes[0].sale_price
-            ? Math.round(((firstVariant.sizes[0].price - firstVariant.sizes[0].sale_price) / firstVariant.sizes[0].price) * 100)
-            : 0;
-        
-        // Generate swatches HTML
-        let swatchesHTML = '';
-        product.variants.forEach((variant, variantIndex) => {
-            swatchesHTML += `
-                <div class="swatch ${variantIndex === 0 ? 'active' : ''}" 
-                        data-variant="${variantIndex}" 
-                        data-product="${productIndex}"
-                        style="background-color: ${getColorValue(variant.color)}">
-                </div>
-            `;
+        requestAnimationFrame(updateScrollButtons);
+
+        thumbnailsWrapper.querySelectorAll(".thumbnail-img").forEach(img => {
+            img.addEventListener("click", () => { 
+                mainImg.src = img.src;
+                document.querySelectorAll(".thumbnail-img").forEach(index => index.classList.remove("selected"));
+                img.classList.add("selected");
+            });
         });
-        
-        const cardHTML = `
-            <div class="product-card" data-product-id="${product.id}">
-                <div class="product-img-container">
-                    <img src="${imageBase}${firstVariant.images[0].replace(/^\.?\/?images\//, "")}" 
-                            alt="${product.title}" class="product-img">
-                    ${discount ? `<div class="product-card-sale-badge"><p>-${discount}%</p></div>` : ''}
-                    <div class="wishlist-badge ${isInWishlist(product.id, 0) ? 'active' : ''}" title="Add to Wishlist">
-                        <i class="ri-heart-line"></i>
-                    </div>
-                </div>
-                <div class="product-info">
-                    <h3 class="product-title">${product.title}</h3>
-                    <div class="product-color">Color: <span>${firstVariant.color}</span></div>
-                    <div class="product-price">
-                        <span class="sale-price">KES ${minPrice.toFixed(2)}</span>
-                        ${minPrice !== maxPrice ? 
-                            `<span class="price-range price original-price"> - KES ${maxPrice.toFixed(2)}</span>` 
-                            : ""}
-                    </div>
-                    <div class="swatches-container">
-                        <div class="swatches">
-                            ${swatchesHTML}
-                        </div>
-                        <button class="swatch-scroll-left hidden">
-                            <i class="ri-arrow-left-s-line"></i>
-                        </button>
-                        <button class="swatch-scroll-right ${product.variants.length > 4 ? '' : 'hidden'}">
-                            <i class="ri-arrow-right-s-line"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
+
+        updateScrollButtons();
+
+        // ✅ Populate size options with default "Select Size"
+        sizeSelect.innerHTML = `
+            <option value="" selected>Select Size</option>
+            ${variant.sizes.map((s, i) => `
+                <option value="${i}"
+                        data-price="${s.price}"
+                        data-sale="${s.sale_price || ""}"
+                        data-stock="${s.stock_quantity}"
+                        ${s.stock_quantity === 0 ? "disabled style='color:gray;background:#f5f5f5;'" : ""}>
+                    Size: ${s.size} | KES ${s.sale_price || s.price} | Stock: ${s.stock_quantity}
+                    ${s.stock_quantity === 0 ? " (OUT OF STOCK)" : ""}
+                </option>
+            `).join("")}
         `;
+
+        if (variant.sizes[0].sale_price && variant.sizes[0].sale_price < variant.sizes[0].price) {
+            priceEl.innerHTML = `<strong style="color:red;">KES ${variant.sizes[0].sale_price}</strong> &nbsp; <span style="text-decoration:line-through; color:gray;">KES ${variant.sizes[0].price}</span>`;
+        } else {
+            priceEl.innerHTML = `<strong>KES ${variant.sizes[0].price}</strong>`
+        }
+
+        sizeSelect.style.border = "1px solid #ccc";
+        setQtyInputMax();
         
-        container.innerHTML += cardHTML;
+        quantityContainer.style.display = "none";
+        
+        // Update wishlist button for current variant
+        if (typeof updateProductDetailsWishlistButton === 'function') {
+            updateProductDetailsWishlistButton();
+        }
+    }
+
+    // --- 🧮 Quantity + Stock Handling ---
+    function setQtyInputMax() {
+        const opt = sizeSelect.selectedOptions[0];
+        if (opt && opt.dataset.stock) {
+            const stock = parseInt(opt.dataset.stock, 10);
+            qtyInput.dataset.max = stock;
+            if (parseInt(qtyInput.value, 10) > stock) qtyInput.value = stock;
+        }
+    }
+
+    decreaseBtn.addEventListener("click", () => {
+        let qty = parseInt(qtyInput.value, 10) || 1;
+        qty = Math.max(1, qty - 1);
+        qtyInput.value = qty;
     });
+
+    increaseBtn.addEventListener("click", () => {
+        let qty = parseInt(qtyInput.value, 10) || 1;
+        const max = parseInt(qtyInput.dataset.max, 10) || 1;
+        if (qty < max) qtyInput.value = qty + 1;
+    });
+
+    sizeSelect.addEventListener("change", e => {
+        quantityContainer.style.display = "flex";
+        const messageErr = document.getElementById("add-cart-message-err");
+        messageErr.innerHTML = "";
+        sizeSelect.style.border = "1px solid #ccc"; // reset red border when valid
+        updatePriceUI(e.target.selectedOptions[0]);
+        qtyInput.value = 1; // reset quantity to default (1)
+        setQtyInputMax();
+    });
+
+    // --- 💰 Price UI ---
+    function updatePriceUI(opt) {
+        if (!opt || !opt.dataset.price) return;
+        const price = opt.dataset.price;
+        const sale = opt.dataset.sale;
+        priceEl.innerHTML = sale
+            ? `<strong style="color:red;">KES ${sale}</strong> <span style="text-decoration:line-through; color:gray;">KES ${price}</span>`
+            : `<strong>KES ${price}</strong>`;
+    }
+
+    // --- 🖼️ Thumbnail Scroll ---
+    function updateScrollButtons() {
+        const scrollWidth = thumbnailsWrapper.scrollWidth;
+        const visibleWidth = thumbnailsWrapper.clientWidth;
+        const scrollLeft = thumbnailsWrapper.scrollLeft;
+        const maxScrollLeft = Math.max(0, scrollWidth - visibleWidth);
+        const EPS = 5; // tolerance for small fractional scroll values
+
+        // If there's nothing to scroll, hide both buttons
+        if (scrollWidth <= visibleWidth) {
+            leftScrollBtn.classList.add("hidden");
+            rightScrollBtn.classList.add("hidden");
+            return;
+        }
+
+        // Hide left when at (or very near) start, show otherwise
+        if (scrollLeft <= EPS) {
+            leftScrollBtn.classList.add("hidden");
+        } else {
+            leftScrollBtn.classList.remove("hidden");
+        }
+
+        // Hide right when at (or very near) end, show otherwise
+        if (scrollLeft >= maxScrollLeft - EPS) {
+            rightScrollBtn.classList.add("hidden");
+        } else {
+            rightScrollBtn.classList.remove("hidden");
+        }
+    }
+
+    leftScrollBtn.addEventListener("click", () => {
+        thumbnailsWrapper.scrollBy({ left: -100, behavior: "smooth" });
+        setTimeout(() => requestAnimationFrame(updateScrollButtons), 150);
+    });
+
+    rightScrollBtn.addEventListener("click", () => {
+        thumbnailsWrapper.scrollBy({ left: 100, behavior: "smooth" });
+        setTimeout(() => requestAnimationFrame(updateScrollButtons), 150);
+    });
+
+    thumbnailsWrapper.addEventListener("scroll", () => {
+        requestAnimationFrame(updateScrollButtons);
+    });
+
+    window.addEventListener("resize", () => {
+        requestAnimationFrame(updateScrollButtons);
+    });
+
+    requestAnimationFrame(updateScrollButtons);
+
+    // Initialize wishlist button if the unified script is loaded
+    if (typeof initProductDetailsWishlist === 'function') {
+        initProductDetailsWishlist();
+    }
 }
 
-// Helper function to get color value for swatches
-function getColorValue(colorName) {
-    const colorMap = {
-        'Black': '#000000',
-        'White': '#ffffff',
-        'Navy Blue': '#001f3f',
-        'Dark Blue': '#003366',
-        'Light Blue': '#7FDBFF',
-        'Floral Print': 'linear-gradient(45deg, #ff9a9e, #fad0c4)',
-        'Red': '#ff4136'
-    };
-    
-    return colorMap[colorName] || '#cccccc';
-}
+// --- 🔃 Initialize Cart Count ---
+updateCartCount();
 
-// ========================================
-// Initialize everything when DOM is loaded
-// ========================================
-document.addEventListener("DOMContentLoaded", () => {
-    generateProductCards();
-    updateWishlistUI();
-    
-    if (document.querySelector(".product-card")) {
+// Related Products
+function renderRelatedProducts(product) {
+    const relatedContainer = document.getElementById("related-products");
+    if (!relatedContainer) return;
+
+    // Find products in the same category, exclude the current one
+    const related = productsData
+        .filter(p => p.category === product.category && p.id !== product.id)
+        .slice(0, 10);
+
+    if (related.length === 0) {
+        relatedContainer.innerHTML = "<p>No related products found.</p>";
+        return;
+    }
+
+    // Render using your existing template function
+    relatedContainer.innerHTML = related
+        .map(p => createProductCardTemplate(p))
+        .join("");
+
+    // Reinitialize swatches + any card interactivity
+    if (typeof initProductCardFunctions === "function") {
         initProductCardFunctions();
     }
-});
+    
+    // Initialize wishlist functionality for product cards
+    if (typeof initProductCardsWishlist === 'function') {
+        initProductCardsWishlist();
+    }
+}
+
+if (product) {
+    renderRelatedProducts(product);
+}
+
+// Make currentVariantIndex available globally for the wishlist script
+window.currentVariantIndex = currentVariantIndex;

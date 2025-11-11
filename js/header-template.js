@@ -106,7 +106,7 @@ function renderHeader() {
                     </div>
 
                     <div class="cart">
-                        
+                    <a href="${context.linkBase}cart.html">
                         <i class="ri-shopping-cart-line"title="Cart"></i>
                             <span id="cart-count" class="cart-count">0</span>
                         </a>

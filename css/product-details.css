@@ -358,6 +358,47 @@
 }
 
 
+
+
+/* Add to your product-details.css or main.css */
+.add-to-wishlist-btn {
+    background: #f8f9fa;
+    color: #333;
+    border: 2px solid #ddd;
+    padding: 12px 20px;
+    margin-top: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+}
+
+.add-to-wishlist-btn:hover {
+    background: #e9ecef;
+    border-color: #adb5bd;
+}
+
+.add-to-wishlist-btn.active {
+    background: #fff5f5;
+    color: #e74c3c;
+    border-color: #e74c3c;
+}
+
+.add-to-wishlist-btn.active:hover {
+    background: #ffe6e6;
+}
+
+.add-to-wishlist-btn i {
+    font-size: 16px;
+}
+
+
 #add-cart-message.visible {
     opacity: 1;
 }

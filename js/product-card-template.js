@@ -50,6 +50,10 @@ function createProductCardTemplate(product) {
     const { imageBase, linkBase } = getPageContext();
     const detailsUrl = `${linkBase}product-details.html?id=${product.id}`;
 
+    // Check if first variant is in wishlist
+    const isFirstVariantInWishlist = typeof isInWishlist === 'function' ? 
+        isInWishlist(product.id, 0) : false;
+
     return `
         <div class="product-card" data-product="${product.id}">
             <a href="${detailsUrl}" title="${product.name}">
@@ -79,7 +83,10 @@ function createProductCardTemplate(product) {
                     }
                 </div>
 
-                <div class="wishlist-badge"><i class="ri-heart-line"></i></div>
+                <div class="wishlist-badge ${isFirstVariantInWishlist ? 'active' : ''}" 
+                     title="${isFirstVariantInWishlist ? 'Remove from Wishlist' : 'Add to Wishlist'}">
+                    <i class="ri-${isFirstVariantInWishlist ? 'heart-fill' : 'heart-line'}"></i>
+                </div>
 
                 ${discount ? `<div class="product-card-sale-badge"><p>-${discount}%</p></div>` : ""}
 
