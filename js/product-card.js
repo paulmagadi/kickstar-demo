@@ -66,13 +66,21 @@ function initProductCardFunctions() {
                 } else if (discountBadge) {
                     discountBadge.remove();
                 }
-
-                 // Update wishlist badge for the NEW current variant
+                
+                // Update wishlist badge for current variant
                 const productId = parseInt(card.dataset.product);
                 const wishlistBadge = card.querySelector('.wishlist-badge');
                 if (wishlistBadge && typeof updateWishlistButton === 'function') {
                     updateWishlistButton(wishlistBadge, productId, variantIndex);
                 }
+
+                // Update the main product link to point to the selected variant
+                const productLinks = card.querySelectorAll('a[href*="product-details.html"]');
+                const detailsUrl = swatch.dataset.detailsUrl;
+                productLinks.forEach(link => {
+                    link.href = detailsUrl;
+                });
+                
             });
         });
 

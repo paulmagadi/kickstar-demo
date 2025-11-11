@@ -18,26 +18,27 @@ function updateCartCount() {
     if (cartCountEl) cartCountEl.textContent = count;
 }
 
-let currentVariantIndex = 0;
+// let currentVariantIndex = 0;
 let sizeSelect, qtyInput, product;
 
-// Initialize the global variable
-window.currentVariantIndex = currentVariantIndex;
-// --- 🏷️ Product Details Logic ---
+// --- Product Details Logic ---
 const params = new URLSearchParams(window.location.search);
 const productId = parseInt(params.get("id"));
+const variantParam = params.get("variant");
+// Use the variant from URL or default to 0
+let currentVariantIndex = variantParam !== null ? parseInt(variantParam) : 0;
 product = productsData.find(p => p.id === productId);
+
+// Make sure to update the global variable
+window.currentVariantIndex = currentVariantIndex;
+window.productId = productId;
 
 if (!product) {
     document.querySelector(".product-details-container").innerHTML = "<h2>Product not found.</h2>";
 } else {
     document.title = product.name;
     document.getElementById('product-breadcrumb').textContent = product.name;
-}
 
-if (!product) {
-    document.querySelector(".product-details-container").innerHTML = "<h2>Product not found.</h2>";
-} else {
     const mainImg = document.getElementById("main-product-img");
     const nameEl = document.getElementById("product-name");
     const brandEl = document.getElementById("product-brand");
@@ -72,11 +73,9 @@ if (!product) {
     }
 
     if (product.brand) {
-        brandEl.textContent = `${product.brand} |`;
+        brandEl.textContent = product.brand;
     }
 
-    // Reset currentVariantIndex to 0 for this product
-    currentVariantIndex = 0;
 
     // ✅ Fix image paths
     product.variants.forEach(variant => {
@@ -86,12 +85,12 @@ if (!product) {
         });
     });
 
-    // ✅ Render color swatches
+    // ✅ Render color swatches - use the currentVariantIndex from URL
     colorsWrapper.innerHTML = product.variants.map((variant, i) => `
         <img src="${variant.images[0] || ''}"
              title="${variant.color}"
              width="60" height="60"
-             class="color-btn ${i === 0 ? "selected" : ""}"
+             class="color-btn ${i === currentVariantIndex ? "selected" : ""}"
              style="border-radius: 4px; cursor: pointer;"
              data-variant-index="${i}">
     `).join("");
@@ -111,6 +110,7 @@ if (!product) {
             if (typeof updateProductDetailsWishlistButton === 'function') {
                 updateProductDetailsWishlistButton();
             }
+           
         });
     });
 
@@ -175,6 +175,7 @@ if (!product) {
             updateProductDetailsWishlistButton();
         }
     }
+
 
 
     // --- 🧮 Quantity + Stock Handling ---

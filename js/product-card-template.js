@@ -31,32 +31,25 @@ window.getPageContext = getPageContext;
 function createProductCardTemplate(product) {
     if (!product || product.id === undefined || product.id === null) return "";
     
-    
     const firstVariant = product.variants[0];
     const firstSize = firstVariant.sizes[0];
 
     const sale_price = firstSize.sale_price;
     const price = firstSize.price;
 
-    // const allPrices = product.variants.flatMap(v => v.sizes.map(s => s.sale_price || s.price));
-    // const minPrice = Math.min(...allPrices);
-    // const maxPrice = Math.max(...allPrices);
-
     const discount = firstSize.sale_price
         ? Math.round(((firstSize.price - firstSize.sale_price) / firstSize.price) * 100)
         : 0;
 
-
     const { imageBase, linkBase } = getPageContext();
-    const detailsUrl = `${linkBase}product-details.html?id=${product.id}`;
-
+    
     // Check if first variant is in wishlist
     const isFirstVariantInWishlist = typeof isInWishlist === 'function' ? 
         isInWishlist(product.id, 0) : false;
 
     return `
         <div class="product-card" data-product="${product.id}">
-            <a href="${detailsUrl}" title="${product.name}">
+            <a href="${linkBase}product-details.html?id=${product.id}&variant=0" title="${product.name}">
                 <div class="product-image-wrapper">
                     <div class="product-image">
                         <img 
@@ -70,7 +63,7 @@ function createProductCardTemplate(product) {
             </a>
 
             <div class="product-info">
-                <a href="${detailsUrl}" title="${product.name}">
+                <a href="${linkBase}product-details.html?id=${product.id}&variant=0" title="${product.name}">
                     <div class="product-title">${product.name}</div>
                 </a>
                 <div class="product-category">${product.category[0].toUpperCase()}${product.category.slice(1)}</div>
@@ -101,6 +94,7 @@ function createProductCardTemplate(product) {
                                 class="swatch ${i === 0 ? "active" : ""}" 
                                 data-product="${product.id}" 
                                 data-variant="${i}" 
+                                data-details-url="${linkBase}product-details.html?id=${product.id}&variant=${i}"
                             />
                         `).join("")}
                     </div>

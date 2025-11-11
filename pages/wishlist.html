@@ -456,7 +456,8 @@
                 renderedItems++;
 
                 // Use linkBase for proper navigation
-                const productUrl = `${linkBase}product-details.html?id=${item.productId}`;
+                // const productUrl = `${linkBase}product-details.html?id=${item.productId}`;
+                const productUrl = `${linkBase}product-details.html?id=${item.productId}&variant=${item.variantIndex}`;
                 
                 // Fix the image path
                 const correctImagePath = getWishlistImagePath(item.image);
@@ -554,6 +555,7 @@
             updateCartCount();
 
             alert(`Added ${product.name} (${variant.color}) to cart!`);
+            console.log(cart);
         }
 
         // Cart functions
