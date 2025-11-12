@@ -33,6 +33,7 @@ function removeFromWishlist(productId, variantIndex = 0) {
 
     saveWishlist(updatedWishlist);
     renderWishlist();
+    renderWishlist(0, 'wishlist-preview');
     updateWishlistCount();
     return true;
 }
@@ -41,6 +42,7 @@ function clearWishlist() {
     if (confirm('Are you sure you want to clear your entire wishlist?')) {
         saveWishlist([]);
         renderWishlist();
+        renderWishlist(0, 'wishlist-preview');
         updateWishlistCount();
     }
 }
@@ -53,9 +55,13 @@ function updateWishlistCount() {
     const wishlist = getWishlist();
     const countElement = document.getElementById('wishlist-count');
     const headerCountElement = document.getElementById('wishlist-header-count');
+    const wishlistItemsCount = document.getElementById('wishlist-items-count account');
+    const wishlistNavBadge = document.getElementById('wishlist-badge');
 
     if (countElement) countElement.textContent = wishlist.length;
     if (headerCountElement) headerCountElement.textContent = wishlist.length;
+    if(wishlistItemsCount) wishlistItemsCount.textContent = wishlist.length;
+    if(wishlistNavBadge) wishlistNavBadge.textContent = wishlist.length;
 }
 
 function getWishlistImagePath(storedImagePath) {
@@ -69,29 +75,35 @@ function getWishlistImagePath(storedImagePath) {
     return `${imageBase}${cleanPath}`;
 }
 
-function renderWishlist() {
+
+function renderWishlist(limit = null, containerId = 'wishlist-items') {
     const wishlist = getWishlist();
-    const container = document.getElementById('wishlist-items');
+    const container = document.getElementById(containerId);
     const emptyState = document.getElementById('empty-wishlist');
     const actions = document.getElementById('wishlist-actions');
     const itemsCount = document.getElementById('wishlist-items-count');
     const totalPrice = document.getElementById('wishlist-total-price');
+    const wishlistPreviewFooter = document.querySelector(".wishlist-preview-footer");
 
-    if (wishlist.length === 0) {
-        container.innerHTML = '';
-        emptyState.style.display = 'block';
-        actions.style.display = 'none';
+    if (!wishlist || wishlist.length === 0) {
+        if(container) container.innerHTML = '';
+        if(wishlistPreviewFooter) wishlistPreviewFooter.innerHTML = '';
+        if (emptyState) emptyState.style.display = 'block';
+        if (actions) actions.style.display = 'none';
         return;
     }
 
-    emptyState.style.display = 'none';
-    actions.style.display = 'flex';
+    if (emptyState) emptyState.style.display = 'none';
+    if (actions) actions.style.display = 'flex';
 
     let total = 0;
     let renderedItems = 0;
-    container.innerHTML = '';
+    if(container) container.innerHTML = '';
 
-    wishlist.forEach(item => {
+    // ✅ Apply limit if provided
+    const itemsToRender = limit ? wishlist.slice(0, limit) : wishlist;
+
+    itemsToRender.forEach(item => {
         if (!item || !item.name) {
             console.warn('Invalid wishlist item:', item);
             return;
@@ -125,19 +137,20 @@ function renderWishlist() {
                 </div>
             </div>
         </div>
-    `;
+        `;
 
-        container.innerHTML += itemHTML;
+        if(container) container.innerHTML += itemHTML;
     });
 
-    itemsCount.textContent = renderedItems;
-    totalPrice.textContent = `KES ${total.toFixed(2)}`;
+    if (itemsCount) itemsCount.textContent = renderedItems;
+    if (totalPrice) totalPrice.textContent = `KES ${total.toFixed(2)}`;
 
     if (renderedItems === 0) {
-        emptyState.style.display = 'block';
-        actions.style.display = 'none';
+        if (emptyState) emptyState.style.display = 'block';
+        if (actions) actions.style.display = 'none';
     }
 }
+
 
 // ========================================
 // MODAL FUNCTIONS

@@ -10,7 +10,7 @@ class AccountPage {
 
     init() {
         this.loadUserData();
-        this.setupAddressManagement(); // Initialize address manager first
+        this.setupAddressManagement(); 
         this.setupEventListeners();
         this.setupTabs();
         this.loadDashboardData();
@@ -75,8 +75,6 @@ class AccountPage {
             this.updateUserProfile(); // Reset form
         });
 
-        // Address management is now handled by addressManager
-
         // Password change
         document.getElementById('change-password-btn').addEventListener('click', () => {
             this.openPasswordModal();
@@ -100,7 +98,6 @@ class AccountPage {
         this.setupModalHandlers();
     }
 
-    // Replace manual address management with the reusable manager
     setupAddressManagement() {
         this.addressManager = new ShippingAddressManager({
             containerId: "addresses-grid",
@@ -192,7 +189,6 @@ class AccountPage {
                 this.loadWishlist();
                 break;
             case 'settings':
-                // Settings doesn't need additional data loading
                 break;
         }
     }
@@ -205,18 +201,18 @@ class AccountPage {
     updateStats() {
         const orders = this.getUserOrders();
         const addresses = this.addressManager ? this.addressManager.getAddresses() : [];
-        const wishlist = this.getUserWishlist();
+        // const wishlist = this.getUserWishlist();
 
         // Update stats cards
         document.getElementById('total-orders').textContent = orders.length;
         document.getElementById('pending-orders').textContent = 
             orders.filter(order => order.status === 'pending' || order.status === 'processing').length;
         document.getElementById('saved-addresses').textContent = addresses.length;
-        document.getElementById('wishlist-items').textContent = wishlist.length;
+        // document.getElementById('wishlist-items').textContent = wishlist.length;
 
         // Update nav badges
         document.getElementById('orders-badge').textContent = orders.length;
-        document.getElementById('wishlist-badge').textContent = wishlist.length;
+        // document.getElementById('wishlist-badge').textContent = wishlist.length;
     }
 
     loadRecentActivity() {
@@ -345,58 +341,12 @@ class AccountPage {
         }
     }
 
+
+
     loadWishlist() {
-        const wishlist = this.getUserWishlist();
-        const wishlistContainer = document.getElementById('wishlist-container');
-
-        if (wishlist.length === 0) {
-            return; // Keep the default empty state
-        }
-
-        wishlistContainer.innerHTML = `
-            <div class="wishlist-grid">
-                ${wishlist.map(item => this.createWishlistItem(item)).join('')}
-            </div>
-        `;
-
-        this.setupWishlistActions();
+        renderWishlist(4, 'wishlist-preview'); // container with ID "wishlist-preview"
     }
 
-    createWishlistItem(item) {
-        return `
-            <div class="wishlist-item">
-                <img src="${item.image}" alt="${item.name}" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect width=%22100%22 height=%22100%22 fill=%22%23f0f0f0%22/%3E%3Ctext x=%2250%22 y=%2255%22 font-family=%22Arial%22 font-size=%2212%22 text-anchor=%22middle%22 fill=%22%23999%22%3ENo Image%3C/text%3E%3C/svg%3E'">
-                <h4>${item.name}</h4>
-                <div class="price">${this.formatCurrency(item.price)}</div>
-                <div class="wishlist-actions">
-                    <button class="btn btn-primary add-to-cart" data-id="${item.id}">
-                        <i class="ri-shopping-cart-line"></i> Add to Cart
-                    </button>
-                    <button class="btn btn-outline remove-wishlist" data-id="${item.id}">
-                        <i class="ri-delete-bin-line"></i>
-                    </button>
-                </div>
-            </div>
-        `;
-    }
-
-    setupWishlistActions() {
-        // Add to cart
-        document.querySelectorAll('.add-to-cart').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const itemId = btn.dataset.id;
-                this.addWishlistItemToCart(itemId);
-            });
-        });
-
-        // Remove from wishlist
-        document.querySelectorAll('.remove-wishlist').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const itemId = btn.dataset.id;
-                this.removeFromWishlist(itemId);
-            });
-        });
-    }
 
     setupModalHandlers() {
         // Password modal
@@ -441,14 +391,14 @@ class AccountPage {
         }
     }
 
-    getUserWishlist() {
-        try {
-            return JSON.parse(localStorage.getItem('wishlist') || '[]');
-        } catch (error) {
-            console.error('Error loading wishlist:', error);
-            return [];
-        }
-    }
+    // getUserWishlist() {
+    //     try {
+    //         return JSON.parse(localStorage.getItem('user_wishlist') || '[]');
+    //     } catch (error) {
+    //         console.error('Error loading wishlist:', error);
+    //         return [];
+    //     }
+    // }
 
     // Action Methods
     saveProfile() {
@@ -496,44 +446,6 @@ class AccountPage {
         this.showNotification('Password updated successfully!', 'success');
     }
 
-    addWishlistItemToCart(itemId) {
-        const wishlist = this.getUserWishlist();
-        const item = wishlist.find(wishItem => wishItem.id === itemId);
-        
-        if (!item) return;
-
-        try {
-            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-            const existingItem = cart.find(cartItem => cartItem.id === item.id);
-            
-            if (existingItem) {
-                existingItem.qty += 1;
-            } else {
-                cart.push({ ...item, qty: 1 });
-            }
-            
-            localStorage.setItem('cart', JSON.stringify(cart));
-            window.dispatchEvent(new Event('cartUpdated'));
-            this.showNotification('Item added to cart!', 'success');
-        } catch (error) {
-            console.error('Error adding to cart:', error);
-            this.showNotification('Error adding item to cart', 'error');
-        }
-    }
-
-    removeFromWishlist(itemId) {
-        const wishlist = this.getUserWishlist();
-        const updatedWishlist = wishlist.filter(item => item.id !== itemId);
-        
-        localStorage.setItem('wishlist', JSON.stringify(updatedWishlist));
-        
-        if (this.currentTab === 'wishlist') {
-            this.loadWishlist();
-        }
-        
-        this.updateStats();
-        this.showNotification('Item removed from wishlist', 'success');
-    }
 
     // Call the AuthHelper on logout
     logout() {

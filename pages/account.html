@@ -9,8 +9,8 @@
     <link rel="shortcut icon" href="../images/logo2.svg" type="image/x-icon">
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/account.css">
-
     <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/wishlist.css">
     <link rel="stylesheet" href="../css/footer.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
@@ -90,7 +90,6 @@
                             <h2>Dashboard</h2>
                             <p>Welcome back! Here's your account overview.</p>
                         </div>
-
                         <div class="stats-grid">
                             <div class="stat-card">
                                 <div class="stat-icon orders">
@@ -124,7 +123,7 @@
                                     <i class="ri-heart-line"></i>
                                 </div>
                                 <div class="stat-info">
-                                    <h3 id="wishlist-items">0</h3>
+                                    <h3 id="wishlist-items-count">0</h3>
                                     <p>Wishlist Items</p>
                                 </div>
                             </div>
@@ -257,25 +256,100 @@
                         </div>
                     </div>
 
-                    <!-- Wishlist Tab -->
-                    <div class="tab-content" id="wishlist-tab">
-                        <div class="tab-header">
-                            <h2>My Wishlist</h2>
-                            <p>Your saved items</p>
+                    <div class="wishlist-page">
+                        <div class="tab-content" id="wishlist-tab">
+                            <div class="wishlist-header">
+                                <h1>My Wishlist <span id="wishlist-header-count" class="wishlist-count">0</span></h1>
+                                <p>Your favorite items, all in one place</p>
+                            </div>
+
+                            <div class="wishlist-content">
+                                <div id="wishlist-actions" class="wishlist-actions" style="display: none;">
+                                    <button class="clear-wishlist-btn" id="clear-wishlist-btn">
+                                        <i class="ri-delete-bin-line"></i>
+                                        Clear Wishlist
+                                    </button>
+                                    <div class="wishlist-stats">
+                                        <strong id="wishlist-items-count account">0</strong> items •
+                                        Total: <strong id="wishlist-total-price">KES 0.00</strong>
+                                    </div>
+                                </div>
+
+                                <div id="wishlist-preview" class="wishlist-grid">
+                                    <!-- Wishlist items will be dynamically inserted here -->
+                                </div>
+
+                                <div class="wishlist-preview-footer">
+                                    <a href="wishlist.html" class="btn btn-outline">
+                                        <i class="ri-eye-line"></i> View All Wishlist
+                                    </a>
+                                </div>
+
+
+                                <div id="empty-wishlist" class="empty-wishlist">
+                                    <i class="ri-heart-line"></i>
+                                    <h2>Your wishlist is empty</h2>
+                                    <p>Start exploring our collection and add items you love to your wishlist. They'll
+                                        be
+                                        saved here for
+                                        you to revisit anytime.</p>
+                                    <a href="../index.html" class="browse-btn">Start Shopping</a>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="wishlist-container" id="wishlist-container">
-                            <!-- Wishlist items will be loaded here -->
-                            <div class="empty-state">
-                                <i class="ri-heart-line"></i>
-                                <h3>Your Wishlist is Empty</h3>
-                                <p>Save items you love to your wishlist for later</p>
-                                <a href="../index.html" class="btn btn-primary">
-                                    <i class="ri-shopping-bag-line"></i> Start Shopping
-                                </a>
+                        <!-- Size Selection Modal -->
+                        <div id="size-selection-modal" class="modal" style="display: none;">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h3>Select Size</h3>
+                                    <button class="modal-close" onclick="closeSizeModal()">&times;</button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="product-preview">
+                                        <img id="modal-product-image" src="" alt="Product" class="modal-product-img">
+                                        <div class="product-details">
+                                            <h4 id="modal-product-name"></h4>
+                                            <p id="modal-product-color" class="product-color"></p>
+                                            <p id="modal-product-price" class="product-price"></p>
+                                        </div>
+                                    </div>
+
+                                    <div class="size-selection">
+                                        <h4>Available Sizes</h4>
+                                        <div class="size-options-modal" id="size-options-modal">
+                                            <!-- Size options will be populated here -->
+                                        </div>
+                                    </div>
+
+                                    <div class="quantity-selection">
+                                        <label>Quantity:</label>
+                                        <div class="quantity-box">
+                                            <button type="button" class="qty-btn"
+                                                onclick="decreaseModalQty()">−</button>
+                                            <input type="text" id="modal-qty-input" value="1" readonly>
+                                            <button type="button" class="qty-btn"
+                                                onclick="increaseModalQty()">+</button>
+                                        </div>
+                                    </div>
+
+                                    <div class="remove-from-wishlist-option">
+                                        <label class="checkbox-container">
+                                            <input type="checkbox" id="remove-from-wishlist-checkbox" checked>
+                                            <span class="checkmark"></span>
+                                            Remove from wishlist after adding to cart
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn-secondary" onclick="closeSizeModal()">Cancel</button>
+                                    <button class="btn-primary" onclick="confirmAddToCart()">Add to Cart</button>
+                                </div>
                             </div>
                         </div>
                     </div>
+
+
 
                     <!-- Settings Tab -->
                     <div class="tab-content" id="settings-tab">
@@ -327,7 +401,8 @@
                     </div>
                     <div class="modal-body">
                         <div class="warning-message">
-                            <p><strong>This action cannot be undone.</strong> This will <strong><u>PERMANENTLY DELETE</u></strong> your account
+                            <p><strong>This action cannot be undone.</strong> This will <strong><u>PERMANENTLY
+                                        DELETE</u></strong> your account
                                 and remove all your data from our servers.</p>
 
                             <div class="deletion-consequences">
@@ -357,7 +432,7 @@
                         </div>
                     </div>
                     <div class="modal-actions">
-                        <button class="btn btn-danger" id="confirm-delete-account" disabled  type="button">
+                        <button class="btn btn-danger" id="confirm-delete-account" disabled type="button">
                             <i class="ri-delete-bin-line"></i> Permanently Delete Account
                         </button>
                         <button class="btn btn-outline" id="cancel-delete-account" type="button">
@@ -432,11 +507,13 @@
     </div>
 
     <script src="../js/context.js"></script>
+    <script src="../js/products.js"></script>
     <script src="../js/header-template.js"></script>
     <script src="../js/header.js"></script>
     <script src="../js/auth.js"></script>
     <script src="../js/account.js"></script>
     <script src="../js/shipping-address.js"></script>
+    <script src="../js/wishlist.js"></script>
     <script src="../js/footer.js"></script>
 </body>
 
