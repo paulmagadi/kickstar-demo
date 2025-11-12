@@ -155,7 +155,7 @@ function renderWishlist(limit = null, containerId = 'wishlist-items') {
         const itemHTML = `
         <div class="wishlist-item" data-item-id="${item.id}">
             <button class="remove-wishlist-btn" onclick="removeFromWishlist(${item.productId}, ${item.variantIndex})" title="Remove from wishlist">
-                <i class="ri-heart-fill"></i>
+                <i class="ri-dislike-fill"></i>
             </button>
             <img src="${correctImagePath}" alt="${item.name}" class="wishlist-item-image" onerror="this.src='${imageBase}placeholder.jpg'">
             <div class="wishlist-item-info">

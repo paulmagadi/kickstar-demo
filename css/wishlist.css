@@ -1,5 +1,4 @@
 /* Wishlist Page Specific Styles */
-
 .wishlist-page {
     .wishlist-container {
         max-width: 1200px;
@@ -603,3 +602,4 @@
         background: var(--gray-shade-color);
     }
 }
+
