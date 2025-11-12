@@ -38,14 +38,51 @@ function removeFromWishlist(productId, variantIndex = 0) {
     return true;
 }
 
+
 function clearWishlist() {
-    if (confirm('Are you sure you want to clear your entire wishlist?')) {
-        saveWishlist([]);
-        renderWishlist();
-        renderWishlist(0, 'wishlist-preview');
-        updateWishlistCount();
-    }
+    const clearWishlistModal = `
+        <div class="clear-wishlist-confirm-modal">
+            <div class="clear-wishlist-confirm-content">
+                <div class="clear-wishlist-confirm-header">
+                    <h3>Clear Wishlist</h3>
+                </div>
+                <div class="clear-wishlist-confirm-body">
+                    <p>Are you sure you want to clear all the <strong>Wishlist</strong>?</p>
+                </div>
+                <div class="clear-wishlist-confirm-footer">
+                    <button class="confirm-clear-btn" type="button">Yes, Clear</button>
+                    <button class="cancel-clear-btn" type="button">Cancel</button>
+                </div>
+            </div>
+        </div>
+    `
+
+    const container = document.querySelector(".container.wishlist-page");
+    const containerN = document.querySelector(".container .wishlist-page");
+    if(container) container.insertAdjacentHTML("beforeend", clearWishlistModal);
+    if(containerN) containerN.insertAdjacentHTML("beforeend", clearWishlistModal);
+
+    document.getElementById("clear-wishlist-btn").addEventListener("click", e => {
+        e.preventDefault;
+        const clearWishlistConfirmModal = document.querySelector(".clear-wishlist-confirm-modal");
+        const clearItemConfirmBtn = document.querySelector(".confirm-clear-btn");
+        const cancelClearBtn = document.querySelector(".cancel-clear-btn");
+        clearWishlistConfirmModal.style.display = "block";
+
+        clearItemConfirmBtn.onclick = function() {
+            saveWishlist([]);
+            renderWishlist();
+            renderWishlist(0, 'wishlist-preview');
+            updateWishlistCount()
+            clearWishlistConfirmModal.style.display = "none";
+        }
+
+        cancelClearBtn.onclick = function() {
+            clearWishlistConfirmModal.style.display = "none";
+        }
+    })
 }
+
 
 // ========================================
 // UI UPDATE FUNCTIONS
@@ -357,11 +394,7 @@ function initializeWishlistPage() {
     renderWishlist();
     updateWishlistCount();
     updateCartCount();
-
-    const clearBtn = document.getElementById('clear-wishlist-btn');
-    if (clearBtn) {
-        clearBtn.addEventListener('click', clearWishlist);
-    }
+    clearWishlist();
 
     // Close modal when clicking outside
     document.getElementById('size-selection-modal').addEventListener('click', function (e) {

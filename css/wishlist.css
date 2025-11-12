@@ -121,6 +121,64 @@
         background: #cc0000;
     }
 
+    .clear-wishlist-confirm-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: var(--black-low-opacity);
+        z-index: 1000;
+
+    }
+
+    .clear-wishlist-confirm-content {
+        display: flex;
+        flex-direction: column;
+        margin: 10% auto;
+        background-color: var(--white-color);
+        border-radius: 8px;
+        width: 100%;
+        max-width: 350px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+    }
+
+    .clear-wishlist-confirm-header,
+    .clear-wishlist-confirm-body,
+    .clear-wishlist-confirm-footer {
+        padding: 16px;
+        text-align: center;
+    }
+
+    .clear-wishlist-confirm-header {
+        border-bottom: 1px solid var(--gray-shade-color);
+    }
+
+    .clear-wishlist-confirm-footer {
+        border-bottom: 1px solid var(--gray-shade-color);
+    }
+
+    .confirm-clear-btn,
+    .cancel-clear-btn {
+        padding: 8px 16px;
+        margin: 0 8px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .confirm-clear-btn {
+        background-color: var(--danger);
+        color: var(--white-color);
+    }
+
+    .cancel-clear-btn {
+        background-color: var(--timberwolf);
+        color: var(--white-color);
+    }
+
     .wishlist-stats {
         font-family: 'Roboto', sans-serif;
         color: var(--neutral-dark-color);

@@ -521,54 +521,7 @@
 .wishlist-preview-footer {
     text-align: center;
 }
-/* .wishlist-container {
-    margin-top: 1rem;
-}
 
-.wishlist-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 1.5rem;
-}
-
-.wishlist-item {
-    background: var(--white-color);
-    border: 1px solid var(--gray-shade-color);
-    border-radius: 12px;
-    padding: 1rem;
-    text-align: center;
-}
-
-.wishlist-item img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 8px;
-    margin-bottom: 1rem;
-}
-
-.wishlist-item h4 {
-    margin: 0 0 0.5rem 0;
-    color: var(--neutral-dark-color);
-}
-
-.wishlist-item .price {
-    color: var(--primary-color);
-    font-weight: 600;
-    margin-bottom: 1rem;
-}
-
-.wishlist-actions {
-    display: flex;
-    gap: 0.5rem;
-}
-
-.wishlist-actions .btn {
-    flex: 1;
-    justify-content: center;
-    padding: 0.5rem;
-    font-size: 0.8rem;
-} */
 
 /* Settings */
 .settings-sections {

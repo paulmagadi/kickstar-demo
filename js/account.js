@@ -341,12 +341,9 @@ class AccountPage {
         }
     }
 
-
-
     loadWishlist() {
         renderWishlist(4, 'wishlist-preview'); // container with ID "wishlist-preview"
     }
-
 
     setupModalHandlers() {
         // Password modal
