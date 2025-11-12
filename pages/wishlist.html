@@ -300,6 +300,264 @@
                 font-size: 1.8rem;
             }
         }
+
+
+        /* Modal Styles */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid var(--gray-shade-color);
+        }
+
+        .modal-header h3 {
+            margin: 0;
+            color: var(--neutral-dark-color);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--neutral-dark-color);
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        .product-preview {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--gray-shade-color);
+        }
+
+        .modal-product-img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .product-details h4 {
+            margin: 0 0 5px 0;
+            color: var(--neutral-dark-color);
+        }
+
+        .product-color {
+            color: var(--neutral-dark-color);
+            opacity: 0.7;
+            margin: 0 0 5px 0;
+            font-size: 0.9rem;
+        }
+
+        .product-price {
+            color: var(--primary-color);
+            font-weight: bold;
+            margin: 0;
+            font-size: 1.1rem;
+        }
+
+        .size-selection {
+            margin-bottom: 20px;
+        }
+
+        .size-selection h4 {
+            margin-bottom: 10px;
+            color: var(--neutral-dark-color);
+        }
+
+        .size-options-modal {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .size-option-modal {
+            border: 2px solid var(--gray-shade-color);
+            border-radius: 6px;
+            padding: 10px 12px;
+            cursor: pointer;
+            text-align: center;
+            min-width: 60px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .size-option-modal:hover {
+            border-color: var(--primary-color);
+        }
+
+        .size-option-modal.selected {
+            border-color: var(--primary-color);
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .size-option-modal.out-of-stock {
+            background: var(--anti-flash-white);
+            color: var(--timberwolf);
+            border-color: var(--timberwolf);
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .quantity-selection {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--gray-shade-color);
+        }
+
+        .quantity-selection label {
+            font-weight: 500;
+            color: var(--neutral-dark-color);
+        }
+
+        .quantity-box {
+            display: flex;
+            align-items: center;
+            border: 1px solid var(--gray-shade-color);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .qty-btn {
+            background: var(--anti-flash-white);
+            border: none;
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .qty-btn:hover {
+            background: var(--gray-shade-color);
+        }
+
+        #modal-qty-input {
+            width: 50px;
+            text-align: center;
+            border: none;
+            border-left: 1px solid var(--gray-shade-color);
+            border-right: 1px solid var(--gray-shade-color);
+            padding: 8px;
+            background: white;
+        }
+
+        .remove-from-wishlist-option {
+            margin-bottom: 20px;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: var(--neutral-dark-color);
+        }
+
+        .checkbox-container input {
+            display: none;
+        }
+
+        .checkmark {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--gray-shade-color);
+            border-radius: 4px;
+            margin-right: 10px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .checkbox-container input:checked+.checkmark {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .checkbox-container input:checked+.checkmark::after {
+            content: "✓";
+            position: absolute;
+            color: white;
+            font-size: 14px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .modal-footer {
+            display: flex;
+            gap: 10px;
+            padding: 20px;
+            border-top: 1px solid var(--gray-shade-color);
+        }
+
+        .btn-primary,
+        .btn-secondary {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-color-dark);
+        }
+
+        .btn-secondary {
+            background: var(--anti-flash-white);
+            color: var(--neutral-dark-color);
+            border: 1px solid var(--gray-shade-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--gray-shade-color);
+        }
     </style>
 </head>
 
@@ -338,6 +596,54 @@
                 </div>
             </div>
         </main>
+        
+        <!-- Size Selection Modal -->
+        <div id="size-selection-modal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Select Size</h3>
+                    <button class="modal-close" onclick="closeSizeModal()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="product-preview">
+                        <img id="modal-product-image" src="" alt="Product" class="modal-product-img">
+                        <div class="product-details">
+                            <h4 id="modal-product-name"></h4>
+                            <p id="modal-product-color" class="product-color"></p>
+                            <p id="modal-product-price" class="product-price"></p>
+                        </div>
+                    </div>
+
+                    <div class="size-selection">
+                        <h4>Available Sizes</h4>
+                        <div class="size-options-modal" id="size-options-modal">
+                            <!-- Size options will be populated here -->
+                        </div>
+                    </div>
+
+                    <div class="quantity-selection">
+                        <label>Quantity:</label>
+                        <div class="quantity-box">
+                            <button type="button" class="qty-btn" onclick="decreaseModalQty()">−</button>
+                            <input type="text" id="modal-qty-input" value="1" readonly>
+                            <button type="button" class="qty-btn" onclick="increaseModalQty()">+</button>
+                        </div>
+                    </div>
+
+                    <div class="remove-from-wishlist-option">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="remove-from-wishlist-checkbox" checked>
+                            <span class="checkmark"></span>
+                            Remove from wishlist after adding to cart
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn-secondary" onclick="closeSizeModal()">Cancel</button>
+                    <button class="btn-primary" onclick="confirmAddToCart()">Add to Cart</button>
+                </div>
+            </div>
+        </div>
 
         <!-- Footer will be injected here -->
     </div>
@@ -348,278 +654,9 @@
     <script src="../js/products.js"></script>
     <script src="../js/header.js"></script>
     <script src="../js/auth.js"></script>
+    <script src="../js/wishlist.js"></script>
     <script src="../js/footer.js"></script>
 
-    <script>
-        // ========================================
-        // WISHLIST PAGE FUNCTIONALITY
-        // ========================================
-        const WISHLIST_STORAGE_KEY = 'user_wishlist';
-
-        // Get page context for proper paths
-        window.getPageContext = getPageContext;
-        const { imageBase, linkBase } = getPageContext();
-
-        // Get wishlist from localStorage
-        function getWishlist() {
-            const wishlist = localStorage.getItem(WISHLIST_STORAGE_KEY);
-            return wishlist ? JSON.parse(wishlist) : [];
-        }
-
-        // Save wishlist to localStorage
-        function saveWishlist(wishlist) {
-            localStorage.setItem(WISHLIST_STORAGE_KEY, JSON.stringify(wishlist));
-        }
-
-        // Remove item from wishlist
-        function removeFromWishlist(productId, variantIndex = 0) {
-            const wishlist = getWishlist();
-            const itemId = `${productId}-${variantIndex}`;
-            const updatedWishlist = wishlist.filter(item => item.id !== itemId);
-
-            saveWishlist(updatedWishlist);
-            renderWishlist();
-            updateWishlistCount();
-            return true;
-        }
-
-        // Clear entire wishlist
-        function clearWishlist() {
-            if (confirm('Are you sure you want to clear your entire wishlist?')) {
-                saveWishlist([]);
-                renderWishlist();
-                updateWishlistCount();
-            }
-        }
-
-        // Update wishlist count in header
-        function updateWishlistCount() {
-            const wishlist = getWishlist();
-            const countElement = document.getElementById('wishlist-count');
-            const headerCountElement = document.getElementById('wishlist-header-count');
-
-            if (countElement) countElement.textContent = wishlist.length;
-            if (headerCountElement) headerCountElement.textContent = wishlist.length;
-        }
-
-        // Fix image path for wishlist page
-        function getWishlistImagePath(storedImagePath) {
-            // If the image path is already a full URL or starts with http, return as is
-            if (storedImagePath.startsWith('http') || storedImagePath.startsWith('//')) {
-                return storedImagePath;
-            }
-            
-            // If the stored path already includes the correct base path, return as is
-            if (storedImagePath.includes('images/')) {
-                return storedImagePath;
-            }
-            
-            // Otherwise, prepend the correct image base path
-            // Remove any leading ./ or / from the stored path
-            const cleanPath = storedImagePath.replace(/^\.?\//, '');
-            return `${imageBase}${cleanPath}`;
-        }
-
-        // Render wishlist items
-        function renderWishlist() {
-            const wishlist = getWishlist();
-            const container = document.getElementById('wishlist-items');
-            const emptyState = document.getElementById('empty-wishlist');
-            const actions = document.getElementById('wishlist-actions');
-            const itemsCount = document.getElementById('wishlist-items-count');
-            const totalPrice = document.getElementById('wishlist-total-price');
-
-            if (wishlist.length === 0) {
-                container.innerHTML = '';
-                emptyState.style.display = 'block';
-                actions.style.display = 'none';
-                return;
-            }
-
-            // Hide empty state and show actions
-            emptyState.style.display = 'none';
-            actions.style.display = 'flex';
-
-            // Calculate total price and render items
-            let total = 0;
-            let renderedItems = 0;
-            
-            container.innerHTML = ''; // Clear container first
-            
-            wishlist.forEach(item => {
-                if (!item || !item.name) {
-                    console.warn('Invalid wishlist item:', item);
-                    return;
-                }
-                
-                total += parseFloat(item.price || 0);
-                renderedItems++;
-
-                // Use linkBase for proper navigation
-                // const productUrl = `${linkBase}product-details.html?id=${item.productId}`;
-                const productUrl = `${linkBase}product-details.html?id=${item.productId}&variant=${item.variantIndex}`;
-                
-                // Fix the image path
-                const correctImagePath = getWishlistImagePath(item.image);
-
-                const itemHTML = `
-                    <div class="wishlist-item" data-item-id="${item.id}">
-                        <button class="remove-wishlist-btn" onclick="removeFromWishlist(${item.productId}, ${item.variantIndex})" title="Remove from wishlist">
-                            <i class="ri-heart-fill"></i>
-                        </button>
-                        <img src="${correctImagePath}" alt="${item.name}" class="wishlist-item-image" onerror="this.src='${imageBase}placeholder.jpg'">
-                        <div class="wishlist-item-info">
-                            <h3 class="wishlist-item-title">${item.name}</h3>
-                            <div class="wishlist-item-color">Color: ${item.color || 'N/A'}</div>
-                            <div class="wishlist-item-price">KES ${parseFloat(item.price || 0).toFixed(2)}</div>
-                            <div class="wishlist-item-actions">
-                                <button class="add-to-cart-btn" onclick="addToCartFromWishlist(${item.productId}, ${item.variantIndex})">
-                                    <i class="ri-shopping-cart-line"></i>
-                                    Add to Cart
-                                </button>
-                                <a href="${productUrl}" class="view-details-btn">
-                                    <i class="ri-eye-line"></i>
-                                    View Details
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                
-                container.innerHTML += itemHTML;
-            });
-
-            // Update stats
-            itemsCount.textContent = renderedItems;
-            totalPrice.textContent = `KES ${total.toFixed(2)}`;
-            
-            // If no items could be rendered, show empty state
-            if (renderedItems === 0) {
-                emptyState.style.display = 'block';
-                actions.style.display = 'none';
-            }
-        }
-
-        // Add to cart from wishlist
-        function addToCartFromWishlist(productId, variantIndex) {
-            // Check if productsData is available
-            if (typeof productsData === 'undefined' || !productsData.length) {
-                alert('Product data not available. Please try again.');
-                return;
-            }
-
-            const product = productsData.find(p => p.id === productId);
-            if (!product) {
-                alert('Product not found!');
-                return;
-            }
-
-            const variant = product.variants[variantIndex];
-            if (!variant) {
-                alert('Variant not found!');
-                return;
-            }
-
-            // Use the first available size
-            const firstAvailableSize = variant.sizes.find(size => size.stock_quantity > 0);
-            if (!firstAvailableSize) {
-                alert('This product is out of stock!');
-                return;
-            }
-
-            const sizeIndex = variant.sizes.indexOf(firstAvailableSize);
-
-            // Add to cart using existing cart functionality
-            const cart = getCart();
-            const cartKey = `${productId}-${variantIndex}-${sizeIndex}`;
-            const existing = cart.find(item => item.key === cartKey);
-
-            if (existing) {
-                existing.qty = Math.min(existing.qty + 1, firstAvailableSize.stock_quantity);
-            } else {
-                cart.push({
-                    key: cartKey,
-                    productId,
-                    variantIndex: variantIndex,
-                    sizeIndex: sizeIndex,
-                    qty: 1,
-                    name: product.name,
-                    color: variant.color,
-                    size: firstAvailableSize.size,
-                    price: firstAvailableSize.sale_price || firstAvailableSize.price,
-                    image: variant.images[0]
-                });
-            }
-
-            setCart(cart);
-            updateCartCount();
-
-            alert(`Added ${product.name} (${variant.color}) to cart!`);
-            console.log(cart);
-        }
-
-        // Cart functions
-        function getCart() {
-            return JSON.parse(localStorage.getItem("cart") || "[]");
-        }
-
-        function setCart(cart) {
-            localStorage.setItem("cart", JSON.stringify(cart));
-        }
-
-        function updateCartCount() {
-            const cart = getCart();
-            const count = cart.reduce((sum, item) => sum + item.qty, 0);
-            const cartCountEl = document.getElementById("cart-count");
-            if (cartCountEl) cartCountEl.textContent = count;
-        }
-
-        // Wait for products data to load if needed
-        function waitForProductsData() {
-            return new Promise((resolve) => {
-                if (typeof productsData !== 'undefined' && productsData.length > 0) {
-                    resolve(productsData);
-                } else {
-                    // Try to load from localStorage or wait
-                    const storedProducts = localStorage.getItem('productsData');
-                    if (storedProducts) {
-                        window.productsData = JSON.parse(storedProducts);
-                        resolve(productsData);
-                    } else {
-                        // Wait a bit and try again
-                        setTimeout(() => {
-                            if (typeof productsData !== 'undefined' && productsData.length > 0) {
-                                resolve(productsData);
-                            } else {
-                                resolve(null);
-                            }
-                        }, 500);
-                    }
-                }
-            });
-        }
-
-        // Initialize wishlist page
-        document.addEventListener('DOMContentLoaded', async function () {
-            // Wait for products data if needed for addToCart functionality
-            await waitForProductsData();
-            
-            renderWishlist();
-            updateWishlistCount();
-            updateCartCount();
-
-            // Add event listener for clear wishlist button
-            const clearBtn = document.getElementById('clear-wishlist-btn');
-            if (clearBtn) {
-                clearBtn.addEventListener('click', clearWishlist);
-            }
-        });
-
-        // Make functions available globally
-        window.removeFromWishlist = removeFromWishlist;
-        window.clearWishlist = clearWishlist;
-        window.addToCartFromWishlist = addToCartFromWishlist;
-    </script>
 </body>
 
 </html>
