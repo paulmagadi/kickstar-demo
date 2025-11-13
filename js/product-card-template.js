@@ -34,8 +34,8 @@ function createProductCardTemplate(product) {
     const firstVariant = product.variants[0];
     const firstSize = firstVariant.sizes[0];
 
-    const sale_price = firstSize.sale_price;
-    const price = firstSize.price;
+    const firstSale_price = firstSize.sale_price;
+    const firstPrice = firstSize.price;
 
     const discount = firstSize.sale_price
         ? Math.round(((firstSize.price - firstSize.sale_price) / firstSize.price) * 100)
@@ -69,10 +69,10 @@ function createProductCardTemplate(product) {
                 <div class="product-category">${product.category[0].toUpperCase()}${product.category.slice(1)}</div>
 
                 <div class="product-price">
-                    ${sale_price && sale_price < price 
-                        ? `<span class="sale-price">KES ${sale_price}</span>
-                        <span class="price-range price original-price"> - KES ${price}</span>`
-                        : `<span class="price-range price original-price only">KES ${price}</span>`
+                    ${firstSale_price && firstSale_price < firstPrice 
+                        ? `<span class="sale-price">KES ${firstSale_price}</span>
+                        <span class="price-range price original-price"> - KES ${firstPrice}</span>`
+                        : `<span class="price-range price original-price only">KES ${firstPrice}</span>`
                     }
                 </div>
 

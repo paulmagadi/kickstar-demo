@@ -35,23 +35,23 @@ function initProductCardFunctions() {
                 colorLabel.textContent = variant.color;
 
                 // Update product price and discount
-                const allPrices = variant.sizes.map((s) => s.sale_price || s.price);
-                const minPrice = Math.min(...allPrices);
-                const maxPrice = Math.max(...allPrices);
+                const firstSize = variant.sizes[0];
+                const sale_price = firstSize.sale_price;
+                const price = firstSize.price;
 
                 const priceContainer = card.querySelector(".product-price");
-                priceContainer.innerHTML = `
-                    <span class="sale-price">KES ${minPrice.toFixed(2)}</span>
-                    ${minPrice !== maxPrice ? 
-                        `<span class="price-range price original-price"> - KES ${maxPrice.toFixed(2)}</span>` 
-                        : ""}
-                `;
+                priceContainer.innerHTML    = `
+                    ${sale_price && sale_price < price 
+                        ? `<span class="sale-price">KES ${sale_price}</span>
+                        <span class="price-range price original-price"> - KES ${price}</span>`
+                        : `<span class="price-range price original-price only">KES ${price}</span>`
+                    }
+                `
 
                 // Update discount badge
-                const firstSize = variant.sizes[0];
                 const discount = firstSize.sale_price
-                    ? Math.round(((firstSize.price - firstSize.sale_price) / firstSize.price) * 100)
-                    : 0;
+                ? Math.round(((firstSize.price - firstSize.sale_price) / firstSize.price) * 100)
+                : 0;
 
                 const discountBadge = card.querySelector(".product-card-sale-badge");
                 if (discount) {

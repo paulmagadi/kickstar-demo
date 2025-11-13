@@ -175,3 +175,56 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+
+document.addEventListener("DOMContentLoaded", () => {
+// DOM Elements
+const navToggle = document.getElementById('nav-toggler');
+const mobileSideNav = document.getElementById('mobile-side-nav');
+const mobileNavClose = document.getElementById('mobile-nav-close');
+const overlay = document.getElementById('overlay');
+const userToggle = document.getElementById('user-toggle');
+const userSection = document.getElementById('user-section');
+const authSection = document.getElementById('auth-section');
+const mobileUserSection = document.getElementById('mobile-user-section');
+const mobileAuthSection = document.getElementById('mobile-auth-section');
+
+        // Toggle mobile side navigation
+        navToggle.addEventListener('click', () => {
+            mobileSideNav.classList.add('active');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        // Close mobile side navigation
+        mobileNavClose.addEventListener('click', () => {
+            mobileSideNav.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+
+        // Close mobile side navigation when clicking overlay
+        overlay.addEventListener('click', () => {
+            mobileSideNav.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+
+        // Toggle user dropdown
+        if (userToggle) {
+            userToggle.addEventListener('click', () => {
+                const userMenu = userToggle.closest('.user-menu');
+                userMenu.classList.toggle('active');
+            });
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (userToggle && !userToggle.contains(e.target)) {
+                const userMenu = userToggle.closest('.user-menu');
+                if (userMenu) {
+                    userMenu.classList.remove('active');
+                }
+            }
+        });
+
+})

@@ -36,7 +36,7 @@ window.productId = productId;
 if (!product) {
     document.querySelector(".product-details-container").innerHTML = "<h2>Product not found.</h2>";
 } else {
-    document.title = product.name;
+    document.title = `${product.name} ${product.category ? `for ${product.category}` : ""} . Kickstar`;
     document.getElementById('product-breadcrumb').textContent = product.name;
 
     const mainImg = document.getElementById("main-product-img");
@@ -235,16 +235,6 @@ if (!product) {
         const max = parseInt(qtyInput.dataset.max, 10) || 1;
         if (qty < max) qtyInput.value = qty + 1;
     });
-
-    // sizeSelect.addEventListener("change", e => {
-    //     quantityContainer.style.display = "flex";
-    //     const messageErr = document.getElementById("add-cart-message-err");
-    //     messageErr.innerHTML = "";
-    //     sizeSelect.style.border = "1px solid #ccc"; // reset red border when valid
-    //     updatePriceUI(e.target.selectedOptions[0]);
-    //     qtyInput.value = 1; // reset quantity to default (1)
-    //     setQtyInputMax();
-    // });
 
     // --- Price UI ---
     function updatePriceUI(sizeOption) {

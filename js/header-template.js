@@ -106,11 +106,15 @@ function renderHeader() {
                     </div>
 
                     <div class="cart">
-                    <a href="${context.linkBase}cart.html">
-                        <i class="ri-shopping-cart-line"title="Cart"></i>
+                        <a href="${context.linkBase}cart.html">
+                            <i class="ri-shopping-cart-line"title="Cart"></i>
                             <span id="cart-count" class="cart-count">0</span>
                         </a>
                     </div>
+
+                    <button class="nav-toggle" id="nav-toggler">
+                        <i class="ri-menu-line"></i>
+                    </button>
                 </div>
                 
             </div>
@@ -124,6 +128,8 @@ function renderHeader() {
                 <i class="ri-search-line"></i>
             </form>
         </div>
+
+        
 
         <!-- Navigation -->
         <nav>
@@ -141,6 +147,68 @@ function renderHeader() {
             </ul>
         </nav>
     </header>
+
+    <!-- Mobile Side Navigation -->
+    <div class="mobile-side-nav" id="mobile-side-nav">
+        <div class="mobile-nav-header">
+            <a href="#" class="logo">KickStar</a>
+            <button class="mobile-nav-close" id="mobile-nav-close">
+                <i class="ri-close-line"></i>
+            </button>
+        </div>
+        
+        <ul class="mobile-nav-links">
+            <li><a href="#" title="Home">Home</a></li>
+            <li><a href="#" title="All Products">All</a></li>
+            <li><a href="#" title="Featured Products">Featured</a></li>
+            <li><a href="#" title="Women's Shoes">Women</a></li>
+            <li><a href="#" title="Men's Shoes">Men</a></li>
+            <li><a href="#" title="Kids Shoes">Kids</a></li>
+            <li><a href="#" title="Unisex Shoes">Unisex</a></li>
+            <li><a href="#" title="New in Store">New</a></li>
+            <li><a href="#" title="Deals">Deals</a></li>
+            <li><a href="#" title="Brands">Brands</a></li>
+        </ul>
+        
+        <div class="mobile-nav-auth">
+            <div id="mobile-auth-section" class="mobile-auth-section">
+                <a href="#" class="mobile-auth-link signin" aria-label="Sign in to your account">
+                    <span>Sign In</span>
+                </a>
+                <a href="#" class="mobile-auth-link register" aria-label="Create a new account">
+                    <span>Register</span>
+                </a>
+            </div>
+
+            <div id="mobile-user-section" class="mobile-user-section">
+                <div class="mobile-user-info">
+                    <div class="user-avatar">DU</div>
+                    <span id="mobile-user-name">User Name</span>
+                </div>
+                <div class="mobile-user-menu">
+                    <a href="#" class="mobile-dropdown-item" role="menuitem">
+                        <i class="ri-user-line" aria-hidden="true"></i>
+                        My Account
+                    </a>
+                    <a href="#" class="mobile-dropdown-item" role="menuitem">
+                        <i class="ri-shopping-bag-line" aria-hidden="true"></i>
+                        My Orders
+                    </a>
+                    <a href="#" class="mobile-dropdown-item" role="menuitem">
+                        <i class="ri-heart-line" aria-hidden="true"></i>
+                        Wishlist
+                    </a>
+                    <a href="#" class="mobile-dropdown-item logout" id="mobile-logout-btn" role="menuitem">
+                        <i class="ri-logout-box-line" aria-hidden="true"></i>
+                        Logout
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+
     <div class="header-after"></div>
     `;
 
