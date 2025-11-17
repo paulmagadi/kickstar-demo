@@ -42,13 +42,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
 class AuthHeader {
     static updateAuthUI() {
-        const desktopAuthSection = document.getElementById('desktop-auth-section');
+        const desktopAuthSection = document.getElementById('desktop-auth-content');
         const userSection = document.getElementById('user-section');
         const userName = document.getElementById('user-name');
         
         const mobileAuthToggle = document.querySelector('.mobile-auth-toggle');
         const userAvatar = document.querySelector(".user-avatar");
-        
+        const mobileNavUserSection = document.getElementById("mobile-nav-user-section");
+        const mobileNavAuthSection = document.getElementById("mobile-nav-auth-section");
+        const mobileNavUserName = document.getElementById('mobile-user-name');
+        const MobileNavUserAvatar = document.getElementById("mobile-user-avatar");
+       
         const isAuthenticated = AuthHelper.isAuthenticated();
         const currentUser = AuthHelper.getCurrentUser();
 
@@ -56,22 +60,30 @@ class AuthHeader {
             if (isAuthenticated && currentUser) {
                 desktopAuthSection.style.display = 'none';
                 userSection.style.display = 'flex';
+                mobileNavAuthSection.style.display = 'none';
                 if (userName) {
                     userName.textContent = `${currentUser.firstName} ${currentUser.lastName}`;
+                }
+                if (mobileNavUserName) {
+                    mobileNavUserName.textContent = `${currentUser.firstName} ${currentUser.lastName}`;
                 }
             } else {
                 desktopAuthSection.style.display = 'flex';
                 userSection.style.display = 'none';
+                mobileNavAuthSection.style.display = 'flex';
             }
         }
 
         if(isAuthenticated && currentUser) {
-            mobileAuthToggle.classList.add("display-none");
+            mobileAuthToggle.style.display = 'none';
             userAvatar.textContent = (currentUser.firstName.charAt(0) + currentUser.lastName.charAt(0)).toUpperCase();
+            MobileNavUserAvatar.textContent = (currentUser.firstName.charAt(0) + currentUser.lastName.charAt(0)).toUpperCase();
+            mobileNavUserSection.style.display = "block";
         }
 
         else {
-            mobileAuthToggle.classList.add("display-flex");
+            mobileAuthToggle.style.display = 'flex';
+            mobileNavUserSection.style.display = "none";
         }
     }
 
@@ -195,16 +207,13 @@ const mobileSideNav = document.getElementById('mobile-side-nav');
 const mobileNavClose = document.getElementById('mobile-nav-close');
 const overlay = document.getElementById('overlay');
 const userToggle = document.getElementById('user-toggle');
-const userSection = document.getElementById('user-section');
-const authSection = document.getElementById('desktop-auth-section');
-const mobileUserSection = document.getElementById('mobile-user-section');
-const mobileAuthSection = document.getElementById('mobile-auth-section');
 const mobileAuthToggle = document.querySelector(".mobile-auth-toggle");
 const mobileAuthDropdown = document.getElementById("mobile-auth-dropdown");
 
+
+
         // Toggle mobile auth 
         mobileAuthToggle.addEventListener('click', () => {
-            // mobileAuthDropdown.style.display = "block";
             mobileAuthDropdown.classList.add("show")
         });
 
@@ -230,12 +239,12 @@ const mobileAuthDropdown = document.getElementById("mobile-auth-dropdown");
         });
 
         // Toggle user dropdown
-        // if (userToggle) {
-        //     userToggle.addEventListener('click', () => {
-        //         const userMenu = userToggle.closest('.user-menu');
-        //         userMenu.classList.toggle('active');
-        //     });
-        // }
+        if (userToggle) {
+            userToggle.addEventListener('click', () => {
+                const userMenu = userToggle.closest('.user-menu');
+                userMenu.classList.toggle('active');
+            });
+        }
 
         // Close dropdown when clicking outside
         document.addEventListener('click', (e) => {

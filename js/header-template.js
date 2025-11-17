@@ -60,16 +60,22 @@ function renderHeader() {
     
                     <!-- Auth Section -->
                     <div class="header-auth-section">
-                        <div class="mobile-auth-toggle"><i class="ri-user-line"></i></div>
+                        <div class="mobile-auth-toggle-wrapper">
+                            <div class="mobile-auth-toggle">
+                                <i class="ri-user-line"></i>
+                            </div>
+                        </div>
 
                         <!-- Desktop Auth Section -->
                         <div id="desktop-auth-section" class="desktop-auth-section">
-                            <a href="${context.linkBase}login.html" class="auth-link signin" aria-label="Sign in to your account">
-                                <span>Sign In</span>
-                            </a>
-                            <a href="${context.linkBase}register.html" class="auth-link register" aria-label="Create a new account">
-                                <span>Register</span>
-                            </a>
+                            <div id="desktop-auth-content" class="desktop-auth-content">
+                                <a href="${context.linkBase}login.html" class="auth-link signin" aria-label="Sign in to your account">
+                                    <span>Sign In</span>
+                                </a>
+                                <a href="${context.linkBase}register.html" class="auth-link register" aria-label="Create a new account">
+                                    <span>Register</span>
+                                </a>
+                            </div>
                         </div>
 
                         <!-- Mobile Auth Dropdown -->
@@ -190,7 +196,7 @@ function renderHeader() {
         </ul>
         
         <div class="mobile-nav-auth">
-            <div id="mobile-auth-section" class="mobile-auth-section">
+            <div id="mobile-nav-auth-section" class="mobile-nav-auth-section">
                 <a href="${context.linkBase}login.html" class="mobile-auth-link signin" aria-label="Sign in to your account">
                     <span>Sign In</span>
                 </a>
@@ -199,7 +205,7 @@ function renderHeader() {
                 </a>
             </div>
 
-            <div id="mobile-user-section" class="mobile-user-section">
+            <div id="mobile-nav-user-section" class="mobile-nav-user-section">
                 <div class="mobile-user-info">
                     <div class="user-avatar" id="mobile-user-avatar">U</div>
                     <span id="mobile-user-name">User Name</span>

@@ -119,14 +119,18 @@ header {
 /* ===== AUTH SECTION ===== */
 /* ===== MOBILE AUTH DROPDOWN ===== */
 .header-auth-section {
+  .mobile-auth-toggle-wrapper {
+    display: none;
+  }
+
   .mobile-auth-toggle {
-    display: none ;
+    display: flex;
   }
 
   .mobile-auth-dropdown {
     position: absolute;
     top: 100%;
-    right: 0;
+    right: 10px;
     background: var(--white-color);
     border: 1px solid var(--gray-shade-color);
     border-radius: 8px;
@@ -162,7 +166,7 @@ header {
     color: var(--primary-color);
   }
 
-  .desktop-auth-section {
+  .desktop-auth-content {
     display: flex;
     align-items: center;
     gap: 1rem;
@@ -525,7 +529,7 @@ nav .nav-links a.active-url {
   border-top: 1px solid var(--gray-shade-color);
 }
 
-.mobile-auth-section {
+.mobile-nav-auth-section {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
@@ -558,7 +562,7 @@ nav .nav-links a.active-url {
   background-color: var(--primary-color-dark);
 }
 
-.mobile-user-section {
+.mobile-nav-user-section {
   padding: 1rem 1.5rem;
   border-top: 1px solid var(--gray-shade-color);
   display: none;
@@ -589,6 +593,18 @@ nav .nav-links a.active-url {
 
 .mobile-dropdown-item:hover {
   color: var(--primary-color);
+}
+
+#mobile-user-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--primary-color);
+  color: var(--white-color);
+  font-weight: 600;
 }
 
 .overlay {
@@ -738,13 +754,15 @@ nav .nav-links a.active-url {
 
 /* 800px and below - MOBILE */
 @media (max-width: 800px) {
-  
-  .mobile-auth-toggle.display-flex {
-    display: flex;
-  }
+  .header-auth-section {
+    .mobile-auth-toggle-wrapper {
+      display: flex;
+    }
 
-  .desktop-auth-section {
-    display: none !important;
+    .desktop-auth-section {
+      display: none;
+    }
+
   }
 
   nav .nav-links {
@@ -766,47 +784,45 @@ nav .nav-links a.active-url {
 
 /* 768px and below */
 @media (max-width: 768px) {
-  .auth-section {
-    gap: 0.5rem;
-  }
+  .header-auth-section {
+    .auth-link {
+      padding: 0.4rem 0.75rem;
+      font-size: 0.8rem;
+    }
 
-  .auth-link {
-    padding: 0.4rem 0.75rem;
-    font-size: 0.8rem;
-  }
+    .auth-link.register {
+      padding: 0.4rem 1rem;
+    }
 
-  .auth-link.register {
-    padding: 0.4rem 1rem;
-  }
+    .user-toggle {
+      padding: 0.4rem 0.75rem;
+      font-size: 0.8rem;
+      border: none;
+    }
 
-  .user-toggle {
-    padding: 0.4rem 0.75rem;
-    font-size: 0.8rem;
-    border: none;
-  }
+    .user-toggle span {
+      display: none;
+    }
 
-  .user-toggle span {
-    display: none;
-  }
+    .user-toggle i:last-child {
+      display: none;
+    }
 
-  .user-toggle i:last-child {
-    display: none;
-  }
+    .user-dropdown {
+      right: -1rem;
+      min-width: 180px;
+    }
 
-  .user-dropdown {
-    right: -1rem;
-    min-width: 180px;
-  }
+    .dropdown-item {
+      padding: 0.75rem;
+      font-size: 0.85rem;
+    }
 
-  .dropdown-item {
-    padding: 0.75rem;
-    font-size: 0.85rem;
-  }
-
-  .user-avatar {
-    width: 27px;
-    height: 27px;
-    font-size: 0.7rem;
+    .user-avatar {
+      width: 27px;
+      height: 27px;
+      font-size: 0.7rem;
+    }
   }
 }
 
@@ -838,39 +854,42 @@ nav .nav-links a.active-url {
 
 /* 480px and below */
 @media (max-width: 480px) {
-  .auth-link {
-    padding: 0.5rem;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    justify-content: center;
-  }
+  .header-auth-section {
+    .auth-link {
+      padding: 0.5rem;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      justify-content: center;
+    }
 
-  .auth-link.register {
-    padding: 0.5rem;
-    width: auto;
-    height: auto;
-    border-radius: 6px;
-  }
+    .auth-link.register {
+      padding: 0.5rem;
+      width: auto;
+      height: auto;
+      border-radius: 6px;
+    }
 
-  .auth-link.register span {
-    display: inline;
-  }
+    .auth-link.register span {
+      display: inline;
+    }
 
-  .user-toggle {
-    padding: 0.5rem;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    justify-content: center;
-  }
+    .user-toggle {
+      padding: 0.5rem;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      justify-content: center;
+      border: none;
+    }
 
-  .user-toggle span {
-    display: none;
-  }
+    .user-toggle span {
+      display: none;
+    }
 
-  .user-toggle i:first-child {
-    margin: 0;
+    .user-toggle i:first-child {
+      margin: 0;
+    }
   }
 }
 
