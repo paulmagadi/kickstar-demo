@@ -178,7 +178,7 @@ function renderHeader() {
         
         <ul class="mobile-nav-links">
             <li><a href="${homeContext.homeBase}index.html" title="Home">Home</a></li>
-            <li><a href="${context.linkBase}category.html?cat=all" title="All Products">All</a></li>
+            <li><a href="${context.linkBase}category.html?cat=all" title="All Products">All Products</a></li>
             <li><a href="${context.linkBase}category.html?cat=featured" title="Featured Products">Featured</a></li>
             <li><a href="${context.linkBase}category.html?cat=women" title="Women's Shoes">Women</a></li>
             <li><a href="${context.linkBase}category.html?cat=men" title="Men's Shoes">Men</a></li>

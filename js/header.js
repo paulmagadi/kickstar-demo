@@ -47,6 +47,7 @@ class AuthHeader {
         const userName = document.getElementById('user-name');
         
         const mobileAuthToggle = document.querySelector('.mobile-auth-toggle');
+        const userAvatar = document.querySelector(".user-avatar");
         
         const isAuthenticated = AuthHelper.isAuthenticated();
         const currentUser = AuthHelper.getCurrentUser();
@@ -66,6 +67,7 @@ class AuthHeader {
 
         if(isAuthenticated && currentUser) {
             mobileAuthToggle.classList.add("display-none");
+            userAvatar.textContent = (currentUser.firstName.charAt(0) + currentUser.lastName.charAt(0)).toUpperCase();
         }
 
         else {
@@ -228,12 +230,12 @@ const mobileAuthDropdown = document.getElementById("mobile-auth-dropdown");
         });
 
         // Toggle user dropdown
-        if (userToggle) {
-            userToggle.addEventListener('click', () => {
-                const userMenu = userToggle.closest('.user-menu');
-                userMenu.classList.toggle('active');
-            });
-        }
+        // if (userToggle) {
+        //     userToggle.addEventListener('click', () => {
+        //         const userMenu = userToggle.closest('.user-menu');
+        //         userMenu.classList.toggle('active');
+        //     });
+        // }
 
         // Close dropdown when clicking outside
         document.addEventListener('click', (e) => {
