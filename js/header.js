@@ -90,8 +90,18 @@ class AuthHeader {
     static setupAuthListeners() {
         // Logout button
         const logoutBtn = document.getElementById('logout-btn');
+        const mobileLogoutBtn = document.getElementById('mobile-logout-btn');
         if (logoutBtn) {
             logoutBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (confirm('Are you sure you want to logout?')) {
+                    AuthHelper.logout();
+                }
+            });
+        }
+
+        if (mobileLogoutBtn) {
+            mobileLogoutBtn.addEventListener('click', (e) => {
                 e.preventDefault();
                 if (confirm('Are you sure you want to logout?')) {
                     AuthHelper.logout();

@@ -501,6 +501,11 @@ nav .nav-links a.active-url {
   cursor: pointer;
 }
 
+.mobile-nav-close i {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
 .mobile-nav-links {
   list-style: none;
   padding: 1rem 0;

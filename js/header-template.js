@@ -177,7 +177,7 @@ function renderHeader() {
             <a href="${homeContext.homeBase}index.html" class="logo">
                 <img src="${context.imageBase}logo2.svg" alt="KickStar" width="70px">
             </a>
-            <button class="mobile-nav-close" id="mobile-nav-close">
+            <button class="mobile-nav-close" id="mobile-nav-close" aria-label="Close Sidebar" role="closesidebar">
                 <i class="ri-close-line"></i>
             </button>
         </div>
