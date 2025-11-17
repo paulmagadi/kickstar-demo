@@ -23,31 +23,39 @@ class AuthHelper {
     }
 
     static updateAuthUI() {
-        const authSection = document.getElementById('auth-section');
+        const authSection = document.querySelector('desktop-auth-section');
         const userSection = document.getElementById('user-section');
         const userName = document.getElementById('user-name');
-        const userToggle = document.getElementById('user-toggle');
+        const userAvatar = document.querySelector('.user-avatar');
+        const authDropdown = document.getElementById('auth-dropdown');
+        const mobileAuthSection = document.getElementById('mobile-auth-section');
+        const mobileUserSection = document.getElementById('mobile-user-section');
+        const mobileUserName = document.getElementById('mobile-user-name');
+        const mobileUserAvatar = document.getElementById('mobile-user-avatar');
         
         const isAuthenticated = this.isAuthenticated();
         const currentUser = this.getCurrentUser();
 
+        // Update desktop header
         if (authSection && userSection) {
             if (isAuthenticated && currentUser) {
                 authSection.style.display = 'none';
                 userSection.style.display = 'flex';
                 
-                // Update user name
+                // Update user name and avatar
                 if (userName) {
-                    userName.textContent, userName.title = `${currentUser.firstName} ${currentUser.lastName}`;
+                    userName.textContent = `${currentUser.firstName} ${currentUser.lastName}`;
+                    userName.title = `${currentUser.firstName} ${currentUser.lastName}`;
                 }
                 
-                // Add avatar to user toggle
-                if (userToggle) {
-                    const avatar = document.querySelector(".user-avatar");
-                    avatar.title = `${currentUser.firstName} ${currentUser.lastName}`;
-                    avatar.textContent = this.getUserInitials();
-                    userToggle.insertBefore(avatar, userToggle.firstChild);
-                    userToggle.classList.add('with-avatar');
+                if (userAvatar) {
+                    userAvatar.textContent = this.getUserInitials();
+                    userAvatar.title = `${currentUser.firstName} ${currentUser.lastName}`;
+                }
+                
+                // Hide auth dropdown
+                if (authDropdown) {
+                    authDropdown.style.display = 'none';
                 }
                 
                 // Initialize dropdown if not already initialized
@@ -58,11 +66,35 @@ class AuthHelper {
                 authSection.style.display = 'flex';
                 userSection.style.display = 'none';
                 
+                // Show auth dropdown on mobile
+                if (authDropdown) {
+                    authDropdown.style.display = 'block';
+                }
+                
                 // Clean up dropdown
                 if (window.userDropdown) {
                     window.userDropdown.closeDropdown();
                     window.userDropdown = null;
                 }
+            }
+        }
+
+        // Update mobile sidebar
+        if (mobileAuthSection && mobileUserSection) {
+            if (isAuthenticated && currentUser) {
+                mobileAuthSection.style.display = 'none';
+                mobileUserSection.style.display = 'block';
+                
+                if (mobileUserName) {
+                    mobileUserName.textContent = `${currentUser.firstName} ${currentUser.lastName}`;
+                }
+                
+                if (mobileUserAvatar) {
+                    mobileUserAvatar.textContent = this.getUserInitials();
+                }
+            } else {
+                mobileAuthSection.style.display = 'flex';
+                mobileUserSection.style.display = 'none';
             }
         }
     }
@@ -109,14 +141,16 @@ window.addEventListener('userLoggedIn', () => {
     AuthHelper.updateAuthUI();
 });
 
-// window.addEventListener('userLoggedOut', () => {
-//     AuthHelper.updateAuthUI();
-// });
-
-// Initialize auth UI on page load
-document.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('userLoggedOut', () => {
     AuthHelper.updateAuthUI();
 });
 
-// // Make it globally available
+// Initialize auth UI on page load
+document.addEventListener('DOMContentLoaded', () => {
+    if (typeof AuthHelper !== 'undefined') {
+        AuthHelper.updateAuthUI();
+    }
+});
+
+// Make it globally available
 window.AuthHelper = AuthHelper;

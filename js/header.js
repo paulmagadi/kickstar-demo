@@ -42,24 +42,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
 class AuthHeader {
     static updateAuthUI() {
-        const authSection = document.getElementById('auth-section');
+        const desktopAuthSection = document.getElementById('desktop-auth-section');
         const userSection = document.getElementById('user-section');
         const userName = document.getElementById('user-name');
+        
+        const mobileAuthToggle = document.querySelector('.mobile-auth-toggle');
         
         const isAuthenticated = AuthHelper.isAuthenticated();
         const currentUser = AuthHelper.getCurrentUser();
 
-        if (authSection && userSection) {
+        if (desktopAuthSection && userSection) {
             if (isAuthenticated && currentUser) {
-                authSection.style.display = 'none';
+                desktopAuthSection.style.display = 'none';
                 userSection.style.display = 'flex';
                 if (userName) {
                     userName.textContent = `${currentUser.firstName} ${currentUser.lastName}`;
                 }
             } else {
-                authSection.style.display = 'flex';
+                desktopAuthSection.style.display = 'flex';
                 userSection.style.display = 'none';
             }
+        }
+
+        if(isAuthenticated && currentUser) {
+            mobileAuthToggle.classList.add("display-none");
+        }
+
+        else {
+            mobileAuthToggle.classList.add("display-flex");
         }
     }
 
@@ -178,15 +188,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
 document.addEventListener("DOMContentLoaded", () => {
 // DOM Elements
-const navToggle = document.getElementById('nav-toggler');
+const navToggle = document.getElementById('nav-toggle');
 const mobileSideNav = document.getElementById('mobile-side-nav');
 const mobileNavClose = document.getElementById('mobile-nav-close');
 const overlay = document.getElementById('overlay');
 const userToggle = document.getElementById('user-toggle');
 const userSection = document.getElementById('user-section');
-const authSection = document.getElementById('auth-section');
+const authSection = document.getElementById('desktop-auth-section');
 const mobileUserSection = document.getElementById('mobile-user-section');
 const mobileAuthSection = document.getElementById('mobile-auth-section');
+const mobileAuthToggle = document.querySelector(".mobile-auth-toggle");
+const mobileAuthDropdown = document.getElementById("mobile-auth-dropdown");
+
+        // Toggle mobile auth 
+        mobileAuthToggle.addEventListener('click', () => {
+            // mobileAuthDropdown.style.display = "block";
+            mobileAuthDropdown.classList.add("show")
+        });
 
         // Toggle mobile side navigation
         navToggle.addEventListener('click', () => {
@@ -228,3 +246,4 @@ const mobileAuthSection = document.getElementById('mobile-auth-section');
         });
 
 })
+

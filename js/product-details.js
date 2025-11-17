@@ -18,7 +18,6 @@ function updateCartCount() {
     if (cartCountEl) cartCountEl.textContent = count;
 }
 
-// let currentVariantIndex = 0;
 let sizeSelect, qtyInput, product;
 
 // --- Product Details Logic ---

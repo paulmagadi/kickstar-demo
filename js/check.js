@@ -1,27 +1,3 @@
-function getHomePageContext() {
-    const indexContainer = document.querySelector('.container.index');
-    const pagesContainer = document.querySelector('.container.pages');
-
-    if (indexContainer) {
-        return {
-            homeBase: '',
-        };
-    } else if (pagesContainer) {
-        return {
-            homeBase: '../',
-        };
-    } else {
-        return {
-            homeBase: '',
-        };
-    }
-}
-
-window.getHomePageContext = getHomePageContext;
-// window.getPageContext = getPageContext;
-
-
-
 function renderHeader() {
     const context = getPageContext();
     const homeContext = getHomePageContext();
@@ -48,69 +24,70 @@ function renderHeader() {
 
             <!-- Header Items -->
             <div class="header-items-container">
-                    <!-- Mobile Search Toggle -->
+                <!-- Mobile Search Toggle -->
                 <div class="search-toggle mobile-only">
                     <i class="ri-search-line" title="Search"></i>
                 </div>
-
                 <div class="header-items">
+                    
                     <div class="help" title="Find Help">
                         <i class="ri-questionnaire-line" aria-hidden="true"></i>
                     </div>
-    
-                    <!-- Auth Section -->
-                    <div class="header-auth-section">
-                        <div class="mobile-auth-toggle"><i class="ri-user-line"></i></div>
 
-                        <!-- Desktop Auth Section -->
-                        <div id="desktop-auth-section" class="desktop-auth-section">
-                            <a href="${context.linkBase}login.html" class="auth-link signin" aria-label="Sign in to your account">
-                                <span>Sign In</span>
-                            </a>
-                            <a href="${context.linkBase}register.html" class="auth-link register" aria-label="Create a new account">
-                                <span>Register</span>
-                            </a>
-                        </div>
+                    <!-- Desktop Auth Section -->
+                    <div id="auth-section" class="auth-section desktop">
+                        <a href="${context.linkBase}login.html" class="auth-link signin" aria-label="Sign in to your account">
+                            <i class="ri-user-line"></i>
+                            <span>Sign In</span>
+                        </a>
+                        <a href="${context.linkBase}register.html" class="auth-link register" aria-label="Create a new account">
+                            <span>Register</span>
+                        </a>
+                    </div>
 
-                        <!-- Mobile Auth Dropdown -->
-                        <div class="mobile-auth-dropdown" id="mobile-auth-dropdown">
-                            <a href="${context.linkBase}login.html" class="mobile-auth-dropdown-item">
+                    <!-- Mobile Auth Dropdown -->
+                    <div class="auth-dropdown" id="auth-dropdown">
+                        <button class="auth-dropdown-toggle" id="auth-dropdown-toggle" aria-label="Authentication menu">
+                            <i class="ri-user-line"></i>
+                        </button>
+                        <div class="auth-dropdown-menu" id="auth-dropdown-menu">
+                            <a href="${context.linkBase}login.html" class="auth-dropdown-item">
                                 <i class="ri-login-box-line"></i>
                                 Sign In
                             </a>
-                            <a href="${context.linkBase}register.html" class="mobile-auth-dropdown-item">
+                            <a href="${context.linkBase}register.html" class="auth-dropdown-item">
                                 <i class="ri-user-add-line"></i>
                                 Register
                             </a>
                         </div>
+                    </div>
 
-                        <!-- User Section (hidden by default) -->
-                        <div id="user-section" class="user-section">
-                            <div class="user-menu">
-                                <button class="user-toggle" id="user-toggle" aria-expanded="false" aria-haspopup="true" aria-label="User menu">
-                                    <div class="user-avatar" aria-hidden="true">U</div>
-                                    <span id="user-name">User Name</span>
-                                    <i class="ri-arrow-down-s-line" aria-hidden="true"></i>
-                                </button>
-                                <div class="user-dropdown" role="menu" aria-labelledby="user-toggle">
-                                    <a href="${context.linkBase}account.html" class="dropdown-item" role="menuitem">
-                                        <i class="ri-user-line" aria-hidden="true"></i>
-                                        My Account
-                                    </a>
-                                    <a href="${context.linkBase}orders.html" class="dropdown-item" role="menuitem">
-                                        <i class="ri-shopping-bag-line" aria-hidden="true"></i>
-                                        My Orders
-                                    </a>
-                                    <a href="${context.linkBase}wishlist.html" class="dropdown-item" role="menuitem">
-                                        <i class="ri-heart-line" aria-hidden="true"></i>
-                                        Wishlist
-                                    </a>
-                                    <div class="dropdown-divider" role="separator"></div>
-                                    <a href="#" class="dropdown-item logout" id="logout-btn" role="menuitem">
-                                        <i class="ri-logout-box-line" aria-hidden="true"></i>
-                                        Logout
-                                    </a>
-                                </div>
+                    <!-- User Section (hidden by default) -->
+                    <div id="user-section" class="user-section" style="display: none;">
+                        <div class="user-menu">
+                            <button class="user-toggle" id="user-toggle" aria-expanded="false" aria-haspopup="true" aria-label="User menu">
+                                <div class="user-avatar" aria-hidden="true">U</div>
+                                <span id="user-name">User Name</span>
+                                <i class="ri-arrow-down-s-line" aria-hidden="true"></i>
+                            </button>
+                            <div class="user-dropdown" role="menu" aria-labelledby="user-toggle">
+                                <a href="${context.linkBase}account.html" class="dropdown-item" role="menuitem">
+                                    <i class="ri-user-line" aria-hidden="true"></i>
+                                    My Account
+                                </a>
+                                <a href="${context.linkBase}orders.html" class="dropdown-item" role="menuitem">
+                                    <i class="ri-shopping-bag-line" aria-hidden="true"></i>
+                                    My Orders
+                                </a>
+                                <a href="${context.linkBase}wishlist.html" class="dropdown-item" role="menuitem">
+                                    <i class="ri-heart-line" aria-hidden="true"></i>
+                                    Wishlist
+                                </a>
+                                <div class="dropdown-divider" role="separator"></div>
+                                <a href="#" class="dropdown-item logout" id="logout-btn" role="menuitem">
+                                    <i class="ri-logout-box-line" aria-hidden="true"></i>
+                                    Logout
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -129,7 +106,7 @@ function renderHeader() {
                         </a>
                     </div>
 
-                    <button class="nav-toggle" id="nav-toggle">
+                    <button class="nav-toggle" id="nav-toggler">
                         <i class="ri-menu-line"></i>
                     </button>
                 </div>
@@ -145,8 +122,6 @@ function renderHeader() {
                 <i class="ri-search-line"></i>
             </form>
         </div>
-
-        
 
         <!-- Navigation -->
         <nav>
@@ -165,7 +140,7 @@ function renderHeader() {
         </nav>
     </header>
 
-     <!-- Mobile Side Navigation -->
+    <!-- Mobile Side Navigation -->
     <div class="mobile-side-nav" id="mobile-side-nav">
         <div class="mobile-nav-header">
             <a href="${homeContext.homeBase}index.html" class="logo">
@@ -231,11 +206,14 @@ function renderHeader() {
     <div class="header-after"></div>
     `;
 
-    // headerContainer.innerHTML = headerHTML;
     const container = document.querySelector(".container");
     container.insertAdjacentHTML("afterbegin", headerHTML);
 
+    // Initialize all functionality
+    initializeHeaderFunctionality();
+}
 
+function initializeHeaderFunctionality() {
     // Cart count utility
     function getCart() {
         return JSON.parse(localStorage.getItem("cart") || "[]");
@@ -250,27 +228,64 @@ function renderHeader() {
 
     updateCartCount();
 
-const WISHLIST_STORAGE_KEY = 'user_wishlist';
+    const WISHLIST_STORAGE_KEY = 'user_wishlist';
 
-// // Get wishlist from localStorage
-function getWishlist() {
-    const wishlist = localStorage.getItem(WISHLIST_STORAGE_KEY);
-    return wishlist ? JSON.parse(wishlist) : [];
+    function getWishlist() {
+        const wishlist = localStorage.getItem(WISHLIST_STORAGE_KEY);
+        return wishlist ? JSON.parse(wishlist) : [];
+    }
+
+    function updateWishlistCount() {
+        const wishlist = getWishlist();
+        const countElement = document.getElementById('wishlist-count');
+        if (countElement) {
+            countElement.textContent = wishlist.length;
+        }
+    }
+
+    updateWishlistCount();
+
+    // Initialize auth dropdown
+    initializeAuthDropdown();
+    
+    // Update auth UI
+    AuthHelper.updateAuthUI();
 }
 
-function updateWishlistCount() {
-    const wishlist = getWishlist();
-    const countElement = document.getElementById('wishlist-count');
-    if (countElement) {
-        countElement.textContent = wishlist.length;
+function initializeAuthDropdown() {
+    const authDropdownToggle = document.getElementById('auth-dropdown-toggle');
+    const authDropdownMenu = document.getElementById('auth-dropdown-menu');
+    
+    if (authDropdownToggle && authDropdownMenu) {
+        let isOpen = false;
+        
+        authDropdownToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            isOpen = !isOpen;
+            
+            if (isOpen) {
+                authDropdownMenu.classList.add('show');
+            } else {
+                authDropdownMenu.classList.remove('show');
+            }
+        });
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (isOpen && !authDropdownToggle.contains(e.target) && !authDropdownMenu.contains(e.target)) {
+                authDropdownMenu.classList.remove('show');
+                isOpen = false;
+            }
+        });
+        
+        // Close dropdown on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && isOpen) {
+                authDropdownMenu.classList.remove('show');
+                isOpen = false;
+            }
+        });
     }
 }
 
-updateWishlistCount() 
-
-}
-
 window.renderHeader = renderHeader;
-
-// Auto-render on load
-document.addEventListener("DOMContentLoaded", renderHeader);
