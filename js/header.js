@@ -77,8 +77,6 @@ class AuthHeader {
 
         if(isAuthenticated && currentUser) {
             mobileAuthToggle.style.display = 'none';
-            userAvatar.textContent = (currentUser.firstName.charAt(0) + currentUser.lastName.charAt(0)).toUpperCase();
-            MobileNavUserAvatar.textContent = (currentUser.firstName.charAt(0) + currentUser.lastName.charAt(0)).toUpperCase();
             mobileNavUserSection.style.display = "block";
         }
 

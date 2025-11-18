@@ -208,7 +208,7 @@ function renderHeader() {
 
             <div id="mobile-nav-user-section" class="mobile-nav-user-section">
                 <div class="mobile-user-info">
-                    <div class="user-avatar" id="mobile-user-avatar">U</div>
+                    <i class="ri-user-follow-line"></i>
                     <span id="mobile-user-name">User Name</span>
                 </div>
                 <div class="mobile-user-menu">

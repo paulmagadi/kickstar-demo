@@ -37,6 +37,14 @@ header {
   padding: .5em 2em;
 }
 
+.logo {
+  text-decoration: none;
+  display: flex;
+  gap: 20px;
+  justify-items: center;
+  align-items: center;
+}
+
 .header .logo img {
   display: block;
 }
@@ -449,14 +457,6 @@ nav .nav-links a.active-url {
 }
 
 /* ===== MOBILE SIDE NAVIGATION ===== */
-.logo {
-  text-decoration: none;
-  display: flex;
-  gap: 20px;
-  justify-items: center;
-  align-items: center;
-}
-
 .nav-toggle {
   background: none;
   border: none;
@@ -485,6 +485,7 @@ nav .nav-links a.active-url {
   display: flex;
   flex-direction: column;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .mobile-side-nav.active {
@@ -502,29 +503,25 @@ nav .nav-links a.active-url {
 .mobile-nav-close {
   background: none;
   border: none;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   color: var(--neutral-dark-color);
   cursor: pointer;
 }
 
 .mobile-nav-close i {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   font-weight: 600;
 }
 
 .mobile-nav-links {
   list-style: none;
-  padding: 1rem 0;
+  padding: 0.8rem 0;
   flex-grow: 1;
-}
-
-.mobile-nav-links li {
-  border-bottom: 1px solid var(--gray-shade-color);
 }
 
 .mobile-nav-links a {
   display: block;
-  padding: 1rem 1.5rem;
+  padding: 0.8rem 1rem;
   text-decoration: none;
   color: var(--neutral-dark-color);
   font-weight: 500;
@@ -536,7 +533,7 @@ nav .nav-links a.active-url {
 }
 
 .mobile-nav-auth {
-  padding: 1rem 1.5rem;
+  padding: 0.8rem 1rem;
   border-top: 1px solid var(--gray-shade-color);
 }
 
@@ -574,8 +571,7 @@ nav .nav-links a.active-url {
 }
 
 .mobile-nav-user-section {
-  padding: 1rem 1.5rem;
-  border-top: 1px solid var(--gray-shade-color);
+  padding: 0.8rem 0;
   display: none;
 }
 
@@ -596,7 +592,7 @@ nav .nav-links a.active-url {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  padding: 0.75rem 0;
+  padding: 0.5rem 0;
   text-decoration: none;
   color: var(--neutral-dark-color);
   transition: color 0.3s;
@@ -606,16 +602,12 @@ nav .nav-links a.active-url {
   color: var(--primary-color);
 }
 
-#mobile-user-avatar {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: var(--primary-color);
-  color: var(--white-color);
-  font-weight: 600;
+.mobile-dropdown-item.logout {
+  color: var(--primary-color);
+}
+
+.mobile-user-info {
+  font-weight: 800;
 }
 
 .overlay {
