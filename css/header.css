@@ -675,7 +675,6 @@ header .header .wishlist-count {
   background: var(--neutral-light-color);
   padding: 0 0.5em;
   width: 100%;
-  background-color: red;
 }
 
 .search-bar.mobile i {

@@ -586,7 +586,7 @@
 }
 
 .btn-danger {
-    background: #dc3545;
+    background: var(--danger);
     color: var(--white-color);
 }
 
@@ -610,9 +610,9 @@
 
 .modal-content {
     background: var(--white-color);
-    border-radius: 12px;
+    border-radius: 8px;
     width: 90%;
-    max-width: 500px;
+    max-width: 600px;
     max-height: 90vh;
     overflow-y: auto;
 }
@@ -759,8 +759,6 @@
 
 
 
-
-
 /* Delete Account Modal Styles */
 .danger-modal .modal-header {
     text-align: center;
@@ -772,14 +770,14 @@
 
 .danger-modal .modal-header i {
     font-size: 4rem;
-    color: var(--warning);
+    color: var(--danger);
     margin-bottom: 1rem;
     display: block;
 }
 
 .danger-modal .modal-header h3 {
     margin: 0;
-    color: var(--warning);
+    color: var(--danger);
     font-size: 1.5rem;
 }
 
@@ -792,7 +790,7 @@
 }
 
 .warning-message strong {
-    color: var(--warning);
+    color: var(--danger);
 }
 
 .deletion-consequences {
@@ -800,7 +798,7 @@
     padding: 1rem;
     background: var(--anti-flash-white);
     border-radius: 8px;
-    border-left: 4px solid var(--warning);
+    border-left: 4px solid var(--danger);
 }
 
 .deletion-consequences h4 {
@@ -854,12 +852,12 @@
 
 .final-confirmation input:focus {
     outline: none;
-    border-color: var(--warning);
+    border-color: var(--danger);
     box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.1);
 }
 
 .final-confirmation input.error {
-    border-color: var(--warning);
+    border-color: var(--danger);
     box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.1);
 }
 

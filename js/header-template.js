@@ -63,6 +63,7 @@ function renderHeader() {
     
                     <!-- Auth Section -->
                     <div class="header-auth-section">
+                    <!-- Desktop Auth Section - Header-->
                         <div class="mobile-auth-toggle-wrapper">
                             <div class="mobile-auth-toggle">
                                 <i class="ri-user-line"></i>

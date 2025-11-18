@@ -18,7 +18,7 @@
 
 /* Register Page Styles */
 .register-page {
-    padding: 2rem 0;
+    padding: 2rem 1em;
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -27,12 +27,14 @@
 
 .register-container {
     display: grid;
-    grid-template-columns: 1fr 400px;
+    grid-template-columns: 1fr 500px;
     gap: 3rem;
     max-width: 1200px;
     width: 100%;
     margin: 0 auto;
 }
+
+
 
 /* Header Styles */
 .register-header {
@@ -271,12 +273,12 @@
     margin-top: 0.1rem;
 }
 
-.checkbox-label input[type="checkbox"]:checked + .checkmark {
+.checkbox-label input[type="checkbox"]:checked+.checkmark {
     background: var(--primary-color);
     border-color: var(--primary-color);
 }
 
-.checkbox-label input[type="checkbox"]:checked + .checkmark::after {
+.checkbox-label input[type="checkbox"]:checked+.checkmark::after {
     content: '✓';
     position: absolute;
     top: 50%;
@@ -287,7 +289,7 @@
     font-weight: bold;
 }
 
-.checkbox-label input[type="checkbox"]:required + .checkmark {
+.checkbox-label input[type="checkbox"]:required+.checkmark {
     border-color: var(--primary-color);
 }
 
@@ -491,6 +493,7 @@
         opacity: 0;
         transform: translateY(-20px) scale(0.95);
     }
+
     to {
         opacity: 1;
         transform: translateY(0) scale(1);
@@ -518,8 +521,13 @@
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 /* Responsive Design */
@@ -542,7 +550,7 @@
 
 @media (max-width: 768px) {
     .register-page {
-        padding: 1rem 0;
+        padding: 1rem 1rem;
     }
 
     .register-form {
@@ -606,6 +614,7 @@
 
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
+
     .btn,
     .form-group input,
     .strength-fill,
@@ -627,6 +636,12 @@
 
 
 /* Login Specific Styles */
+
+.login-container {
+    grid-template-columns: 1fr;
+    max-width: 500px;
+}
+
 .form-options {
     display: flex;
     justify-content: space-between;
