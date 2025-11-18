@@ -463,7 +463,6 @@ nav .nav-links a.active-url {
   color: var(--neutral-dark-color);
   cursor: pointer;
   display: none;
-  font-weight: 600;
 }
 
 .nav-toggle i {
@@ -645,8 +644,8 @@ nav .nav-links a.active-url {
   position: relative;
 }
 
-.header .cart-count,
-.header .wishlist-count {
+header .header .cart-count,
+header .header .wishlist-count {
   position: absolute;
   top: -8px;
   right: -8px;
@@ -676,6 +675,7 @@ nav .nav-links a.active-url {
   background: var(--neutral-light-color);
   padding: 0 0.5em;
   width: 100%;
+  background-color: red;
 }
 
 .search-bar.mobile i {
@@ -860,6 +860,16 @@ nav .nav-links a.active-url {
   nav .nav-links a {
     font-size: 0.85rem;
     font-weight: 600;
+  }
+
+  header .header .cart-count,
+  header .header .wishlist-count {
+    top: -5px;
+    right: -5px;
+    padding: 2px 5px;
+    font-size: 10px;
+    width: 17px;
+    height: 17px;
   }
 }
 
