@@ -296,6 +296,7 @@ header {
     transition: all 0.3s;
     font-weight: 500;
     font-size: 0.7rem;
+    padding: 8.3px 10px;
   }
 
   .user-toggle:hover {
@@ -449,20 +450,26 @@ nav .nav-links a.active-url {
 
 /* ===== MOBILE SIDE NAVIGATION ===== */
 .logo {
-  font-family: 'Poppins', sans-serif;
-  font-weight: 700;
-  font-size: 1.5rem;
-  color: var(--primary-color);
   text-decoration: none;
+  display: flex;
+  gap: 20px;
+  justify-items: center;
+  align-items: center;
 }
 
 .nav-toggle {
   background: none;
   border: none;
-  font-size: 1.5rem;
   color: var(--neutral-dark-color);
   cursor: pointer;
   display: none;
+  font-weight: 600;
+}
+
+.nav-toggle i {
+  font-size: 1.4rem;
+  color: var(--neutral-dark-color);
+  cursor: pointer;
 }
 
 .mobile-side-nav {
@@ -770,6 +777,10 @@ nav .nav-links a.active-url {
 
   }
 
+  .header-items .help {
+    display: none;
+  }
+
   nav .nav-links {
     display: none;
   }
@@ -795,14 +806,9 @@ nav .nav-links a.active-url {
       font-size: 0.8rem;
     }
 
-    .auth-link.register {
-      padding: 0.4rem 1rem;
-    }
-
     .user-toggle {
-      padding: 0.4rem 0.75rem;
-      font-size: 0.8rem;
       border: none;
+      padding: 0;
     }
 
     .user-toggle span {

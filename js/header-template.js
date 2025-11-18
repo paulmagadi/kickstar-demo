@@ -31,6 +31,9 @@ function renderHeader() {
         <div class="header">
             <!-- Logo -->
             <div class="logo">
+                <button class="nav-toggle" id="nav-toggle">
+                    <i class="ri-menu-line"></i>
+                </button>
                 <a href="${homeContext.homeBase}index.html">
                     <img src="${context.imageBase}logo2.svg" alt="KickStar" width="70px" title="KickStar Home">
                 </a>
@@ -94,7 +97,7 @@ function renderHeader() {
                         <div id="user-section" class="user-section">
                             <div class="user-menu">
                                 <button class="user-toggle" id="user-toggle" aria-expanded="false" aria-haspopup="true" aria-label="User menu">
-                                    <div class="user-avatar" aria-hidden="true">U</div>
+                                    <i class="ri-user-follow-line"></i>
                                     <span id="user-name">User Name</span>
                                     <i class="ri-arrow-down-s-line" aria-hidden="true"></i>
                                 </button>
@@ -135,9 +138,6 @@ function renderHeader() {
                         </a>
                     </div>
 
-                    <button class="nav-toggle" id="nav-toggle">
-                        <i class="ri-menu-line"></i>
-                    </button>
                 </div>
                 
             </div>
