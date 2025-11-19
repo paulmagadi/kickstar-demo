@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const paginationContainer = document.getElementById("pagination");
 
   // Pagination settings
-  const PRODUCTS_PER_PAGE = 1;
+  const PRODUCTS_PER_PAGE = 4;
   let currentPage = 1;
   let filteredProducts = [];
 

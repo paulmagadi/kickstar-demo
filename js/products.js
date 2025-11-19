@@ -369,7 +369,7 @@ const productsData = [
     {
         "id": 9,
         "name": "Yeezy Boost 350 V2",
-        "brand": "Adidas",
+        "brand": "Yeezy",
         "category": "Men",
         "featured" : false,
         "new": true,

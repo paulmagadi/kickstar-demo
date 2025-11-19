@@ -7,29 +7,11 @@
     <title>Brands - KickStar</title>
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/brands.css">
     <link rel="stylesheet" href="../css/footer.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
 
-    <style>
-
-        .brands-page {
-            padding: 1em 2em;
-        }
-        .brands-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(166px, 1fr));
-            gap: 20px;
-        }
-        .brand-card {
-            width: 200px;
-            border: 1px solid black;
-        }
-
-        .brand-card img {
-            width: 100%;
-        }
-    </style>
 </head>
 
 <body>
@@ -38,9 +20,12 @@
             <a href="../index.html" title="Home"><small>Home</small></a>&nbsp; &#10095; &nbsp;
             <small>Brands</small>
         </div>
-        
+
         <main class="brands-page">
-            <h1>Our Brands</h1>
+            <div class="brand-page-heading">
+                <h1>Our Brands</h1>
+                <p>Explore a wide range of brand products in our store</p>
+            </div>
             <div class="brands-grid" id="brands-grid"></div>
         </main>
     </div>
@@ -52,6 +37,7 @@
     <script src="../js/products.js"></script>
     <script src="../js/brands.js"></script>
     <script src="../js/footer.js"></script>
+    <script src="../js/active-links.js"></script>
 </body>
 
 </html>

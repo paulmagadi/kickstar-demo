@@ -5,7 +5,9 @@ const brands = [...new Set(productsData.map(p => p.brand || "Generic"))];
 brands.forEach(brand => {
     const card = document.createElement("a");
     card.href = `brand.html?brand=${encodeURIComponent(brand)}`;
+    card.title = brand;
     card.className = "brand-card";
+    
 
     const logo = brandsData[brand]?.logo || "../images/brands/generic.png";
 
