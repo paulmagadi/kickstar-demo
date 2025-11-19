@@ -410,39 +410,43 @@ const brandsData = {
         description: "Just Do It."
     },
         "Adidas": {
-        logo: "./images/brands/adidas.png",
+        logo: "../images/brands/adidas.png",
         description: "Impossible is Nothing."
     },
         "Puma": {
-        logo: "./images/brands/puma.png",
+        logo: "../images/brands/puma.png",
         description: "Forever Faster."
     },
         "New Balance": {
-        logo: "./images/brands/new-balance.png",
+        logo: "../images/brands/new-balance.png",
         description: "Fearlessly Independent Since 1906."
     },
         "Reebok": {
-        logo: "./images/brands/reebok.png",
+        logo: "../images/brands/reebok.png",
         description: "Be More Human."
     },
         "Converse": {
-        logo: "./images/brands/converse.png",
+        logo: "../images/brands/converse.png",
         description: "Shoes are Boring. Wear Sneakers."
     },
         "Vans": {
-        logo: "./images/brands/vans.png",
+        logo: "../images/brands/vans.png",
         description: "Off The Wall."
     },
         "Asics": {
-        logo: "./images/brands/asics.png",
+        logo: "../images/brands/asics.png",
         description: "Sound Mind, Sound Body."
     },
         "Jordan": {
-        logo: "./images/brands/jordan.png",
+        logo: "../images/brands/jordan.png",
         description: "Be Like Mike."
     },
         "Yeezy": {
-        logo: "./images/brands/yeezy.png",
+        logo: "../images/brands/yeezy.png",
+        description: "Yeezy by Kanye West."
+    },
+        "Joylack": {
+        logo: "../images/brands/yeezy.png",
         description: "Yeezy by Kanye West."
     }
 }

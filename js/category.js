@@ -8,11 +8,11 @@
 // Main script to handle category page rendering
 document.addEventListener("DOMContentLoaded", () => {
 
-    // ✅ 1. Get category from URL
+    // 1. Get category from URL
     const urlParams = new URLSearchParams(window.location.search);
     const category = urlParams.get("cat")?.toLowerCase() || "all";
 
-    // ✅ 2. Target elements
+    // 2. Target elements
     const categoryTitle = document.getElementById("categoryTitle");
     const categoryTitleNote = document.getElementById("categoryTitleNote");
     const categoryContainer = document.getElementById("categoryProducts");
@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const loadMoreBtn = document.getElementById("loadMoreBtn");
     const viewLessBtn = document.getElementById("loadLessBtn");
 
-    // ✅ 4. Main render function
+    // 4. Main render function
     function renderProductsByCategory(cat) {
         if (!categoryContainer) return;
         categoryContainer.innerHTML = "";
@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 break;
         }
 
-        // ✅ 5. Handle no products
+        // 5. Handle no products
         if (filteredProducts.length === 0) {
             categoryContainer.innerHTML = "<p>No products found in this category.</p>";
             return;
@@ -110,14 +110,14 @@ document.addEventListener("DOMContentLoaded", () => {
             paginatedProducts = filteredProducts.slice(startIdx, endIdx);
         }
 
-        // ✅ 6. Render product cards
+        // 6. Render product cards
         const cardsHTML = paginatedProducts
             .map((product, i) => createProductCardTemplate(product, i))
             .join("");
 
         categoryContainer.innerHTML = cardsHTML;
 
-        // ✅ 7. Reinitialize product card interactions
+        // 7. Reinitialize product card interactions
         if (typeof initializeProductCards === "function") {
             initializeProductCards();
         }
@@ -185,19 +185,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // ✅ 8. Call render
+    // 8. Call render
     renderProductsByCategory(category);
-
-    // Highlight active nav link
-    // if (typeof category !== "undefined" && category) {
-    //     document.querySelectorAll("nav .nav-links a").forEach(link => {
-    //         if (link.href.includes(`cat=${category}`)) {
-    //             link.classList.add("active-url");
-    //         } else {
-    //             link.classList.remove("active-url");
-    //         }
-    //     });
-    // }
 
     // Optional: Load More button functionality (for non-"all" categories)
     

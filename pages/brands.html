@@ -4,16 +4,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Brands</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <title>Brands - KickStar</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+
+    <style>
+
+        .brands-page {
+            padding: 1em 2em;
+        }
+        .brands-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(166px, 1fr));
+            gap: 20px;
+        }
+        .brand-card {
+            width: 200px;
+            border: 1px solid black;
+        }
+
+        .brand-card img {
+            width: 100%;
+        }
+    </style>
 </head>
 
 <body>
     <div class="container pages">
         <div class="breadcrumb" id="breadcrumb">
-            <a href="../index.html" title="Home">Home</a>&nbsp; &#10095; &nbsp;
-            <span>Product</span>
-        </div> 
+            <a href="../index.html" title="Home"><small>Home</small></a>&nbsp; &#10095; &nbsp;
+            <small>Brands</small>
+        </div>
         
         <main class="brands-page">
             <h1>Our Brands</h1>
@@ -21,30 +45,12 @@
         </main>
     </div>
 
-
-    <script src="../js/products.js"></script>
-    <script>
-        const grid = document.getElementById("brands-grid");
-
-        // get unique brands
-        const brands = [...new Set(productsData.map(p => p.brand))];
-
-        brands.forEach(brand => {
-            const card = document.createElement("a");
-            card.href = `brand.html?brand=${encodeURIComponent(brand)}`;
-            card.className = "brand-card";
-
-            const logo = brandsData[brand]?.logo || "../images/brands/placeholder.png";
-
-            card.innerHTML = `
-    <img src="${logo}" alt="${brand} logo">
-    <span>${brand}</span>
-  `;
-            grid.appendChild(card);
-        });
-
-    </script>
     <script src="../js/context.js"></script>
+    <script src="../js/header-template.js"></script>
+    <script src="../js/header.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/products.js"></script>
+    <script src="../js/brands.js"></script>
     <script src="../js/footer.js"></script>
 </body>
 

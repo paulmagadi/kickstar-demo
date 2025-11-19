@@ -5,7 +5,81 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Brand</title>
-  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/header.css">
+  <link rel="stylesheet" href="../css/footer.css">
+  <link rel="stylesheet" href="../css/product-card.css">
+  <link rel="stylesheet" href="../css/products-grid-view.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+
+  <style>
+    .brand-header {
+      padding: 1em 2em;
+      text-align: center;
+      border-bottom: 1px solid var(--gray-shade-color);
+    }
+
+    .brand-header img {
+      width: 150px;
+    }
+
+    .brand-products {
+      padding: 2em;
+    }
+
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 20px;
+      padding: 20px;
+    }
+
+    .pagination.hide {
+      display: none;
+    }
+
+    .pagination-btn {
+      background-color: var(--neutral-dark-color);
+      color: var(--white-color);
+      border: none;
+      padding: 8px 12px;
+      margin: 0 5px;
+      cursor: pointer;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+
+    .pagination-btn:hover:not(.disabled) {
+      opacity: 0.9;
+    }
+
+    .pagination-btn.disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+
+    .pagination-info {
+      color: var(--neutral-dark-color);
+      padding: 0 15px;
+    }
+
+    .active-page {
+      color: var(--primary-color);
+    }
+
+    @media (max-width: 800px) {
+      .brand-header img {
+        width: 120px;
+      }
+
+      .brand-header,
+      .brand-products {
+        padding: 1em 1em;
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -13,119 +87,29 @@
   <div class="container pages">
     <div class="breadcrumb" id="breadcrumb">
       <a href="../index.html" title="Home">Home</a>&nbsp; &#10095; &nbsp;
-      <span>Product</span>
+      <a href="brands.html" title="Brands"><small>Brands</small></a>&nbsp; &#10095; &nbsp;
+      <small id="breadcrumb-brand">Brand</small>
     </div>
 
     <section class="brand-header" id="brandHeader"></section>
 
     <section class="brand-products">
-      <div id="brandProducts" class="product-grid"></div>
+      <div id="brandProducts" class="products-grid"></div>
+      <div id="pagination" class="pagination hide"></div>
     </section>
+
   </div>
 
   <script src="../js/context.js"></script>
+  <script src="../js/header-template.js"></script>
+  <script src="../js/header.js"></script>
+  <script src="../js/auth.js"></script>
   <script src="../js/products.js"></script>
+  <script src="../js/product-card-template.js"></script>
+  <script src="../js/product-card.js"></script>
+  <script src="../js/brand.js"></script>
+  <script src="../js/wishlist-util.js"></script>
   <script src="../js/footer.js"></script>
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const urlParams = new URLSearchParams(window.location.search);
-      const brandName = urlParams.get("brand");
-
-      const brandHeader = document.getElementById("brandHeader");
-      const brandProductsContainer = document.getElementById("brandProducts");
-
-      if (!brandName) {
-        brandHeader.innerHTML = "<p>No brand selected.</p>";
-        return;
-      }
-
-      // Get brand info
-      const brandInfo = brandsData[brandName] || {};
-      const logo = brandInfo.logo || "../images/brands/placeholder.png";
-      const desc = brandInfo.description || `Explore products from ${brandName}.`;
-
-      // Header section
-      brandHeader.innerHTML = `
-    <img src="${logo}" alt="${brandName} logo" class="brand-logo">
-    <h1>${brandName}</h1>
-    <p>${desc}</p>
-  `;
-
-      // Filter products
-      const filteredProducts = productsData.filter(
-        p => p.brand.toLowerCase() === brandName.toLowerCase()
-      );
-
-      if (filteredProducts.length === 0) {
-        brandProductsContainer.innerHTML = "<p>No products found for this brand.</p>";
-        return;
-      }
-
-      // Render products (same style as categories)
-      filteredProducts.forEach((product, productIndex) => {
-        const firstVariant = product.variants[0];
-        const firstSize = firstVariant.sizes[0];
-
-        // Collect all prices
-        const allPrices = product.variants.flatMap(variant =>
-          variant.sizes.map(size => size.sale_price || size.price)
-        );
-
-        const minPrice = Math.min(...allPrices);
-        const maxPrice = Math.max(...allPrices);
-
-        const discount = firstSize.sale_price
-          ? Math.round(((firstSize.price - firstSize.sale_price) / firstSize.price) * 100)
-          : 0;
-
-        const productCard = `
-      <div class="product-card">
-        <a href="product-details.html?id=${product.id}" title="View product">
-          <div class="product-image-wrapper">
-            <div class="product-image">
-              <img src="../images/${firstVariant.images[0].replace(/^\.?\/?images\//, "")}" 
-                   alt="${product.name}" class="product-img">
-            </div>
-          </div>
-        </a>
-
-        <div class="product-info">
-          <a href="product-details.html?id=${product.id}" title="${product.name}">
-            <div class="product-title">${product.name}</div>
-          </a>
-
-          <div class="product-price">
-            <span class="sale-price">KES ${minPrice.toFixed(2)}</span>
-            ${minPrice !== maxPrice ? `<span class="price-range"> - KES ${maxPrice.toFixed(2)}</span>` : ""}
-          </div>
-
-          ${discount ? `<div class="product-card-sale-badge"><p>-${discount}%</p></div>` : ""}
-
-          <br>
-          <div class="swatch-wrapper">
-            <div class="swatch-scroll-btn swatch-scroll-left hidden">&#10094;</div>
-            <div class="swatches">
-              ${product.variants.map((variant, index) => `
-                <img 
-                  src="../images/${variant.images[0].replace(/^\.?\/?images\//, "")}"
-                  alt="${variant.color}" 
-                  title="${variant.color}" 
-                  class="swatch ${index === 0 ? "active" : ""}" 
-                  data-product="${product.id}" 
-                  data-variant="${index}" />
-              `).join("")}
-            </div>
-            <div class="swatch-scroll-btn swatch-scroll-right">&#10095;</div>
-          </div>
-        </div>
-      </div>
-    `;
-
-        brandProductsContainer.insertAdjacentHTML("beforeend", productCard);
-      });
-    });
-
-  </script>
 </body>
 
 </html>
