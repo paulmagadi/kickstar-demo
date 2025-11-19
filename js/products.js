@@ -29,9 +29,9 @@ const productsData = [
                     "./images/nike-air-max-270-2.jpg"
                 ],
                 "sizes": [
-                    { "size": 40, "price": 150.00, "sale_price": 135.00, "stock_quantity": 15 },
-                    { "size": 41, "price": 150.00, "sale_price": null, "stock_quantity": 12 },
-                    { "size": 42, "price": 155.00, "sale_price": 140.00, "stock_quantity": 0 }
+                    { "size": 40, "price": 150.00, "sale_price": 135.00, "stock_quantity": 15, "sku": "SKU-0-0-0" },
+                    { "size": 41, "price": 150.00, "sale_price": null, "stock_quantity": 12, "sku": "SKU-0-0-1" },
+                    { "size": 42, "price": 155.00, "sale_price": 140.00, "stock_quantity": 0, "sku": "SKU-0-0-2" }
                 ]
             },
             {
@@ -40,9 +40,9 @@ const productsData = [
                     "./images/nike-air-max-270-3.jpg"
                 ],
                 "sizes": [
-                    { "size": 40, "price": 155.00, "sale_price": 120.00, "stock_quantity": 3 },
-                    { "size": 41, "price": 160.00, "sale_price": null, "stock_quantity": 1 },
-                    { "size": 42, "price": 160.00, "sale_price": 145.00, "stock_quantity": 4 }
+                    { "size": 40, "price": 155.00, "sale_price": 120.00, "stock_quantity": 3, "sku": "SKU-0-1-0" },
+                    { "size": 41, "price": 160.00, "sale_price": null, "stock_quantity": 1, "sku": "SKU-0-1-1" },
+                    { "size": 42, "price": 160.00, "sale_price": 145.00, "stock_quantity": 4, "sku": "SKU-0-1-2" }
                 ]
             }
         ]
@@ -64,9 +64,9 @@ const productsData = [
                     "./images/adidas-ultraboost-22-2.jpg"
                 ],
                 "sizes": [
-                    { "size": 40, "price": 180.00, "sale_price": 160.00, "stock_quantity": 2 },
-                    { "size": 41, "price": 185.00, "sale_price": null, "stock_quantity": 0 },
-                    { "size": 42, "price": 190.00, "sale_price": 170.00, "stock_quantity": 6 }
+                    { "size": 40, "price": 180.00, "sale_price": 160.00, "stock_quantity": 2, "sku": "SKU-1-0-0" },
+                    { "size": 41, "price": 185.00, "sale_price": null, "stock_quantity": 0, "sku": "SKU-1-0-1" },
+                    { "size": 42, "price": 190.00, "sale_price": 170.00, "stock_quantity": 6, "sku": "SKU-1-0-2" }
                 ]
             },
             {
@@ -76,8 +76,8 @@ const productsData = [
                     "./images/adidas-ultraboost-22-4.jpg"
                 ],
                 "sizes": [
-                    { "size": 40, "price": 185.00, "sale_price": 165.00, "stock_quantity": 4 },
-                    { "size": 41, "price": 190.00, "sale_price": null, "stock_quantity": 7 }
+                    { "size": 40, "price": 185.00, "sale_price": 165.00, "stock_quantity": 4, "sku": "SKU-1-1-0" },
+                    { "size": 41, "price": 190.00, "sale_price": null, "stock_quantity": 7, "sku": "SKU-1-1-1" }
                 ]
             }, 
             {
@@ -87,8 +87,8 @@ const productsData = [
                     "./images/adidas-ultraboost-22-6.jpg"
                 ],
                 "sizes": [
-                    { "size": 40, "price": 185.00, "sale_price": 165.00, "stock_quantity": 10 },
-                    { "size": 41, "price": 190.00, "sale_price": 180.00, "stock_quantity": 5 }
+                    { "size": 40, "price": 185.00, "sale_price": 165.00, "stock_quantity": 10, "sku": "SKU-1-2-0" },
+                    { "size": 41, "price": 190.00, "sale_price": 180.00, "stock_quantity": 5, "sku": "SKU-1-2-1" }
                 ]
             }
         ]
@@ -109,9 +109,9 @@ const productsData = [
                     "./images/puma-rsx-1.jpg"
                 ],
                 "sizes": [
-                    { "size": 40, "price": 120.00, "sale_price": null, "stock_quantity": 4 },
-                    { "size": 41, "price": 125.00, "sale_price": 115.00, "stock_quantity": 2, "featured" : true },
-                    { "size": 42, "price": 130.00, "sale_price": null, "stock_quantity": 0 }
+                    { "size": 40, "price": 120.00, "sale_price": null, "stock_quantity": 4, "sku": "SKU-2-0-0" },
+                    { "size": 41, "price": 125.00, "sale_price": 115.00, "stock_quantity": 2, "featured" : true, "sku": "SKU-2-0-1" },
+                    { "size": 42, "price": 130.00, "sale_price": null, "stock_quantity": 0, "sku": "SKU-2-0-2" }
                 ]
             },
             {
@@ -121,8 +121,8 @@ const productsData = [
                     "./images/puma-rsx-4.jpg"
                 ],
                 "sizes": [
-                    { "size": 40, "price": 125.00, "sale_price": 110.00, "stock_quantity": 5 },
-                    { "size": 41, "price": 130.00, "sale_price": null, "stock_quantity": 1 }
+                    { "size": 40, "price": 125.00, "sale_price": 110.00, "stock_quantity": 5, "sku": "SKU-2-1-0" },
+                    { "size": 41, "price": 130.00, "sale_price": null, "stock_quantity": 1, "sku": "SKU-2-1-1" }
                 ]
             },
             {
@@ -132,9 +132,9 @@ const productsData = [
                     "./images/puma-rsx-4.jpg"
                 ],
                 "sizes": [
-                    { "size": 40, "price": 120.00, "sale_price": null, "stock_quantity": 4 },
-                    { "size": 41, "price": 125.00, "sale_price": 115.00, "stock_quantity": 2 },
-                    { "size": 42, "price": 130.00, "sale_price": null, "stock_quantity": 0 }
+                    { "size": 40, "price": 120.00, "sale_price": null, "stock_quantity": 4, "sku": "SKU-2-2-0" },
+                    { "size": 41, "price": 125.00, "sale_price": 115.00, "stock_quantity": 2, "sku": "SKU-2-2-1" },
+                    { "size": 42, "price": 130.00, "sale_price": null, "stock_quantity": 0, "sku": "SKU-2-2-2" }
                 ]
             }
         ]
@@ -155,9 +155,9 @@ const productsData = [
                     "./images/new-balance-574-2.jpg"
                 ],
                 "sizes": [
-                    { "size": 40, "price": 100.00, "sale_price": 90.00, "stock_quantity": 2 },
-                    { "size": 41, "price": 105.00, "sale_price": null, "stock_quantity": 3 },
-                    { "size": 42, "price": 110.00, "sale_price": null, "stock_quantity": 0 }
+                    { "size": 40, "price": 100.00, "sale_price": 90.00, "stock_quantity": 2, "sku": "SKU-3-0-0" },
+                    { "size": 41, "price": 105.00, "sale_price": null, "stock_quantity": 3, "sku": "SKU-3-0-1" },
+                    { "size": 42, "price": 110.00, "sale_price": null, "stock_quantity": 0, "sku": "SKU-3-0-2" }
                 ]
             },
             {
@@ -166,8 +166,8 @@ const productsData = [
                     "./images/new-balance-574-3.jpg"
                 ],
                 "sizes": [
-                    { "size": 40, "price": 105.00, "sale_price": 95.00, "stock_quantity": 1 },
-                    { "size": 41, "price": 110.00, "sale_price": null, "stock_quantity": 4 }
+                    { "size": 40, "price": 105.00, "sale_price": 95.00, "stock_quantity": 1, "sku": "SKU-3-1-0" },
+                    { "size": 41, "price": 110.00, "sale_price": null, "stock_quantity": 4, "sku": "SKU-3-1-1" }
                 ]
             }
         ]
@@ -189,9 +189,9 @@ const productsData = [
                     "./images/reebok-classic-leather-2.jpg"
                 ],
                 "sizes": [
-                    { "size": 40, "price": 95.00, "sale_price": 85.00, "stock_quantity": 3 },
-                    { "size": 41, "price": 100.00, "sale_price": null, "stock_quantity": 2 },
-                    { "size": 42, "price": 105.00, "sale_price": null, "stock_quantity": 0 }
+                    { "size": 40, "price": 95.00, "sale_price": 85.00, "stock_quantity": 3, "sku": "SKU-4-0-0" },
+                    { "size": 41, "price": 100.00, "sale_price": null, "stock_quantity": 2, "sku": "SKU-4-0-1" },
+                    { "size": 42, "price": 105.00, "sale_price": null, "stock_quantity": 0, "sku": "SKU-4-0-2" }
                 ]
             },
             {
@@ -201,8 +201,8 @@ const productsData = [
                     "./images/reebok-classic-leather-4.jpg"
                 ],
                 "sizes": [
-                    { "size": 40, "price": 100.00, "sale_price": 90.00, "stock_quantity": 5 },
-                    { "size": 41, "price": 105.00, "sale_price": null, "stock_quantity": 1 }
+                    { "size": 40, "price": 100.00, "sale_price": 90.00, "stock_quantity": 5, "sku": "SKU-4-1-0" },
+                    { "size": 41, "price": 105.00, "sale_price": null, "stock_quantity": 1, "sku": "SKU-4-1-1" }
                 ]
             }
         ]
@@ -223,9 +223,9 @@ const productsData = [
                     "./images/converse-chuck-taylor-1.jpg"
                 ],
                 "sizes": [
-                    { "size": 40, "price": 60.00, "sale_price": null, "stock_quantity": 2 },
-                    { "size": 41, "price": 65.00, "sale_price": 55.00, "stock_quantity": 0 },
-                    { "size": 42, "price": 70.00, "sale_price": null, "stock_quantity": 3 }
+                    { "size": 40, "price": 60.00, "sale_price": null, "stock_quantity": 2, "sku": "SKU-5-0-0" },
+                    { "size": 41, "price": 65.00, "sale_price": 55.00, "stock_quantity": 0, "sku": "SKU-5-0-1" },
+                    { "size": 42, "price": 70.00, "sale_price": null, "stock_quantity": 3, "sku": "SKU-5-0-2" }
                 ]
             },
             {
@@ -236,8 +236,8 @@ const productsData = [
                     "./images/converse-chuck-taylor-4.jpg"
                 ],
                 "sizes": [
-                    { "size": 40, "price": 65.00, "sale_price": null, "stock_quantity": 1 },
-                    { "size": 41, "price": 70.00, "sale_price": 60.00, "stock_quantity": 4 }
+                    { "size": 40, "price": 65.00, "sale_price": null, "stock_quantity": 1, "sku": "SKU-5-1-0" },
+                    { "size": 41, "price": 70.00, "sale_price": 60.00, "stock_quantity": 4, "sku": "SKU-5-1-1" }
                 ]
             }
         ]
@@ -258,9 +258,9 @@ const productsData = [
                     "./images/vans-old-skool-1.jpg"
                 ],
                 "sizes": [
-                    { "size": 40, "price": 70.00, "sale_price": null, "stock_quantity": 4 },
-                    { "size": 41, "price": 75.00, "sale_price": 65.00, "stock_quantity": 2 },
-                    { "size": 42, "price": 80.00, "sale_price": null, "stock_quantity": 0 }
+                    { "size": 40, "price": 70.00, "sale_price": null, "stock_quantity": 4, "sku": "SKU-6-0-0" },
+                    { "size": 41, "price": 75.00, "sale_price": 65.00, "stock_quantity": 2, "sku": "SKU-6-0-1" },
+                    { "size": 42, "price": 80.00, "sale_price": null, "stock_quantity": 0, "sku": "SKU-6-0-2" }
                 ]
             },
             {
@@ -270,8 +270,8 @@ const productsData = [
                     "./images/vans-old-skool-3.jpg"
                 ],
                 "sizes": [
-                    { "size": 40, "price": 75.00, "sale_price": null, "stock_quantity": 3 },
-                    { "size": 41, "price": 80.00, "sale_price": 70.00, "stock_quantity": 1 }
+                    { "size": 40, "price": 75.00, "sale_price": null, "stock_quantity": 3, "sku": "SKU-6-1-0" },
+                    { "size": 41, "price": 80.00, "sale_price": 70.00, "stock_quantity": 1, "sku": "SKU-6-1-1" }
                 ]
             }
         ]
@@ -292,9 +292,9 @@ const productsData = [
                     "./images/asics-kayano-1.jpg"
                 ],
                 "sizes": [
-                    { "size": 40, "price": 160.00, "sale_price": 145.00, "stock_quantity": 2 },
-                    { "size": 41, "price": 165.00, "sale_price": null, "stock_quantity": 0 },
-                    { "size": 42, "price": 170.00, "sale_price": null, "stock_quantity": 5 }
+                    { "size": 40, "price": 160.00, "sale_price": 145.00, "stock_quantity": 2, "sku": "SKU-7-0-0" },
+                    { "size": 41, "price": 165.00, "sale_price": null, "stock_quantity": 0, "sku": "SKU-7-0-1" },
+                    { "size": 42, "price": 170.00, "sale_price": null, "stock_quantity": 5, "sku": "SKU-7-0-2" }
                 ]
             },
             {
@@ -304,8 +304,8 @@ const productsData = [
                     "./images/asics-kayano-3.jpg"
                 ],
                 "sizes": [
-                    { "size": 40, "price": 165.00, "sale_price": 150.00, "stock_quantity": 3 },
-                    { "size": 41, "price": 170.00, "sale_price": null, "stock_quantity": 1 }
+                    { "size": 40, "price": 165.00, "sale_price": 150.00, "stock_quantity": 3, "sku": "SKU-7-1-0" },
+                    { "size": 41, "price": 170.00, "sale_price": null, "stock_quantity": 1, "sku": "SKU-7-1-1" }
                 ]
             },
             {
@@ -315,8 +315,8 @@ const productsData = [
                     "./images/asics-kayano-5.jpg"
                 ],
                 "sizes": [
-                    { "size": 40, "price": 165.00, "sale_price": 150.00, "stock_quantity": 3 },
-                    { "size": 41, "price": 170.00, "sale_price": 150.00, "stock_quantity": 8 }
+                    { "size": 40, "price": 165.00, "sale_price": 150.00, "stock_quantity": 3, "sku": "SKU-7-2-0" },
+                    { "size": 41, "price": 170.00, "sale_price": 150.00, "stock_quantity": 8, "sku": "SKU-7-2-1" }
                 ]
             }
         ]
@@ -337,9 +337,9 @@ const productsData = [
                     "./images/jordan-1-retro-1.jpg"
                 ],
                 "sizes": [
-                    { "size": 40, "price": 200.00, "sale_price": 180.00, "stock_quantity": 1 },
-                    { "size": 41, "price": 210.00, "sale_price": null, "stock_quantity": 2 },
-                    { "size": 42, "price": 220.00, "sale_price": null, "stock_quantity": 0 }
+                    { "size": 40, "price": 200.00, "sale_price": 180.00, "stock_quantity": 1, "sku": "SKU-8-0-0" },
+                    { "size": 41, "price": 210.00, "sale_price": null, "stock_quantity": 2, "sku": "SKU-8-0-1" },
+                    { "size": 42, "price": 220.00, "sale_price": null, "stock_quantity": 0, "sku": "SKU-8-0-2" }
                 ]
             },
             {
@@ -349,8 +349,8 @@ const productsData = [
                     "./images/jordan-1-retro-3.jpg"
                 ],
                 "sizes": [
-                    { "size": 40, "price": 210.00, "sale_price": 190.00, "stock_quantity": 4 },
-                    { "size": 41, "price": 220.00, "sale_price": null, "stock_quantity": 3 }
+                    { "size": 40, "price": 210.00, "sale_price": 190.00, "stock_quantity": 4, "sku": "SKU-8-1-0" },
+                    { "size": 41, "price": 220.00, "sale_price": null, "stock_quantity": 3, "sku": "SKU-8-1-1" }
                 ]
             },
             {
@@ -360,8 +360,8 @@ const productsData = [
                     "./images/jordan-1-retro-5.jpg"
                 ],
                 "sizes": [
-                    { "size": 40, "price": 210.00, "sale_price": 190.00, "stock_quantity": 9 },
-                    { "size": 41, "price": 220.00, "sale_price": 210.00, "stock_quantity": 8 }
+                    { "size": 40, "price": 210.00, "sale_price": 190.00, "stock_quantity": 9, "sku": "SKU-8-2-0" },
+                    { "size": 41, "price": 220.00, "sale_price": 210.00, "stock_quantity": 8, "sku": "SKU-8-2-1" }
                 ]
             }
         ]
@@ -382,9 +382,9 @@ const productsData = [
                     "./images/yeezy-350-1.jpg"
                 ],
                 "sizes": [
-                    { "size": 40, "price": 220.00, "sale_price": 200.00, "stock_quantity": 2 },
-                    { "size": 41, "price": 230.00, "sale_price": null, "stock_quantity": 0 },
-                    { "size": 42, "price": 240.00, "sale_price": null, "stock_quantity": 5 }
+                    { "size": 40, "price": 220.00, "sale_price": 200.00, "stock_quantity": 2, "sku": "SKU-9-0-0" },
+                    { "size": 41, "price": 230.00, "sale_price": null, "stock_quantity": 0, "sku": "SKU-9-0-1" },
+                    { "size": 42, "price": 240.00, "sale_price": null, "stock_quantity": 5, "sku": "SKU-9-0-2" }
                 ]
             },
             {
@@ -394,8 +394,8 @@ const productsData = [
                     "./images/yeezy-350-3.jpg"
                 ],
                 "sizes": [
-                    { "size": 40, "price": 230.00, "sale_price": 210.00, "stock_quantity": 1 },
-                    { "size": 41, "price": 240.00, "sale_price": null, "stock_quantity": 3 }
+                    { "size": 40, "price": 230.00, "sale_price": 210.00, "stock_quantity": 1, "sku": "SKU-9-1-0" },
+                    { "size": 41, "price": 240.00, "sale_price": null, "stock_quantity": 3, "sku": "SKU-9-1-1" }
                 ]
             }
         ]

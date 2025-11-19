@@ -15,6 +15,7 @@ class LoginPage {
         this.setupPasswordToggle();
         this.setupDemoCredentials();
         this.checkRememberedUser();
+        this.initializeUserCartSystem();
     }
 
     setupEventListeners() {
@@ -51,7 +52,6 @@ class LoginPage {
 
     setupPasswordToggle() {
         const togglePassword = document.getElementById('login-toggle-password');
-
         togglePassword.addEventListener('click', () => {
             this.togglePasswordVisibility(this.passwordInput, togglePassword);
         });
@@ -93,14 +93,12 @@ class LoginPage {
         
         const icon = button.querySelector('i');
         icon.className = isPassword ? 'ri-eye-off-line' : 'ri-eye-line';
-        
         button.setAttribute('aria-label', isPassword ? 'Hide password' : 'Show password');
     }
 
     async handleSubmit() {
         if (this.isSubmitting) return;
 
-        // Validate fields
         const isEmailValid = this.validateEmail();
         const isPasswordValid = this.validatePassword();
 
@@ -133,8 +131,6 @@ class LoginPage {
 
     validatePassword() {
         const value = this.passwordInput.value;
-        const errorElement = document.getElementById('login-password-error');
-
         if (!value) {
             this.showError('login-password', 'Password is required');
             return false;
@@ -151,41 +147,29 @@ class LoginPage {
         this.submitBtn.innerHTML = '<i class="ri-loader-4-line spin"></i> Signing In...';
 
         try {
-            // Simulate API call delay
             await new Promise(resolve => setTimeout(resolve, 1500));
 
             const email = this.emailInput.value.trim();
             const password = this.passwordInput.value;
             const rememberMe = document.getElementById('remember-me').checked;
 
-            // Authenticate user
             const user = await this.verifyCredentials(email, password);
 
             if (user) {
-                // Save user session
                 this.saveUserSession(user, rememberMe);
-                
-                // Show success
                 this.showSuccessModal();
             } else {
                 throw new Error('Invalid credentials');
             }
 
         } catch (error) {
-            console.error('Login error:', error);
             this.handleLoginError(error.message);
         } finally {
-            this.isSubmitting = false;
-            this.submitBtn.disabled = false;
-            this.submitBtn.classList.remove('loading');
-            this.submitBtn.innerHTML = '<i class="ri-login-box-line"></i> Sign In';
+            this.resetSubmitButton();
         }
     }
 
     async verifyCredentials(email, password) {
-        // In a real app, this would be an API call to your backend
-        // For demo, we'll check against localStorage
-        
         try {
             const users = JSON.parse(localStorage.getItem('users') || '[]');
             
@@ -196,9 +180,7 @@ class LoginPage {
 
             // Regular user check
             const user = users.find(u => u.email.toLowerCase() === email.toLowerCase());
-            
             if (user) {
-                // In a real app, you'd use proper password hashing and verification
                 const hashedPassword = this.hashPassword(password);
                 if (user.password === hashedPassword) {
                     return user;
@@ -213,8 +195,8 @@ class LoginPage {
     }
 
     createDemoUser() {
-        return {
-            id: 'USER_DEMO',
+        const demoUser = {
+            id: 'USER_DEMO_' + Date.now(),
             firstName: 'Demo',
             lastName: 'User',
             email: 'demo@kickstar.com',
@@ -229,33 +211,137 @@ class LoginPage {
             createdAt: new Date().toISOString(),
             isDemo: true
         };
-    }
-
-    hashPassword(password) {
-        // Same hashing function as registration
-        return btoa(password).split('').reverse().join('');
+        
+        this.initializeUserCart(demoUser.id);
+        return demoUser;
     }
 
     saveUserSession(user, rememberMe) {
-        // Set current user
-        localStorage.setItem('currentUser', JSON.stringify(user));
-        localStorage.setItem('userProfile', JSON.stringify(user));
-        
-        // Set login timestamp
-        localStorage.setItem('lastLogin', new Date().toISOString());
-        
-        // Remember me functionality
-        if (rememberMe) {
-            localStorage.setItem('rememberedEmail', user.email);
-        } else {
-            localStorage.removeItem('rememberedEmail');
-        }
+        if (user) {
+            // Set user data
+            localStorage.setItem('currentUser', JSON.stringify(user));
+            localStorage.setItem('userProfile', JSON.stringify(user));
+            localStorage.setItem('lastLogin', new Date().toISOString());
+            localStorage.setItem('isAuthenticated', 'true');
 
-        // Set authentication flag
-        localStorage.setItem('isAuthenticated', 'true');
+            // Remember me functionality
+            if (rememberMe) {
+                localStorage.setItem('rememberedEmail', user.email);
+            } else {
+                localStorage.removeItem('rememberedEmail');
+            }
+
+            // Cart migration
+            this.migrateGuestCartToUser(user.id);
+            this.updateCartCount();
+
+            // Notify other components
+            window.dispatchEvent(new Event('userLoggedIn'));
+            this.showToast(`Welcome back, ${user.firstName}!`);
+        }
+    }
+
+    handleLoginError(errorMessage) {
+        const message = errorMessage === 'Invalid credentials' 
+            ? 'Invalid email or password. Please try again.'
+            : 'Login failed. Please try again.';
+
+        this.showError('login-password', message);
+        this.form.classList.add('error-shake');
+        setTimeout(() => this.form.classList.remove('error-shake'), 500);
+    }
+
+    showSuccessModal() {
+        const modal = document.getElementById('login-success-modal');
+        modal.style.display = 'flex';
+        modal.querySelector('.modal-content').classList.add('animate-in');
+        modal.setAttribute('aria-hidden', 'false');
+        document.getElementById('go-to-account-login').focus();
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) this.closeSuccessModal();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.style.display === 'flex') {
+                this.closeSuccessModal();
+            }
+        });
+    }
+
+    // Utility Methods
+    initializeUserCartSystem() {
+        const userCarts = JSON.parse(localStorage.getItem("userCarts") || "{}");
+        if (!userCarts['guest']) {
+            userCarts['guest'] = [];
+            localStorage.setItem("userCarts", JSON.stringify(userCarts));
+        }
+        this.updateCartCount();
+    }
+
+    initializeUserCart(userId) {
+        const userCarts = JSON.parse(localStorage.getItem("userCarts") || "{}");
+        if (!userCarts[userId]) {
+            userCarts[userId] = [];
+            localStorage.setItem("userCarts", JSON.stringify(userCarts));
+        }
+    }
+
+    migrateGuestCartToUser(userId) {
+        const userCarts = JSON.parse(localStorage.getItem("userCarts") || "{}");
+        const guestCart = userCarts['guest'] || [];
         
-        // Dispatch event for other components
-        window.dispatchEvent(new Event('userLoggedIn'));
+        if (guestCart.length > 0) {
+            const userCart = userCarts[userId] || [];
+            const mergedCart = [...userCart];
+            
+            guestCart.forEach(guestItem => {
+                const existingItemIndex = mergedCart.findIndex(userItem => 
+                    userItem.key === guestItem.key
+                );
+                
+                if (existingItemIndex > -1) {
+                    mergedCart[existingItemIndex].qty += guestItem.qty;
+                } else {
+                    mergedCart.push(guestItem);
+                }
+            });
+            
+            userCarts[userId] = mergedCart;
+            delete userCarts['guest'];
+            localStorage.setItem("userCarts", JSON.stringify(userCarts));
+            
+            this.showToast(`Your ${guestCart.length} cart items have been saved to your account!`);
+        }
+    }
+
+    updateCartCount() {
+        const cart = this.getCart();
+        const count = cart.reduce((sum, item) => sum + item.qty, 0);
+        const cartCountEl = document.getElementById("cart-count");
+        if (cartCountEl) cartCountEl.textContent = count;
+    }
+
+    getCart() {
+        const userId = this.getCurrentUserId();
+        const userCarts = JSON.parse(localStorage.getItem("userCarts") || "{}");
+        return userCarts[userId] || [];
+    }
+
+    getCurrentUserId() {
+        const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+        return currentUser ? currentUser.id : 'guest';
+    }
+
+    resetSubmitButton() {
+        this.isSubmitting = false;
+        this.submitBtn.disabled = false;
+        this.submitBtn.classList.remove('loading');
+        this.submitBtn.innerHTML = '<i class="ri-login-box-line"></i> Sign In';
+    }
+
+    hashPassword(password) {
+        return btoa(password).split('').reverse().join('');
     }
 
     checkRememberedUser() {
@@ -266,52 +352,8 @@ class LoginPage {
         }
     }
 
-    handleLoginError(errorMessage) {
-        const message = errorMessage === 'Invalid credentials' 
-            ? 'Invalid email or password. Please try again.'
-            : 'Login failed. Please try again.';
-
-        this.showError('login-email', '');
-        this.showError('login-password', message);
-        
-        // Shake animation for error
-        this.form.classList.add('error-shake');
-        setTimeout(() => {
-            this.form.classList.remove('error-shake');
-        }, 500);
-    }
-
     handleSocialLogin(provider) {
-        // Demo functionality for social login
         this.showNotification(`Social login with ${provider} would be implemented here.`, 'info');
-        
-        // In a real app, you would:
-        // 1. Redirect to OAuth provider
-        // 2. Handle the callback
-        // 3. Create/authenticate user
-    }
-
-    showSuccessModal() {
-        const modal = document.getElementById('login-success-modal');
-        modal.style.display = 'flex';
-
-        const modalContent = modal.querySelector('.modal-content');
-        modalContent.classList.add('animate-in');
-
-        modal.setAttribute('aria-hidden', 'false');
-        document.getElementById('go-to-account-login').focus();
-
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                this.closeSuccessModal();
-            }
-        });
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && modal.style.display === 'flex') {
-                this.closeSuccessModal();
-            }
-        });
     }
 
     closeSuccessModal() {
@@ -333,9 +375,6 @@ class LoginPage {
         }
 
         field.setAttribute('aria-invalid', 'true');
-        if (errorElement) {
-            field.setAttribute('aria-describedby', `${fieldId}-error`);
-        }
     }
 
     showSuccess(fieldId) {
@@ -344,11 +383,7 @@ class LoginPage {
         
         field.classList.remove('error');
         field.classList.add('success');
-        
-        if (errorElement) {
-            errorElement.style.display = 'none';
-        }
-
+        if (errorElement) errorElement.style.display = 'none';
         field.setAttribute('aria-invalid', 'false');
     }
 
@@ -357,19 +392,13 @@ class LoginPage {
         const errorElement = document.getElementById(`${fieldId}-error`);
         
         field.classList.remove('error');
-        
-        if (errorElement) {
-            errorElement.style.display = 'none';
-        }
+        if (errorElement) errorElement.style.display = 'none';
     }
 
     showFirstError() {
         const firstErrorField = this.form.querySelector('.error');
         if (firstErrorField) {
-            firstErrorField.scrollIntoView({ 
-                behavior: 'smooth', 
-                block: 'center' 
-            });
+            firstErrorField.scrollIntoView({ behavior: 'smooth', block: 'center' });
             firstErrorField.focus();
         }
     }
@@ -426,6 +455,10 @@ class LoginPage {
                 }
             }, 300);
         }, 5000);
+    }
+
+    showToast(message) {
+        this.showNotification(message, 'success');
     }
 }
 

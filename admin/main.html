@@ -3,45 +3,565 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <title>Kickstar - Admin Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #fd3008;
+            --secondary-color: #00a896;
+            --neutral-light-color: #f8f9fa;
+            --neutral-dark-color: #2d2d2d;
+            --accent-color: #ffd166;
+            --snow: #fffafa;
+            --anti-flash-white: #f4f6f6;
+            --gray-shade-color: #dee7e7;
+            --white-color: #ffffff;
+            --black-color: #000000;
+            --timberwolf: #ced0ce;
+            --black-low-opacity: #00000033;
+            --warning: #ff0000;
+            --info: #2a7a55;
+            --success: #2a7a55;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--anti-flash-white);
+            color: var(--neutral-dark-color);
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: 250px;
+            background-color: var(--white-color);
+            box-shadow: 2px 0 10px var(--black-low-opacity);
+            padding: 20px 0;
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            padding: 0 20px 20px;
+            border-bottom: 1px solid var(--gray-shade-color);
+            margin-bottom: 20px;
+        }
+
+        .logo i {
+            color: var(--primary-color);
+            font-size: 24px;
+            margin-right: 10px;
+        }
+
+        .logo h1 {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--neutral-dark-color);
+        }
+
+        .nav-links {
+            list-style: none;
+            padding: 0 15px;
+        }
+
+        .nav-links li {
+            margin-bottom: 5px;
+        }
+
+        .nav-links a {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            text-decoration: none;
+            color: var(--neutral-dark-color);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            background-color: var(--primary-color);
+            color: var(--white-color);
+        }
+
+        .nav-links i {
+            margin-right: 10px;
+            font-size: 18px;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background-color: var(--white-color);
+            border-radius: 8px;
+            padding: 10px 15px;
+            width: 300px;
+            box-shadow: 0 2px 5px var(--black-low-opacity);
+        }
+
+        .search-bar input {
+            border: none;
+            outline: none;
+            background: transparent;
+            margin-left: 10px;
+            width: 100%;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-profile img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+            object-fit: cover;
+        }
+
+        .user-info h4 {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .user-info p {
+            font-size: 12px;
+            color: var(--timberwolf);
+        }
+
+        /* Dashboard Stats */
+        .dashboard-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background-color: var(--white-color);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px var(--black-low-opacity);
+            display: flex;
+            align-items: center;
+        }
+
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 20px;
+        }
+
+        .sales .stat-icon {
+            background-color: rgba(253, 48, 8, 0.1);
+            color: var(--primary-color);
+        }
+
+        .orders .stat-icon {
+            background-color: rgba(0, 168, 150, 0.1);
+            color: var(--secondary-color);
+        }
+
+        .products .stat-icon {
+            background-color: rgba(255, 209, 102, 0.1);
+            color: var(--accent-color);
+        }
+
+        .customers .stat-icon {
+            background-color: rgba(42, 122, 85, 0.1);
+            color: var(--success);
+        }
+
+        .stat-info h3 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .stat-info p {
+            font-size: 14px;
+            color: var(--timberwolf);
+        }
+
+        /* Recent Orders & Inventory */
+        .dashboard-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+        }
+
+        .card {
+            background-color: var(--white-color);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px var(--black-low-opacity);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .card-header h2 {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .card-header a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table th, table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--gray-shade-color);
+        }
+
+        table th {
+            font-weight: 600;
+            color: var(--timberwolf);
+            font-size: 14px;
+        }
+
+        .status {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .status.completed {
+            background-color: rgba(42, 122, 85, 0.1);
+            color: var(--success);
+        }
+
+        .status.pending {
+            background-color: rgba(255, 209, 102, 0.1);
+            color: var(--accent-color);
+        }
+
+        .status.cancelled {
+            background-color: rgba(255, 0, 0, 0.1);
+            color: var(--warning);
+        }
+
+        .inventory-list {
+            list-style: none;
+        }
+
+        .inventory-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--gray-shade-color);
+        }
+
+        .inventory-item:last-child {
+            border-bottom: none;
+        }
+
+        .inventory-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            background-color: var(--gray-shade-color);
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--timberwolf);
+        }
+
+        .inventory-info h4 {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .inventory-info p {
+            font-size: 12px;
+            color: var(--timberwolf);
+        }
+
+        .stock-level {
+            margin-left: auto;
+            font-weight: 600;
+        }
+
+        .stock-level.low {
+            color: var(--warning);
+        }
+
+        .stock-level.medium {
+            color: var(--accent-color);
+        }
+
+        .stock-level.high {
+            color: var(--success);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .dashboard-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 70px;
+            }
+            
+            .logo h1, .nav-links span {
+                display: none;
+            }
+            
+            .nav-links a {
+                justify-content: center;
+                padding: 15px;
+            }
+            
+            .nav-links i {
+                margin-right: 0;
+            }
+            
+            .search-bar {
+                width: 200px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Responsive Sidebar Component -->
-    <div class="sidebar" id="sidebar">
-        <button id="toggle-btn"><i class="fa-solid fa-angle-left"></i><i class="fas fa-bars"></i></button>
-        <button id="exit-sidebar"><i class="fa-solid fa-xmark"></i></button>
-        <ul>
-            <a href="#"><li><i class="fas fa-home"></i> <span class="nav-text">Dashboard</span></li></a>
-            <a href="#"><li><i class="fas fa-shopping-cart"></i> <span class="nav-text">Orders</span></li></a>
-            <a href="#"><li><i class="fas fa-box"></i> <span class="nav-text">Products</span></li></a>
-            <a href="#"><li><i class="fas fa-users"></i> <span class="nav-text">Customers</span></li></a>
-            <a href="#"><li><i class="fas fa-chart-line"></i> <span class="nav-text">Analytics</span></li></a>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo">
+            <i class="fas fa-shoe-prints"></i>
+            <h1>Kickstar</h1>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#" class="active"><i class="fas fa-home"></i> <span>Dashboard</span></a></li>
+            <li><a href="#"><i class="fas fa-shopping-bag"></i> <span>Products</span></a></li>
+            <li><a href="#"><i class="fas fa-shopping-cart"></i> <span>Orders</span></a></li>
+            <li><a href="#"><i class="fas fa-users"></i> <span>Customers</span></a></li>
+            <li><a href="#"><i class="fas fa-chart-bar"></i> <span>Analytics</span></a></li>
+            <li><a href="#"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
         </ul>
     </div>
-    
+
     <!-- Main Content -->
-    <main class="main-content">
-        <header class="topbar">
-            <button id="toggle-btn-topbar"><i class="fas fa-bars"></i></button>
-            <h1>Responsive Sidebar</h1>
-        </header>
-        <section class="main-section">
-            <h2>Responsive Sidebar</h2>
-            <p>This is a simple responsive sidebar layout. The sidebar can be toggled using the button on the top left. Resize the window to see how the sidebar adapts to different screen sizes.</p>
-        </section>
-        <footer>
-            <p>&copy; 2025 Responsive Sidebar. All rights reserved.</p>
-        </footer>
-    </main>
-    
-    <!-- Styles and Scripts (add these to your HTML head and before closing body tag) -->
-    <!--
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="scripts.js"></script>
-    -->
-    <script src="js/main.js"></script>
+    <div class="main-content">
+        <!-- Header -->
+        <div class="header">
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search...">
+            </div>
+            <div class="user-profile">
+                <img src="https://ui-avatars.com/api/?name=Admin+User&background=fd3008&color=fff" alt="Admin User">
+                <div class="user-info">
+                    <h4>Admin User</h4>
+                    <p>Administrator</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Stats -->
+        <div class="dashboard-stats">
+            <div class="stat-card sales">
+                <div class="stat-icon">
+                    <i class="fas fa-dollar-sign"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>$12,426</h3>
+                    <p>Total Sales</p>
+                </div>
+            </div>
+            <div class="stat-card orders">
+                <div class="stat-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>284</h3>
+                    <p>Total Orders</p>
+                </div>
+            </div>
+            <div class="stat-card products">
+                <div class="stat-icon">
+                    <i class="fas fa-shoe-prints"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>156</h3>
+                    <p>Total Products</p>
+                </div>
+            </div>
+            <div class="stat-card customers">
+                <div class="stat-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>892</h3>
+                    <p>Total Customers</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Content -->
+        <div class="dashboard-content">
+            <!-- Recent Orders -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>Recent Orders</h2>
+                    <a href="#">View All</a>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer</th>
+                            <th>Date</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#KS-1256</td>
+                            <td>John Smith</td>
+                            <td>Nov 12, 2023</td>
+                            <td>$245.99</td>
+                            <td><span class="status completed">Completed</span></td>
+                        </tr>
+                        <tr>
+                            <td>#KS-1255</td>
+                            <td>Sarah Johnson</td>
+                            <td>Nov 11, 2023</td>
+                            <td>$189.50</td>
+                            <td><span class="status pending">Pending</span></td>
+                        </tr>
+                        <tr>
+                            <td>#KS-1254</td>
+                            <td>Michael Brown</td>
+                            <td>Nov 10, 2023</td>
+                            <td>$320.00</td>
+                            <td><span class="status completed">Completed</span></td>
+                        </tr>
+                        <tr>
+                            <td>#KS-1253</td>
+                            <td>Emily Davis</td>
+                            <td>Nov 9, 2023</td>
+                            <td>$156.75</td>
+                            <td><span class="status cancelled">Cancelled</span></td>
+                        </tr>
+                        <tr>
+                            <td>#KS-1252</td>
+                            <td>Robert Wilson</td>
+                            <td>Nov 8, 2023</td>
+                            <td>$275.25</td>
+                            <td><span class="status completed">Completed</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Inventory -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>Low Inventory</h2>
+                    <a href="#">View All</a>
+                </div>
+                <ul class="inventory-list">
+                    <li class="inventory-item">
+                        <div class="inventory-img">
+                            <i class="fas fa-shoe-prints"></i>
+                        </div>
+                        <div class="inventory-info">
+                            <h4>Air Max 270</h4>
+                            <p>SKU: NK-AM270-BLK</p>
+                        </div>
+                        <div class="stock-level low">12</div>
+                    </li>
+                    <li class="inventory-item">
+                        <div class="inventory-img">
+                            <i class="fas fa-shoe-prints"></i>
+                        </div>
+                        <div class="inventory-info">
+                            <h4>Ultraboost 22</h4>
+                            <p>SKU: AD-UB22-WHT</p>
+                        </div>
+                        <div class="stock-level low">8</div>
+                    </li>
+                    <li class="inventory-item">
+                        <div class="inventory-img">
+                            <i class="fas fa-shoe-prints"></i>
+                        </div>
+                        <div class="inventory-info">
+                            <h4>Classic Leather</h4>
+                            <p>SKU: RB-CL-RED</p>
+                        </div>
+                        <div class="stock-level medium">24</div>
+                    </li>
+                    <li class="inventory-item">
+                        <div class="inventory-img">
+                            <i class="fas fa-shoe-prints"></i>
+                        </div>
+                        <div class="inventory-info">
+                            <h4>Old Skool</h4>
+                            <p>SKU: VN-OS-BLK</p>
+                        </div>
+                        <div class="stock-level medium">31</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simple script to handle active navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-links a');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+        });
+    </script>
 </body>
 </html>

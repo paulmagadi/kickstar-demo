@@ -7,12 +7,22 @@ document.addEventListener("DOMContentLoaded", () => {
 /* -----------------------------
    🔹 Utility Functions
 ----------------------------- */
+function getCurrentUserId() {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+    return currentUser ? currentUser.id : 'guest';
+}
+
 function getCart() {
-    return JSON.parse(localStorage.getItem("cart") || "[]");
+    const userId = getCurrentUserId();
+    const userCarts = JSON.parse(localStorage.getItem("userCarts") || "{}");
+    return userCarts[userId] || [];
 }
 
 function setCart(cart) {
-    localStorage.setItem("cart", JSON.stringify(cart));
+    const userId = getCurrentUserId();
+    const userCarts = JSON.parse(localStorage.getItem("userCarts") || "{}");
+    userCarts[userId] = cart;
+    localStorage.setItem("userCarts", JSON.stringify(userCarts));
 }
 
 function updateCartCount() {
@@ -23,6 +33,8 @@ function updateCartCount() {
 
     document.getElementById("cart-quantity").textContent = (count == 1)? `${count} item`: `${count} items`;
 }
+
+updateCartCount();
 
 
 /* -----------------------------

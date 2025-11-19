@@ -1,8 +1,16 @@
 
 // ===== Utility functions =====
-function getCart() {
-    return JSON.parse(localStorage.getItem("cart") || "[]");
+function getCurrentUserId() {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+    return currentUser ? currentUser.id : 'guest';
 }
+
+function getCart() {
+    const userId = getCurrentUserId();
+    const userCarts = JSON.parse(localStorage.getItem("userCarts") || "{}");
+    return userCarts[userId] || [];
+}
+
 
 function formatKES(amount) {
     return "KES " + amount.toFixed(2);

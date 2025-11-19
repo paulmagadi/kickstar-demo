@@ -244,18 +244,40 @@ function renderHeader() {
 
 
     // Cart count utility
-    function getCart() {
-        return JSON.parse(localStorage.getItem("cart") || "[]");
-    }
+    // function getCart() {
+    //     return JSON.parse(localStorage.getItem("cart") || "[]");
+    // }
 
-    function updateCartCount() {
-        const cart = getCart();
-        const count = cart.reduce((sum, item) => sum + item.qty, 0);
-        const cartCountEl = document.getElementById("cart-count");
-        if (cartCountEl) cartCountEl.textContent = count;
-    }
+    // function updateCartCount() {
+    //     const cart = getCart();
+    //     const count = cart.reduce((sum, item) => sum + item.qty, 0);
+    //     const cartCountEl = document.getElementById("cart-count");
+    //     if (cartCountEl) cartCountEl.textContent = count;
+    // }
 
-    updateCartCount();
+    // updateCartCount();
+
+    // Cart Management Functions
+function getCurrentUserId() {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+    return currentUser ? currentUser.id : 'guest';
+}
+
+function getCart() {
+    const userId = getCurrentUserId();
+    const userCarts = JSON.parse(localStorage.getItem("userCarts") || "{}");
+    return userCarts[userId] || [];
+}
+
+function updateCartCount() {
+    const cart = getCart();
+    const count = cart.reduce((sum, item) => sum + item.qty, 0);
+    const cartCountEl = document.getElementById("cart-count");
+    if (cartCountEl) cartCountEl.textContent = count;
+}
+
+updateCartCount();
+
 
 const WISHLIST_STORAGE_KEY = 'user_wishlist';
 
