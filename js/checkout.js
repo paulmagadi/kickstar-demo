@@ -1,14 +1,24 @@
-
 // ===== Utility functions =====
 function getCurrentUserId() {
     const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
     return currentUser ? currentUser.id : 'guest';
 }
 
+function getCurrentUser() {
+    return JSON.parse(localStorage.getItem('currentUser') || 'null');
+}
+
 function getCart() {
     const userId = getCurrentUserId();
     const userCarts = JSON.parse(localStorage.getItem("userCarts") || "{}");
     return userCarts[userId] || [];
+}
+
+function updateCartCount() {
+    const cart = getCart();
+    const count = cart.reduce((sum, item) => sum + item.qty, 0);
+    const cartCountEl = document.getElementById("cart-count");
+    if (cartCountEl) cartCountEl.textContent = count;
 }
 
 
@@ -23,43 +33,28 @@ function goToStep(step) {
     if (!checkoutSection) return;
     checkoutSection.classList.add("open");
 
-    // remove any previously inserted dynamic hidden-step elements so navigation back works
+    // Remove any previously inserted dynamic hidden-step elements
     document.querySelectorAll('.hidden-step.address, .hidden-step.payment, .hidden-step.review').forEach(el => el.remove());
 
-    // default placeholder (the one present in DOM initially)
+    // Show default placeholder only on step 1
     const defaultHidden = document.querySelector(".hidden-step.default");
-
-    // show default only on step 1, hide otherwise
     if (defaultHidden) {
         defaultHidden.style.display = step === 1 ? "" : "none";
     }
 
-    const addressHidden = `
-        <div class="hidden-step address">
-            <h3 class="address-hidden">1. Shipping Address <span></span></h3>
-        </div>
-    `;
-    const paymentHidden = `
-        <div class="hidden-step payment">
-            <h3 class="payment-hidden">2. Payment Method <span></span></h3>
-            
-        </div>
-    `;
-    const reviewHidden = `
-        <div class="hidden-step review">
-            <h3 class="review-hidden">3. Review &amp; Confirm <span></span></h3>
-        </div>
-    `;
+    // Insert step indicators based on current step
+    const addressHidden = `<div class="hidden-step address"><h3 class="address-hidden">1. Shipping Address <span></span></h3></div>`;
+    const paymentHidden = `<div class="hidden-step payment"><h3 class="payment-hidden">2. Payment Method <span></span></h3></div>`;
+    const reviewHidden = `<div class="hidden-step review"><h3 class="review-hidden">3. Review &amp; Confirm <span></span></h3></div>`;
 
-    // Insert appropriate side/above/below helpers depending on active step
     if (step === 2) {
-        checkoutSection.insertAdjacentHTML("beforebegin", addressHidden.trim());
-        checkoutSection.insertAdjacentHTML("afterend", reviewHidden.trim());
+        checkoutSection.insertAdjacentHTML("beforebegin", addressHidden);
+        checkoutSection.insertAdjacentHTML("afterend", reviewHidden);
         document.querySelector(".address-hidden span").innerHTML = `<i class="fa-solid fa-check"></i>`;
         document.querySelector(".address-hidden").classList.add("completed");
     } else if (step === 3) {
-        checkoutSection.insertAdjacentHTML("beforebegin", addressHidden.trim());
-        checkoutSection.insertAdjacentHTML("beforebegin", paymentHidden.trim());
+        checkoutSection.insertAdjacentHTML("beforebegin", addressHidden);
+        checkoutSection.insertAdjacentHTML("beforebegin", paymentHidden);
         
         document.querySelector(".address-hidden span").innerHTML = `<i class="fa-solid fa-check"></i>`;
         document.querySelector(".payment-hidden span").innerHTML = `<i class="fa-solid fa-check"></i>`;
@@ -67,11 +62,11 @@ function goToStep(step) {
         document.querySelector(".payment-hidden").classList.add("completed");
     }
 
-    // step badges
-    
+    // Update step badges
     const completeBtn = document.getElementById("complete-order-btn");
     const completeOrderNoticEl = document.querySelector(".complete-order-notice");
     const acceptTermsEl = document.querySelector(".accept-terms");
+    
     document.querySelectorAll(".step").forEach(s => {
         s.classList.remove("active", "completed");
         if (parseInt(s.dataset.step) === step) {
@@ -84,6 +79,7 @@ function goToStep(step) {
         }
     });
 
+    // Step 3 specific logic
     if (step === 3) {
         const addresses = getAddresses();
         const hasDefaultAddress = addresses.some(a => a.isDefault);
@@ -94,41 +90,10 @@ function goToStep(step) {
     }
 }
 
-
-document.addEventListener("DOMContentLoaded", () => {
-    // Step navigation
-    document.querySelectorAll(".next-step-btn").forEach(btn => {
-        btn.addEventListener("click", () => {
-            const current = parseInt(btn.closest(".checkout-section").dataset.step);
-            if (validateStep(current)) {
-                goToStep(current + 1);
-            }
-        });
-    });
-
-    document.querySelectorAll(".prev-step-btn").forEach(btn => {
-        btn.addEventListener("click", () => {
-            const current = parseInt(btn.closest(".checkout-section").dataset.step);
-
-            // If we're leaving step 3 (going back), disable the complete order button
-            if (current === 3) {
-                const completeBtn = document.getElementById("complete-order-btn");
-                if (completeBtn) completeBtn.disabled = true;
-            }
-
-            goToStep(current - 1);
-        });
-    });
-
-
-    renderAddresses();
-    renderSummary();
-    renderReview();
-});
-
 // ===== Step Validation =====
 const errorEl = document.querySelector(".no-address-error");
 const shippingContainer = document.querySelector(".shipping-details-container");
+
 function validateStep(step) {
     switch(step) {
         case 1:
@@ -151,15 +116,13 @@ function validateStep(step) {
             localStorage.setItem("paymentMethod", paymentMethod);
             updateSelectedPaymentUI(paymentMethod);
             showSuccessMessage('payment-success');
-            renderReview(); // ✅ Reflect change in review step
+            renderReview();
             return true;
         default:
             return true;
     }
 }
 
-
-// Payment Method
 // ===== Payment Method Handling =====
 function updateSelectedPaymentUI(selectedValue) {
     document.querySelectorAll('.payment-methods label.payment-option').forEach(label => {
@@ -168,7 +131,6 @@ function updateSelectedPaymentUI(selectedValue) {
     });
 }
 
-// ✅ Restore previously selected payment method from localStorage
 function restorePaymentSelection() {
     const savedPayment = localStorage.getItem("paymentMethod");
     const paymentRadios = document.querySelectorAll('input[name="payment"]');
@@ -195,7 +157,6 @@ function restorePaymentSelection() {
     updateSelectedPaymentUI(currentPayment);
 }
 
-// ✅ Show success feedback briefly
 function showSuccessMessage(id) {
     const message = document.getElementById(id);
     if (!message) return;
@@ -203,38 +164,23 @@ function showSuccessMessage(id) {
     setTimeout(() => (message.style.display = 'none'), 3000);
 }
 
-// ✅ Initialize payment behavior
-document.addEventListener("DOMContentLoaded", () => {
-    restorePaymentSelection();
-
-    const paymentRadios = document.querySelectorAll('input[name="payment"]');
-    paymentRadios.forEach(radio => {
-        radio.addEventListener('change', e => {
-            const selected = e.target.value;
-            localStorage.setItem("paymentMethod", selected);
-            updateSelectedPaymentUI(selected);
-            showSuccessMessage('payment-success');
-            renderReview(); // refresh review step
-        });
-    });
-});
-
-
-
-
 // ===== Address Handling =====
 const addressContainer = document.getElementById("saved-addresses-container");
 const modal = document.getElementById("address-modal");
 const modalTitle = document.getElementById("modal-title");
 
 function getAddresses() {
-    return JSON.parse(localStorage.getItem("addresses") || "[]");
+    const currentUser = getCurrentUser();
+    const userAddresses = JSON.parse(localStorage.getItem("userAddresses") || "{}");
+    return userAddresses[currentUser?.id] || [];
 }
 
 function saveAddresses(addresses) {
-    localStorage.setItem("addresses", JSON.stringify(addresses));
+    const currentUser = getCurrentUser();
+    const userAddresses = JSON.parse(localStorage.getItem("userAddresses") || "{}");
+    userAddresses[currentUser?.id] = addresses;
+    localStorage.setItem("userAddresses", JSON.stringify(userAddresses));
 }
-
 
 function renderAddresses() {
     const addAddressBtn = document.getElementById("add-address-btn");
@@ -249,12 +195,12 @@ function renderAddresses() {
                 No saved addresses yet. Please add your shipping address.
             </div>
         `;
-        addAddressBtn.classList.add("empty-state"); // Special styling when no addresses exist (make the button more prominent)
+        addAddressBtn.classList.add("empty-state");
         return;
     }
 
     // We have addresses
-    addAddressBtn.classList.remove("empty-state"); // Remove special styling when addresses exist (less prominent style)
+    addAddressBtn.classList.remove("empty-state");
     addresses.forEach(addr => {
         const checked = addr.isDefault ? "checked" : "";
         const selClass = addr.isDefault ? "selected" : "";
@@ -283,17 +229,15 @@ function renderAddresses() {
             addresses.forEach(a => a.isDefault = a.id === e.target.value);
             saveAddresses(addresses);
 
-            // Update visual selected class
             document.querySelectorAll(".address-card").forEach(card => card.classList.remove("selected"));
             const card = e.target.closest(".address-card");
             if (card) card.classList.add("selected");
 
             renderReview();
         });
-        
     });
 
-    // Make the whole card clickable (except action buttons) to select the address
+    // Make the whole card clickable (except action buttons)
     document.querySelectorAll(".address-card").forEach(card => {
         card.addEventListener("click", e => {
             if (e.target.closest(".edit-address-btn") || e.target.closest(".delete-address-btn")) return;
@@ -309,7 +253,6 @@ function renderAddresses() {
         btn.addEventListener("click", () => openEditModal(btn.dataset.id));
     });
 
-    // Delete shipping address
     document.querySelectorAll(".delete-address-btn").forEach(btn => {
         btn.addEventListener("click", e => {
             const id = btn.dataset.id;
@@ -335,21 +278,15 @@ function renderAddresses() {
 
             deleteAddressConfirmModal.style.display = "block";
 
-            // handlers defined so we can remove them after use (avoid duplicate bindings)
             const onConfirm = () => {
                 const updated = addresses.filter(a => a.id !== id);
-
-                // If deleting the default address, set a new default if possible
                 if (addressToDelete && addressToDelete.isDefault && updated.length > 0) {
                     updated[0].isDefault = true;
                 }
-
                 saveAddresses(updated);
                 deleteAddressConfirmModal.style.display = "none";
                 renderAddresses();
                 renderReview();
-
-                // cleanup
                 deleteAddressConfirmBtn.removeEventListener("click", onConfirm);
                 cancelDeleteBtn.removeEventListener("click", onCancel);
             };
@@ -379,57 +316,39 @@ function openEditModal(id) {
     modal.style.display = "flex";
 }
 
-
-document.getElementById("address-form").addEventListener("submit", e => {
-    e.preventDefault();
-    const id = document.getElementById("address-id").value;
-    const baseAddr = {
-        id: id || "ADDR" + Date.now(),
-        fullname: document.getElementById("fullname").value,
-        address: document.getElementById("address").value,
-        city: document.getElementById("city").value,
-        phone: document.getElementById("phone").value
-    };
-
-    let addresses = getAddresses();
-
-    if (id) {
-        // Editing: make edited address the selected/default one
-        addresses = addresses.map(a => {
-            if (a.id === id) {
-                return { ...baseAddr, isDefault: true };
-            }
-            return { ...a, isDefault: false };
-        });
-    } else {
-        // Adding new: make new address the selected/default one and unset others
-        addresses = addresses.map(a => ({ ...a, isDefault: false }));
-        addresses.push({ ...baseAddr, isDefault: true });
+// ===== Order Management =====
+function saveOrder(order) {
+    const currentUser = getCurrentUser();
+    const userOrders = JSON.parse(localStorage.getItem("userOrders") || "{}");
+    const allOrders = JSON.parse(localStorage.getItem("allOrders") || "[]");
+    
+    // Save to user-specific orders
+    if (!userOrders[currentUser?.id]) {
+        userOrders[currentUser?.id] = [];
     }
+    userOrders[currentUser?.id].push(order);
+    localStorage.setItem("userOrders", JSON.stringify(userOrders));
+    
+    // Save to all orders (for admin purposes)
+    allOrders.push(order);
+    localStorage.setItem("allOrders", JSON.stringify(allOrders));
+    
+    // Save as last order for current user
+    localStorage.setItem("lastOrder", JSON.stringify(order));
+}
 
-    saveAddresses(addresses);
-    modal.style.display = "none";
-    renderAddresses();
-    renderReview();
-});
-
-document.getElementById("add-address-btn").onclick = () => {
-    modalTitle.textContent = "Add New Address";
-    document.getElementById("address-form").reset();
-    document.getElementById("address-id").value = "";
-    modal.style.display = "flex";
-    shippingContainer.classList.remove("error");
-    errorEl.style.display = "none";
-};
-
-document.getElementById("close-modal").onclick = () => modal.style.display = "none";
-window.onclick = e => { if (e.target === modal) modal.style.display = "none"; };
+function clearUserCart() {
+    const userId = getCurrentUserId();
+    const userCarts = JSON.parse(localStorage.getItem("userCarts") || "{}");
+    userCarts[userId] = [];
+    localStorage.setItem("userCarts", JSON.stringify(userCarts));
+}
 
 // ===== Summary =====
 function renderSummary() {
     const cart = getCart();
     const itemsEl = document.getElementById("summary-items");
-    const shippingFee = 300; // Example static shipping cost
+    const shippingFee = 300;
     let subtotal = 0;
     itemsEl.innerHTML = "";
 
@@ -450,7 +369,7 @@ function renderSummary() {
     }
 
     document.getElementById("summary-subtotal").textContent = formatKES(subtotal);
-    const tax = Math.round(subtotal * 0.16); // Example 16% VAT
+    const tax = Math.round(subtotal * 0.16);
     document.getElementById("summary-shipping").textContent = formatKES(shippingFee);
     document.getElementById("summary-tax").textContent = formatKES(tax);
     document.getElementById("summary-total").textContent = formatKES(subtotal + shippingFee + tax);
@@ -463,8 +382,27 @@ function renderReview() {
     const selectedAddress = addresses.find(a => a.isDefault);
     const paymentMethod = localStorage.getItem("paymentMethod") || "Cash on Delivery";
     const cart = getCart();
+    const currentUser = getCurrentUser();
 
     let reviewHTML = `
+        <div class="review-section">
+            <h4>Customer Information</h4>
+            <div class="review-details">
+    `;
+    
+    if (currentUser) {
+        reviewHTML += `
+            <p><strong>${currentUser.firstName} ${currentUser.lastName}</strong></p>
+            <p>${currentUser.email}</p>
+            ${currentUser.phone ? `<p>${currentUser.phone}</p>` : ''}
+        `;
+    } else {
+        reviewHTML += `<p>Guest Customer</p>`;
+    }
+
+    reviewHTML += `
+            </div>
+        </div>
         <div class="review-section">
             <h4>Shipping Address</h4>
             <div class="review-details">
@@ -497,7 +435,6 @@ function renderReview() {
     if (cart.length > 0) {
         cart.forEach(item => {
             let amount = item.qty * item.price
-
             reviewHTML += `
             <div>
             <img src="${item.image}" alt="${item.name}" width="60px" height="60px" style="border-radius: 4px;">
@@ -524,62 +461,155 @@ function renderReview() {
     reviewEl.innerHTML = reviewHTML;
 }
 
-// ✅ Complete Order
-document.getElementById("complete-order-btn").addEventListener("click", (e) => {
-    const btn = e.target;
-    if (btn.disabled) return; // prevent double clicks
-    btn.disabled = true;
+// ===== Event Listeners =====
+document.addEventListener("DOMContentLoaded", () => {
+    // Step navigation
+    document.querySelectorAll(".next-step-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+            const current = parseInt(btn.closest(".checkout-section").dataset.step);
+            if (validateStep(current)) {
+                goToStep(current + 1);
+            }
+        });
+    });
 
-    const cart = getCart();
-    if (cart.length === 0) {
-        alert("Your cart is empty.");
-        return;
-    }
+    document.querySelectorAll(".prev-step-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+            const current = parseInt(btn.closest(".checkout-section").dataset.step);
+            if (current === 3) {
+                const completeBtn = document.getElementById("complete-order-btn");
+                if (completeBtn) completeBtn.disabled = true;
+            }
+            goToStep(current - 1);
+        });
+    });
 
-    // Calculate totals directly here
-    const subtotal = cart.reduce((acc, item) => acc + item.price * item.qty, 0);
-    const shipping = subtotal > 0 ? 300 : 0;
-    const tax = Math.round(subtotal * 0.16); // Example 16% VAT
-    const total = subtotal + shipping + tax;
+    // Payment method initialization
+    restorePaymentSelection();
+    document.querySelectorAll('input[name="payment"]').forEach(radio => {
+        radio.addEventListener('change', e => {
+            const selected = e.target.value;
+            localStorage.setItem("paymentMethod", selected);
+            updateSelectedPaymentUI(selected);
+            showSuccessMessage('payment-success');
+            renderReview();
+        });
+    });
 
-    // Get selected/default shipping address
-    const addresses = getAddresses();
-    const selected = addresses.find(a => a.isDefault);
-    if (!selected) {
-        alert("Please select a shipping address before completing your order.");
-        return;
-    }
+    // Address form
+    document.getElementById("address-form").addEventListener("submit", e => {
+        e.preventDefault();
+        const id = document.getElementById("address-id").value;
+        const baseAddr = {
+            id: id || "ADDR" + Date.now(),
+            fullname: document.getElementById("fullname").value,
+            address: document.getElementById("address").value,
+            city: document.getElementById("city").value,
+            phone: document.getElementById("phone").value
+        };
 
+        let addresses = getAddresses();
 
-    const paymentMethod = localStorage.getItem("paymentMethod") || "Cash on Delivery";
+        if (id) {
+            addresses = addresses.map(a => {
+                if (a.id === id) {
+                    return { ...baseAddr, isDefault: true };
+                }
+                return { ...a, isDefault: false };
+            });
+        } else {
+            addresses = addresses.map(a => ({ ...a, isDefault: false }));
+            addresses.push({ ...baseAddr, isDefault: true });
+        }
 
-    const order = {
-        id: "ORD" + Date.now(),
-        subtotal,
-        total,
-        paymentMethod,
-        shippingAddress: selected,
-        shipping,
-        tax,
-        items: cart,
-        date: new Date().toISOString()
+        saveAddresses(addresses);
+        modal.style.display = "none";
+        renderAddresses();
+        renderReview();
+    });
+
+    // Add address button
+    document.getElementById("add-address-btn").onclick = () => {
+        modalTitle.textContent = "Add New Address";
+        document.getElementById("address-form").reset();
+        document.getElementById("address-id").value = "";
+        modal.style.display = "flex";
+        shippingContainer.classList.remove("error");
+        errorEl.style.display = "none";
     };
 
-    // Save order to localStorage
-    const orders = JSON.parse(localStorage.getItem("orders") || "[]");
-    orders.push(order);
-    localStorage.setItem("orders", JSON.stringify(orders));
-    
-    localStorage.setItem("lastOrder", JSON.stringify(order));
-    localStorage.removeItem("cart");
+    // Modal close handlers
+    document.getElementById("close-modal").onclick = () => modal.style.display = "none";
+    window.onclick = e => { if (e.target === modal) modal.style.display = "none"; };
 
-    // Show confirmation and redirect
-    document.body.classList.add('loading');
-    setTimeout(() => {
-        // Redirect to thank-you page
-        window.location.href = "../pages/order-success.html";
-    }, 1500);
+    // Complete order button
+    document.getElementById("complete-order-btn").addEventListener("click", (e) => {
+        const btn = e.target;
+        if (btn.disabled) return;
+        btn.disabled = true;
+
+        const cart = getCart();
+        if (cart.length === 0) {
+            alert("Your cart is empty.");
+            btn.disabled = false;
+            return;
+        }
+
+        const addresses = getAddresses();
+        const selected = addresses.find(a => a.isDefault);
+        if (!selected) {
+            alert("Please select a shipping address before completing your order.");
+            btn.disabled = false;
+            return;
+        }
+
+        // Calculate order totals
+        const subtotal = cart.reduce((acc, item) => acc + item.price * item.qty, 0);
+        const shipping = subtotal > 0 ? 300 : 0;
+        const tax = Math.round(subtotal * 0.16);
+        const total = subtotal + shipping + tax;
+
+        const paymentMethod = localStorage.getItem("paymentMethod") || "Cash on Delivery";
+        const currentUser = getCurrentUser();
+
+        // Create order with user tracking
+        const order = {
+            id: "ORD" + Date.now(),
+            userId: currentUser?.id || 'guest',
+            userEmail: currentUser?.email || 'guest',
+            userName: currentUser ? `${currentUser.firstName} ${currentUser.lastName}` : 'Guest Customer',
+            subtotal,
+            total,
+            paymentMethod,
+            shippingAddress: selected,
+            shipping,
+            tax,
+            items: cart,
+            status: 'pending',
+            date: new Date().toISOString(),
+            orderDate: new Date().toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            })
+        };
+
+        // Save order and clear cart
+        saveOrder(order);
+        clearUserCart();
+        updateCartCount();
+
+        // Show confirmation and redirect
+        document.body.classList.add('loading');
+        setTimeout(() => {
+            window.location.href = "../pages/order-success.html";
+        }, 1500);
+    });
+
+    // Initial render
+    renderAddresses();
+    renderSummary();
+    renderReview();
 });
-
-
-

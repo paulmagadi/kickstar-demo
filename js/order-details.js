@@ -7,7 +7,6 @@ class OrderDetailPage {
 
     init() {
         this.loadOrder();
-        // this.setupEventListeners();
     }
 
     loadOrder() {
@@ -20,9 +19,20 @@ class OrderDetailPage {
         }
 
         try {
-            const savedOrders = localStorage.getItem('orders');
-            const orders = savedOrders ? JSON.parse(savedOrders) : [];
-            this.order = orders.find(order => order.id === orderId);
+            const currentUser = this.getCurrentUser();
+            const userOrders = JSON.parse(localStorage.getItem('userOrders') || '{}');
+            
+            // Try to find order in user-specific orders first
+            if (currentUser && userOrders[currentUser.id]) {
+                this.order = userOrders[currentUser.id].find(order => order.id === orderId);
+            }
+            
+            // Fallback to legacy orders for guest users or migration
+            if (!this.order) {
+                const savedOrders = localStorage.getItem('orders');
+                const orders = savedOrders ? JSON.parse(savedOrders) : [];
+                this.order = orders.find(order => order.id === orderId);
+            }
 
             if (!this.order) {
                 this.showError('Order not found');
@@ -34,6 +44,15 @@ class OrderDetailPage {
             console.error('Error loading order:', error);
             this.showError('Error loading order details');
         }
+    }
+
+    getCurrentUser() {
+        return JSON.parse(localStorage.getItem('currentUser') || 'null');
+    }
+
+    getCurrentUserId() {
+        const currentUser = this.getCurrentUser();
+        return currentUser ? currentUser.id : 'guest';
     }
 
     renderOrder() {
@@ -315,16 +334,37 @@ class OrderDetailPage {
         }
 
         try {
+            const currentUser = this.getCurrentUser();
+            const userOrders = JSON.parse(localStorage.getItem('userOrders') || '{}');
             const savedOrders = localStorage.getItem('orders');
-            const orders = savedOrders ? JSON.parse(savedOrders) : [];
-            const orderIndex = orders.findIndex(order => order.id === this.order.id);
+            const legacyOrders = savedOrders ? JSON.parse(savedOrders) : [];
             
-            if (orderIndex !== -1) {
-                orders[orderIndex].status = 'cancelled';
-                localStorage.setItem('orders', JSON.stringify(orders));
+            let orderUpdated = false;
+
+            // Update in user-specific orders
+            if (currentUser && userOrders[currentUser.id]) {
+                const userOrderIndex = userOrders[currentUser.id].findIndex(order => order.id === this.order.id);
+                if (userOrderIndex !== -1) {
+                    userOrders[currentUser.id][userOrderIndex].status = 'cancelled';
+                    localStorage.setItem('userOrders', JSON.stringify(userOrders));
+                    orderUpdated = true;
+                }
+            }
+
+            // Update in legacy orders (for backward compatibility)
+            const legacyOrderIndex = legacyOrders.findIndex(order => order.id === this.order.id);
+            if (legacyOrderIndex !== -1) {
+                legacyOrders[legacyOrderIndex].status = 'cancelled';
+                localStorage.setItem('orders', JSON.stringify(legacyOrders));
+                orderUpdated = true;
+            }
+
+            if (orderUpdated) {
                 this.order.status = 'cancelled';
                 this.renderOrder();
                 alert('Order has been cancelled successfully.');
+            } else {
+                alert('Order not found in your orders.');
             }
         } catch (error) {
             console.error('Error cancelling order:', error);
@@ -352,33 +392,43 @@ class OrderDetailPage {
     reorder() {
         const items = this.order.items || [];
         
-        // Add items to cart
         try {
-            const currentCart = JSON.parse(localStorage.getItem('cart') || '[]');
+            const userId = this.getCurrentUserId();
+            const userCarts = JSON.parse(localStorage.getItem('userCarts') || '{}');
+            const currentCart = userCarts[userId] || [];
+            let itemsAdded = 0;
+
             items.forEach(item => {
                 const existingItem = currentCart.find(cartItem => 
-                    cartItem.id === item.id && 
-                    cartItem.color === item.color && 
-                    cartItem.size === item.size
+                    cartItem.key === item.key || 
+                    (cartItem.productId === item.productId && 
+                     cartItem.variantIndex === item.variantIndex && 
+                     cartItem.sizeIndex === item.sizeIndex)
                 );
                 
                 if (existingItem) {
                     existingItem.qty += item.qty || item.quantity || 1;
+                    itemsAdded++;
                 } else {
                     currentCart.push({
                         ...item,
                         qty: item.qty || item.quantity || 1
                     });
+                    itemsAdded++;
                 }
             });
             
-            localStorage.setItem('cart', JSON.stringify(currentCart));
+            // Save back to user-specific cart
+            userCarts[userId] = currentCart;
+            localStorage.setItem('userCarts', JSON.stringify(userCarts));
+            
+            // Update cart count
             window.dispatchEvent(new Event('cartUpdated'));
             
-            if (confirm('Items added to cart! Would you like to proceed to checkout?')) {
+            if (confirm(`${itemsAdded} items added to cart! Would you like to proceed to checkout?`)) {
                 window.location.href = 'checkout.html';
             } else {
-                window.location.href = 'order-detail';
+                window.location.href = 'orders.html';
             }
         } catch (error) {
             console.error('Error adding items to cart:', error);

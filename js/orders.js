@@ -6,7 +6,7 @@ class OrdersPage {
         this.currentFilter = 'all';
         this.searchTerm = '';
         this.currentPage = 1;
-        this.ordersPerPage = 5; // You can adjust this number
+        this.ordersPerPage = 5; 
         this.init();
     }
 
@@ -18,14 +18,33 @@ class OrdersPage {
 
     loadOrders() {
         try {
-            const savedOrders = localStorage.getItem('orders');
-            this.orders = savedOrders ? JSON.parse(savedOrders) : [];
+            const currentUser = this.getCurrentUser();
+            const userOrders = JSON.parse(localStorage.getItem('userOrders') || '{}');
+            
+            // Get orders for current user or guest
+            if (currentUser) {
+                this.orders = userOrders[currentUser.id] || [];
+            } else {
+                // For guest users, use the old orders system as fallback
+                const savedOrders = localStorage.getItem('orders');
+                this.orders = savedOrders ? JSON.parse(savedOrders) : [];
+            }
+            
             // Sort by date descending (newest first)
             this.orders.sort((a, b) => new Date(b.date) - new Date(a.date));
         } catch (error) {
             console.error('Error loading orders:', error);
             this.orders = [];
         }
+    }
+
+    getCurrentUser() {
+        return JSON.parse(localStorage.getItem('currentUser') || 'null');
+    }
+
+    getCurrentUserId() {
+        const currentUser = this.getCurrentUser();
+        return currentUser ? currentUser.id : 'guest';
     }
 
     setupEventListeners() {
@@ -210,7 +229,6 @@ class OrdersPage {
     createPaginationHTML(totalPages) {
         let paginationHTML = '';
         
-        
         // Previous button
         paginationHTML += `
             <button class="pagination-btn ${this.currentPage === 1 ? 'disabled' : ''}" 
@@ -218,26 +236,13 @@ class OrdersPage {
                 <i class="ri-arrow-left-line"></i> Previous
             </button>
         `;
+        
         // Page counter - "Page X of Y"
         paginationHTML += `
             <div class="page-counter">
                 Page ${this.currentPage} of ${totalPages}
             </div>
         `;
-
-        // Page numbers
-        // for (let i = 1; i <= totalPages; i++) {
-        //     if (i === 1 || i === totalPages || (i >= this.currentPage - 1 && i <= this.currentPage + 1)) {
-        //         paginationHTML += `
-        //             <button class="pagination-btn ${this.currentPage === i ? 'active' : ''}" 
-        //                     data-page="${i}">
-        //                 ${i}
-        //             </button>
-        //         `;
-        //     } else if (i === this.currentPage - 2 || i === this.currentPage + 2) {
-        //         paginationHTML += `<span class="pagination-ellipsis">...</span>`;
-        //     }
-        // }
 
         // Next button
         paginationHTML += `
@@ -318,14 +323,17 @@ class OrdersPage {
         const items = order.items || [];
         
         try {
-            const currentCart = JSON.parse(localStorage.getItem('cart') || '[]');
+            const userId = this.getCurrentUserId();
+            const userCarts = JSON.parse(localStorage.getItem('userCarts') || '{}');
+            const currentCart = userCarts[userId] || [];
             let itemsAdded = 0;
 
             items.forEach(item => {
                 const existingItem = currentCart.find(cartItem => 
-                    cartItem.id === item.id && 
-                    cartItem.color === item.color && 
-                    cartItem.size === item.size
+                    cartItem.key === item.key || 
+                    (cartItem.productId === item.productId && 
+                     cartItem.variantIndex === item.variantIndex && 
+                     cartItem.sizeIndex === item.sizeIndex)
                 );
                 
                 if (existingItem) {
@@ -340,7 +348,11 @@ class OrdersPage {
                 }
             });
             
-            localStorage.setItem('cart', JSON.stringify(currentCart));
+            // Save back to user-specific cart
+            userCarts[userId] = currentCart;
+            localStorage.setItem('userCarts', JSON.stringify(userCarts));
+            
+            // Update cart count
             window.dispatchEvent(new Event('cartUpdated'));
             
             if (confirm(`${itemsAdded} items added to cart! Would you like to proceed to checkout?`)) {
@@ -363,7 +375,31 @@ class OrdersPage {
             const orderIndex = this.orders.findIndex(order => order.id === orderId);
             if (orderIndex !== -1) {
                 this.orders[orderIndex].status = 'cancelled';
-                localStorage.setItem('orders', JSON.stringify(this.orders));
+                
+                // Update in userOrders storage
+                const currentUser = this.getCurrentUser();
+                const userOrders = JSON.parse(localStorage.getItem('userOrders') || '{}');
+                
+                if (currentUser) {
+                    // Update user-specific orders
+                    if (userOrders[currentUser.id]) {
+                        const userOrderIndex = userOrders[currentUser.id].findIndex(order => order.id === orderId);
+                        if (userOrderIndex !== -1) {
+                            userOrders[currentUser.id][userOrderIndex].status = 'cancelled';
+                        }
+                    }
+                } else {
+                    // Update legacy orders for guest
+                    const savedOrders = JSON.parse(localStorage.getItem('orders') || '[]');
+                    const legacyOrderIndex = savedOrders.findIndex(order => order.id === orderId);
+                    if (legacyOrderIndex !== -1) {
+                        savedOrders[legacyOrderIndex].status = 'cancelled';
+                        localStorage.setItem('orders', JSON.stringify(savedOrders));
+                    }
+                }
+                
+                // Save updated user orders
+                localStorage.setItem('userOrders', JSON.stringify(userOrders));
                 
                 // Update the filtered orders and re-render
                 const filteredIndex = this.filteredOrders.findIndex(order => order.id === orderId);

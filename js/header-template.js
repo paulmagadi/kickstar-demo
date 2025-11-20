@@ -242,21 +242,6 @@ function renderHeader() {
     const container = document.querySelector(".container");
     container.insertAdjacentHTML("afterbegin", headerHTML);
 
-
-    // Cart count utility
-    // function getCart() {
-    //     return JSON.parse(localStorage.getItem("cart") || "[]");
-    // }
-
-    // function updateCartCount() {
-    //     const cart = getCart();
-    //     const count = cart.reduce((sum, item) => sum + item.qty, 0);
-    //     const cartCountEl = document.getElementById("cart-count");
-    //     if (cartCountEl) cartCountEl.textContent = count;
-    // }
-
-    // updateCartCount();
-
     // Cart Management Functions
 function getCurrentUserId() {
     const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
