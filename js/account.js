@@ -200,8 +200,8 @@ class AccountPage {
 
     updateStats() {
         const orders = this.getUserOrders();
-        const addresses = this.addressManager ? this.addressManager.getAddresses() : [];
-        // const wishlist = this.getUserWishlist();
+        const addresses = this.getUserAddresses();
+        const wishlist = this.getUserWishlist();
 
         // Update stats cards
         document.getElementById('total-orders').textContent = orders.length;
@@ -212,7 +212,7 @@ class AccountPage {
 
         // Update nav badges
         document.getElementById('orders-badge').textContent = orders.length;
-        // document.getElementById('wishlist-badge').textContent = wishlist.length;
+        document.getElementById('wishlist-badge').textContent = wishlist.length;
     }
 
     loadRecentActivity() {
@@ -378,9 +378,17 @@ class AccountPage {
         document.getElementById('password-modal').style.display = 'flex';
     }
 
-    // Data Getters
+    // Data Getters - Updated for user-specific data
     getUserOrders() {
         try {
+            const currentUser = this.getCurrentUser();
+            const userOrders = JSON.parse(localStorage.getItem('userOrders') || '{}');
+            
+            if (currentUser && userOrders[currentUser.id]) {
+                return userOrders[currentUser.id];
+            }
+            
+            // Fallback to legacy orders for migration
             return JSON.parse(localStorage.getItem('orders') || '[]');
         } catch (error) {
             console.error('Error loading orders:', error);
@@ -388,14 +396,43 @@ class AccountPage {
         }
     }
 
-    // getUserWishlist() {
-    //     try {
-    //         return JSON.parse(localStorage.getItem('user_wishlist') || '[]');
-    //     } catch (error) {
-    //         console.error('Error loading wishlist:', error);
-    //         return [];
-    //     }
-    // }
+    getUserAddresses() {
+        try {
+            const currentUser = this.getCurrentUser();
+            const userAddresses = JSON.parse(localStorage.getItem('userAddresses') || '{}');
+            
+            if (currentUser && userAddresses[currentUser.id]) {
+                return userAddresses[currentUser.id];
+            }
+            
+            // Fallback to legacy addresses
+            return JSON.parse(localStorage.getItem('addresses') || '[]');
+        } catch (error) {
+            console.error('Error loading addresses:', error);
+            return [];
+        }
+    }
+
+    getUserWishlist() {
+        try {
+            const currentUser = this.getCurrentUser();
+            const userWishlists = JSON.parse(localStorage.getItem('userWishlists') || '{}');
+            
+            if (currentUser && userWishlists[currentUser.id]) {
+                return userWishlists[currentUser.id];
+            }
+            
+            // Fallback to legacy wishlist
+            return JSON.parse(localStorage.getItem('wishlist') || '[]');
+        } catch (error) {
+            console.error('Error loading wishlist:', error);
+            return [];
+        }
+    }
+
+    getCurrentUser() {
+        return JSON.parse(localStorage.getItem('currentUser') || 'null');
+    }
 
     // Action Methods
     saveProfile() {
@@ -414,11 +451,37 @@ class AccountPage {
             }
         };
 
+        // Save to both userProfile and currentUser
         localStorage.setItem('userProfile', JSON.stringify(this.currentUser));
+        localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
+        
+        // Update users list
+        this.updateUsersList();
+        
         this.updateUserProfile();
         
         // Show success message
         this.showNotification('Profile updated successfully!', 'success');
+    }
+
+    updateUsersList() {
+        try {
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const userIndex = users.findIndex(user => user.id === this.currentUser.id);
+            
+            if (userIndex !== -1) {
+                users[userIndex] = {
+                    ...users[userIndex],
+                    firstName: this.currentUser.firstName,
+                    lastName: this.currentUser.lastName,
+                    email: this.currentUser.email,
+                    phone: this.currentUser.phone
+                };
+                localStorage.setItem('users', JSON.stringify(users));
+            }
+        } catch (error) {
+            console.error('Error updating users list:', error);
+        }
     }
 
     changePassword() {
@@ -438,11 +501,26 @@ class AccountPage {
             return;
         }
 
-        // In a real app, you would verify current password with backend
+        // Update password in users list
+        try {
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const userIndex = users.findIndex(user => user.id === this.currentUser.id);
+            
+            if (userIndex !== -1) {
+                // In a real app, you'd use proper password hashing
+                const hashedPassword = btoa(newPassword).split('').reverse().join('');
+                users[userIndex].password = hashedPassword;
+                localStorage.setItem('users', JSON.stringify(users));
+            }
+        } catch (error) {
+            console.error('Error updating password:', error);
+            this.showNotification('Error updating password. Please try again.', 'error');
+            return;
+        }
+
         document.getElementById('password-modal').style.display = 'none';
         this.showNotification('Password updated successfully!', 'success');
     }
-
 
     // Call the AuthHelper on logout
     logout() {
@@ -452,11 +530,6 @@ class AccountPage {
     }
 
     showOrderDetails(orderId) {
-        const orders = this.getUserOrders();
-        const order = orders.find(o => o.id === orderId);
-        
-        if (!order) return;
-
         // Redirect to order details page
         window.location.href = `order-details.html?orderId=${orderId}`;
     }
@@ -518,7 +591,7 @@ class AccountPage {
         }, 3000);
     }
 
-    // Delete Account functionality remains the same
+    // Delete Account functionality - Updated for user-specific data
     setupDeleteAccount() {
         const deleteAccountBtn = document.getElementById('delete-account-btn');
         const deleteAccountModal = document.getElementById('delete-account-modal');
@@ -652,10 +725,11 @@ class AccountPage {
             localStorage.removeItem('lastLogin');
             localStorage.removeItem('rememberedEmail');
 
-            // Remove user-specific data using addressManager
+            // Remove user-specific data
             this.removeUserOrders(userId);
             this.removeUserAddresses(userId);
             this.removeUserWishlist(userId);
+            this.removeUserCart(userId);
 
             // Track deletion for analytics
             this.trackAccountDeletion(userId);
@@ -670,23 +744,9 @@ class AccountPage {
 
     removeUserOrders(userId) {
         try {
-            const orders = JSON.parse(localStorage.getItem('orders') || '[]');
-            const userOrders = orders.filter(order => order.userId === userId);
-            
-            if (userOrders.length > 0) {
-                const updatedOrders = orders.map(order => {
-                    if (order.userId === userId) {
-                        return {
-                            ...order,
-                            userId: 'DELETED_USER',
-                            customerEmail: 'deleted@user.com',
-                            shippingAddress: null
-                        };
-                    }
-                    return order;
-                });
-                localStorage.setItem('orders', JSON.stringify(updatedOrders));
-            }
+            const userOrders = JSON.parse(localStorage.getItem('userOrders') || '{}');
+            delete userOrders[userId];
+            localStorage.setItem('userOrders', JSON.stringify(userOrders));
         } catch (error) {
             console.error('Error removing user orders:', error);
         }
@@ -694,8 +754,9 @@ class AccountPage {
 
     removeUserAddresses(userId) {
         try {
-            // Clear all addresses for this user
-            localStorage.removeItem('addresses');
+            const userAddresses = JSON.parse(localStorage.getItem('userAddresses') || '{}');
+            delete userAddresses[userId];
+            localStorage.setItem('userAddresses', JSON.stringify(userAddresses));
         } catch (error) {
             console.error('Error removing user addresses:', error);
         }
@@ -703,9 +764,21 @@ class AccountPage {
 
     removeUserWishlist(userId) {
         try {
-            localStorage.removeItem('wishlist');
+            const userWishlists = JSON.parse(localStorage.getItem('userWishlists') || '{}');
+            delete userWishlists[userId];
+            localStorage.setItem('userWishlists', JSON.stringify(userWishlists));
         } catch (error) {
             console.error('Error removing user wishlist:', error);
+        }
+    }
+
+    removeUserCart(userId) {
+        try {
+            const userCarts = JSON.parse(localStorage.getItem('userCarts') || '{}');
+            delete userCarts[userId];
+            localStorage.setItem('userCarts', JSON.stringify(userCarts));
+        } catch (error) {
+            console.error('Error removing user cart:', error);
         }
     }
 

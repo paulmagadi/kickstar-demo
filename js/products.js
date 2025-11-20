@@ -15,18 +15,6 @@ const productsData = [
                     "./images/nike-air-max-270.jpg",
                     "./images/nike-air-max-270-1.jpg",
                     "./images/nike-air-max-270-2.jpg",
-                    "./images/nike-air-max-270.jpg",
-                    "./images/nike-air-max-270-1.jpg",
-                    "./images/nike-air-max-270-2.jpg",
-                    "./images/nike-air-max-270.jpg",
-                    "./images/nike-air-max-270-1.jpg",
-                    "./images/nike-air-max-270-2.jpg",
-                    "./images/nike-air-max-270.jpg",
-                    "./images/nike-air-max-270-1.jpg",
-                    "./images/nike-air-max-270-2.jpg",
-                    "./images/nike-air-max-270.jpg",
-                    "./images/nike-air-max-270-1.jpg",
-                    "./images/nike-air-max-270-2.jpg"
                 ],
                 "sizes": [
                     { "size": 40, "price": 150.00, "sale_price": 135.00, "stock_quantity": 15, "sku": "SKU-0-0-0" },
